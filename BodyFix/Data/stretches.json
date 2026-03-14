@@ -1,0 +1,302 @@
+[
+    {
+        "id": "neck_chin_tuck",
+        "name": "Chin Tuck",
+        "targetRegions": ["neck"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s × 3",
+        "description": "Gently pull your chin straight back to align your neck and relieve forward-head tension.",
+        "imageAssetName": "stretch_chin_tuck"
+    },
+    {
+        "id": "neck_side_tilt",
+        "name": "Neck Side Tilt",
+        "targetRegions": ["neck"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each side",
+        "description": "Tilt your ear toward your shoulder to release tension along the side of the neck.",
+        "imageAssetName": "stretch_neck_side_tilt"
+    },
+    {
+        "id": "neck_rotation",
+        "name": "Neck Rotation Stretch",
+        "targetRegions": ["neck"],
+        "difficulty": "beginner",
+        "holdDuration": 20,
+        "repScheme": "Hold 20s each side",
+        "description": "Slowly rotate your head to look over each shoulder to improve cervical mobility.",
+        "imageAssetName": "stretch_neck_rotation"
+    },
+    {
+        "id": "shoulders_cross_body",
+        "name": "Cross-Body Shoulder Stretch",
+        "targetRegions": ["shoulders"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each arm",
+        "description": "Pull one arm across your chest to stretch the rear deltoid and shoulder capsule.",
+        "imageAssetName": "stretch_cross_body"
+    },
+    {
+        "id": "shoulders_doorway",
+        "name": "Doorway Pec Stretch",
+        "targetRegions": ["shoulders"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each side",
+        "description": "Place your forearm on a doorframe and lean through to open up tight shoulders and chest.",
+        "imageAssetName": "stretch_doorway"
+    },
+    {
+        "id": "shoulders_overhead",
+        "name": "Overhead Tricep Stretch",
+        "targetRegions": ["shoulders"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each arm",
+        "description": "Reach one arm overhead and bend the elbow to stretch the tricep and shoulder.",
+        "imageAssetName": "stretch_overhead_tricep"
+    },
+    {
+        "id": "upperback_thread_needle",
+        "name": "Thread the Needle",
+        "targetRegions": ["upperBack"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each side",
+        "description": "From all fours, thread one arm under your body to rotate and stretch the upper back.",
+        "imageAssetName": "stretch_thread_needle"
+    },
+    {
+        "id": "upperback_cat_cow",
+        "name": "Cat-Cow Stretch",
+        "targetRegions": ["upperBack"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "10 reps",
+        "description": "Alternate between arching and rounding your back to mobilize the thoracic spine.",
+        "imageAssetName": "stretch_cat_cow"
+    },
+    {
+        "id": "upperback_book_opener",
+        "name": "Open Book Stretch",
+        "targetRegions": ["upperBack"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each side",
+        "description": "Lie on your side and rotate your top arm open like a book to stretch the upper back.",
+        "imageAssetName": "stretch_book_opener"
+    },
+    {
+        "id": "lowerback_child_pose",
+        "name": "Child's Pose",
+        "targetRegions": ["lowerBack"],
+        "difficulty": "beginner",
+        "holdDuration": 45,
+        "repScheme": "Hold 45s × 2",
+        "description": "Kneel and fold forward with arms extended to gently decompress the lower back.",
+        "imageAssetName": "stretch_child_pose"
+    },
+    {
+        "id": "lowerback_knee_to_chest",
+        "name": "Knee-to-Chest Stretch",
+        "targetRegions": ["lowerBack"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each side",
+        "description": "Lie on your back and pull one knee toward your chest to release lower back tightness.",
+        "imageAssetName": "stretch_knee_to_chest"
+    },
+    {
+        "id": "lowerback_supine_twist",
+        "name": "Supine Spinal Twist",
+        "targetRegions": ["lowerBack"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each side",
+        "description": "Lie on your back and drop your knees to one side to decompress the lumbar spine.",
+        "imageAssetName": "stretch_supine_twist"
+    },
+    {
+        "id": "hips_pigeon",
+        "name": "Pigeon Pose",
+        "targetRegions": ["hips"],
+        "difficulty": "intermediate",
+        "holdDuration": 45,
+        "repScheme": "Hold 45s each side",
+        "description": "Bring one leg forward into a bent position to deeply stretch the hip flexors and glutes.",
+        "imageAssetName": "stretch_pigeon"
+    },
+    {
+        "id": "hips_hip_flexor_lunge",
+        "name": "Kneeling Hip Flexor Stretch",
+        "targetRegions": ["hips"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each side",
+        "description": "Kneel on one knee and push your hips forward to stretch the hip flexor.",
+        "imageAssetName": "stretch_hip_flexor"
+    },
+    {
+        "id": "hips_butterfly",
+        "name": "Butterfly Stretch",
+        "targetRegions": ["hips"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s",
+        "description": "Sit with soles of feet together and press knees toward the floor to open the hips.",
+        "imageAssetName": "stretch_butterfly"
+    },
+    {
+        "id": "hamstrings_standing_fold",
+        "name": "Standing Forward Fold",
+        "targetRegions": ["hamstrings"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s",
+        "description": "Hinge at the hips and reach toward your toes to stretch the entire hamstring chain.",
+        "imageAssetName": "stretch_forward_fold"
+    },
+    {
+        "id": "hamstrings_seated_reach",
+        "name": "Seated Hamstring Stretch",
+        "targetRegions": ["hamstrings"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each leg",
+        "description": "Sit with one leg extended and reach toward your toes for a deep hamstring stretch.",
+        "imageAssetName": "stretch_seated_reach"
+    },
+    {
+        "id": "hamstrings_lying",
+        "name": "Lying Hamstring Stretch",
+        "targetRegions": ["hamstrings"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each leg",
+        "description": "Lie on your back and lift one straight leg toward the ceiling to stretch the hamstring.",
+        "imageAssetName": "stretch_lying_hamstring"
+    },
+    {
+        "id": "knees_quad_foam",
+        "name": "Quad Stretch",
+        "targetRegions": ["knees"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each leg",
+        "description": "Stand and pull one heel toward your glute to stretch the quad and relieve knee tension.",
+        "imageAssetName": "stretch_quad"
+    },
+    {
+        "id": "knees_calf_raise",
+        "name": "Gentle Knee Bend",
+        "targetRegions": ["knees"],
+        "difficulty": "beginner",
+        "holdDuration": 20,
+        "repScheme": "10 reps",
+        "description": "Slowly bend and straighten your knees to promote blood flow and joint mobility.",
+        "imageAssetName": "stretch_knee_bend"
+    },
+    {
+        "id": "knees_it_band",
+        "name": "IT Band Stretch",
+        "targetRegions": ["knees"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each side",
+        "description": "Cross one leg behind the other and lean away to stretch the IT band along the outer knee.",
+        "imageAssetName": "stretch_it_band"
+    },
+    {
+        "id": "calves_wall_stretch",
+        "name": "Wall Calf Stretch",
+        "targetRegions": ["calves"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each leg",
+        "description": "Place your hands on a wall and step one foot back to deeply stretch the calf muscle.",
+        "imageAssetName": "stretch_wall_calf"
+    },
+    {
+        "id": "calves_stair_drop",
+        "name": "Stair Calf Drop",
+        "targetRegions": ["calves"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each leg",
+        "description": "Stand on a step edge and let your heels drop below for a deep calf and Achilles stretch.",
+        "imageAssetName": "stretch_stair_drop"
+    },
+    {
+        "id": "calves_soleus",
+        "name": "Soleus Stretch",
+        "targetRegions": ["calves"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each leg",
+        "description": "Bend your back knee slightly during a wall stretch to target the deeper soleus muscle.",
+        "imageAssetName": "stretch_soleus"
+    },
+    {
+        "id": "ankles_circles",
+        "name": "Ankle Circles",
+        "targetRegions": ["ankles"],
+        "difficulty": "beginner",
+        "holdDuration": 20,
+        "repScheme": "10 circles each direction",
+        "description": "Rotate your ankle in full circles to improve mobility and reduce stiffness.",
+        "imageAssetName": "stretch_ankle_circles"
+    },
+    {
+        "id": "ankles_dorsiflexion",
+        "name": "Ankle Dorsiflexion Stretch",
+        "targetRegions": ["ankles"],
+        "difficulty": "beginner",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each foot",
+        "description": "Kneel and press your knee forward over your toes to improve ankle dorsiflexion range.",
+        "imageAssetName": "stretch_dorsiflexion"
+    },
+    {
+        "id": "ankles_toe_pull",
+        "name": "Seated Toe Pull",
+        "targetRegions": ["ankles"],
+        "difficulty": "beginner",
+        "holdDuration": 20,
+        "repScheme": "Hold 20s each foot",
+        "description": "Sit and gently pull your toes back toward your shin to stretch the top of the foot and ankle.",
+        "imageAssetName": "stretch_toe_pull"
+    },
+    {
+        "id": "wholebody_sun_salutation",
+        "name": "Sun Salutation Flow",
+        "targetRegions": ["wholeBody"],
+        "difficulty": "intermediate",
+        "holdDuration": 60,
+        "repScheme": "3 slow rounds",
+        "description": "A flowing yoga sequence that stretches every major muscle group from head to toe.",
+        "imageAssetName": "stretch_sun_salutation"
+    },
+    {
+        "id": "wholebody_world_greatest",
+        "name": "World's Greatest Stretch",
+        "targetRegions": ["wholeBody"],
+        "difficulty": "intermediate",
+        "holdDuration": 30,
+        "repScheme": "Hold 30s each side",
+        "description": "A multi-step lunge stretch that opens hips, hamstrings, thoracic spine, and shoulders.",
+        "imageAssetName": "stretch_worlds_greatest"
+    },
+    {
+        "id": "wholebody_standing_side",
+        "name": "Standing Side Bend",
+        "targetRegions": ["wholeBody"],
+        "difficulty": "beginner",
+        "holdDuration": 20,
+        "repScheme": "Hold 20s each side",
+        "description": "Reach overhead and lean to each side to lengthen the lateral chain from hip to fingertip.",
+        "imageAssetName": "stretch_side_bend"
+    }
+]

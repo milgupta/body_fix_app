@@ -1,10 +1,3 @@
-//
-//  BodyFixApp.swift
-//  BodyFix
-//
-//  Created by Milan Gupta on 3/9/26.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -12,7 +5,8 @@ import SwiftData
 struct BodyFixApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            UserProfile.self,
+            StretchSession.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
