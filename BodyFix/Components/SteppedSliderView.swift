@@ -4,6 +4,7 @@ struct SteppedSliderView: View {
     @Binding var value: Int
     var range: ClosedRange<Int> = 1...5
     var labels: [Int: String] = [1: "Relaxed", 3: "Moderate", 5: "Very Tight"]
+    var showValueLabel: Bool = true
 
     private let trackHeight: CGFloat = 8
     private let thumbSize: CGFloat = 28
@@ -13,14 +14,16 @@ struct SteppedSliderView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("\(value)")
-                .font(Typography.sliderValue)
-                .foregroundStyle(.bfTextPrimary)
+            if showValueLabel {
+                Text("\(value)")
+                    .font(Typography.sliderValue)
+                    .foregroundStyle(.bfTextPrimary)
 
-            if let label = labels[value] {
-                Text(label)
-                    .font(Typography.optionText)
-                    .foregroundStyle(.bfTextSecondary)
+                if let label = labels[value] {
+                    Text(label)
+                        .font(Typography.optionText)
+                        .foregroundStyle(.bfTextSecondary)
+                }
             }
 
             GeometryReader { geo in

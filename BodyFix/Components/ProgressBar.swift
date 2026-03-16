@@ -6,17 +6,17 @@ struct ProgressBar: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 2)
+                RoundedRectangle(cornerRadius: 4)
                     .fill(Color.bfCardDark)
-                    .frame(height: 4)
+                    .frame(height: 8)
 
-                RoundedRectangle(cornerRadius: 2)
+                RoundedRectangle(cornerRadius: 4)
                     .fill(.bfProgressGradient)
-                    .frame(width: max(0, geo.size.width * progress), height: 4)
+                    .frame(width: max(0, geo.size.width * progress), height: 8)
                     .animation(.easeInOut(duration: 0.35), value: progress)
             }
         }
-        .frame(height: 4)
+        .frame(height: 8)
     }
 }
 

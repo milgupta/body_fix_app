@@ -30,7 +30,7 @@ struct OnboardingWelcomeView: View {
 
             Spacer().frame(height: 40)
 
-            OnboardingContinueButton(label: "Start Body Scan") {
+            OnboardingContinueButton(label: "Start Feeling Better") {
                 withAnimation(.easeInOut(duration: 0.35)) {
                     viewModel.advance()
                 }

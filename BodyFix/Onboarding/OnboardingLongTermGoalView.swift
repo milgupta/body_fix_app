@@ -1,16 +1,23 @@
 import SwiftUI
 
-struct OnboardingProblemAreasView: View {
+struct OnboardingLongTermGoalView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
+
+    private let options: [(emoji: String, title: String)] = [
+        ("✅", "Become pain-free"),
+        ("📅", "Build a lasting stretch routine"),
+        ("🏅", "Improve athletic performance"),
+        ("🌱", "Age with mobility and ease"),
+    ]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Let's find your trouble spots.")
+                Text("Got it **\(viewModel.userName)**!")
                     .font(Typography.subtitle)
                     .foregroundStyle(.bfTextSecondary)
 
-                Text("Where do you feel **tightness** or discomfort most often?")
+                Text("What's your **long-term** body goal?")
                     .font(Typography.question)
                     .foregroundStyle(.bfTextPrimary)
             }
@@ -19,17 +26,13 @@ struct OnboardingProblemAreasView: View {
 
             ScrollView {
                 LazyVStack(spacing: 14) {
-                    ForEach(OnboardingPainArea.allCases) { area in
-                        OnboardingMultiSelectCard(
-                            title: area.displayName,
-                            emoji: area.emoji,
-                            isSelected: viewModel.selectedPainAreas.contains(area)
+                    ForEach(options, id: \.title) { option in
+                        OnboardingOptionCard(
+                            title: option.title,
+                            emoji: option.emoji,
+                            isSelected: viewModel.longTermGoal == option.title
                         ) {
-                            if viewModel.selectedPainAreas.contains(area) {
-                                viewModel.selectedPainAreas.remove(area)
-                            } else {
-                                viewModel.selectedPainAreas.insert(area)
-                            }
+                            viewModel.longTermGoal = option.title
                         }
                     }
                 }
@@ -51,7 +54,7 @@ struct OnboardingProblemAreasView: View {
 #Preview {
     ZStack {
         Color.bfNavy.ignoresSafeArea()
-        OnboardingProblemAreasView()
+        OnboardingLongTermGoalView()
     }
     .environment(OnboardingViewModel())
 }

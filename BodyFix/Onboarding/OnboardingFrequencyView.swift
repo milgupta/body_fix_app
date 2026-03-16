@@ -1,47 +1,43 @@
 import SwiftUI
 
-struct OnboardingSeverityView: View {
+struct OnboardingFrequencyView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
 
-    private var silhouetteTint: Color {
-        let t = Double(viewModel.tightnessSeverity - 1) / 4.0
-        return Color(
-            red: t * 1.0 + (1 - t) * 0.0,
-            green: t * 0.42 + (1 - t) * 0.79,
-            blue: t * 0.21 + (1 - t) * 0.65
-        )
-    }
-
     var body: some View {
+        @Bindable var vm = viewModel
+
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Let's gauge where you're at.")
+                Text("Now, let's understand your body a bit more.")
                     .font(Typography.subtitle)
                     .foregroundStyle(.bfTextSecondary)
 
-                Text("How **tight** does your body feel most days?")
+                Text("How many **days a week** do you feel stiff or in pain?")
                     .font(Typography.question)
                     .foregroundStyle(.bfTextPrimary)
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 16)
+            .padding(.bottom, 28)
 
             Spacer()
 
-            BodySilhouetteView(
-                highlightedRegions: viewModel.selectedPainAreas,
-                tintColor: silhouetteTint
-            )
-            .frame(width: 140, height: 350)
-            .frame(maxWidth: .infinity)
+            VStack(spacing: 24) {
+                Text("\(viewModel.painFrequency) days")
+                    .font(Typography.sliderValue)
+                    .foregroundStyle(.bfTextPrimary)
 
-            Spacer()
-
-            @Bindable var vm = viewModel
-            SteppedSliderView(value: $vm.tightnessSeverity)
+                SteppedSliderView(
+                    value: $vm.painFrequency,
+                    range: 1...7,
+                    labels: [:],
+                    showValueLabel: false
+                )
                 .padding(.horizontal, 20)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(maxHeight: .infinity)
 
-            Spacer().frame(height: 24)
+            Spacer()
 
             OnboardingContinueButton {
                 withAnimation(.easeInOut(duration: 0.35)) {
@@ -57,7 +53,7 @@ struct OnboardingSeverityView: View {
 #Preview {
     ZStack {
         Color.bfNavy.ignoresSafeArea()
-        OnboardingSeverityView()
+        OnboardingFrequencyView()
     }
     .environment(OnboardingViewModel())
 }

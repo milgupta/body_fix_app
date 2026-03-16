@@ -17,7 +17,7 @@ struct OnboardingContinueButton: View {
             .font(Typography.ctaButton)
             .foregroundStyle(.bfTextPrimary)
             .frame(maxWidth: .infinity)
-            .frame(height: 56)
+            .frame(height: 60)
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color.bfCardDarker)

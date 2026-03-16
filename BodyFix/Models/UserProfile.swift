@@ -3,12 +3,15 @@ import SwiftData
 
 @Model
 final class UserProfile {
-    var primaryGoal: String
+    var name: String
+    var bodyGoals: [String]
+    var longTermGoal: String
+    var painFrequency: Int
+    var painImpact: Int
     var activityLevel: String
     var lifestyle: String
     var stretchingFrequency: String
     var dailyTime: String
-    var tightnessSeverity: Int
     var problemAreas: [String]
     var problemTimes: [String]
     var commitmentDays: String
@@ -16,24 +19,30 @@ final class UserProfile {
     var subscriptionActive: Bool
 
     init(
-        primaryGoal: String = "",
+        name: String = "",
+        bodyGoals: [String] = [],
+        longTermGoal: String = "",
+        painFrequency: Int = 3,
+        painImpact: Int = 3,
         activityLevel: String = "",
         lifestyle: String = "",
         stretchingFrequency: String = "",
         dailyTime: String = "",
-        tightnessSeverity: Int = 3,
         problemAreas: [String] = [],
         problemTimes: [String] = [],
         commitmentDays: String = "",
         onboardingComplete: Bool = false,
         subscriptionActive: Bool = false
     ) {
-        self.primaryGoal = primaryGoal
+        self.name = name
+        self.bodyGoals = bodyGoals
+        self.longTermGoal = longTermGoal
+        self.painFrequency = painFrequency
+        self.painImpact = painImpact
         self.activityLevel = activityLevel
         self.lifestyle = lifestyle
         self.stretchingFrequency = stretchingFrequency
         self.dailyTime = dailyTime
-        self.tightnessSeverity = tightnessSeverity
         self.problemAreas = problemAreas
         self.problemTimes = problemTimes
         self.commitmentDays = commitmentDays

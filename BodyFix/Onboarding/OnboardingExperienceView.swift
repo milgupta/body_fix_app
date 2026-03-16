@@ -25,22 +25,20 @@ struct OnboardingExperienceView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 24)
 
-            Spacer()
-
-            VStack(spacing: 12) {
-                ForEach(options, id: \.title) { option in
-                    OnboardingOptionCard(
-                        title: option.title,
-                        emoji: option.emoji,
-                        isSelected: viewModel.stretchingFrequency == option.title
-                    ) {
-                        viewModel.stretchingFrequency = option.title
+            ScrollView {
+                LazyVStack(spacing: 14) {
+                    ForEach(options, id: \.title) { option in
+                        OnboardingOptionCard(
+                            title: option.title,
+                            emoji: option.emoji,
+                            isSelected: viewModel.stretchingFrequency == option.title
+                        ) {
+                            viewModel.stretchingFrequency = option.title
+                        }
                     }
                 }
+                .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 20)
-
-            Spacer()
 
             OnboardingContinueButton(isEnabled: viewModel.canAdvance) {
                 withAnimation(.easeInOut(duration: 0.35)) {
@@ -48,6 +46,7 @@ struct OnboardingExperienceView: View {
                 }
             }
             .padding(.horizontal, 20)
+            .padding(.top, 16)
             .padding(.bottom, 40)
         }
     }

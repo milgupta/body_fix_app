@@ -1,26 +1,32 @@
 import SwiftUI
 
-struct OnboardingProblemTimesView: View {
+struct OnboardingGoalsView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
 
     private let options: [(emoji: String, title: String)] = [
-        ("🌅", "Morning stiffness"),
-        ("🪑", "After sitting long periods"),
-        ("🏋️", "After workouts"),
-        ("🌙", "Before bed"),
-        ("⏰", "All day"),
+        ("🩹", "Reduce Pain & Stiffness"),
+        ("🧘", "Improve Flexibility"),
+        ("🧍", "Better Posture"),
+        ("🔄", "Recover Faster from Workouts"),
+        ("😌", "Reduce Stress & Tension"),
+        ("💤", "Improve Sleep Quality"),
+        ("🚶", "Move Better Day-to-Day"),
     ]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Almost there.")
+                Text("So tell us **\(viewModel.userName)**,")
                     .font(Typography.subtitle)
                     .foregroundStyle(.bfTextSecondary)
 
-                Text("When do you feel the **tightness** the most?")
+                Text("What do you want to **achieve** with Body Fix?")
                     .font(Typography.question)
                     .foregroundStyle(.bfTextPrimary)
+
+                Text("Choose up to 3.")
+                    .font(Typography.caption)
+                    .foregroundStyle(.bfTextSecondary)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 24)
@@ -28,15 +34,16 @@ struct OnboardingProblemTimesView: View {
             ScrollView {
                 LazyVStack(spacing: 14) {
                     ForEach(options, id: \.title) { option in
+                        let isSelected = viewModel.selectedBodyGoals.contains(option.title)
                         OnboardingMultiSelectCard(
                             title: option.title,
                             emoji: option.emoji,
-                            isSelected: viewModel.selectedProblemTimes.contains(option.title)
+                            isSelected: isSelected
                         ) {
-                            if viewModel.selectedProblemTimes.contains(option.title) {
-                                viewModel.selectedProblemTimes.remove(option.title)
-                            } else {
-                                viewModel.selectedProblemTimes.insert(option.title)
+                            if isSelected {
+                                viewModel.selectedBodyGoals.remove(option.title)
+                            } else if viewModel.selectedBodyGoals.count < 3 {
+                                viewModel.selectedBodyGoals.insert(option.title)
                             }
                         }
                     }
@@ -59,7 +66,7 @@ struct OnboardingProblemTimesView: View {
 #Preview {
     ZStack {
         Color.bfNavy.ignoresSafeArea()
-        OnboardingProblemTimesView()
+        OnboardingGoalsView()
     }
     .environment(OnboardingViewModel())
 }

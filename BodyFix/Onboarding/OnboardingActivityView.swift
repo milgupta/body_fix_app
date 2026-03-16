@@ -24,22 +24,20 @@ struct OnboardingActivityView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 24)
 
-            Spacer()
-
-            VStack(spacing: 12) {
-                ForEach(options, id: \.title) { option in
-                    OnboardingOptionCard(
-                        title: option.title,
-                        emoji: option.emoji,
-                        isSelected: viewModel.activityLevel == option.title
-                    ) {
-                        viewModel.activityLevel = option.title
+            ScrollView {
+                LazyVStack(spacing: 14) {
+                    ForEach(options, id: \.title) { option in
+                        OnboardingOptionCard(
+                            title: option.title,
+                            emoji: option.emoji,
+                            isSelected: viewModel.activityLevel == option.title
+                        ) {
+                            viewModel.activityLevel = option.title
+                        }
                     }
                 }
+                .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 20)
-
-            Spacer()
 
             OnboardingContinueButton(isEnabled: viewModel.canAdvance) {
                 withAnimation(.easeInOut(duration: 0.35)) {
@@ -47,6 +45,7 @@ struct OnboardingActivityView: View {
                 }
             }
             .padding(.horizontal, 20)
+            .padding(.top, 16)
             .padding(.bottom, 40)
         }
     }

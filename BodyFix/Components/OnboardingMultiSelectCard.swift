@@ -14,16 +14,16 @@ struct OnboardingMultiSelectCard: View {
             HStack(spacing: 12) {
                 if !emoji.isEmpty {
                     Text(emoji)
-                        .font(.system(size: 22))
+                        .font(.system(size: 26))
                 }
                 Text(title)
                     .font(Typography.optionText)
-                    .foregroundStyle(isSelected ? .bfTextPrimary : .bfTextSecondary)
+                    .foregroundStyle(.bfTextPrimary)
                 Spacer()
             }
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity)
-            .frame(height: 56)
+            .frame(height: 64)
             .background(
                 Group {
                     if isSelected {

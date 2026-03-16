@@ -5,34 +5,58 @@ import Observation
 @Observable
 class OnboardingViewModel {
     var currentStep: Int = 0
-    let totalSteps: Int = 13
+    let totalSteps: Int = 20
 
-    // Screen 2: Pain Awareness
+    // Screen 1: Name
+    var userName: String = ""
+
+    // Screen 2: Body Goals (multi-select, max 3)
+    var selectedBodyGoals: Set<String> = []
+
+    // Screen 3: Long-Term Goal
+    var longTermGoal: String = ""
+
+    // Screens 4: Validation (no input)
+
+    // Screen 5: Pain Frequency (1-7)
+    var painFrequency: Int = 3
+
+    // Screen 6: Pain Impact (1-5)
+    var painImpact: Int = 3
+
+    // Screen 7: Build Program (no input)
+
+    // Screen 8: Pain Awareness
     var selectedPainAreas: Set<OnboardingPainArea> = []
 
-    // Screen 3: Daily Movement
+    // Screen 9: Daily Movement
     var activityLevel: String = ""
 
-    // Screen 4: Work/Lifestyle
+    // Screen 10: Work/Lifestyle
     var lifestyle: String = ""
 
-    // Screen 5: Tightness Severity
-    var tightnessSeverity: Int = 3
-
-    // Screen 6: Problem Times
+    // Screen 11: Problem Times
     var selectedProblemTimes: Set<String> = []
 
-    // Screen 7: Stretching History
+    // Screen 12: Stretching History
     var stretchingFrequency: String = ""
 
-    // Screen 8: Goals
-    var primaryGoal: String = ""
-
-    // Screen 9: Time Commitment
+    // Screen 13: Time Commitment
     var dailyTime: String = ""
 
-    // Screen 11: Commitment
+    // Screen 14: Education (no input)
+
+    // Screen 15: Commitment
     var commitmentDays: String = ""
+
+    // Screen 16: Analyzing (no input)
+
+    // Screen 17: Motivation Level
+    var motivationLevel: String = ""
+
+    // Screen 18: Fair Trial (no input)
+
+    // Screen 19: Plan Preview (no input)
 
     var progress: Double {
         Double(currentStep) / Double(totalSteps)
@@ -41,18 +65,25 @@ class OnboardingViewModel {
     var canAdvance: Bool {
         switch currentStep {
         case 0: return true
-        case 1: return !selectedPainAreas.isEmpty
-        case 2: return !activityLevel.isEmpty
-        case 3: return !lifestyle.isEmpty
+        case 1: return !userName.trimmingCharacters(in: .whitespaces).isEmpty
+        case 2: return !selectedBodyGoals.isEmpty
+        case 3: return !longTermGoal.isEmpty
         case 4: return true
-        case 5: return !selectedProblemTimes.isEmpty
-        case 6: return !stretchingFrequency.isEmpty
-        case 7: return !primaryGoal.isEmpty
-        case 8: return !dailyTime.isEmpty
-        case 9: return true
-        case 10: return !commitmentDays.isEmpty
-        case 11: return true
-        case 12: return true
+        case 5: return true
+        case 6: return true
+        case 7: return true
+        case 8: return !selectedPainAreas.isEmpty
+        case 9: return !activityLevel.isEmpty
+        case 10: return !lifestyle.isEmpty
+        case 11: return !selectedProblemTimes.isEmpty
+        case 12: return !stretchingFrequency.isEmpty
+        case 13: return !dailyTime.isEmpty
+        case 14: return true
+        case 15: return !commitmentDays.isEmpty
+        case 16: return true
+        case 17: return !motivationLevel.isEmpty
+        case 18: return true
+        case 19: return true
         default: return false
         }
     }
@@ -71,12 +102,15 @@ class OnboardingViewModel {
 
     func saveProfile(to modelContext: ModelContext) {
         let profile = UserProfile(
-            primaryGoal: primaryGoal,
+            name: userName,
+            bodyGoals: Array(selectedBodyGoals),
+            longTermGoal: longTermGoal,
+            painFrequency: painFrequency,
+            painImpact: painImpact,
             activityLevel: activityLevel,
             lifestyle: lifestyle,
             stretchingFrequency: stretchingFrequency,
             dailyTime: dailyTime,
-            tightnessSeverity: tightnessSeverity,
             problemAreas: selectedPainAreas.map(\.rawValue),
             problemTimes: Array(selectedProblemTimes),
             commitmentDays: commitmentDays,

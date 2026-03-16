@@ -6,7 +6,7 @@ struct OnboardingContainerView: View {
     @Environment(\.modelContext) private var modelContext
 
     private var showsNavBar: Bool {
-        ![0, 11, 12].contains(viewModel.currentStep)
+        ![0, 4, 7, 16, 18, 19].contains(viewModel.currentStep)
     }
 
     var body: some View {
@@ -51,19 +51,26 @@ struct OnboardingContainerView: View {
     private var screenContent: some View {
         Group {
             switch viewModel.currentStep {
-            case 0: OnboardingWelcomeView()
-            case 1: OnboardingProblemAreasView()
-            case 2: OnboardingActivityView()
-            case 3: OnboardingLifestyleView()
-            case 4: OnboardingSeverityView()
-            case 5: OnboardingProblemTimesView()
-            case 6: OnboardingExperienceView()
-            case 7: OnboardingGoalView()
-            case 8: OnboardingDurationView()
-            case 9: OnboardingEducationView()
-            case 10: OnboardingCommitmentView()
-            case 11: OnboardingAnalyzingView()
-            case 12: OnboardingPlanPreviewView()
+            case 0:  OnboardingWelcomeView()
+            case 1:  OnboardingNameView()
+            case 2:  OnboardingGoalsView()
+            case 3:  OnboardingLongTermGoalView()
+            case 4:  OnboardingValidationView()
+            case 5:  OnboardingFrequencyView()
+            case 6:  OnboardingImpactView()
+            case 7:  OnboardingBuildProgramView()
+            case 8:  OnboardingProblemAreasView()
+            case 9:  OnboardingActivityView()
+            case 10: OnboardingLifestyleView()
+            case 11: OnboardingProblemTimesView()
+            case 12: OnboardingExperienceView()
+            case 13: OnboardingDurationView()
+            case 14: OnboardingEducationView()
+            case 15: OnboardingCommitmentView()
+            case 16: OnboardingAnalyzingView()
+            case 17: OnboardingMotivationLevelView()
+            case 18: OnboardingFairTrialView()
+            case 19: OnboardingPlanPreviewView()
             default: EmptyView()
             }
         }
@@ -75,7 +82,7 @@ struct OnboardingContainerView: View {
 
     private func backgroundForStep(_ step: Int) -> some View {
         Group {
-            if [0, 9, 11].contains(step) {
+            if [0, 4, 7, 14, 16, 18].contains(step) {
                 Rectangle().fill(.bfSplashGradient)
             } else {
                 Color.bfNavy
