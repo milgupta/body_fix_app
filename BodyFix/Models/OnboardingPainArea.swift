@@ -2,10 +2,15 @@ import Foundation
 
 enum OnboardingPainArea: String, CaseIterable, Identifiable {
     case neck
-    case shoulders
+    case biceps
+    case triceps
+    case chest
     case upperBack
+    case core
     case lowerBack
     case hips
+    case glutes
+    case quads
     case hamstrings
     case knees
     case calves
@@ -17,10 +22,15 @@ enum OnboardingPainArea: String, CaseIterable, Identifiable {
     var displayName: String {
         switch self {
         case .neck: return "Neck"
-        case .shoulders: return "Shoulders"
+        case .biceps: return "Biceps"
+        case .triceps: return "Triceps"
+        case .chest: return "Chest"
         case .upperBack: return "Upper Back"
+        case .core: return "Core"
         case .lowerBack: return "Lower Back"
         case .hips: return "Hips"
+        case .glutes: return "Glutes"
+        case .quads: return "Quads"
         case .hamstrings: return "Hamstrings"
         case .knees: return "Knees"
         case .calves: return "Calves"
@@ -32,10 +42,15 @@ enum OnboardingPainArea: String, CaseIterable, Identifiable {
     var emoji: String {
         switch self {
         case .neck: return "🦴"
-        case .shoulders: return "💪"
+        case .biceps: return "💪"
+        case .triceps: return "🦾"
+        case .chest: return "🫁"
         case .upperBack: return "🔙"
+        case .core: return "🧘"
         case .lowerBack: return "⚡"
         case .hips: return "🦵"
+        case .glutes: return "🍑"
+        case .quads: return "🦵"
         case .hamstrings: return "🏃"
         case .knees: return "🦿"
         case .calves: return "🦶"

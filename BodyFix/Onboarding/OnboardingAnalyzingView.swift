@@ -4,6 +4,7 @@ struct OnboardingAnalyzingView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
     @State private var analysisStep = 0
     @State private var showSilhouette = false
+    @State private var isCancelled = false
 
     private let steps = [
         "Analyzing posture habits",
@@ -13,7 +14,25 @@ struct OnboardingAnalyzingView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
+            HStack {
+                Button {
+                    HapticManager.shared.softImpact()
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        viewModel.goBack()
+                    }
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
+
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 8)
+            .padding(.bottom, 20)
+
+            Spacer(minLength: 0)
 
             BodySilhouetteView(
                 highlightedRegions: showSilhouette ? viewModel.selectedPainAreas : [],
@@ -57,7 +76,11 @@ struct OnboardingAnalyzingView: View {
             Spacer()
         }
         .onAppear {
+            isCancelled = false
             runAnalysis()
+        }
+        .onDisappear {
+            isCancelled = true
         }
     }
 
@@ -68,6 +91,7 @@ struct OnboardingAnalyzingView: View {
 
         for i in 0..<steps.count {
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 1.5 + 0.5) {
+                guard !isCancelled else { return }
                 withAnimation(.easeInOut(duration: 0.3)) {
                     analysisStep = i + 1
                 }
@@ -75,6 +99,7 @@ struct OnboardingAnalyzingView: View {
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            guard !isCancelled else { return }
             HapticManager.shared.success()
             withAnimation(.easeInOut(duration: 0.35)) {
                 viewModel.advance()

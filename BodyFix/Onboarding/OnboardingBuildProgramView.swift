@@ -6,29 +6,46 @@ struct OnboardingBuildProgramView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
+            HStack {
+                Button {
+                    HapticManager.shared.softImpact()
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        viewModel.goBack()
+                    }
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
+
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 8)
+            .padding(.bottom, 20)
 
             VStack(spacing: 20) {
                 bodyReportCard
                 programCard
             }
-            .padding(.horizontal, 28)
+            .padding(.horizontal, 20)
             .opacity(showContent ? 1.0 : 0)
 
-            Spacer()
+            Spacer(minLength: 28)
 
-            VStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 12) {
                 Text("Let us build a **program** for you!")
                     .font(Typography.splashTitle)
                     .foregroundStyle(.white)
-                    .multilineTextAlignment(.center)
+                    .multilineTextAlignment(.leading)
 
                 Text("Get **personalized stretches** and an **expert-backed program** designed to **unlock your body's potential**.")
                     .font(Typography.subtitle)
                     .foregroundStyle(.white.opacity(0.8))
-                    .multilineTextAlignment(.center)
+                    .multilineTextAlignment(.leading)
             }
-            .padding(.horizontal, 28)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 20)
             .opacity(showContent ? 1.0 : 0)
 
             Spacer().frame(height: 32)

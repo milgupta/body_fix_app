@@ -21,9 +21,9 @@ struct OnboardingFairTrialView: View {
             }
             .padding(.horizontal, 20)
             .padding(.top, 8)
-            .padding(.bottom, 12)
+            .padding(.bottom, 20)
 
-            Spacer()
+            Spacer(minLength: 12)
 
             Text("🎁 Fair Trial Policy")
                 .font(.system(size: 18, weight: .semibold, design: .rounded))
@@ -44,7 +44,7 @@ struct OnboardingFairTrialView: View {
                 .padding(.horizontal, 20)
                 .opacity(showContent ? 1.0 : 0)
 
-            Spacer()
+            Spacer(minLength: 24)
 
             VStack(alignment: .leading, spacing: 12) {
                 Text("Body Fix is Free for You to Try")
@@ -55,6 +55,7 @@ struct OnboardingFairTrialView: View {
                     .font(Typography.subtitle)
                     .foregroundStyle(.white.opacity(0.8))
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 20)
             .opacity(showContent ? 1.0 : 0)
 

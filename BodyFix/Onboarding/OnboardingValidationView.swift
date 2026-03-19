@@ -26,55 +26,74 @@ struct OnboardingValidationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer().frame(height: 24)
+            HStack {
+                Button {
+                    HapticManager.shared.softImpact()
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        viewModel.goBack()
+                    }
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
 
-            VStack(spacing: 20) {
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 8)
+            .padding(.bottom, 20)
+
+            VStack(spacing: 18) {
                 ForEach(Array(viewModel.selectedBodyGoals.enumerated()), id: \.element) { index, goal in
                     goalCard(
                         emoji: Self.goalEmojis[goal] ?? "",
                         title: goal,
                         description: Self.goalDescriptions[goal] ?? ""
                     )
-                    .rotationEffect(.degrees(Double([-4, 3, -3][index % 3])))
-                    .offset(x: CGFloat([-8, 10, -4][index % 3]))
+                    .rotationEffect(.degrees(Double([-2, 2, -1][index % 3])))
+                    .offset(x: CGFloat([-4, 6, -2][index % 3]))
                     .opacity(showContent ? 1.0 : 0)
                 }
 
                 if !viewModel.longTermGoal.isEmpty {
                     longTermCard
-                        .rotationEffect(.degrees(4))
-                        .offset(x: 6)
+                        .rotationEffect(.degrees(2))
+                        .offset(x: 4)
                         .opacity(showContent ? 1.0 : 0)
                 }
             }
             .padding(.horizontal, 20)
 
-            Spacer(minLength: 32)
+            Spacer(minLength: 28)
 
-            VStack(spacing: 12) {
-                Text("You're in the right place!")
-                    .font(Typography.splashTitle)
-                    .foregroundStyle(.white)
-                    .multilineTextAlignment(.center)
+            VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("You're in the right place!")
+                        .font(Typography.splashTitle)
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.leading)
 
-                Text("**Thousands** have started with the same goals, and **Body Fix** got them there.")
-                    .font(Typography.subtitle)
-                    .foregroundStyle(.white.opacity(0.8))
-                    .multilineTextAlignment(.center)
-            }
-            .padding(.horizontal, 28)
-            .opacity(showContent ? 1.0 : 0)
-
-            Spacer(minLength: 24)
-
-            OnboardingContinueButton(label: "Find My Fix") {
-                withAnimation(.easeInOut(duration: 0.35)) {
-                    viewModel.advance()
+                    Text("**Thousands** have started with the same goals, and **Body Fix** got them there.")
+                        .font(Typography.subtitle)
+                        .foregroundStyle(.white.opacity(0.8))
+                        .multilineTextAlignment(.leading)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 20)
+                .opacity(showContent ? 1.0 : 0)
+
+                Spacer().frame(height: 24)
+
+                OnboardingContinueButton(label: "Find My Fix") {
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        viewModel.advance()
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 40)
+                .opacity(showContent ? 1.0 : 0)
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 40)
-            .opacity(showContent ? 1.0 : 0)
         }
         .onAppear {
             withAnimation(.easeOut(duration: 0.6)) {
@@ -105,6 +124,7 @@ struct OnboardingValidationView: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.bfCardDark.opacity(0.85))
         )
+        .shadow(color: .black.opacity(0.22), radius: 14, x: 0, y: 8)
     }
 
     private var longTermCard: some View {
@@ -127,6 +147,7 @@ struct OnboardingValidationView: View {
                         .stroke(Color.bfTeal.opacity(0.4), lineWidth: 1)
                 )
         )
+        .shadow(color: .black.opacity(0.2), radius: 12, x: 0, y: 7)
     }
 }
 

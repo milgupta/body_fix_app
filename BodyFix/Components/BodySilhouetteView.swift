@@ -6,9 +6,6 @@ struct BodySilhouetteView: View {
 
     var body: some View {
         Canvas { context, size in
-            let w = size.width
-            let h = size.height
-
             drawSilhouette(in: &context, size: size)
 
             for region in highlightedRegions {
@@ -99,14 +96,24 @@ struct BodySilhouetteView: View {
         switch region {
         case .neck:
             return CGRect(x: w * 0.4, y: h * 0.09, width: w * 0.2, height: h * 0.05)
-        case .shoulders:
-            return CGRect(x: w * 0.25, y: h * 0.12, width: w * 0.5, height: h * 0.06)
+        case .biceps:
+            return CGRect(x: w * 0.22, y: h * 0.16, width: w * 0.56, height: h * 0.08)
+        case .triceps:
+            return CGRect(x: w * 0.2, y: h * 0.21, width: w * 0.6, height: h * 0.08)
+        case .chest:
+            return CGRect(x: w * 0.36, y: h * 0.18, width: w * 0.28, height: h * 0.08)
         case .upperBack:
             return CGRect(x: w * 0.35, y: h * 0.17, width: w * 0.3, height: h * 0.1)
+        case .core:
+            return CGRect(x: w * 0.37, y: h * 0.24, width: w * 0.26, height: h * 0.09)
         case .lowerBack:
             return CGRect(x: w * 0.37, y: h * 0.3, width: w * 0.26, height: h * 0.1)
         case .hips:
             return CGRect(x: w * 0.35, y: h * 0.4, width: w * 0.3, height: h * 0.08)
+        case .glutes:
+            return CGRect(x: w * 0.36, y: h * 0.45, width: w * 0.28, height: h * 0.08)
+        case .quads:
+            return CGRect(x: w * 0.34, y: h * 0.5, width: w * 0.32, height: h * 0.1)
         case .hamstrings:
             return CGRect(x: w * 0.34, y: h * 0.55, width: w * 0.32, height: h * 0.12)
         case .knees:

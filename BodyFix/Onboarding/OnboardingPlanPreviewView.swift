@@ -21,7 +21,23 @@ struct OnboardingPlanPreviewView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Spacer().frame(height: 24)
+            HStack {
+                Button {
+                    HapticManager.shared.softImpact()
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        viewModel.goBack()
+                    }
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
+
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 8)
+            .padding(.bottom, 20)
 
             Text("Your Body Fix Plan")
                 .font(Typography.splashTitle)
@@ -37,7 +53,7 @@ struct OnboardingPlanPreviewView: View {
                 .padding(.horizontal, 20)
                 .opacity(showContent ? 1.0 : 0)
 
-            Spacer().frame(height: 28)
+            Spacer().frame(height: 24)
 
             VStack(spacing: 12) {
                 ForEach(Array(previewStretches.enumerated()), id: \.element.id) { index, stretch in

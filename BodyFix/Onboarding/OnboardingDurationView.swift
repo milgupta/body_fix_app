@@ -5,9 +5,11 @@ struct OnboardingDurationView: View {
 
     private let options: [(emoji: String, title: String)] = [
         ("⏱️", "2 minutes"),
+        ("⏲️", "3 minutes"),
         ("🕐", "5 minutes"),
         ("🕙", "10 minutes"),
-        ("🕒", "15+ minutes"),
+        ("🕒", "15 minutes"),
+        ("🕗", "20+ minutes"),
     ]
 
     var body: some View {

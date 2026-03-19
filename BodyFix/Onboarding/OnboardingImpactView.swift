@@ -21,18 +21,19 @@ struct OnboardingImpactView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 28)
 
-            Spacer()
+            Spacer(minLength: 40)
 
             Text(emojis[viewModel.painImpact] ?? "😐")
                 .font(.system(size: 72))
                 .frame(maxWidth: .infinity)
 
-            Spacer().frame(height: 32)
+            Spacer().frame(height: 12)
 
             SteppedSliderView(
                 value: $vm.painImpact,
                 range: 1...5,
-                labels: [:]
+                labels: [:],
+                showValueLabel: false
             )
             .padding(.horizontal, 20)
 
