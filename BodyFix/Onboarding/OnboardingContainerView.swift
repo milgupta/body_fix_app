@@ -25,7 +25,7 @@ struct OnboardingContainerView: View {
                                 }
                             } label: {
                                 Image(systemName: "chevron.left")
-                                    .font(.system(size: 18, weight: .semibold))
+                                    .font(Typography.navIcon)
                                     .foregroundStyle(.white)
                             }
                         }

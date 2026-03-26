@@ -14,7 +14,7 @@ struct OnboardingBuildProgramView: View {
                     }
                 } label: {
                     Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(Typography.navIcon)
                         .foregroundStyle(.white)
                 }
 
@@ -70,7 +70,7 @@ struct OnboardingBuildProgramView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("Your Body Report")
-                    .font(.system(size: 15, weight: .semibold))
+                    .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundStyle(.black)
                 Spacer()
                 HStack(spacing: 4) {
@@ -94,7 +94,7 @@ struct OnboardingBuildProgramView: View {
 
             HStack(spacing: 4) {
                 Text("You vs Others")
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
                     .foregroundStyle(.gray)
                 Spacer()
             }
@@ -119,7 +119,7 @@ struct OnboardingBuildProgramView: View {
     private var programCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Your Program")
-                .font(.system(size: 15, weight: .semibold))
+                .font(.system(size: 15, weight: .semibold, design: .rounded))
                 .foregroundStyle(.black)
 
             ForEach(programRows, id: \.title) { row in
@@ -134,7 +134,7 @@ struct OnboardingBuildProgramView: View {
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(row.title)
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
                             .foregroundStyle(.black)
 
                         RoundedRectangle(cornerRadius: 2)

@@ -23,57 +23,59 @@ extension Color {
         )
     }
 
-    // MARK: - Solid Colors
+    static let bfBackground = Color(hex: "#0F172A")
+    static let bfCard = Color(hex: "#1E293B")
+    static let bfBorder = Color(hex: "#334155")
+    static let bfMint = Color(hex: "#5EEAD4")
+    static let bfTeal = Color(hex: "#14B8A6")
+    static let bfBlue = Color(hex: "#3B82F6")
+    static let bfTextPrimary = Color(hex: "#F8FAFC")
+    static let bfTextSecondary = Color(hex: "#E2E8F0")
+    static let bfTextTertiary = Color(hex: "#94A3B8")
+    static let bfTextMuted = Color(hex: "#64748B")
+    static let bfTextDisabled = Color(hex: "#475569")
 
-    static let bfNavy = Color(hex: "0A1628")
-    static let bfCardDark = Color(hex: "1C1C1E")
-    static let bfCardDarker = Color(hex: "2A2A2E")
-    static let bfElectricBlue = Color(hex: "2D7FF9")
-    static let bfTeal = Color(hex: "00C9A7")
-    static let bfMint = Color(hex: "7BEDA0")
-    static let bfTextPrimary = Color.white
-    static let bfTextSecondary = Color(hex: "8899AA")
-    static let bfSliderWarm = Color(hex: "FF6B35")
+    // Legacy aliases (onboarding + existing components)
+    static let bfNavy = bfBackground
+    static let bfCardDark = bfCard
+    static let bfCardDarker = bfBorder
+    static let bfElectricBlue = bfBlue
 }
 
-// MARK: - ShapeStyle Convenience
-
 extension ShapeStyle where Self == Color {
+    static var bfBackground: Color { .bfBackground }
+    static var bfCard: Color { .bfCard }
+    static var bfBorder: Color { .bfBorder }
+    static var bfMint: Color { .bfMint }
+    static var bfTeal: Color { .bfTeal }
+    static var bfBlue: Color { .bfBlue }
     static var bfTextPrimary: Color { .bfTextPrimary }
     static var bfTextSecondary: Color { .bfTextSecondary }
+    static var bfTextTertiary: Color { .bfTextTertiary }
+    static var bfTextMuted: Color { .bfTextMuted }
+    static var bfTextDisabled: Color { .bfTextDisabled }
     static var bfNavy: Color { .bfNavy }
     static var bfCardDark: Color { .bfCardDark }
     static var bfCardDarker: Color { .bfCardDarker }
     static var bfElectricBlue: Color { .bfElectricBlue }
-    static var bfTeal: Color { .bfTeal }
-    static var bfMint: Color { .bfMint }
-    static var bfSliderWarm: Color { .bfSliderWarm }
-}
-
-// MARK: - Gradient Presets
-
-extension ShapeStyle where Self == LinearGradient {
-    static var bfSelectionGradient: LinearGradient { LinearGradient.bfSelectionGradient }
-    static var bfProgressGradient: LinearGradient { LinearGradient.bfProgressGradient }
-    static var bfSplashGradient: LinearGradient { LinearGradient.bfSplashGradient }
 }
 
 extension LinearGradient {
-    static let bfSelectionGradient = LinearGradient(
-        colors: [.bfTeal, .bfMint],
+    static let bfGradient = LinearGradient(
+        colors: [Color(hex: "#3B82F6"), Color(hex: "#5EEAD4")],
         startPoint: .leading,
         endPoint: .trailing
     )
 
-    static let bfProgressGradient = LinearGradient(
-        colors: [.bfTeal, Color(hex: "4ADE80")],
-        startPoint: .leading,
-        endPoint: .trailing
-    )
+    /// Legacy names map to the primary accent gradient.
+    static let bfSelectionGradient = bfGradient
+    static let bfProgressGradient = bfGradient
+    static let bfSplashGradient = bfGradient
+}
 
-    static let bfSplashGradient = LinearGradient(
-        colors: [.bfTeal, Color(hex: "6DD5A0"), .bfMint],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
+extension ShapeStyle where Self == LinearGradient {
+    static var bfGradient: LinearGradient { .bfGradient }
+    static var bfSelectionGradient: LinearGradient { .bfSelectionGradient }
+    static var bfProgressGradient: LinearGradient { .bfProgressGradient }
+    static var bfSplashGradient: LinearGradient { .bfSplashGradient }
 }

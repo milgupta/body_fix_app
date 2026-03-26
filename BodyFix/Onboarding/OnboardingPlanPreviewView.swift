@@ -7,16 +7,33 @@ struct OnboardingPlanPreviewView: View {
     @State private var showContent = false
 
     private var previewStretches: [Stretch] {
-        let allStretches = StretchDatabase.loadAll()
-        let userAreas = viewModel.selectedPainAreas.map(\.rawValue)
-        let matched = allStretches.filter { stretch in
-            stretch.targetRegions.contains(where: { userAreas.contains($0) })
+        let groups = muscleGroupsFromPainAreas()
+        if groups.isEmpty {
+            return Array(StretchDatabase.loadAll().prefix(3))
         }
-        return Array(matched.isEmpty ? allStretches : matched).prefix(3).map { $0 }
+        let list = StretchDatabase.stretches(for: groups, perGroup: 1)
+        return Array(list.prefix(3))
+    }
+
+    private func muscleGroupsFromPainAreas() -> Set<MuscleGroup> {
+        var set = Set<MuscleGroup>()
+        for area in viewModel.selectedPainAreas {
+            switch area {
+            case .ankles:
+                set.insert(.calves)
+            case .wholeBody:
+                break
+            default:
+                if let g = MuscleGroup(rawValue: area.rawValue) {
+                    set.insert(g)
+                }
+            }
+        }
+        return set
     }
 
     private var totalDuration: Int {
-        previewStretches.reduce(0) { $0 + $1.holdDuration }
+        previewStretches.reduce(0) { $0 + $1.duration }
     }
 
     var body: some View {
@@ -29,7 +46,7 @@ struct OnboardingPlanPreviewView: View {
                     }
                 } label: {
                     Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(Typography.navIcon)
                         .foregroundStyle(.white)
                 }
 
@@ -63,7 +80,7 @@ struct OnboardingPlanPreviewView: View {
                             .frame(width: 48, height: 48)
                             .overlay {
                                 Text("\(index + 1)")
-                                    .font(.system(size: 20, weight: .bold))
+                                    .font(.system(size: 20, weight: .bold, design: .rounded))
                                     .foregroundStyle(.white)
                             }
 
@@ -72,7 +89,7 @@ struct OnboardingPlanPreviewView: View {
                                 .font(Typography.optionText)
                                 .foregroundStyle(.bfTextPrimary)
 
-                            Text("\(stretch.holdDuration)s · \(stretch.repScheme)")
+                            Text("\(stretch.duration)s · \(stretch.repScheme)")
                                 .font(Typography.caption)
                                 .foregroundStyle(.bfTextSecondary)
                         }

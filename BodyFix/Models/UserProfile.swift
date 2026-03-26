@@ -17,6 +17,10 @@ final class UserProfile {
     var commitmentDays: String
     var onboardingComplete: Bool
     var subscriptionActive: Bool
+    /// Consecutive days with at least one stretch session completed.
+    var stretchStreak: Int
+    /// Start-of-day normalized date of last session that updated the streak.
+    var lastStretchActivityDate: Date?
 
     init(
         name: String = "",
@@ -32,7 +36,9 @@ final class UserProfile {
         problemTimes: [String] = [],
         commitmentDays: String = "",
         onboardingComplete: Bool = false,
-        subscriptionActive: Bool = false
+        subscriptionActive: Bool = false,
+        stretchStreak: Int = 0,
+        lastStretchActivityDate: Date? = nil
     ) {
         self.name = name
         self.bodyGoals = bodyGoals
@@ -48,5 +54,7 @@ final class UserProfile {
         self.commitmentDays = commitmentDays
         self.onboardingComplete = onboardingComplete
         self.subscriptionActive = subscriptionActive
+        self.stretchStreak = stretchStreak
+        self.lastStretchActivityDate = lastStretchActivityDate
     }
 }

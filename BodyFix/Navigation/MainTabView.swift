@@ -1,18 +1,46 @@
 import SwiftUI
 
 struct MainTabView: View {
-    // TODO: Implement — tab bar with two tabs: Body Map (home) and Workout Log
+    @State private var selectedTab = 0
 
     var body: some View {
-        TabView {
-            BodyMapView()
+        TabView(selection: $selectedTab) {
+            StretchTabRoot()
                 .tabItem {
-                    Label("Body Map", systemImage: "figure.stand")
+                    Label("Stretch", systemImage: "figure.flexibility")
                 }
+                .tag(0)
 
-            WorkoutLogView()
+            WorkoutLogView(selectedTab: $selectedTab)
                 .tabItem {
                     Label("Workout Log", systemImage: "list.clipboard")
+                }
+                .tag(1)
+
+            CoachView()
+                .tabItem {
+                    Label("AI Coach", systemImage: "sparkles")
+                }
+                .tag(2)
+        }
+        .tint(Color.bfMint)
+    }
+}
+
+private struct StretchTabRoot: View {
+    @State private var path = NavigationPath()
+
+    var body: some View {
+        NavigationStack(path: $path) {
+            MuscleSelectView(path: $path)
+                .navigationDestination(for: StretchListRoute.self) { route in
+                    StretchListView(selectedMuscles: route.muscles, path: $path)
+                }
+                .navigationDestination(for: StretchTimerRoute.self) { route in
+                    StretchTimerView(route: route, path: $path)
+                }
+                .navigationDestination(for: SessionCompleteRoute.self) { route in
+                    SessionCompleteView(route: route, path: $path)
                 }
         }
     }
