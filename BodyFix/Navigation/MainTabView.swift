@@ -22,6 +22,12 @@ struct MainTabView: View {
                     Label("AI Coach", systemImage: "sparkles")
                 }
                 .tag(2)
+
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape.fill")
+                }
+                .tag(3)
         }
         .tint(Color.bfMint)
     }

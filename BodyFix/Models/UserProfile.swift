@@ -18,7 +18,7 @@ final class UserProfile {
     var onboardingComplete: Bool
     var subscriptionActive: Bool
     /// Consecutive days with at least one stretch session completed.
-    var stretchStreak: Int
+    var stretchStreak: Int = 0
     /// Start-of-day normalized date of last session that updated the streak.
     var lastStretchActivityDate: Date?
 

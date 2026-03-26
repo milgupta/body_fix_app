@@ -113,7 +113,6 @@ struct SessionCompleteView: View {
     private func shareButton(image: UIImage) -> some View {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("bodyfix-session.png")
         if let data = image.pngData() {
-            try? data.write(to: url)
             ShareLink(item: url) {
                 Label("Share", systemImage: "square.and.arrow.up")
                     .font(Typography.primaryCta)
@@ -123,6 +122,9 @@ struct SessionCompleteView: View {
                     .background(RoundedRectangle(cornerRadius: 14).fill(.bfGradient))
             }
             .padding(.horizontal, 20)
+            .onAppear {
+                try? data.write(to: url)
+            }
         }
     }
 

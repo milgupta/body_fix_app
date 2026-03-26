@@ -4,9 +4,12 @@ struct OnboardingCommitmentView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
 
     private let options: [(emoji: String, title: String)] = [
-        ("📅", "3 days"),
+        ("🌱", "1 day"),
+        ("📅", "2 days"),
+        ("📆", "3 days"),
         ("💪", "4 days"),
         ("🔥", "5 days"),
+        ("⚡", "6 days"),
         ("✅", "Every day"),
     ]
 
