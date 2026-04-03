@@ -5,6 +5,8 @@ struct OnboardingActivityView: View {
 
     private let options: [(emoji: String, title: String)] = [
         ("🪑", "Mostly sitting (desk / school / driving)"),
+        ("🔀", "Mix of sitting and moving (office + breaks, hybrid)"),
+        ("👟", "On my feet most of the day (retail, nursing, teaching)"),
         ("🚶", "Lightly active (walking, errands)"),
         ("🏋️", "Moderately active (workouts a few times/week)"),
         ("⚡", "Very active (daily training / sports)"),

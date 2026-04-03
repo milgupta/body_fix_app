@@ -24,6 +24,10 @@ struct OnboardingValidationView: View {
         "Move Better Day-to-Day": "🚶",
     ]
 
+    private var totalCardCount: Int {
+        viewModel.selectedBodyGoals.count + (viewModel.longTermGoal.isEmpty ? 0 : 1)
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -44,28 +48,14 @@ struct OnboardingValidationView: View {
             .padding(.top, 8)
             .padding(.bottom, 20)
 
-            VStack(spacing: 18) {
-                ForEach(Array(viewModel.selectedBodyGoals.enumerated()), id: \.element) { index, goal in
-                    goalCard(
-                        emoji: Self.goalEmojis[goal] ?? "",
-                        title: goal,
-                        description: Self.goalDescriptions[goal] ?? ""
-                    )
-                    .rotationEffect(.degrees(Double([-2, 2, -1][index % 3])))
-                    .offset(x: CGFloat([-4, 6, -2][index % 3]))
-                    .opacity(showContent ? 1.0 : 0)
-                }
-
-                if !viewModel.longTermGoal.isEmpty {
-                    longTermCard
-                        .rotationEffect(.degrees(2))
-                        .offset(x: 4)
-                        .opacity(showContent ? 1.0 : 0)
-                }
+            if totalCardCount <= 2 {
+                Spacer(minLength: 0)
+                cardStack
+                Spacer(minLength: 0)
+            } else {
+                cardStack
+                Spacer(minLength: 28)
             }
-            .padding(.horizontal, 20)
-
-            Spacer(minLength: 28)
 
             VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 12) {
@@ -102,6 +92,29 @@ struct OnboardingValidationView: View {
         }
     }
 
+    private var cardStack: some View {
+        VStack(spacing: 18) {
+            ForEach(Array(viewModel.selectedBodyGoals.enumerated()), id: \.element) { index, goal in
+                goalCard(
+                    emoji: Self.goalEmojis[goal] ?? "",
+                    title: goal,
+                    description: Self.goalDescriptions[goal] ?? ""
+                )
+                .rotationEffect(.degrees(Double([-2, 2, -1][index % 3])))
+                .offset(x: CGFloat([-4, 6, -2][index % 3]))
+                .opacity(showContent ? 1.0 : 0)
+            }
+
+            if !viewModel.longTermGoal.isEmpty {
+                longTermCard
+                    .rotationEffect(.degrees(2))
+                    .offset(x: 4)
+                    .opacity(showContent ? 1.0 : 0)
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+
     private func goalCard(emoji: String, title: String, description: String) -> some View {
         HStack(alignment: .top, spacing: 14) {
             Text(emoji)
@@ -128,7 +141,7 @@ struct OnboardingValidationView: View {
     }
 
     private var longTermCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             Text("Where You're Headed")
                 .font(.system(size: 15, weight: .medium, design: .rounded))
                 .foregroundStyle(.bfTeal)
@@ -136,9 +149,13 @@ struct OnboardingValidationView: View {
             Text(viewModel.longTermGoal)
                 .font(Typography.optionText)
                 .foregroundStyle(.white)
+                .lineSpacing(2)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(18)
+        .padding(.horizontal, 18)
+        .padding(.top, 18)
+        .padding(.bottom, 22)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.bfCardDark.opacity(0.85))

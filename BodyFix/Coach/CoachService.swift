@@ -109,6 +109,7 @@ final class CoachService: @unchecked Sendable {
         User profile context:
         - Name: \(profile.name.isEmpty ? "User" : profile.name)
         - Activity level: \(profile.activityLevel)
+        - Health conditions / concerns: \(profile.healthConditions.isEmpty ? "none reported" : profile.healthConditions.joined(separator: ", "))
         - Primary goal: \(profile.longTermGoal)
         - Problem areas: \(problem)
         - Sitting / lifestyle: \(sitting)

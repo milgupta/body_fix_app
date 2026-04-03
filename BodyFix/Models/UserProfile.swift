@@ -15,6 +15,8 @@ final class UserProfile {
     var problemAreas: [String]
     var problemTimes: [String]
     var commitmentDays: String
+    /// Health conditions or concerns selected during onboarding (may be empty if skipped).
+    var healthConditions: [String]
     var onboardingComplete: Bool
     var subscriptionActive: Bool
     /// Consecutive days with at least one stretch session completed.
@@ -35,6 +37,7 @@ final class UserProfile {
         problemAreas: [String] = [],
         problemTimes: [String] = [],
         commitmentDays: String = "",
+        healthConditions: [String] = [],
         onboardingComplete: Bool = false,
         subscriptionActive: Bool = false,
         stretchStreak: Int = 0,
@@ -52,6 +55,7 @@ final class UserProfile {
         self.problemAreas = problemAreas
         self.problemTimes = problemTimes
         self.commitmentDays = commitmentDays
+        self.healthConditions = healthConditions
         self.onboardingComplete = onboardingComplete
         self.subscriptionActive = subscriptionActive
         self.stretchStreak = stretchStreak

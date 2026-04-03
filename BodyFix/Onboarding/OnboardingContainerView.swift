@@ -6,7 +6,7 @@ struct OnboardingContainerView: View {
     @Environment(\.modelContext) private var modelContext
 
     private var showsNavBar: Bool {
-        ![0, 4, 7, 16, 18, 19].contains(viewModel.currentStep)
+        ![0, 4, 7, 17, 19, 20].contains(viewModel.currentStep)
     }
 
     var body: some View {
@@ -67,10 +67,11 @@ struct OnboardingContainerView: View {
             case 13: OnboardingDurationView()
             case 14: OnboardingEducationView()
             case 15: OnboardingCommitmentView()
-            case 16: OnboardingAnalyzingView()
-            case 17: OnboardingMotivationLevelView()
-            case 18: OnboardingFairTrialView()
-            case 19: OnboardingPlanPreviewView()
+            case 16: OnboardingHealthConditionsView()
+            case 17: OnboardingAnalyzingView()
+            case 18: OnboardingMotivationLevelView()
+            case 19: OnboardingFairTrialView()
+            case 20: OnboardingPlanPreviewView()
             default: EmptyView()
             }
         }
@@ -82,7 +83,7 @@ struct OnboardingContainerView: View {
 
     private func backgroundForStep(_ step: Int) -> some View {
         Group {
-            if [0, 4, 7, 14, 16, 18].contains(step) {
+            if [0, 4, 7, 14, 17, 19].contains(step) {
                 Rectangle().fill(.bfSplashGradient)
             } else {
                 Color.bfNavy
