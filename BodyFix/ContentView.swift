@@ -19,5 +19,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: [UserProfile.self, StretchSession.self], inMemory: true)
+        .modelContainer(for: [UserProfile.self, StretchSession.self, RoutineSeriesProgress.self], inMemory: true)
 }

@@ -3,10 +3,12 @@ import SwiftUI
 struct StretchListView: View {
     let selectedMuscles: Set<MuscleGroup>
     @Binding var path: NavigationPath
+    var perGroup: Int? = 3
+    var title: String? = nil
     @Environment(\.dismiss) private var dismiss
 
     private var sections: [(MuscleGroup, [Stretch])] {
-        StretchDatabase.groupedStretches(for: selectedMuscles, perGroup: 3)
+        StretchDatabase.groupedStretches(for: selectedMuscles, perGroup: perGroup)
     }
 
     private var flatStretches: [Stretch] {
@@ -83,11 +85,11 @@ struct StretchListView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Your Stretches")
+            Text(title ?? "Your Stretches")
                 .font(Typography.navTitle)
                 .foregroundStyle(Color.bfTextPrimary)
 
-            Text("\(flatStretches.count) stretches for \(selectedMuscles.count) areas")
+            Text("\(flatStretches.count) stretches for \(selectedMuscles.count) area\(selectedMuscles.count == 1 ? "" : "s")")
                 .font(Typography.screenSubtitle)
                 .foregroundStyle(Color.bfTextTertiary)
         }

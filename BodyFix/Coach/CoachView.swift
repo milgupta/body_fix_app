@@ -36,8 +36,8 @@ struct CoachView: View {
                     Spacer()
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 16)
-                .padding(.bottom, 12)
+                .padding(.top, 20)
+                .padding(.bottom, 14)
 
                 ZStack {
                     chatContent
@@ -96,9 +96,9 @@ struct CoachView: View {
                     .textFieldStyle(.plain)
                     .font(Typography.stretchDescription)
                     .foregroundStyle(Color.bfTextPrimary)
-                    .padding(12)
-                    .background(RoundedRectangle(cornerRadius: 14).fill(Color.bfCard))
-                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.bfBorder))
+                    .padding(14)
+                    .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Color.bfSurfaceElevated))
+                    .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).stroke(Color.bfBorder))
 
                 Button {
                     sendCurrentInput()
@@ -127,7 +127,7 @@ struct CoachView: View {
                         .foregroundStyle(Color.bfTextSecondary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
-                        .background(Capsule().fill(Color.bfCard))
+                        .background(Capsule().fill(Color.bfSurfaceElevated))
                         .overlay(Capsule().stroke(Color.bfBorder))
                 }
                 .buttonStyle(.plain)
@@ -150,7 +150,7 @@ struct CoachView: View {
             }
         }
         .padding(12)
-        .background(RoundedRectangle(cornerRadius: 16).fill(Color.bfCard))
+        .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Color.bfSurfaceElevated))
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
@@ -178,15 +178,15 @@ struct CoachView: View {
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
-                    .background(RoundedRectangle(cornerRadius: 14).fill(.bfGradient))
+                    .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(.bfGradient))
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 8)
         }
         .padding(24)
         .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.bfCard)
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .fill(Color.bfSurfaceElevated)
                 .shadow(color: .black.opacity(0.35), radius: 20, y: 8)
         )
         .padding(24)

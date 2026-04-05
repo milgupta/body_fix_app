@@ -1,0 +1,416 @@
+[
+  {
+    "id": "posture_reset",
+    "name": "Posture Reset",
+    "categories": ["featured", "recommendedCandidate", "activity"],
+    "stretchIds": ["neck_chin_tuck", "shoulders_cross_body", "chest_doorway_double", "upperback_thread_needle", "upperback_cat_cow", "core_pelvic_tilt", "shoulders_sleeper", "neck_rotation_mobility"],
+    "relatedMuscleGroups": ["neck", "shoulders", "chest", "upperBack", "core"],
+    "tags": ["posture", "daily-maintenance"]
+  },
+  {
+    "id": "wake_up",
+    "name": "Wake Up",
+    "categories": ["featured", "activity"],
+    "stretchIds": ["neck_rotation_mobility", "upperback_cat_cow", "hips_butterfly", "hamstrings_standing_fold", "calves_wall", "core_pelvic_tilt", "shoulders_cross_body", "lowerback_knee_to_chest"],
+    "relatedMuscleGroups": ["neck", "upperBack", "hips", "hamstrings", "calves", "core"],
+    "tags": ["morning", "energizing"]
+  },
+  {
+    "id": "wake_and_shake",
+    "name": "Wake & Shake",
+    "categories": ["featured", "recommendedCandidate", "activity"],
+    "stretchIds": ["hips_hip_flexor_lunge", "quads_standing", "hamstrings_standing_fold", "calves_stair_drop", "shoulders_cross_body", "upperback_open_book", "glutes_figure_four", "core_bird_dog"],
+    "relatedMuscleGroups": ["hips", "quads", "hamstrings", "calves", "shoulders", "upperBack", "glutes", "core"],
+    "tags": ["recovery", "morning"]
+  },
+  {
+    "id": "desk_relief",
+    "name": "Desk Relief",
+    "categories": ["featured", "recommendedCandidate", "activity"],
+    "stretchIds": ["neck_upper_trap_stretch", "shoulders_doorway_pec", "forearms_extensor", "forearms_flexor", "upperback_thread_needle", "chest_corner_stretch", "neck_chin_tuck", "upperback_cat_cow"],
+    "relatedMuscleGroups": ["neck", "shoulders", "forearms", "upperBack", "chest"],
+    "tags": ["desk", "reduce-pain"]
+  },
+  {
+    "id": "sleep_wind_down",
+    "name": "Sleep Wind Down",
+    "categories": ["featured", "activity"],
+    "stretchIds": ["lowerback_child_pose", "glutes_lying_hug", "hips_butterfly", "hamstrings_seated", "neck_upper_trap_stretch", "calves_soleus", "lowerback_supine_twist", "core_pelvic_tilt"],
+    "relatedMuscleGroups": ["lowerBack", "glutes", "hips", "hamstrings", "neck", "calves", "core"],
+    "tags": ["bedtime", "relax"]
+  },
+  {
+    "id": "lower_back_quick",
+    "name": "Lower Back Quick",
+    "categories": ["quick", "recommendedCandidate"],
+    "stretchIds": ["lowerback_child_pose", "lowerback_knee_to_chest", "lowerback_supine_twist", "hips_butterfly", "glutes_lying_hug", "core_pelvic_tilt", "hamstrings_seated", "hips_hip_flexor_lunge"],
+    "relatedMuscleGroups": ["lowerBack", "hips", "glutes", "core", "hamstrings"],
+    "tags": ["reduce-pain", "lower-back"]
+  },
+  {
+    "id": "sciatica_relief",
+    "name": "Sciatica Relief",
+    "categories": ["injury", "recommendedCandidate"],
+    "stretchIds": ["glutes_figure_four", "glutes_lying_hug", "lowerback_supine_twist", "hips_pigeon", "hamstrings_supine_strap", "lowerback_child_pose", "hips_butterfly", "core_pelvic_tilt"],
+    "relatedMuscleGroups": ["glutes", "lowerBack", "hips", "hamstrings", "core"],
+    "tags": ["reduce-pain", "lower-back", "injury"]
+  },
+  {
+    "id": "tech_neck_fix",
+    "name": "Tech Neck Fix",
+    "categories": ["quick", "recommendedCandidate"],
+    "stretchIds": ["neck_chin_tuck", "neck_upper_trap_stretch", "neck_rotation_mobility", "shoulders_cross_body", "upperback_open_book", "chest_corner_stretch"],
+    "relatedMuscleGroups": ["neck", "shoulders", "upperBack", "chest"],
+    "tags": ["neck", "desk", "reduce-pain"]
+  },
+  {
+    "id": "hip_opener",
+    "name": "Hip Opener",
+    "categories": ["quick", "recommendedCandidate"],
+    "stretchIds": ["hips_pigeon", "hips_hip_flexor_lunge", "hips_butterfly", "glutes_figure_four", "hamstrings_supine_strap", "lowerback_supine_twist", "glutes_seated_figure_four", "core_pelvic_tilt"],
+    "relatedMuscleGroups": ["hips", "glutes", "hamstrings", "lowerBack", "core"],
+    "tags": ["flexibility", "hips"]
+  },
+  {
+    "id": "full_body_express",
+    "name": "Full Body Express",
+    "categories": ["quick", "recommendedCandidate"],
+    "stretchIds": ["neck_rotation_mobility", "shoulders_cross_body", "upperback_cat_cow", "hips_hip_flexor_lunge", "hamstrings_standing_fold", "calves_wall", "lowerback_knee_to_chest", "core_bird_dog", "glutes_figure_four", "chest_corner_stretch"],
+    "relatedMuscleGroups": ["neck", "shoulders", "upperBack", "hips", "hamstrings", "calves", "lowerBack", "core", "glutes", "chest"],
+    "tags": ["daily-maintenance", "flexibility"]
+  },
+  {
+    "id": "splits_progression",
+    "name": "Splits Progression",
+    "categories": ["recommendedCandidate", "activity"],
+    "stretchIds": ["hamstrings_supine_strap", "hamstrings_seated", "quads_side_lying", "quads_prone", "hips_hip_flexor_lunge", "hips_pigeon", "glutes_figure_four", "calves_soleus", "hamstrings_standing_fold", "hips_butterfly"],
+    "relatedMuscleGroups": ["hamstrings", "quads", "hips", "glutes", "calves"],
+    "tags": ["flexibility", "athletic"]
+  },
+  {
+    "id": "leg_loosen",
+    "name": "Leg Loosen",
+    "categories": ["quick", "recommendedCandidate"],
+    "stretchIds": ["quads_standing", "hamstrings_standing_fold", "calves_wall", "glutes_seated_figure_four", "hips_butterfly", "quads_side_lying", "hamstrings_seated", "calves_soleus"],
+    "relatedMuscleGroups": ["quads", "hamstrings", "calves", "glutes", "hips"],
+    "tags": ["flexibility", "recovery"]
+  },
+  {
+    "id": "glute_unlock",
+    "name": "Glute Unlock",
+    "categories": ["quick", "recommendedCandidate"],
+    "stretchIds": ["glutes_figure_four", "glutes_lying_hug", "glutes_seated_figure_four", "hips_pigeon", "lowerback_supine_twist", "hamstrings_supine_strap", "hips_butterfly", "core_pelvic_tilt"],
+    "relatedMuscleGroups": ["glutes", "hips", "lowerBack", "hamstrings", "core"],
+    "tags": ["daily-maintenance", "glutes"]
+  },
+  {
+    "id": "post_workout_cool_down",
+    "name": "Post-Workout Cool Down",
+    "categories": ["recommendedCandidate", "activity"],
+    "stretchIds": ["quads_standing", "hamstrings_standing_fold", "calves_stair_drop", "hips_hip_flexor_lunge", "glutes_figure_four", "shoulders_cross_body", "chest_doorway_double", "lowerback_child_pose", "upperback_cat_cow", "calves_soleus"],
+    "relatedMuscleGroups": ["quads", "hamstrings", "calves", "hips", "glutes", "shoulders", "chest", "lowerBack", "upperBack"],
+    "tags": ["recovery", "post-workout"]
+  },
+  {
+    "id": "runners_recovery",
+    "name": "Runner's Recovery",
+    "categories": ["recommendedCandidate", "activity"],
+    "stretchIds": ["quads_standing", "hamstrings_supine_strap", "calves_wall", "hips_hip_flexor_lunge", "glutes_lying_hug", "lowerback_supine_twist", "calves_soleus", "quads_prone"],
+    "relatedMuscleGroups": ["quads", "hamstrings", "calves", "hips", "glutes", "lowerBack"],
+    "tags": ["recovery", "runner"]
+  },
+  {
+    "id": "upper_body_strength_stretch",
+    "name": "Upper Body Strength Stretch",
+    "categories": ["recommendedCandidate", "activity"],
+    "stretchIds": ["chest_doorway_double", "shoulders_cross_body", "triceps_overhead", "biceps_wall_stretch", "forearms_prayer", "upperback_open_book", "shoulders_sleeper", "triceps_towel"],
+    "relatedMuscleGroups": ["chest", "shoulders", "triceps", "biceps", "forearms", "upperBack"],
+    "tags": ["recovery", "upper-body"]
+  },
+  {
+    "id": "shoulders_1",
+    "name": "Shoulders 1",
+    "categories": ["quick", "recommendedCandidate"],
+    "stretchIds": ["shoulders_cross_body", "shoulders_doorway_pec", "shoulders_sleeper", "chest_corner_stretch", "upperback_thread_needle", "neck_upper_trap_stretch"],
+    "relatedMuscleGroups": ["shoulders", "chest", "upperBack", "neck"],
+    "tags": ["daily-maintenance", "shoulders"]
+  },
+  {
+    "id": "at_the_office",
+    "name": "At the Office",
+    "categories": ["activity", "recommendedCandidate"],
+    "stretchIds": ["neck_chin_tuck", "forearms_extensor", "forearms_flexor", "shoulders_cross_body", "upperback_cat_cow", "calves_wall", "hips_butterfly", "chest_corner_stretch"],
+    "relatedMuscleGroups": ["neck", "forearms", "shoulders", "upperBack", "calves", "hips", "chest"],
+    "tags": ["desk", "daily-maintenance"]
+  },
+  {
+    "id": "wrist_rescue",
+    "name": "Wrist Rescue",
+    "categories": ["quick"],
+    "stretchIds": ["forearms_extensor", "forearms_flexor", "forearms_prayer", "biceps_seated", "triceps_cross_reach", "shoulders_cross_body"],
+    "relatedMuscleGroups": ["forearms", "biceps", "triceps", "shoulders"],
+    "tags": ["desk", "wrists"]
+  },
+  {
+    "id": "frozen_shoulder",
+    "name": "Frozen Shoulder",
+    "categories": ["injury"],
+    "stretchIds": ["shoulders_cross_body", "shoulders_sleeper", "shoulders_doorway_pec", "chest_corner_stretch", "upperback_open_book", "neck_upper_trap_stretch", "triceps_overhead", "chest_doorway_double"],
+    "relatedMuscleGroups": ["shoulders", "chest", "upperBack", "neck", "triceps"],
+    "tags": ["injury", "shoulders"]
+  },
+  {
+    "id": "plantar_fasciitis",
+    "name": "Plantar Fasciitis",
+    "categories": ["injury"],
+    "stretchIds": ["calves_wall", "calves_stair_drop", "calves_soleus", "hamstrings_standing_fold", "hamstrings_supine_strap", "glutes_lying_hug"],
+    "relatedMuscleGroups": ["calves", "hamstrings", "glutes"],
+    "tags": ["injury", "calves"]
+  },
+  {
+    "id": "it_band_release",
+    "name": "IT Band Release",
+    "categories": ["injury"],
+    "stretchIds": ["quads_side_lying", "glutes_seated_figure_four", "hips_pigeon", "hamstrings_supine_strap", "glutes_figure_four", "quads_prone", "calves_soleus", "lowerback_supine_twist"],
+    "relatedMuscleGroups": ["quads", "glutes", "hips", "hamstrings", "calves", "lowerBack"],
+    "tags": ["injury", "legs"]
+  },
+  {
+    "id": "tech_neck_recovery",
+    "name": "Tech Neck Recovery",
+    "categories": ["injury"],
+    "stretchIds": ["neck_chin_tuck", "neck_upper_trap_stretch", "neck_rotation_mobility", "upperback_thread_needle", "shoulders_doorway_pec", "chest_corner_stretch", "shoulders_cross_body", "upperback_open_book"],
+    "relatedMuscleGroups": ["neck", "upperBack", "shoulders", "chest"],
+    "tags": ["injury", "neck", "desk"]
+  },
+  {
+    "id": "acl_recovery",
+    "name": "ACL Recovery",
+    "categories": ["injury"],
+    "stretchIds": ["knees_heel_slides", "knees_terminal_extension", "knees_short_arc", "quads_standing", "quads_side_lying", "calves_wall", "hamstrings_seated", "glutes_lying_hug"],
+    "relatedMuscleGroups": ["knees", "quads", "calves", "hamstrings", "glutes"],
+    "tags": ["injury", "knees"]
+  },
+  {
+    "id": "carpal_tunnel_relief",
+    "name": "Carpal Tunnel Relief",
+    "categories": ["injury"],
+    "stretchIds": ["forearms_extensor", "forearms_flexor", "forearms_prayer", "biceps_seated", "shoulders_cross_body", "triceps_cross_reach"],
+    "relatedMuscleGroups": ["forearms", "biceps", "shoulders", "triceps"],
+    "tags": ["injury", "desk", "forearms"]
+  },
+  {
+    "id": "herniated_disc_care",
+    "name": "Herniated Disc Care",
+    "categories": ["injury"],
+    "stretchIds": ["lowerback_child_pose", "lowerback_knee_to_chest", "lowerback_supine_twist", "core_dead_bug_hold", "core_pelvic_tilt", "glutes_lying_hug", "hips_butterfly", "hamstrings_supine_strap"],
+    "relatedMuscleGroups": ["lowerBack", "core", "glutes", "hips", "hamstrings"],
+    "tags": ["injury", "lower-back"]
+  },
+  {
+    "id": "runners_prep",
+    "name": "Runner's Prep",
+    "categories": ["activity"],
+    "stretchIds": ["quads_standing", "hamstrings_standing_fold", "calves_wall", "hips_hip_flexor_lunge", "glutes_figure_four", "core_bird_dog", "calves_stair_drop", "quads_prone"],
+    "relatedMuscleGroups": ["quads", "hamstrings", "calves", "hips", "glutes", "core"],
+    "tags": ["runner", "warmup"]
+  },
+  {
+    "id": "pre_workout_warm_up",
+    "name": "Pre-Workout Warm Up",
+    "categories": ["activity"],
+    "stretchIds": ["upperback_cat_cow", "hips_hip_flexor_lunge", "quads_standing", "hamstrings_standing_fold", "calves_stair_drop", "shoulders_cross_body", "core_bird_dog", "glutes_seated_figure_four"],
+    "relatedMuscleGroups": ["upperBack", "hips", "quads", "hamstrings", "calves", "shoulders", "core", "glutes"],
+    "tags": ["warmup"]
+  },
+  {
+    "id": "energize",
+    "name": "Energize",
+    "categories": ["activity"],
+    "stretchIds": ["neck_rotation_mobility", "upperback_cat_cow", "chest_corner_stretch", "hips_butterfly", "hamstrings_standing_fold", "calves_wall", "core_bird_dog", "quads_standing"],
+    "relatedMuscleGroups": ["neck", "upperBack", "chest", "hips", "hamstrings", "calves", "core", "quads"],
+    "tags": ["morning", "energy"]
+  },
+  {
+    "id": "relax_unwind",
+    "name": "Relax & Unwind",
+    "categories": ["activity"],
+    "stretchIds": ["lowerback_child_pose", "hips_butterfly", "glutes_lying_hug", "hamstrings_seated", "neck_upper_trap_stretch", "forearms_prayer", "calves_soleus", "upperback_open_book"],
+    "relatedMuscleGroups": ["lowerBack", "hips", "glutes", "hamstrings", "neck", "forearms", "calves", "upperBack"],
+    "tags": ["relax", "bedtime"]
+  },
+  {
+    "id": "posture_program",
+    "name": "Posture Program",
+    "categories": ["activity"],
+    "stretchIds": ["neck_chin_tuck", "shoulders_doorway_pec", "chest_doorway_double", "upperback_thread_needle", "upperback_open_book", "core_dead_bug_hold", "core_bird_dog", "shoulders_sleeper", "neck_upper_trap_stretch", "chest_supine_foam"],
+    "relatedMuscleGroups": ["neck", "shoulders", "chest", "upperBack", "core"],
+    "tags": ["posture"]
+  },
+  {
+    "id": "core_stability",
+    "name": "Core Stability",
+    "categories": ["activity"],
+    "stretchIds": ["core_dead_bug_hold", "core_bird_dog", "core_pelvic_tilt", "hips_butterfly", "glutes_figure_four", "lowerback_knee_to_chest"],
+    "relatedMuscleGroups": ["core", "hips", "glutes", "lowerBack"],
+    "tags": ["core", "daily-maintenance"]
+  },
+  {
+    "id": "pelvic_floor_care",
+    "name": "Pelvic Floor Care",
+    "categories": ["activity"],
+    "stretchIds": ["core_pelvic_tilt", "glutes_lying_hug", "hips_butterfly", "lowerback_supine_twist", "hamstrings_seated", "core_dead_bug_hold"],
+    "relatedMuscleGroups": ["core", "glutes", "hips", "lowerBack", "hamstrings"],
+    "tags": ["core", "recovery"]
+  },
+  {
+    "id": "lower_back_1",
+    "name": "Lower Back I",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["lowerback_child_pose", "lowerback_knee_to_chest", "glutes_lying_hug", "core_pelvic_tilt", "hamstrings_seated", "hips_butterfly"],
+    "relatedMuscleGroups": ["lowerBack", "glutes", "core", "hamstrings", "hips"],
+    "tags": ["series"],
+    "seriesId": "series_lower_back",
+    "level": 1
+  },
+  {
+    "id": "lower_back_2",
+    "name": "Lower Back II",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["lowerback_child_pose", "lowerback_knee_to_chest", "lowerback_supine_twist", "glutes_figure_four", "glutes_lying_hug", "core_pelvic_tilt", "hamstrings_supine_strap", "hips_hip_flexor_lunge"],
+    "relatedMuscleGroups": ["lowerBack", "glutes", "core", "hamstrings", "hips"],
+    "tags": ["series"],
+    "seriesId": "series_lower_back",
+    "level": 2
+  },
+  {
+    "id": "lower_back_3",
+    "name": "Lower Back III",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["lowerback_child_pose", "lowerback_knee_to_chest", "lowerback_supine_twist", "glutes_figure_four", "glutes_lying_hug", "core_dead_bug_hold", "core_pelvic_tilt", "hamstrings_supine_strap", "hips_hip_flexor_lunge", "hips_pigeon"],
+    "relatedMuscleGroups": ["lowerBack", "glutes", "core", "hamstrings", "hips"],
+    "tags": ["series"],
+    "seriesId": "series_lower_back",
+    "level": 3
+  },
+  {
+    "id": "posture_1",
+    "name": "Posture I",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["neck_chin_tuck", "shoulders_cross_body", "chest_corner_stretch", "upperback_thread_needle", "core_pelvic_tilt", "upperback_cat_cow"],
+    "relatedMuscleGroups": ["neck", "shoulders", "chest", "upperBack", "core"],
+    "tags": ["series"],
+    "seriesId": "series_posture",
+    "level": 1
+  },
+  {
+    "id": "posture_2",
+    "name": "Posture II",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["neck_chin_tuck", "neck_upper_trap_stretch", "shoulders_cross_body", "shoulders_doorway_pec", "chest_doorway_double", "upperback_thread_needle", "upperback_open_book", "core_dead_bug_hold"],
+    "relatedMuscleGroups": ["neck", "shoulders", "chest", "upperBack", "core"],
+    "tags": ["series"],
+    "seriesId": "series_posture",
+    "level": 2
+  },
+  {
+    "id": "posture_3",
+    "name": "Posture III",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["neck_chin_tuck", "neck_upper_trap_stretch", "neck_rotation_mobility", "shoulders_cross_body", "shoulders_doorway_pec", "chest_doorway_double", "upperback_thread_needle", "upperback_open_book", "core_dead_bug_hold", "core_bird_dog"],
+    "relatedMuscleGroups": ["neck", "shoulders", "chest", "upperBack", "core"],
+    "tags": ["series"],
+    "seriesId": "series_posture",
+    "level": 3
+  },
+  {
+    "id": "neck_shoulders_1",
+    "name": "Neck & Shoulders I",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["neck_chin_tuck", "neck_upper_trap_stretch", "shoulders_cross_body", "shoulders_sleeper", "upperback_thread_needle", "chest_corner_stretch"],
+    "relatedMuscleGroups": ["neck", "shoulders", "upperBack", "chest"],
+    "tags": ["series"],
+    "seriesId": "series_neck_shoulders",
+    "level": 1
+  },
+  {
+    "id": "neck_shoulders_2",
+    "name": "Neck & Shoulders II",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["neck_chin_tuck", "neck_upper_trap_stretch", "neck_rotation_mobility", "shoulders_cross_body", "shoulders_doorway_pec", "shoulders_sleeper", "upperback_thread_needle", "chest_corner_stretch"],
+    "relatedMuscleGroups": ["neck", "shoulders", "upperBack", "chest"],
+    "tags": ["series"],
+    "seriesId": "series_neck_shoulders",
+    "level": 2
+  },
+  {
+    "id": "neck_shoulders_3",
+    "name": "Neck & Shoulders III",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["neck_chin_tuck", "neck_upper_trap_stretch", "neck_rotation_mobility", "shoulders_cross_body", "shoulders_doorway_pec", "shoulders_sleeper", "upperback_thread_needle", "upperback_open_book", "chest_corner_stretch", "triceps_overhead"],
+    "relatedMuscleGroups": ["neck", "shoulders", "upperBack", "chest", "triceps"],
+    "tags": ["series"],
+    "seriesId": "series_neck_shoulders",
+    "level": 3
+  },
+  {
+    "id": "hips_1",
+    "name": "Hips I",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["hips_butterfly", "hips_hip_flexor_lunge", "glutes_lying_hug", "hamstrings_seated", "core_pelvic_tilt", "lowerback_supine_twist"],
+    "relatedMuscleGroups": ["hips", "glutes", "hamstrings", "core", "lowerBack"],
+    "tags": ["series"],
+    "seriesId": "series_hips",
+    "level": 1
+  },
+  {
+    "id": "hips_2",
+    "name": "Hips II",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["hips_butterfly", "hips_hip_flexor_lunge", "hips_pigeon", "glutes_lying_hug", "glutes_figure_four", "hamstrings_seated", "hamstrings_supine_strap", "lowerback_supine_twist"],
+    "relatedMuscleGroups": ["hips", "glutes", "hamstrings", "lowerBack"],
+    "tags": ["series"],
+    "seriesId": "series_hips",
+    "level": 2
+  },
+  {
+    "id": "hips_3",
+    "name": "Hips III",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["hips_butterfly", "hips_hip_flexor_lunge", "hips_pigeon", "glutes_lying_hug", "glutes_figure_four", "glutes_seated_figure_four", "hamstrings_seated", "hamstrings_supine_strap", "lowerback_supine_twist", "core_bird_dog"],
+    "relatedMuscleGroups": ["hips", "glutes", "hamstrings", "lowerBack", "core"],
+    "tags": ["series"],
+    "seriesId": "series_hips",
+    "level": 3
+  },
+  {
+    "id": "full_body_1",
+    "name": "Full Body I",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["neck_rotation_mobility", "shoulders_cross_body", "upperback_cat_cow", "lowerback_knee_to_chest", "hips_butterfly", "hamstrings_standing_fold"],
+    "relatedMuscleGroups": ["neck", "shoulders", "upperBack", "lowerBack", "hips", "hamstrings"],
+    "tags": ["series"],
+    "seriesId": "series_full_body",
+    "level": 1
+  },
+  {
+    "id": "full_body_2",
+    "name": "Full Body II",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["neck_rotation_mobility", "shoulders_cross_body", "chest_corner_stretch", "upperback_cat_cow", "lowerback_knee_to_chest", "hips_hip_flexor_lunge", "glutes_figure_four", "hamstrings_standing_fold"],
+    "relatedMuscleGroups": ["neck", "shoulders", "chest", "upperBack", "lowerBack", "hips", "glutes", "hamstrings"],
+    "tags": ["series"],
+    "seriesId": "series_full_body",
+    "level": 2
+  },
+  {
+    "id": "full_body_3",
+    "name": "Full Body III",
+    "categories": ["seriesLevel"],
+    "stretchIds": ["neck_rotation_mobility", "shoulders_cross_body", "chest_corner_stretch", "upperback_cat_cow", "lowerback_knee_to_chest", "hips_hip_flexor_lunge", "glutes_figure_four", "hamstrings_standing_fold", "quads_standing", "calves_wall"],
+    "relatedMuscleGroups": ["neck", "shoulders", "chest", "upperBack", "lowerBack", "hips", "glutes", "hamstrings", "quads", "calves"],
+    "tags": ["series"],
+    "seriesId": "series_full_body",
+    "level": 3
+  }
+]

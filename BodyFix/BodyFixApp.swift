@@ -10,6 +10,7 @@ struct BodyFixApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.light)
         }
         .modelContainer(sharedModelContainer)
     }
@@ -19,6 +20,7 @@ private func makeModelContainer() -> ModelContainer {
     let schema = Schema([
         UserProfile.self,
         StretchSession.self,
+        RoutineSeriesProgress.self,
     ])
     let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

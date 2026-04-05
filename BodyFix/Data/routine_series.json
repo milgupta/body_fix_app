@@ -1,0 +1,37 @@
+[
+  {
+    "id": "series_lower_back",
+    "name": "Lower Back",
+    "levelRoutineIds": ["lower_back_1", "lower_back_2", "lower_back_3"],
+    "difficultyLabel": "Beginner to Advanced",
+    "relatedMuscleGroups": ["lowerBack", "glutes", "hips", "core", "hamstrings"]
+  },
+  {
+    "id": "series_posture",
+    "name": "Posture",
+    "levelRoutineIds": ["posture_1", "posture_2", "posture_3"],
+    "difficultyLabel": "Beginner to Advanced",
+    "relatedMuscleGroups": ["neck", "shoulders", "chest", "upperBack", "core"]
+  },
+  {
+    "id": "series_neck_shoulders",
+    "name": "Neck & Shoulders",
+    "levelRoutineIds": ["neck_shoulders_1", "neck_shoulders_2", "neck_shoulders_3"],
+    "difficultyLabel": "Beginner to Advanced",
+    "relatedMuscleGroups": ["neck", "shoulders", "upperBack", "chest"]
+  },
+  {
+    "id": "series_hips",
+    "name": "Hips",
+    "levelRoutineIds": ["hips_1", "hips_2", "hips_3"],
+    "difficultyLabel": "Beginner to Advanced",
+    "relatedMuscleGroups": ["hips", "glutes", "hamstrings", "lowerBack"]
+  },
+  {
+    "id": "series_full_body",
+    "name": "Full Body",
+    "levelRoutineIds": ["full_body_1", "full_body_2", "full_body_3"],
+    "difficultyLabel": "Beginner to Advanced",
+    "relatedMuscleGroups": ["neck", "shoulders", "upperBack", "lowerBack", "hips", "hamstrings"]
+  }
+]

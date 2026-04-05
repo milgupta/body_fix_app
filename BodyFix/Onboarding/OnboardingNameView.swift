@@ -24,15 +24,20 @@ struct OnboardingNameView: View {
                 .font(Typography.optionText)
                 .foregroundStyle(.bfTextPrimary)
                 .padding(.horizontal, 20)
-                .frame(height: 64)
+                .frame(height: 72)
                 .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.bfCardDark)
+                    RoundedRectangle(cornerRadius: 22, style: .continuous)
+                        .fill(Color.bfSurfaceElevated)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 22, style: .continuous)
+                        .stroke(Color.bfBorder.opacity(0.78), lineWidth: 1)
                 )
                 .focused($isFocused)
                 .textInputAutocapitalization(.words)
                 .autocorrectionDisabled()
                 .padding(.horizontal, 20)
+                .shadow(color: Color.black.opacity(0.03), radius: 10, y: 4)
 
             Spacer()
 
@@ -43,7 +48,7 @@ struct OnboardingNameView: View {
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 40)
+            .padding(.bottom, 44)
         }
         .onAppear {
             isFocused = true

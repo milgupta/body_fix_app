@@ -7,6 +7,7 @@ struct SessionCompleteView: View {
     @Binding var path: NavigationPath
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [UserProfile]
+    @Query private var seriesProgressEntries: [RoutineSeriesProgress]
 
     @State private var checkScale: CGFloat = 0
     @State private var shareImage: UIImage?
@@ -139,7 +140,20 @@ struct SessionCompleteView: View {
 
         guard let p = profile else { return }
         StreakUpdater.applySessionCompletion(to: p, at: Date())
+        updateSeriesProgressIfNeeded()
         try? modelContext.save()
+    }
+
+    private func updateSeriesProgressIfNeeded() {
+        guard let seriesId = route.seriesId, let level = route.seriesLevel else { return }
+        if let entry = seriesProgressEntries.first(where: { $0.seriesId == seriesId }) {
+            if level > entry.completedLevel {
+                entry.completedLevel = level
+                entry.lastCompletedAt = Date()
+            }
+        } else {
+            modelContext.insert(RoutineSeriesProgress(seriesId: seriesId, completedLevel: level, lastCompletedAt: Date()))
+        }
     }
 
     @MainActor

@@ -11,30 +11,37 @@ struct OnboardingOptionCard: View {
             HapticManager.shared.selection()
             action()
         } label: {
-            HStack(spacing: 12) {
+            HStack(spacing: 14) {
                 if !emoji.isEmpty {
                     Text(emoji)
-                        .font(.system(size: 26))
+                        .font(.system(size: 28))
+                        .frame(width: 44, height: 44)
+                        .background(
+                            Circle()
+                                .fill(isSelected ? Color.white.opacity(0.18) : Color.bfSurfaceMuted)
+                        )
                 }
                 Text(title)
                     .font(Typography.optionText)
-                    .foregroundStyle(.bfTextPrimary)
+                    .foregroundStyle(isSelected ? Color.white : Color.bfTextPrimary)
+                    .multilineTextAlignment(.leading)
                 Spacer()
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 21, weight: .semibold))
+                    .foregroundStyle(isSelected ? Color.white : Color.bfTextDisabled)
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 22)
             .frame(maxWidth: .infinity)
-            .frame(height: 64)
+            .frame(minHeight: 78)
             .background(
-                Group {
-                    if isSelected {
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.bfSelectionGradient)
-                    } else {
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.bfCardDark)
-                    }
-                }
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .fill(isSelected ? AnyShapeStyle(.bfGradient) : AnyShapeStyle(Color.bfSurfaceElevated))
             )
+            .overlay(
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .stroke(isSelected ? Color.clear : Color.bfBorder.opacity(0.78), lineWidth: 1)
+            )
+            .shadow(color: Color.black.opacity(isSelected ? 0.1 : 0.035), radius: isSelected ? 16 : 10, y: 5)
         }
         .buttonStyle(.plain)
         .animation(.easeOut(duration: 0.2), value: isSelected)

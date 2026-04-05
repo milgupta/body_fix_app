@@ -376,7 +376,16 @@ struct StretchTimerView: View {
         let names = stretches.map(\.name)
         let muscles = Array(Set(stretches.map(\.muscleGroup))).sorted()
         let total = stretches.reduce(0) { $0 + $1.duration }
-        path.append(SessionCompleteRoute(stretchNames: names, muscleGroupRaws: muscles, totalSeconds: total))
+        path.append(
+            SessionCompleteRoute(
+                stretchNames: names,
+                muscleGroupRaws: muscles,
+                totalSeconds: total,
+                routineName: route.routineName,
+                seriesId: route.seriesId,
+                seriesLevel: route.seriesLevel
+            )
+        )
     }
 
     @ViewBuilder

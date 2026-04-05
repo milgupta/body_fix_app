@@ -27,8 +27,8 @@ struct SettingsView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     header
-                        .padding(.top, 8)
-                        .padding(.bottom, 28)
+                        .padding(.top, 16)
+                        .padding(.bottom, 32)
 
                     sectionTitle("membership")
                     VStack(spacing: 10) {
@@ -117,7 +117,7 @@ struct SettingsView: View {
 
     private func sectionTitle(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: 13, weight: .bold, design: .rounded))
+            .font(Typography.metadataBadge)
             .foregroundStyle(Color.bfTextMuted)
             .textCase(.lowercase)
             .padding(.bottom, 10)
@@ -155,7 +155,7 @@ struct SettingsView: View {
                 .foregroundStyle(Color.bfMint)
                 .frame(width: 28, alignment: .center)
             Text(title)
-                .font(Typography.optionText)
+                .font(Typography.controlLabel)
                 .foregroundStyle(Color.bfTextPrimary)
                 .multilineTextAlignment(.leading)
             Spacer(minLength: 8)
@@ -165,38 +165,40 @@ struct SettingsView: View {
                     .foregroundStyle(Color.bfTextMuted)
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 16)
+        .padding(.horizontal, 18)
+        .padding(.vertical, 18)
         .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.bfCard)
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Color.bfSurfaceElevated)
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .stroke(Color.bfBorder.opacity(0.6), lineWidth: 1)
         )
+        .shadow(color: Color.black.opacity(0.03), radius: 10, y: 4)
     }
 
     private var versionCard: some View {
         HStack {
             Text("version")
-                .font(Typography.optionText)
+                .font(Typography.controlLabel)
                 .foregroundStyle(Color.bfTextPrimary)
             Spacer()
             Text(appVersionString)
                 .font(Typography.caption)
                 .foregroundStyle(Color.bfTextTertiary)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 16)
+        .padding(.horizontal, 18)
+        .padding(.vertical, 18)
         .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.bfCard)
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Color.bfSurfaceElevated)
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .stroke(Color.bfBorder.opacity(0.6), lineWidth: 1)
         )
+        .shadow(color: Color.black.opacity(0.03), radius: 10, y: 4)
     }
 
     private func openMail(subject: String) {

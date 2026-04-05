@@ -9,12 +9,7 @@ struct MuscleCardView: View {
         Button(action: action) {
             GeometryReader { geo in
                 HStack(spacing: 0) {
-                    ZStack {
-                        // TODO: Replace with actual muscle group illustrations
-                        Image(systemName: "figure.stand")
-                            .font(.system(size: 28))
-                            .foregroundStyle(Color.bfTextTertiary)
-                    }
+                    BodyFixThumbnailView(muscleGroup: group, size: 44)
                     .frame(width: geo.size.width * 0.4)
 
                     Text(group.displayName)
@@ -55,7 +50,7 @@ struct MuscleCardView: View {
                     }
                 }
             )
-            .shadow(color: .black.opacity(0.3), radius: 8, x: 0, y: 4)
+            .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
         }
         .buttonStyle(.plain)
         .animation(.easeInOut(duration: 0.2), value: isSelected)

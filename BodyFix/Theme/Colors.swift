@@ -23,18 +23,28 @@ extension Color {
         )
     }
 
-    static let bfBackground = Color(hex: "#0F172A")
-    static let bfCard = Color(hex: "#1E293B")
-    static let bfBorder = Color(hex: "#334155")
-    static let bfMint = Color(hex: "#5EEAD4")
-    static let bfTeal = Color(hex: "#14B8A6")
-    static let bfSliderWarm = Color(hex: "#F59E0B")
-    static let bfBlue = Color(hex: "#3B82F6")
-    static let bfTextPrimary = Color(hex: "#F8FAFC")
-    static let bfTextSecondary = Color(hex: "#E2E8F0")
-    static let bfTextTertiary = Color(hex: "#94A3B8")
-    static let bfTextMuted = Color(hex: "#64748B")
-    static let bfTextDisabled = Color(hex: "#475569")
+    static let bfBackground = Color(hex: "#FFFFFF")
+    static let bfCard = Color(hex: "#F6F8FB")
+    static let bfBorder = Color(hex: "#D9E1EC")
+    static let bfMint = Color(hex: "#163B73")
+    static let bfTeal = Color(hex: "#2B5C96")
+    static let bfSliderWarm = Color(hex: "#E6A23C")
+    static let bfBlue = Color(hex: "#4F7DBA")
+    static let bfTextPrimary = Color(hex: "#1A2433")
+    static let bfTextSecondary = Color(hex: "#425466")
+    static let bfTextTertiary = Color(hex: "#6B7A8C")
+    static let bfTextMuted = Color(hex: "#8291A3")
+    static let bfTextDisabled = Color(hex: "#A5B1BF")
+    static let bfPageBackground = Color(hex: "#FCFBF8")
+    static let bfSurfaceMuted = Color(hex: "#F8F4EE")
+    static let bfSurfaceElevated = Color(hex: "#FFFDF9")
+    static let bfHeroSurface = Color(hex: "#0E172A")
+    static let bfHeroSurfaceSecondary = Color(hex: "#16233B")
+    static let bfHeroGhostCircle = Color(hex: "#22314C")
+    static let bfAccent = Color(hex: "#4F7DBA")
+    static let bfAccentWarm = Color(hex: "#E8B06A")
+    static let bfHeroTextPrimary = Color(hex: "#F8FAFC")
+    static let bfHeroTextSecondary = Color(hex: "#B6C2D7")
 
     // Legacy aliases (onboarding + existing components)
     static let bfNavy = bfBackground
@@ -56,6 +66,16 @@ extension ShapeStyle where Self == Color {
     static var bfTextTertiary: Color { .bfTextTertiary }
     static var bfTextMuted: Color { .bfTextMuted }
     static var bfTextDisabled: Color { .bfTextDisabled }
+    static var bfPageBackground: Color { .bfPageBackground }
+    static var bfSurfaceMuted: Color { .bfSurfaceMuted }
+    static var bfSurfaceElevated: Color { .bfSurfaceElevated }
+    static var bfHeroSurface: Color { .bfHeroSurface }
+    static var bfHeroSurfaceSecondary: Color { .bfHeroSurfaceSecondary }
+    static var bfHeroGhostCircle: Color { .bfHeroGhostCircle }
+    static var bfAccent: Color { .bfAccent }
+    static var bfAccentWarm: Color { .bfAccentWarm }
+    static var bfHeroTextPrimary: Color { .bfHeroTextPrimary }
+    static var bfHeroTextSecondary: Color { .bfHeroTextSecondary }
     static var bfNavy: Color { .bfNavy }
     static var bfCardDark: Color { .bfCardDark }
     static var bfCardDarker: Color { .bfCardDarker }
@@ -64,9 +84,15 @@ extension ShapeStyle where Self == Color {
 
 extension LinearGradient {
     static let bfGradient = LinearGradient(
-        colors: [Color(hex: "#3B82F6"), Color(hex: "#5EEAD4")],
+        colors: [Color.bfMint, Color.bfAccent],
         startPoint: .leading,
         endPoint: .trailing
+    )
+
+    static let bfHeroGradient = LinearGradient(
+        colors: [Color.bfHeroSurface, Color.bfHeroSurfaceSecondary],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
     )
 
     /// Legacy names map to the primary accent gradient.
@@ -77,6 +103,7 @@ extension LinearGradient {
 
 extension ShapeStyle where Self == LinearGradient {
     static var bfGradient: LinearGradient { .bfGradient }
+    static var bfHeroGradient: LinearGradient { .bfHeroGradient }
     static var bfSelectionGradient: LinearGradient { .bfSelectionGradient }
     static var bfProgressGradient: LinearGradient { .bfProgressGradient }
     static var bfSplashGradient: LinearGradient { .bfSplashGradient }

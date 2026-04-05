@@ -69,8 +69,9 @@ struct WorkoutLogEntryView: View {
                 .padding(.bottom, 16)
             }
         }
-        .background(RoundedRectangle(cornerRadius: 14).fill(Color.bfCard))
-        .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.bfBorder, lineWidth: 1))
+        .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Color.bfSurfaceElevated))
+        .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Color.bfBorder, lineWidth: 1))
+        .shadow(color: Color.black.opacity(0.03), radius: 10, y: 4)
     }
 
     private func formatDuration(_ seconds: Int) -> String {

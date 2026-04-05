@@ -26,15 +26,18 @@ struct OnboardingContainerView: View {
                             } label: {
                                 Image(systemName: "chevron.left")
                                     .font(Typography.navIcon)
-                                    .foregroundStyle(.white)
+                                    .foregroundStyle(Color.bfTextPrimary)
+                                    .frame(width: 42, height: 42)
+                                    .background(Circle().fill(Color.bfSurfaceElevated))
+                                    .overlay(Circle().stroke(Color.bfBorder.opacity(0.75), lineWidth: 1))
                             }
                         }
 
                         ProgressBar(progress: viewModel.progress)
                     }
                     .padding(.horizontal, 20)
-                    .padding(.top, 8)
-                    .padding(.bottom, 12)
+                    .padding(.top, 12)
+                    .padding(.bottom, 20)
                 }
 
                 screenContent
@@ -86,7 +89,7 @@ struct OnboardingContainerView: View {
             if [0, 4, 7, 14, 17, 19].contains(step) {
                 Rectangle().fill(.bfSplashGradient)
             } else {
-                Color.bfNavy
+                Color.bfPageBackground
             }
         }
     }

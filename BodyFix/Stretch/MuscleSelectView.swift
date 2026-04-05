@@ -52,7 +52,7 @@ struct MuscleSelectView: View {
                 VStack(spacing: 0) {
                     Button {
                         HapticManager.shared.heavyImpact()
-                        path.append(StretchListRoute(muscles: selectedMuscles))
+                        path.append(StretchListRoute(muscles: selectedMuscles, perGroup: 3))
                     } label: {
                         Text("View \(selectedMuscles.count * 3) Stretches →")
                             .font(Typography.primaryCta)

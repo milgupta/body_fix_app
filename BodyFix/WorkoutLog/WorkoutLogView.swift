@@ -23,7 +23,7 @@ struct WorkoutLogView: View {
                             .font(Typography.screenTitle)
                             .foregroundStyle(Color.bfTextPrimary)
                             .padding(.horizontal, 20)
-                            .padding(.top, 16)
+                            .padding(.top, 20)
 
                         streakBanner
                             .padding(.horizontal, 20)
@@ -46,14 +46,14 @@ struct WorkoutLogView: View {
             VStack(alignment: .leading, spacing: 4) {
                 if streak == 0 {
                     Text("Start your streak today!")
-                        .font(.system(size: 17, weight: .bold, design: .rounded))
+                        .font(Typography.cardTitle)
                         .foregroundStyle(Color.bfMint)
                     Text("Complete a stretch routine to begin.")
                         .font(Typography.screenSubtitle)
                         .foregroundStyle(Color.bfTextTertiary)
                 } else {
                     Text("\(streak) day streak")
-                        .font(.system(size: 17, weight: .bold, design: .rounded))
+                        .font(Typography.cardTitle)
                         .foregroundStyle(Color.bfMint)
                     Text("Keep it going!")
                         .font(Typography.screenSubtitle)
@@ -62,9 +62,10 @@ struct WorkoutLogView: View {
             }
             Spacer()
         }
-        .padding(16)
-        .background(RoundedRectangle(cornerRadius: 14).fill(Color.bfCard))
-        .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.bfBorder, lineWidth: 1))
+        .padding(18)
+        .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Color.bfSurfaceElevated))
+        .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Color.bfBorder, lineWidth: 1))
+        .shadow(color: Color.black.opacity(0.03), radius: 10, y: 4)
     }
 
     private var emptyState: some View {
@@ -72,7 +73,7 @@ struct WorkoutLogView: View {
             Text("🧘")
                 .font(.system(size: 56))
             Text("No stretches yet")
-                .font(.system(size: 16, weight: .medium, design: .rounded))
+                .font(Typography.sectionTitle)
                 .foregroundStyle(Color.bfTextMuted)
             Button {
                 HapticManager.shared.mediumImpact()
@@ -82,8 +83,8 @@ struct WorkoutLogView: View {
                     .font(Typography.primaryCta)
                     .foregroundStyle(.white)
                     .padding(.horizontal, 24)
-                    .padding(.vertical, 14)
-                    .background(RoundedRectangle(cornerRadius: 14).fill(.bfGradient))
+                    .padding(.vertical, 16)
+                    .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(.bfGradient))
             }
             .buttonStyle(.plain)
         }

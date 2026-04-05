@@ -7,28 +7,34 @@ struct StretchCardView: View {
     var body: some View {
         Button(action: action) {
             VStack(alignment: .leading, spacing: 0) {
-                HStack(alignment: .top) {
-                    Text(stretch.name)
-                        .font(Typography.stretchName)
-                        .foregroundStyle(Color.bfTextPrimary)
-                        .multilineTextAlignment(.leading)
+                HStack(alignment: .top, spacing: 12) {
+                    BodyFixThumbnailView(stretch: stretch, size: 48)
 
-                    Spacer(minLength: 8)
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack(alignment: .top) {
+                            Text(stretch.name)
+                                .font(Typography.stretchName)
+                                .foregroundStyle(Color.bfTextPrimary)
+                                .multilineTextAlignment(.leading)
 
-                    Text(stretch.durationBadgeText)
-                        .font(Typography.badgeMono)
-                        .foregroundStyle(Color.bfMint)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
-                        .background(Color.bfBlue.opacity(0.08))
-                        .clipShape(Capsule())
+                            Spacer(minLength: 8)
+
+                            Text(stretch.durationBadgeText)
+                                .font(Typography.badgeMono)
+                                .foregroundStyle(Color.bfMint)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 4)
+                                .background(Color.bfBlue.opacity(0.08))
+                                .clipShape(Capsule())
+                        }
+
+                        Text(stretch.description)
+                            .font(Typography.stretchDescription)
+                            .foregroundStyle(Color.bfTextTertiary)
+                            .lineLimit(2)
+                            .padding(.top, 8)
+                    }
                 }
-
-                Text(stretch.description)
-                    .font(Typography.stretchDescription)
-                    .foregroundStyle(Color.bfTextTertiary)
-                    .lineLimit(2)
-                    .padding(.top, 8)
 
                 HStack(spacing: 6) {
                     Circle()
