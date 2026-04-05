@@ -8,7 +8,7 @@ struct StretchCardView: View {
         Button(action: action) {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .top, spacing: 12) {
-                    BodyFixThumbnailView(stretch: stretch, size: 48)
+                    BodyFixThumbnailView(stretch: stretch, size: 52)
 
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(alignment: .top) {
@@ -48,11 +48,11 @@ struct StretchCardView: View {
             }
             .padding(16)
             .background(
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(Color.bfCard)
+                RoundedRectangle(cornerRadius: 18)
+                    .fill(Color.bfSurfaceElevated)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 14)
-                            .stroke(Color.bfBorder, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 18)
+                            .stroke(Color.bfBorder.opacity(0.5), lineWidth: 1)
                     )
             )
         }

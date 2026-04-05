@@ -4,11 +4,10 @@ struct OnboardingMotivationLevelView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
 
     private let options: [(emoji: String, title: String)] = [
-        ("🔥", "Extremely Committed"),
-        ("💪", "Very committed"),
-        ("🤔", "Somewhat committed"),
-        ("🎉", "A Little Committed"),
-        ("🧪", "Just trying it out"),
+        ("🔥", "Ready to commit"),
+        ("💪", "Pretty motivated"),
+        ("🤔", "Curious but cautious"),
+        ("🧪", "Just exploring"),
     ]
 
     var body: some View {
@@ -18,7 +17,7 @@ struct OnboardingMotivationLevelView: View {
                     .font(Typography.subtitle)
                     .foregroundStyle(.bfTextSecondary)
 
-                Text("How committed are you to **making this future happen**?")
+                Text("How motivated are you to work on this **right now**?")
                     .font(Typography.question)
                     .foregroundStyle(.bfTextPrimary)
             }

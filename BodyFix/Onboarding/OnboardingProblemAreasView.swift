@@ -13,6 +13,10 @@ struct OnboardingProblemAreasView: View {
                 Text("Where do you feel **tightness** or discomfort most often?")
                     .font(Typography.question)
                     .foregroundStyle(.bfTextPrimary)
+
+                Text("Select all that apply.")
+                    .font(Typography.caption)
+                    .foregroundStyle(.bfTextSecondary)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 24)

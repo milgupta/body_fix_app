@@ -99,6 +99,6 @@ struct RoutineStretchListView: View {
                     .foregroundStyle(Color.bfTextPrimary)
             }
         }
-        .padding(.top, 8)
+        .padding(.top, 12)
     }
 }

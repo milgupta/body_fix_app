@@ -24,7 +24,7 @@ struct StretchListView: View {
                     header
 
                     ForEach(sections, id: \.0) { group, stretches in
-                        VStack(alignment: .leading, spacing: 10) {
+                        VStack(alignment: .leading, spacing: 12) {
                             Text(group.displayName)
                                 .font(Typography.screenSubtitle)
                                 .fontWeight(.semibold)
@@ -94,6 +94,6 @@ struct StretchListView: View {
                 .foregroundStyle(Color.bfTextTertiary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.top, 8)
+        .padding(.top, 12)
     }
 }

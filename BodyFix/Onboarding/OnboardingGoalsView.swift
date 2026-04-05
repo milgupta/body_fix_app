@@ -4,13 +4,13 @@ struct OnboardingGoalsView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
 
     private let options: [(emoji: String, title: String)] = [
-        ("🩹", "Reduce Pain & Stiffness"),
+        ("🩹", "Reduce pain and stiffness"),
         ("🧘", "Improve Flexibility"),
-        ("🧍", "Better Posture"),
-        ("🔄", "Recover Faster from Workouts"),
-        ("😌", "Reduce Stress & Tension"),
-        ("💤", "Improve Sleep Quality"),
-        ("🚶", "Move Better Day-to-Day"),
+        ("🧍", "Improve posture"),
+        ("🔄", "Recover faster from workouts"),
+        ("😌", "Reduce stress and tension"),
+        ("💤", "Sleep better"),
+        ("🚶", "Move better day to day"),
     ]
 
     var body: some View {
@@ -20,7 +20,7 @@ struct OnboardingGoalsView: View {
                     .font(Typography.subtitle)
                     .foregroundStyle(.bfTextSecondary)
 
-                Text("What do you want to **achieve** with Body Fix?")
+                Text("What do you want Body Fix to **help with** first?")
                     .font(Typography.question)
                     .foregroundStyle(.bfTextPrimary)
 

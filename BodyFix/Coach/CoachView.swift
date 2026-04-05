@@ -31,13 +31,13 @@ struct CoachView: View {
                         .font(Typography.screenTitle)
                         .foregroundStyle(Color.bfTextPrimary)
                     Image(systemName: "sparkles")
-                        .font(.system(size: 22))
+                        .font(.system(size: 24))
                         .foregroundStyle(Color.bfMint)
                     Spacer()
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 14)
+                .padding(.top, 24)
+                .padding(.bottom, 16)
 
                 ZStack {
                     chatContent
@@ -126,9 +126,9 @@ struct CoachView: View {
                         .font(Typography.caption)
                         .foregroundStyle(Color.bfTextSecondary)
                         .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 10)
                         .background(Capsule().fill(Color.bfSurfaceElevated))
-                        .overlay(Capsule().stroke(Color.bfBorder))
+                        .overlay(Capsule().stroke(Color.bfBorder.opacity(0.5)))
                 }
                 .buttonStyle(.plain)
             }
@@ -183,13 +183,13 @@ struct CoachView: View {
             .buttonStyle(.plain)
             .padding(.horizontal, 8)
         }
-        .padding(24)
-        .background(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .fill(Color.bfSurfaceElevated)
-                .shadow(color: .black.opacity(0.35), radius: 20, y: 8)
-        )
-        .padding(24)
+            .padding(24)
+            .background(
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .fill(Color.bfSurfaceElevated)
+                    .shadow(color: .black.opacity(0.12), radius: 16, y: 8)
+            )
+            .padding(24)
     }
 
     private func sendCurrentInput() {

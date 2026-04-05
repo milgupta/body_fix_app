@@ -24,8 +24,8 @@ struct MainTabView: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             BodyFixTabBar(selectedTab: $selectedTab, tabs: tabs)
                 .padding(.horizontal, 20)
-                .padding(.top, 8)
-                .padding(.bottom, 6)
+                .padding(.top, 2)
+                .padding(.bottom, 4)
         }
     }
 }
@@ -61,22 +61,32 @@ private struct BodyFixTabBar: View {
 
     var body: some View {
         GeometryReader { proxy in
-            let horizontalInset: CGFloat = 8
+            let horizontalInset: CGFloat = 10
             let verticalInset: CGFloat = 8
             let laneWidth = (proxy.size.width - (horizontalInset * 2)) / CGFloat(max(tabs.count, 1))
-            let highlightWidth = max(laneWidth - 12, 44)
-            let highlightHeight = max(proxy.size.height - (verticalInset * 2) - 2, 42)
+            let highlightSize = min(max(laneWidth - 20, 42), 52)
             let highlightX = horizontalInset + (laneWidth * CGFloat(selectedTab)) + (laneWidth / 2)
 
             ZStack {
                 Capsule(style: .continuous)
-                    .fill(Color.bfSurfaceElevated.opacity(0.98))
+                    .fill(Color.bfTabBarFill)
+                    .overlay(
+                        Capsule(style: .continuous)
+                            .fill(.ultraThinMaterial)
+                            .opacity(0.38)
+                    )
 
-                Capsule(style: .continuous)
-                    .fill(Color.bfHeroSurface.opacity(0.14))
-                    .frame(width: highlightWidth, height: highlightHeight)
+                Circle()
+                    .fill(Color.bfTabBarSpotlight)
+                    .frame(width: highlightSize, height: highlightSize)
+                    .overlay(
+                        Circle()
+                            .fill(Color.bfTabBarSpotlightCore)
+                            .padding(8)
+                    )
+                    .blur(radius: 0.2)
                     .position(x: highlightX, y: proxy.size.height / 2)
-                    .animation(.spring(response: 0.3, dampingFraction: 0.84), value: selectedTab)
+                    .animation(.spring(response: 0.34, dampingFraction: 0.86), value: selectedTab)
 
                 HStack(spacing: 0) {
                     ForEach(tabs, id: \.rawValue) { tab in
@@ -89,8 +99,8 @@ private struct BodyFixTabBar: View {
                             }
                         } label: {
                             Image(systemName: tab.icon)
-                                .font(.system(size: 20, weight: isSelected ? .bold : .semibold))
-                                .foregroundStyle(isSelected ? Color.bfHeroSurface : Color.bfTextMuted)
+                                .font(.system(size: 22, weight: isSelected ? .bold : .semibold))
+                                .foregroundStyle(isSelected ? Color.bfHeroSurface : Color.bfTextMuted.opacity(0.9))
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 56)
                                 .contentShape(Rectangle())
@@ -104,11 +114,12 @@ private struct BodyFixTabBar: View {
                 .padding(.horizontal, horizontalInset)
                 .padding(.vertical, verticalInset)
             }
+            .clipShape(Capsule(style: .continuous))
             .overlay(
                 Capsule(style: .continuous)
-                    .stroke(Color.bfBorder.opacity(0.68), lineWidth: 1)
+                    .stroke(Color.bfTabBarBorder, lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.04), radius: 10, y: 3)
+            .shadow(color: Color.black.opacity(0.04), radius: 10, y: 2)
         }
         .frame(height: 70)
     }

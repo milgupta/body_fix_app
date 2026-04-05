@@ -56,7 +56,7 @@ struct OnboardingPlanPreviewView: View {
             .padding(.top, 8)
             .padding(.bottom, 20)
 
-            Text("Your Body Fix Plan")
+            Text("Your first Body Fix plan")
                 .font(Typography.splashTitle)
                 .foregroundStyle(.bfTextPrimary)
                 .padding(.horizontal, 20)
@@ -64,32 +64,35 @@ struct OnboardingPlanPreviewView: View {
 
             Spacer().frame(height: 8)
 
-            Text("Daily routine: \(totalDuration / 60) min \(totalDuration % 60)s")
+            Text("A simple routine built around what you told us.")
                 .font(Typography.subtitle)
                 .foregroundStyle(.bfTextSecondary)
                 .padding(.horizontal, 20)
                 .opacity(showContent ? 1.0 : 0)
+
+            Spacer().frame(height: 16)
+
+            HStack(spacing: 10) {
+                previewBadge(title: "\(previewStretches.count) stretches")
+                previewBadge(title: "\(totalDuration / 60)m \(totalDuration % 60)s")
+                previewBadge(title: "Start today")
+            }
+            .padding(.horizontal, 20)
+            .opacity(showContent ? 1.0 : 0)
 
             Spacer().frame(height: 24)
 
             VStack(spacing: 12) {
                 ForEach(Array(previewStretches.enumerated()), id: \.element.id) { index, stretch in
                     HStack(spacing: 16) {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(.bfSelectionGradient)
-                            .frame(width: 48, height: 48)
-                            .overlay {
-                                Text("\(index + 1)")
-                                    .font(.system(size: 20, weight: .bold, design: .rounded))
-                                    .foregroundStyle(.white)
-                            }
+                        BodyFixThumbnailView(stretch: stretch, size: 52)
 
                         VStack(alignment: .leading, spacing: 4) {
                             Text(stretch.name)
                                 .font(Typography.optionText)
                                 .foregroundStyle(.bfTextPrimary)
 
-                            Text("\(stretch.duration)s · \(stretch.repScheme)")
+                            Text("Step \(index + 1) · \(stretch.duration)s · \(stretch.repScheme)")
                                 .font(Typography.caption)
                                 .foregroundStyle(.bfTextSecondary)
                         }
@@ -99,7 +102,11 @@ struct OnboardingPlanPreviewView: View {
                     .padding(16)
                     .background(
                         RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.bfCardDark)
+                            .fill(Color.bfSurfaceElevated)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.bfBorder.opacity(0.75), lineWidth: 1)
+                            )
                     )
                     .opacity(showContent ? 1.0 : 0)
                     .animation(
@@ -113,6 +120,7 @@ struct OnboardingPlanPreviewView: View {
             Spacer()
 
             OnboardingContinueButton(label: "Start My Plan") {
+                HapticManager.shared.success()
                 viewModel.saveProfile(to: modelContext)
             }
             .padding(.horizontal, 20)
@@ -124,6 +132,18 @@ struct OnboardingPlanPreviewView: View {
                 showContent = true
             }
         }
+    }
+
+    private func previewBadge(title: String) -> some View {
+        Text(title)
+            .font(Typography.caption)
+            .foregroundStyle(.bfAccent)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(
+                Capsule()
+                    .fill(Color.bfSurfaceMuted)
+            )
     }
 }
 

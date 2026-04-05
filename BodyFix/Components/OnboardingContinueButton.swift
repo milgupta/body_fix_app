@@ -10,22 +10,34 @@ struct OnboardingContinueButton: View {
             HapticManager.shared.lightImpact()
             action()
         } label: {
-            HStack(spacing: 10) {
+            ZStack {
                 Text(label)
+                    .frame(maxWidth: .infinity, alignment: .center)
+
                 Image(systemName: "arrow.right")
                     .font(.system(size: 16, weight: .bold))
                     .frame(width: 32, height: 32)
-                    .background(Circle().fill(Color.white.opacity(0.18)))
+                    .background(
+                        Circle()
+                            .fill(isEnabled ? Color.bfOnboardingButtonChip : Color.bfBorder.opacity(0.8))
+                    )
+                    .foregroundStyle(isEnabled ? Color.white : Color.bfTextDisabled)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .font(Typography.ctaButton)
-            .foregroundStyle(Color.white)
+            .foregroundStyle(isEnabled ? Color.bfOnboardingButtonText : Color.bfTextDisabled)
             .frame(maxWidth: .infinity)
             .frame(height: 64)
+            .padding(.horizontal, 16)
             .background(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .fill(isEnabled ? AnyShapeStyle(.bfGradient) : AnyShapeStyle(Color.bfBorder))
+                    .fill(isEnabled ? AnyShapeStyle(Color.bfOnboardingButtonFill) : AnyShapeStyle(Color.white.opacity(0.2)))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 22, style: .continuous)
+                            .stroke(isEnabled ? Color.bfOnboardingButtonBorder : Color.white.opacity(0.12), lineWidth: 1)
+                    )
             )
-            .shadow(color: isEnabled ? Color.bfAccent.opacity(0.24) : Color.clear, radius: 16, y: 6)
+            .shadow(color: isEnabled ? Color.black.opacity(0.12) : Color.clear, radius: 18, y: 8)
         }
         .buttonStyle(.plain)
         .disabled(!isEnabled)

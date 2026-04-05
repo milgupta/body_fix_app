@@ -18,12 +18,12 @@ struct WorkoutLogView: View {
                 emptyState
             } else {
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 18) {
                         Text("Workout Log")
                             .font(Typography.screenTitle)
                             .foregroundStyle(Color.bfTextPrimary)
                             .padding(.horizontal, 20)
-                            .padding(.top, 20)
+                            .padding(.top, 24)
 
                         streakBanner
                             .padding(.horizontal, 20)
@@ -42,7 +42,7 @@ struct WorkoutLogView: View {
     private var streakBanner: some View {
         HStack(alignment: .center, spacing: 12) {
             Text("🔥")
-                .font(.system(size: 28))
+                .font(.system(size: 30))
             VStack(alignment: .leading, spacing: 4) {
                 if streak == 0 {
                     Text("Start your streak today!")
@@ -64,16 +64,16 @@ struct WorkoutLogView: View {
         }
         .padding(18)
         .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Color.bfSurfaceElevated))
-        .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Color.bfBorder, lineWidth: 1))
-        .shadow(color: Color.black.opacity(0.03), radius: 10, y: 4)
+        .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Color.bfBorder.opacity(0.46), lineWidth: 1))
+        .shadow(color: Color.black.opacity(0.02), radius: 8, y: 3)
     }
 
     private var emptyState: some View {
         VStack(spacing: 20) {
             Text("🧘")
-                .font(.system(size: 56))
+                .font(.system(size: 60))
             Text("No stretches yet")
-                .font(Typography.sectionTitle)
+                .font(Typography.cardTitle)
                 .foregroundStyle(Color.bfTextMuted)
             Button {
                 HapticManager.shared.mediumImpact()

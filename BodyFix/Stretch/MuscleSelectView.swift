@@ -19,13 +19,13 @@ struct MuscleSelectView: View {
                         .font(Typography.screenTitle)
                         .foregroundStyle(Color.bfTextPrimary)
                         .padding(.horizontal, 20)
-                        .padding(.top, 16)
+                        .padding(.top, 20)
 
                     Text("Select the areas you want to stretch")
                         .font(Typography.screenSubtitle)
                         .foregroundStyle(Color.bfTextTertiary)
                         .padding(.horizontal, 20)
-                        .padding(.top, 8)
+                        .padding(.top, 10)
 
                     LazyVGrid(columns: columns, spacing: 12) {
                         ForEach(MuscleGroup.allCases) { group in

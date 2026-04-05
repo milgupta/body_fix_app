@@ -43,8 +43,8 @@ struct OnboardingFairTrialView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
-                        .frame(maxHeight: 200)
-                        .padding(.horizontal, 20)
+                        .frame(maxHeight: 236)
+                        .padding(.horizontal, 12)
                         .opacity(showContent ? 1.0 : 0)
 
                     Color.clear.frame(height: 16)

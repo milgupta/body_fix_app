@@ -27,8 +27,8 @@ struct SettingsView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     header
-                        .padding(.top, 16)
-                        .padding(.bottom, 32)
+                        .padding(.top, 20)
+                        .padding(.bottom, 36)
 
                     sectionTitle("membership")
                     VStack(spacing: 10) {
@@ -151,7 +151,7 @@ struct SettingsView: View {
     private func rowContent(title: String, systemImage: String, showsChevron: Bool) -> some View {
         HStack(spacing: 14) {
             Image(systemName: systemImage)
-                .font(.system(size: 18, weight: .semibold))
+                .font(.system(size: 20, weight: .semibold))
                 .foregroundStyle(Color.bfMint)
                 .frame(width: 28, alignment: .center)
             Text(title)
@@ -166,16 +166,16 @@ struct SettingsView: View {
             }
         }
         .padding(.horizontal, 18)
-        .padding(.vertical, 18)
+        .padding(.vertical, 20)
         .background(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .fill(Color.bfSurfaceElevated)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.6), lineWidth: 1)
+                .stroke(Color.bfBorder.opacity(0.46), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.03), radius: 10, y: 4)
+        .shadow(color: Color.black.opacity(0.02), radius: 8, y: 3)
     }
 
     private var versionCard: some View {
@@ -189,16 +189,16 @@ struct SettingsView: View {
                 .foregroundStyle(Color.bfTextTertiary)
         }
         .padding(.horizontal, 18)
-        .padding(.vertical, 18)
+        .padding(.vertical, 20)
         .background(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .fill(Color.bfSurfaceElevated)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.6), lineWidth: 1)
+                .stroke(Color.bfBorder.opacity(0.46), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.03), radius: 10, y: 4)
+        .shadow(color: Color.black.opacity(0.02), radius: 8, y: 3)
     }
 
     private func openMail(subject: String) {

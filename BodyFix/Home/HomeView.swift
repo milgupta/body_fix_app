@@ -54,7 +54,7 @@ struct HomeView: View {
                 Color.bfPageBackground.ignoresSafeArea()
 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 34) {
+                    VStack(alignment: .leading, spacing: 38) {
                         header
 
                         featuredSection
@@ -75,8 +75,8 @@ struct HomeView: View {
                         routineGridSection(title: "BROWSE BY ACTIVITY", subtitle: nil, routines: activity)
                     }
                     .padding(.horizontal, 20)
-                    .padding(.top, max(proxy.safeAreaInsets.top + 16, 34))
-                    .padding(.bottom, max(proxy.safeAreaInsets.bottom + 96, 132))
+                    .padding(.top, max(proxy.safeAreaInsets.top + 6, 20))
+                    .padding(.bottom, max(proxy.safeAreaInsets.bottom + 98, 138))
                 }
             }
         }
@@ -114,7 +114,7 @@ struct HomeView: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 9)
                 .background(Capsule().fill(Color.bfSurfaceElevated))
-                .overlay(Capsule().stroke(Color.bfBorder.opacity(0.9), lineWidth: 1))
+                .overlay(Capsule().stroke(Color.bfBorder.opacity(0.55), lineWidth: 1))
 
                 Button {
                     HapticManager.shared.lightImpact()
@@ -125,7 +125,7 @@ struct HomeView: View {
                         .foregroundStyle(Color.bfTextMuted)
                         .frame(width: 42, height: 42)
                         .background(Circle().fill(Color.bfSurfaceElevated))
-                        .overlay(Circle().stroke(Color.bfBorder.opacity(0.9), lineWidth: 1))
+                        .overlay(Circle().stroke(Color.bfBorder.opacity(0.55), lineWidth: 1))
                 }
                 .buttonStyle(.plain)
             }
@@ -183,16 +183,16 @@ struct HomeView: View {
                 }
             }
             .padding(.horizontal, 16)
-            .frame(height: 52)
+            .frame(height: 56)
             .background(
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .fill(Color.bfSurfaceElevated)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .stroke(searchFocused ? Color.bfAccent.opacity(0.7) : Color.bfBorder.opacity(0.85), lineWidth: 1)
+                    .stroke(searchFocused ? Color.bfAccent.opacity(0.45) : Color.bfBorder.opacity(0.55), lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.04), radius: 12, y: 6)
+            .shadow(color: Color.black.opacity(0.025), radius: 10, y: 4)
 
             if !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 SearchResultsOverlay(
@@ -399,7 +399,7 @@ private struct FeaturedRoutineCard: View {
                         .foregroundStyle(Color.bfHeroTextSecondary)
 
                     Text(routine.name)
-                        .font(.system(size: 27, weight: .bold, design: .rounded))
+                        .font(.system(size: 30, weight: .bold, design: .rounded))
                         .foregroundStyle(Color.bfHeroTextPrimary)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: size.width * 0.48, alignment: .leading)
@@ -423,7 +423,7 @@ private struct FeaturedRoutineCard: View {
                 RoundedRectangle(cornerRadius: 32, style: .continuous)
                     .stroke(Color.white.opacity(0.06), lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.16), radius: 24, y: 12)
+            .shadow(color: Color.black.opacity(0.12), radius: 20, y: 10)
         }
         .frame(height: 252)
     }
@@ -437,7 +437,7 @@ private struct AreaCard: View {
             BodyFixThumbnailView(muscleGroup: group, size: 50)
 
             Text(group.displayName)
-                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
                 .foregroundStyle(Color.bfTextSecondary)
                 .lineLimit(1)
         }
@@ -448,9 +448,9 @@ private struct AreaCard: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.72), lineWidth: 1)
+                .stroke(Color.bfBorder.opacity(0.48), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.025), radius: 8, y: 3)
+        .shadow(color: Color.black.opacity(0.018), radius: 6, y: 2)
     }
 }
 
@@ -476,16 +476,16 @@ private struct RoutineGridCard: View {
             Spacer(minLength: 0)
         }
         .padding(15)
-        .frame(maxWidth: .infinity, minHeight: 94, alignment: .leading)
+        .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .fill(Color.bfSurfaceElevated)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.7), lineWidth: 1)
+                .stroke(Color.bfBorder.opacity(0.46), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.025), radius: 8, y: 3)
+        .shadow(color: Color.black.opacity(0.018), radius: 6, y: 2)
     }
 }
 
@@ -508,16 +508,16 @@ private struct QuickRoutineCard: View {
                 .foregroundStyle(Color.bfMint)
         }
         .padding(13)
-        .frame(width: 150, height: 92, alignment: .topLeading)
+        .frame(width: 154, height: 98, alignment: .topLeading)
         .background(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .fill(Color.bfSurfaceElevated)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.7), lineWidth: 1)
+                .stroke(Color.bfBorder.opacity(0.46), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.025), radius: 8, y: 3)
+        .shadow(color: Color.black.opacity(0.018), radius: 6, y: 2)
     }
 }
 
@@ -564,9 +564,9 @@ private struct SeriesCard: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.7), lineWidth: 1)
+                .stroke(Color.bfBorder.opacity(0.46), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.025), radius: 8, y: 3)
+        .shadow(color: Color.black.opacity(0.018), radius: 6, y: 2)
     }
 }
 
@@ -621,9 +621,9 @@ private struct SearchResultsOverlay: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.95), lineWidth: 1)
+                .stroke(Color.bfBorder.opacity(0.55), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.08), radius: 18, y: 8)
+        .shadow(color: Color.black.opacity(0.04), radius: 12, y: 5)
     }
 
     private func sectionLabel(_ text: String) -> some View {

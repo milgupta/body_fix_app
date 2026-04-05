@@ -34,7 +34,7 @@ struct OnboardingHealthConditionsView: View {
                     .font(Typography.question)
                     .foregroundStyle(.bfTextPrimary)
 
-                Text("Select all that apply, or skip.")
+                Text("Optional. Select any that matter, or skip for now.")
                     .font(Typography.caption)
                     .foregroundStyle(.bfTextSecondary)
             }

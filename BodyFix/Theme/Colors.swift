@@ -38,6 +38,17 @@ extension Color {
     static let bfPageBackground = Color(hex: "#FCFBF8")
     static let bfSurfaceMuted = Color(hex: "#F8F4EE")
     static let bfSurfaceElevated = Color(hex: "#FFFDF9")
+    static let bfOnboardingButtonFill = Color(hex: "#F7F3EC")
+    static let bfOnboardingButtonBorder = Color.white.opacity(0.28)
+    static let bfOnboardingButtonText = Color(hex: "#16233B")
+    static let bfOnboardingButtonChip = Color(hex: "#86A7D9")
+    static let bfGlassFill = Color.white.opacity(0.58)
+    static let bfGlassHighlight = Color.white.opacity(0.72)
+    static let bfGlassBorder = Color.white.opacity(0.65)
+    static let bfTabBarFill = Color.white.opacity(0.84)
+    static let bfTabBarBorder = Color.white.opacity(0.58)
+    static let bfTabBarSpotlight = Color.white.opacity(0.46)
+    static let bfTabBarSpotlightCore = Color.white.opacity(0.82)
     static let bfHeroSurface = Color(hex: "#0E172A")
     static let bfHeroSurfaceSecondary = Color(hex: "#16233B")
     static let bfHeroGhostCircle = Color(hex: "#22314C")
@@ -69,6 +80,17 @@ extension ShapeStyle where Self == Color {
     static var bfPageBackground: Color { .bfPageBackground }
     static var bfSurfaceMuted: Color { .bfSurfaceMuted }
     static var bfSurfaceElevated: Color { .bfSurfaceElevated }
+    static var bfOnboardingButtonFill: Color { .bfOnboardingButtonFill }
+    static var bfOnboardingButtonBorder: Color { .bfOnboardingButtonBorder }
+    static var bfOnboardingButtonText: Color { .bfOnboardingButtonText }
+    static var bfOnboardingButtonChip: Color { .bfOnboardingButtonChip }
+    static var bfGlassFill: Color { .bfGlassFill }
+    static var bfGlassHighlight: Color { .bfGlassHighlight }
+    static var bfGlassBorder: Color { .bfGlassBorder }
+    static var bfTabBarFill: Color { .bfTabBarFill }
+    static var bfTabBarBorder: Color { .bfTabBarBorder }
+    static var bfTabBarSpotlight: Color { .bfTabBarSpotlight }
+    static var bfTabBarSpotlightCore: Color { .bfTabBarSpotlightCore }
     static var bfHeroSurface: Color { .bfHeroSurface }
     static var bfHeroSurfaceSecondary: Color { .bfHeroSurfaceSecondary }
     static var bfHeroGhostCircle: Color { .bfHeroGhostCircle }

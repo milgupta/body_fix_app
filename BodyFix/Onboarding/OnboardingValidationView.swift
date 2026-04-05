@@ -5,23 +5,23 @@ struct OnboardingValidationView: View {
     @State private var showContent = false
 
     private static let goalDescriptions: [String: String] = [
-        "Reduce Pain & Stiffness": "We'll target the areas holding you back.",
+        "Reduce pain and stiffness": "We'll focus on the areas that keep slowing you down.",
         "Improve Flexibility": "Unlock your body's full range of motion.",
-        "Better Posture": "Realign and stand taller, naturally.",
-        "Recover Faster from Workouts": "Speed up recovery with targeted stretches.",
-        "Reduce Stress & Tension": "Release the tension your body carries.",
-        "Improve Sleep Quality": "Relax tight muscles before bed.",
-        "Move Better Day-to-Day": "Feel lighter and more fluid in everything you do.",
+        "Improve posture": "Build better alignment and feel more supported all day.",
+        "Recover faster from workouts": "Bounce back with targeted recovery work.",
+        "Reduce stress and tension": "Ease the tightness your body carries through the day.",
+        "Sleep better": "Wind down with movements that help your body let go.",
+        "Move better day to day": "Feel lighter, looser, and more comfortable in everyday life.",
     ]
 
     private static let goalEmojis: [String: String] = [
-        "Reduce Pain & Stiffness": "🩹",
+        "Reduce pain and stiffness": "🩹",
         "Improve Flexibility": "🧘",
-        "Better Posture": "🧍",
-        "Recover Faster from Workouts": "🔄",
-        "Reduce Stress & Tension": "😌",
-        "Improve Sleep Quality": "💤",
-        "Move Better Day-to-Day": "🚶",
+        "Improve posture": "🧍",
+        "Recover faster from workouts": "🔄",
+        "Reduce stress and tension": "😌",
+        "Sleep better": "💤",
+        "Move better day to day": "🚶",
     ]
 
     private var totalCardCount: Int {
@@ -48,34 +48,34 @@ struct OnboardingValidationView: View {
             .padding(.top, 8)
             .padding(.bottom, 20)
 
-            if totalCardCount <= 2 {
-                Spacer(minLength: 0)
-                cardStack
-                Spacer(minLength: 0)
-            } else {
-                cardStack
-                Spacer(minLength: 28)
-            }
+            Spacer(minLength: 0)
+            cardStack
+            Spacer(minLength: 20)
 
             VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("You're in the right place!")
+                    Text("We hear what matters most.")
                         .font(Typography.splashTitle)
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(nil)
 
-                    Text("**Thousands** have started with the same goals, and **Body Fix** got them there.")
+                    Text("Your plan will focus on the goals you picked, without wasting time on things that do not fit your body or routine.")
                         .font(Typography.subtitle)
-                        .foregroundStyle(.white.opacity(0.8))
+                        .foregroundStyle(.white.opacity(0.82))
                         .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(nil)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 20)
                 .opacity(showContent ? 1.0 : 0)
 
-                Spacer().frame(height: 24)
+                Spacer().frame(height: 20)
 
                 OnboardingContinueButton(label: "Find My Fix") {
+                    HapticManager.shared.mediumImpact()
                     withAnimation(.easeInOut(duration: 0.35)) {
                         viewModel.advance()
                     }
@@ -100,16 +100,16 @@ struct OnboardingValidationView: View {
                     title: goal,
                     description: Self.goalDescriptions[goal] ?? ""
                 )
-                .rotationEffect(.degrees(Double([-2, 2, -1][index % 3])))
-                .offset(x: CGFloat([-4, 6, -2][index % 3]))
                 .opacity(showContent ? 1.0 : 0)
+                .offset(y: showContent ? 0 : 16)
+                .animation(.easeOut(duration: 0.45).delay(Double(index) * 0.08), value: showContent)
             }
 
             if !viewModel.longTermGoal.isEmpty {
                 longTermCard
-                    .rotationEffect(.degrees(2))
-                    .offset(x: 4)
                     .opacity(showContent ? 1.0 : 0)
+                    .offset(y: showContent ? 0 : 16)
+                    .animation(.easeOut(duration: 0.45).delay(Double(viewModel.selectedBodyGoals.count) * 0.08), value: showContent)
             }
         }
         .padding(.horizontal, 20)
@@ -123,11 +123,11 @@ struct OnboardingValidationView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(Typography.optionText)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.bfTextPrimary)
 
                 Text(description)
                     .font(.system(size: 15, weight: .regular, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.85))
+                    .foregroundStyle(.bfTextSecondary)
             }
 
             Spacer()
@@ -135,20 +135,24 @@ struct OnboardingValidationView: View {
         .padding(18)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.bfCardDark.opacity(0.85))
+                .fill(Color.bfSurfaceElevated)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.bfBorder.opacity(0.75), lineWidth: 1)
+                )
         )
-        .shadow(color: .black.opacity(0.22), radius: 14, x: 0, y: 8)
+        .shadow(color: .black.opacity(0.06), radius: 18, x: 0, y: 8)
     }
 
     private var longTermCard: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Where You're Headed")
+            Text("Long-Term Focus")
                 .font(.system(size: 15, weight: .medium, design: .rounded))
-                .foregroundStyle(.bfTeal)
+                .foregroundStyle(.bfAccent)
 
             Text(viewModel.longTermGoal)
                 .font(Typography.optionText)
-                .foregroundStyle(.white)
+                .foregroundStyle(.bfTextPrimary)
                 .lineSpacing(2)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -158,13 +162,13 @@ struct OnboardingValidationView: View {
         .padding(.bottom, 22)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.bfCardDark.opacity(0.85))
+                .fill(Color.bfSurfaceElevated)
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.bfTeal.opacity(0.4), lineWidth: 1)
+                        .stroke(Color.bfAccent.opacity(0.2), lineWidth: 1)
                 )
         )
-        .shadow(color: .black.opacity(0.2), radius: 12, x: 0, y: 7)
+        .shadow(color: .black.opacity(0.05), radius: 16, x: 0, y: 7)
     }
 }
 

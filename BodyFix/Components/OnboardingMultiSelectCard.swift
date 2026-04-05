@@ -15,7 +15,7 @@ struct OnboardingMultiSelectCard: View {
                 if !emoji.isEmpty {
                     Text(emoji)
                         .font(.system(size: 28))
-                        .frame(width: 44, height: 44)
+                        .frame(width: 48, height: 48)
                         .background(
                             Circle()
                                 .fill(isSelected ? Color.white.opacity(0.18) : Color.bfSurfaceMuted)
@@ -32,7 +32,7 @@ struct OnboardingMultiSelectCard: View {
             }
             .padding(.horizontal, 22)
             .frame(maxWidth: .infinity)
-            .frame(minHeight: 78)
+            .frame(minHeight: 84)
             .background(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .fill(isSelected ? AnyShapeStyle(.bfGradient) : AnyShapeStyle(Color.bfSurfaceElevated))
@@ -41,7 +41,7 @@ struct OnboardingMultiSelectCard: View {
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .stroke(isSelected ? Color.clear : Color.bfBorder.opacity(0.78), lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(isSelected ? 0.1 : 0.035), radius: isSelected ? 16 : 10, y: 5)
+            .shadow(color: Color.black.opacity(isSelected ? 0.08 : 0.025), radius: isSelected ? 14 : 8, y: 4)
         }
         .buttonStyle(.plain)
         .animation(.easeOut(duration: 0.2), value: isSelected)

@@ -4,11 +4,11 @@ struct OnboardingLifestyleView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
 
     private let options: [(emoji: String, title: String)] = [
-        ("💻", "Desk work / computer"),
-        ("📚", "Student / studying"),
-        ("🧍", "Standing job"),
-        ("🔨", "Physical labor"),
-        ("🏃", "Athlete / sports training"),
+        ("💻", "Mostly at a desk"),
+        ("📚", "Studying or in class a lot"),
+        ("🧍", "On my feet most of the day"),
+        ("🔨", "Physically active job"),
+        ("🏃", "Training regularly"),
     ]
 
     var body: some View {
@@ -18,7 +18,7 @@ struct OnboardingLifestyleView: View {
                     .font(Typography.subtitle)
                     .foregroundStyle(.bfTextSecondary)
 
-                Text("What does your **typical day** look like?")
+                Text("What does most of your day look like?")
                     .font(Typography.question)
                     .foregroundStyle(.bfTextPrimary)
             }

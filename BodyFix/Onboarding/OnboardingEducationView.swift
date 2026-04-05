@@ -6,31 +6,22 @@ struct OnboardingEducationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
+            Spacer(minLength: 32)
 
-            Image(systemName: "figure.stand")
-                .font(.system(size: 80))
-                .foregroundStyle(.white.opacity(0.9))
-                .padding(40)
-                .background(
-                    Circle()
-                        .fill(.white.opacity(0.15))
-                )
+            Image("beforevafter")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 280, height: 240)
                 .opacity(showContent ? 1.0 : 0)
+                .scaleEffect(showContent ? 1 : 0.96)
 
-            Spacer().frame(height: 40)
+            Spacer().frame(height: 28)
 
-            VStack(spacing: 16) {
-                Text("Your muscles adapt to the positions you spend the most time in.")
-                    .font(Typography.splashTitle)
-                    .foregroundStyle(.white)
-                    .multilineTextAlignment(.center)
-
-                Text("Sitting shortens hip flexors and weakens the back. A few minutes of targeted stretching daily can restore balance.")
-                    .font(Typography.subtitle)
-                    .foregroundStyle(.white.opacity(0.8))
-                    .multilineTextAlignment(.center)
-            }
+            Text("Your muscles adapt to the positions you spend the most time in.")
+                .font(Typography.splashTitle)
+                .foregroundStyle(.white)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 28)
             .opacity(showContent ? 1.0 : 0)
 

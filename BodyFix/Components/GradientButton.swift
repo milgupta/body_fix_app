@@ -11,10 +11,10 @@ struct GradientButton: View {
                 .font(Typography.primaryCta)
                 .foregroundStyle(Color.white)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 18)
+                .padding(.vertical, 19)
                 .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(.bfGradient))
                 .if(showShadow) { view in
-                    view.shadow(color: Color.bfAccent.opacity(0.24), radius: 12, y: 4)
+                    view.shadow(color: Color.bfAccent.opacity(0.18), radius: 10, y: 3)
                 }
         }
         .buttonStyle(.plain)
