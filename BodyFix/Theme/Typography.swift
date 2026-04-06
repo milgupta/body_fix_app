@@ -2,7 +2,7 @@ import SwiftUI
 
 enum Typography {
     static let appHeadline = Font.system(size: 40, weight: .bold, design: .rounded)
-    static let onboardingQuestion = Font.system(size: 42, weight: .bold, design: .rounded)
+    static let onboardingQuestion = Font.system(size: 38, weight: .bold, design: .rounded)
     static let onboardingSupport = Font.system(size: 20, weight: .medium, design: .rounded)
     static let sectionTitle = Font.system(size: 17, weight: .semibold, design: .rounded)
     static let cardTitle = Font.system(size: 18, weight: .bold, design: .rounded)
