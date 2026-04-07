@@ -104,7 +104,8 @@ class OnboardingViewModel {
         currentStep -= 1
     }
 
-    func saveProfile(to modelContext: ModelContext) {
+    @discardableResult
+    func saveProfile(to modelContext: ModelContext) -> UserProfile {
         let profile = UserProfile(
             name: userName,
             bodyGoals: Array(selectedBodyGoals),
@@ -122,5 +123,6 @@ class OnboardingViewModel {
             onboardingComplete: true
         )
         modelContext.insert(profile)
+        return profile
     }
 }

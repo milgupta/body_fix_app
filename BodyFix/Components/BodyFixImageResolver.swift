@@ -2,12 +2,6 @@ import Foundation
 import UIKit
 
 enum BodyFixImageResolver {
-    private enum AssetFolder: String {
-        case stretches
-        case routines
-        case areas
-    }
-
     private static let cache = NSCache<NSString, UIImage>()
 
     private static let stretchOverrides: [String: String] = [
@@ -82,7 +76,7 @@ enum BodyFixImageResolver {
             normalizedName("stretch_\(stretch.name.replacingOccurrences(of: "Triceps", with: "Tricep"))_pose")
         )
 
-        return resolve(in: .stretches, candidates: candidates)
+        return resolve(candidates: candidates)
     }
 
     static func image(for routine: Routine) -> UIImage? {
@@ -92,7 +86,7 @@ enum BodyFixImageResolver {
             normalizedName("routine_\(routine.name)")
         )
 
-        return resolve(in: .routines, candidates: candidates)
+        return resolve(candidates: candidates)
     }
 
     static func image(for muscleGroup: MuscleGroup) -> UIImage? {
@@ -101,39 +95,19 @@ enum BodyFixImageResolver {
             normalizedName("area_\(muscleGroup.displayName)")
         )
 
-        return resolve(in: .areas, candidates: candidates)
+        return resolve(candidates: candidates)
     }
 
-    private static func resolve(in folder: AssetFolder, candidates: [String]) -> UIImage? {
+    private static func resolve(candidates: [String]) -> UIImage? {
         for name in candidates {
-            let cacheKey = "\(folder.rawValue)/\(name)" as NSString
+            let cacheKey = name as NSString
             if let cached = cache.object(forKey: cacheKey) {
                 return cached
             }
 
-            guard let url = imageURL(for: name, in: folder) else {
-                continue
-            }
-
-            guard let image = UIImage(contentsOfFile: url.path) else { continue }
+            guard let image = UIImage(named: name) else { continue }
             cache.setObject(image, forKey: cacheKey)
             return image
-        }
-
-        return nil
-    }
-
-    private static func imageURL(for name: String, in folder: AssetFolder) -> URL? {
-        if let flatURL = Bundle.main.url(forResource: name, withExtension: "png") {
-            return flatURL
-        }
-
-        if let nestedURL = Bundle.main.url(
-            forResource: name,
-            withExtension: "png",
-            subdirectory: "images/\(folder.rawValue)"
-        ) {
-            return nestedURL
         }
 
         return nil

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_seated_upper_back_hug.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

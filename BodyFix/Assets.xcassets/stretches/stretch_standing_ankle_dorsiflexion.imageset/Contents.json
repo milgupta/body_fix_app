@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_standing_ankle_dorsiflexion.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

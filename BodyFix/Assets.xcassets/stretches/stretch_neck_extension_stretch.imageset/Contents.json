@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_neck_extension_stretch.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

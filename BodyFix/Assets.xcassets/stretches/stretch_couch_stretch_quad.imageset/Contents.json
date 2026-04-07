@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_couch_stretch_quad.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

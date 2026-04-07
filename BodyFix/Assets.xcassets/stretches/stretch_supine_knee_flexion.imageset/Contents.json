@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_supine_knee_flexion.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

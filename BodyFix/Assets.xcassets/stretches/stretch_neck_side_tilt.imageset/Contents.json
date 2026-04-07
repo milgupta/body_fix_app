@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_neck_side_tilt.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_floor_bicep_stretch.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -97,5 +97,5 @@ struct OnboardingContainerView: View {
 
 #Preview {
     OnboardingContainerView()
-        .modelContainer(for: [UserProfile.self, StretchSession.self], inMemory: true)
+        .modelContainer(for: [UserProfile.self, PersonalizedPlan.self, StretchSession.self], inMemory: true)
 }

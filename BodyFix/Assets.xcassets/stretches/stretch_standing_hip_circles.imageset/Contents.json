@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_standing_hip_circles.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

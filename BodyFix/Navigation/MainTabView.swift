@@ -5,42 +5,59 @@ struct MainTabView: View {
     private let tabs = AppTab.allCases
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            StretchTabRoot(selectedTab: $selectedTab)
-                .tag(AppTab.stretch.rawValue)
+        ZStack(alignment: .bottom) {
+            tabContent
 
-            WorkoutLogView(selectedTab: $selectedTab)
-                .tag(AppTab.workoutLog.rawValue)
-
-            CoachView()
-                .tag(AppTab.coach.rawValue)
-
-            SettingsView()
-                .tag(AppTab.settings.rawValue)
-        }
-        .toolbar(.hidden, for: .tabBar)
-        .tint(Color.bfMint)
-        .background(Color.bfBackground.ignoresSafeArea())
-        .safeAreaInset(edge: .bottom, spacing: 0) {
             BodyFixTabBar(selectedTab: $selectedTab, tabs: tabs)
-                .padding(.horizontal, 20)
-                .padding(.top, 2)
-                .padding(.bottom, 4)
+                .padding(.horizontal, 18)
+                .padding(.top, 4)
+                .padding(.bottom, 0)
         }
+        .background(Color.bfBackground.ignoresSafeArea())
+    }
+
+    @ViewBuilder
+    private var tabContent: some View {
+        ZStack {
+            tabView(for: .stretch)
+            tabView(for: .plan)
+            tabView(for: .workoutLog)
+            tabView(for: .settings)
+        }
+        .tint(Color.bfMint)
+    }
+
+    @ViewBuilder
+    private func tabView(for tab: AppTab) -> some View {
+        Group {
+            switch tab {
+            case .stretch:
+                StretchTabRoot(selectedTab: $selectedTab)
+            case .plan:
+                PersonalizedPlanTabRoot()
+            case .workoutLog:
+                WorkoutLogView(selectedTab: $selectedTab)
+            case .settings:
+                SettingsView()
+            }
+        }
+        .opacity(selectedTab == tab.rawValue ? 1 : 0)
+        .allowsHitTesting(selectedTab == tab.rawValue)
+        .accessibilityHidden(selectedTab != tab.rawValue)
     }
 }
 
 private enum AppTab: Int, CaseIterable {
     case stretch
+    case plan
     case workoutLog
-    case coach
     case settings
 
     var title: String {
         switch self {
         case .stretch: return "Stretch"
+        case .plan: return "Your Plan"
         case .workoutLog: return "Workout Log"
-        case .coach: return "AI Coach"
         case .settings: return "Settings"
         }
     }
@@ -48,8 +65,8 @@ private enum AppTab: Int, CaseIterable {
     var icon: String {
         switch self {
         case .stretch: return "figure.flexibility"
+        case .plan: return "sparkles"
         case .workoutLog: return "list.clipboard"
-        case .coach: return "sparkles"
         case .settings: return "gearshape.fill"
         }
     }
@@ -61,20 +78,15 @@ private struct BodyFixTabBar: View {
 
     var body: some View {
         GeometryReader { proxy in
-            let horizontalInset: CGFloat = 10
-            let verticalInset: CGFloat = 8
+            let horizontalInset: CGFloat = 8
+            let verticalInset: CGFloat = 7
             let laneWidth = (proxy.size.width - (horizontalInset * 2)) / CGFloat(max(tabs.count, 1))
-            let highlightSize = min(max(laneWidth - 20, 42), 52)
+            let highlightSize = min(max(laneWidth - 24, 36), 46)
             let highlightX = horizontalInset + (laneWidth * CGFloat(selectedTab)) + (laneWidth / 2)
 
             ZStack {
                 Capsule(style: .continuous)
                     .fill(Color.bfTabBarFill)
-                    .overlay(
-                        Capsule(style: .continuous)
-                            .fill(.ultraThinMaterial)
-                            .opacity(0.38)
-                    )
 
                 Circle()
                     .fill(Color.bfTabBarSpotlight)
@@ -99,10 +111,10 @@ private struct BodyFixTabBar: View {
                             }
                         } label: {
                             Image(systemName: tab.icon)
-                                .font(.system(size: 22, weight: isSelected ? .bold : .semibold))
-                                .foregroundStyle(isSelected ? Color.bfHeroSurface : Color.bfTextMuted.opacity(0.9))
+                                .font(.system(size: 21, weight: isSelected ? .bold : .semibold))
+                                .foregroundStyle(isSelected ? Color.white.opacity(0.96) : Color.white.opacity(0.58))
                                 .frame(maxWidth: .infinity)
-                                .frame(height: 56)
+                                .frame(height: 52)
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
@@ -119,9 +131,9 @@ private struct BodyFixTabBar: View {
                 Capsule(style: .continuous)
                     .stroke(Color.bfTabBarBorder, lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.04), radius: 10, y: 2)
+            .shadow(color: Color.black.opacity(0.2), radius: 12, y: 4)
         }
-        .frame(height: 70)
+        .frame(height: 64)
     }
 }
 
@@ -154,6 +166,28 @@ private struct StretchTabRoot: View {
                 }
                 .navigationDestination(for: SessionCompleteRoute.self) { route in
                     SessionCompleteView(route: route, path: $path)
+                }
+                .navigationDestination(for: PersonalizedPlanRoute.self) { _ in
+                    PersonalizedPlanDetailView(path: $path)
+                }
+                .navigationDestination(for: PersonalizedPlanEditorRoute.self) { _ in
+                    PersonalizedPlanEditorView()
+                }
+        }
+    }
+}
+
+private struct PersonalizedPlanTabRoot: View {
+    @State private var path = NavigationPath()
+
+    var body: some View {
+        NavigationStack(path: $path) {
+            PersonalizedPlanDetailView(path: $path, showsBackButton: false)
+                .navigationDestination(for: RoutineStretchListRoute.self) { route in
+                    RoutineStretchListView(route: route, path: $path)
+                }
+                .navigationDestination(for: PersonalizedPlanEditorRoute.self) { _ in
+                    PersonalizedPlanEditorView()
                 }
         }
     }

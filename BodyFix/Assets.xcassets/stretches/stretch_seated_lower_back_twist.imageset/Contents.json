@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_seated_lower_back_twist.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -15,6 +15,7 @@ struct SettingsView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [UserProfile]
+    @Query private var plans: [PersonalizedPlan]
 
     private var appVersionString: String {
         let v = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -211,6 +212,9 @@ struct SettingsView: View {
     private func resetOnboardingForTesting() {
         for profile in profiles {
             modelContext.delete(profile)
+        }
+        for plan in plans {
+            modelContext.delete(plan)
         }
         try? modelContext.save()
     }

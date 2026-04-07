@@ -11,13 +11,13 @@ struct OnboardingHeroPreview: View {
         ZStack {
             RoundedRectangle(cornerRadius: 38, style: .continuous)
                 .fill(Color.white.opacity(0.34))
-                .frame(width: 270, height: 540)
+                .frame(width: 246, height: 512)
                 .blur(radius: 18)
-                .offset(y: 24)
+                .offset(y: 22)
 
             RoundedRectangle(cornerRadius: 36, style: .continuous)
                 .fill(Color.white)
-                .frame(width: 268, height: 536)
+                .frame(width: 244, height: 508)
                 .overlay(
                     RoundedRectangle(cornerRadius: 36, style: .continuous)
                         .stroke(Color.white.opacity(0.7), lineWidth: 1)
@@ -129,10 +129,10 @@ struct OnboardingHeroPreview: View {
                     )
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 38)
-                .padding(.bottom, 18)
+                .padding(.top, 46)
+                .padding(.bottom, 40)
             }
-            .frame(width: 268, height: 536)
+            .frame(width: 244, height: 508)
         }
     }
 }

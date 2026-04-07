@@ -5,9 +5,9 @@ struct OnboardingMotivationLevelView: View {
 
     private let options: [(emoji: String, title: String)] = [
         ("🔥", "Ready to commit"),
-        ("💪", "Pretty motivated"),
-        ("🤔", "Curious but cautious"),
-        ("🧪", "Just exploring"),
+        ("💪", "Motivated"),
+        ("🤔", "Curious"),
+        ("🧪", "Exploring"),
     ]
 
     var body: some View {

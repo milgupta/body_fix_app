@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stretch_step_heel_drop.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

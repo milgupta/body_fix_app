@@ -19,6 +19,7 @@ struct BodyFixApp: App {
 private func makeModelContainer() -> ModelContainer {
     let schema = Schema([
         UserProfile.self,
+        PersonalizedPlan.self,
         StretchSession.self,
         RoutineSeriesProgress.self,
     ])

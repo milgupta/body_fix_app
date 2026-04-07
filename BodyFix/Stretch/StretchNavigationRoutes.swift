@@ -32,3 +32,7 @@ struct SessionCompleteRoute: Hashable {
     var seriesId: String? = nil
     var seriesLevel: Int? = nil
 }
+
+struct PersonalizedPlanRoute: Hashable {}
+
+struct PersonalizedPlanEditorRoute: Hashable {}

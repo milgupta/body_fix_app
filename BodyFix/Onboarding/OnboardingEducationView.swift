@@ -5,36 +5,46 @@ struct OnboardingEducationView: View {
     @State private var showContent = false
 
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer(minLength: 32)
+        GeometryReader { proxy in
+            let horizontalInset: CGFloat = 24
+            let maxImageWidth = min(320, proxy.size.width - horizontalInset * 2)
+            let maxImageHeight = proxy.size.height * 0.38
+            let bottomPad = max(24, proxy.safeAreaInsets.bottom + 16)
 
-            Image("beforevafter")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 280, height: 240)
-                .opacity(showContent ? 1.0 : 0)
-                .scaleEffect(showContent ? 1 : 0.96)
+            VStack(spacing: 0) {
+                Spacer(minLength: 0)
 
-            Spacer().frame(height: 28)
+                Image("beforevafter")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: maxImageWidth, maxHeight: maxImageHeight)
+                    .opacity(showContent ? 1.0 : 0)
+                    .scaleEffect(showContent ? 1 : 0.96)
 
-            Text("Your muscles adapt to the positions you spend the most time in.")
-                .font(Typography.splashTitle)
-                .foregroundStyle(.white)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-            .padding(.horizontal, 28)
-            .opacity(showContent ? 1.0 : 0)
+                Spacer().frame(height: 20)
 
-            Spacer()
+                Text("Your muscles adapt to the positions you spend the most time in.")
+                    .font(Typography.splashTitle)
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .minimumScaleFactor(0.85)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 28)
+                    .opacity(showContent ? 1.0 : 0)
 
-            OnboardingContinueButton {
-                withAnimation(.easeInOut(duration: 0.35)) {
-                    viewModel.advance()
+                Spacer(minLength: 0)
+
+                OnboardingContinueButton {
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        viewModel.advance()
+                    }
                 }
+                .padding(.horizontal, 20)
+                .padding(.bottom, bottomPad)
+                .opacity(showContent ? 1.0 : 0)
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 40)
-            .opacity(showContent ? 1.0 : 0)
+            .frame(width: proxy.size.width, height: proxy.size.height)
         }
         .onAppear {
             withAnimation(.easeOut(duration: 0.8)) {

@@ -56,7 +56,6 @@ struct HomeView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 38) {
                         header
-
                         featuredSection
 
                         searchSection

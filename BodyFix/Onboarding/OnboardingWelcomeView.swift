@@ -36,7 +36,7 @@ struct OnboardingWelcomeView: View {
                     .opacity(showContent ? 1.0 : 0)
                     .animation(.spring(response: 0.82, dampingFraction: 0.9), value: showContent)
 
-                Spacer(minLength: 22)
+                Spacer(minLength: 30)
 
                 VStack(spacing: 10) {
                     Text("Your body is telling you something.")
@@ -54,7 +54,7 @@ struct OnboardingWelcomeView: View {
                 .opacity(showContent ? 1.0 : 0)
                 .animation(.easeOut(duration: 0.6).delay(0.12), value: showContent)
 
-                Spacer().frame(height: 24)
+                Spacer().frame(height: 30)
 
                 OnboardingContinueButton(label: "Start Feeling Better") {
                     HapticManager.shared.mediumImpact()

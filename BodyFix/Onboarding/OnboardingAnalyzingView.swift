@@ -3,9 +3,8 @@ import SwiftUI
 struct OnboardingAnalyzingView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
     @State private var analysisStep = 0
-    @State private var revealedCards = 0
+    @State private var revealedCards: Set<Int> = []
     @State private var isCancelled = false
-    @State private var pulseCurrentStep = false
     @State private var completedStepPop: Set<Int> = []
 
     private let steps = [
@@ -86,7 +85,6 @@ struct OnboardingAnalyzingView: View {
         }
         .onAppear {
             isCancelled = false
-            pulseCurrentStep = true
             runAnalysis()
         }
         .onDisappear {
@@ -101,31 +99,22 @@ struct OnboardingAnalyzingView: View {
                 Circle()
                     .fill(Color.green.opacity(0.24))
                     .frame(width: 24, height: 24)
+                    .scaleEffect(completedStepPop.contains(index) ? 1.22 : 1.0)
+
+                Circle()
+                    .stroke(Color.green.opacity(completedStepPop.contains(index) ? 0.36 : 0), lineWidth: 1.5)
+                    .frame(width: 24, height: 24)
+                    .scaleEffect(completedStepPop.contains(index) ? 1.55 : 0.85)
+                    .opacity(completedStepPop.contains(index) ? 1 : 0)
+
                 Image(systemName: "checkmark")
                     .font(.system(size: 10, weight: .bold))
                     .foregroundStyle(Color.green.opacity(0.95))
             }
             .scaleEffect(completedStepPop.contains(index) ? 1.16 : 1.0)
-            .animation(.spring(response: 0.28, dampingFraction: 0.58), value: completedStepPop)
+            .animation(.spring(response: 0.34, dampingFraction: 0.58), value: completedStepPop)
         } else if index == analysisStep {
-            ZStack {
-                Circle()
-                    .fill(Color.white.opacity(0.18))
-                    .frame(width: 24, height: 24)
-
-                Circle()
-                    .stroke(Color.white.opacity(0.28), lineWidth: 1.5)
-                    .frame(width: 16, height: 16)
-                    .scaleEffect(pulseCurrentStep ? 1.22 : 0.92)
-                    .opacity(pulseCurrentStep ? 0.35 : 0.12)
-
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 8, height: 8)
-                    .scaleEffect(pulseCurrentStep ? 1.12 : 0.84)
-                    .opacity(pulseCurrentStep ? 1 : 0.7)
-            }
-            .animation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true), value: pulseCurrentStep)
+            ActiveStepSpinner()
         } else {
             Circle()
                 .fill(Color.white.opacity(0.22))
@@ -163,7 +152,7 @@ struct OnboardingAnalyzingView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             guard !isCancelled else { return }
             withAnimation(.spring(response: 0.52, dampingFraction: 0.84)) {
-                revealedCards = max(revealedCards, index)
+                _ = revealedCards.insert(index)
             }
         }
     }
@@ -176,12 +165,63 @@ struct OnboardingAnalyzingView: View {
     }
 }
 
+private struct ActiveStepSpinner: View {
+    @State private var isSpinning = false
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(Color.white.opacity(0.18))
+                .frame(width: 26, height: 26)
+
+            Circle()
+                .stroke(Color.white.opacity(0.18), lineWidth: 1.2)
+                .frame(width: 17, height: 17)
+
+            Circle()
+                .trim(from: 0.08, to: 0.68)
+                .stroke(
+                    AngularGradient(
+                        colors: [
+                            Color.white.opacity(0.15),
+                            Color.white.opacity(0.95),
+                            Color.white.opacity(0.28),
+                        ],
+                        center: .center
+                    ),
+                    style: StrokeStyle(lineWidth: 1.9, lineCap: .round)
+                )
+                .frame(width: 17, height: 17)
+                .rotationEffect(.degrees(isSpinning ? 360 : 0))
+
+            Circle()
+                .fill(Color.white)
+                .frame(width: 4.5, height: 4.5)
+                .offset(y: -8.5)
+                .rotationEffect(.degrees(isSpinning ? -360 : 0))
+                .shadow(color: Color.white.opacity(0.35), radius: 2)
+
+            Circle()
+                .fill(Color.white)
+                .frame(width: 5.5, height: 5.5)
+        }
+        .onAppear {
+            isSpinning = false
+            withAnimation(.linear(duration: 0.95).repeatForever(autoreverses: false)) {
+                isSpinning = true
+            }
+        }
+    }
+}
+
 private struct AnalysisCardStack: View {
     let routines: [Routine]
     let activeStep: Int
-    let revealedCards: Int
+    let revealedCards: Set<Int>
 
     private var leadRoutine: Routine? { routines.first }
+    private var supportRoutine: Routine? { routines.dropFirst().first }
+    private var recoveryRoutine: Routine? { routines.dropFirst(2).first }
 
     var body: some View {
         ZStack {
@@ -191,66 +231,98 @@ private struct AnalysisCardStack: View {
                 .blur(radius: 26)
 
             backgroundCard(
-                title: "DAILY FLOW",
-                offset: CGSize(width: -14, height: -14),
-                rotation: -6,
-                opacity: 0.26,
+                eyebrow: "FOCUS AREAS",
+                title: "Posture + Desk Relief",
+                subtitle: "Targeting the spots that tighten up first.",
+                routines: [leadRoutine, supportRoutine].compactMap { $0 },
+                cardSize: CGSize(width: 196, height: 144),
+                finalOffset: CGSize(width: -30, height: -2),
+                foldedOffset: CGSize(width: -4, height: 14),
+                foldedRotation: -2,
+                finalRotation: -13,
+                opacity: 0.36,
                 revealIndex: 1
             )
 
             backgroundCard(
-                title: "RELIEF AREAS",
-                offset: CGSize(width: 16, height: -2),
-                rotation: 5,
-                opacity: 0.2,
+                eyebrow: "DAILY FIT",
+                title: "Quick sessions",
+                subtitle: "Built to feel realistic on busy days.",
+                routines: [supportRoutine, recoveryRoutine].compactMap { $0 },
+                cardSize: CGSize(width: 204, height: 148),
+                finalOffset: CGSize(width: 28, height: -10),
+                foldedOffset: CGSize(width: 4, height: 8),
+                foldedRotation: 2,
+                finalRotation: 11,
+                opacity: 0.3,
                 revealIndex: 2
             )
 
             foregroundCard
-                .opacity(revealedCards >= 3 ? 1 : 0)
-                .offset(y: revealedCards >= 3 ? 0 : 22)
-                .scaleEffect(revealedCards >= 3 ? 1 : 0.94)
+                .opacity(revealedCards.contains(3) ? 1 : 0)
+                .offset(
+                    x: revealedCards.contains(3) ? 0 : 2,
+                    y: revealedCards.contains(3) ? 0 : 18
+                )
+                .rotationEffect(.degrees(revealedCards.contains(3) ? 0 : 2))
+                .scaleEffect(revealedCards.contains(3) ? 1 : 0.94)
         }
     }
 
     private func backgroundCard(
+        eyebrow: String,
         title: String,
-        offset: CGSize,
-        rotation: Double,
+        subtitle: String,
+        routines: [Routine],
+        cardSize: CGSize,
+        finalOffset: CGSize,
+        foldedOffset: CGSize,
+        foldedRotation: Double,
+        finalRotation: Double,
         opacity: Double,
         revealIndex: Int
     ) -> some View {
-        RoundedRectangle(cornerRadius: 28, style: .continuous)
-            .fill(Color.white.opacity(opacity + (activeStep >= revealIndex ? 0.06 : 0)))
-            .frame(width: 196, height: 138)
-            .overlay(alignment: .topLeading) {
-                Text(title)
-                    .font(Typography.timerLabelSmall)
-                    .foregroundStyle(Color.white.opacity(0.72))
-                    .padding(.top, 16)
-                    .padding(.leading, 16)
-            }
-            .overlay {
-                VStack(spacing: 10) {
-                    Capsule()
-                        .fill(Color.white.opacity(0.22))
-                        .frame(width: 92, height: 10)
-                    HStack(spacing: 8) {
-                        Circle().fill(Color.white.opacity(0.18)).frame(width: 28, height: 28)
-                        Circle().fill(Color.white.opacity(0.18)).frame(width: 28, height: 28)
-                        Circle().fill(Color.white.opacity(0.18)).frame(width: 28, height: 28)
-                    }
+        VStack(alignment: .leading, spacing: 10) {
+            Text(eyebrow)
+                .font(Typography.timerLabelSmall)
+                .foregroundStyle(Color.white.opacity(0.7))
+
+            Text(title)
+                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .foregroundStyle(.white.opacity(0.92))
+
+            Text(subtitle)
+                .font(.system(size: 12.5, weight: .medium, design: .rounded))
+                .foregroundStyle(Color.white.opacity(0.72))
+                .lineLimit(2)
+
+            HStack(spacing: 8) {
+                ForEach(routines.prefix(3), id: \.id) { routine in
+                    BodyFixThumbnailView(routine: routine, size: 32, isFeatured: true)
                 }
             }
-            .rotationEffect(.degrees(rotation))
-            .offset(
-                x: offset.width,
-                y: (revealedCards >= revealIndex ? offset.height : offset.height + 24)
-            )
-            .opacity(revealedCards >= revealIndex ? 1 : 0)
-            .scaleEffect(revealedCards >= revealIndex ? 1 : 0.96)
-            .animation(.spring(response: 0.52, dampingFraction: 0.84), value: revealedCards)
-            .animation(.easeInOut(duration: 0.32), value: activeStep)
+            .padding(.top, 2)
+        }
+        .padding(16)
+        .frame(width: cardSize.width, height: cardSize.height, alignment: .topLeading)
+        .background(
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .fill(Color.white.opacity(opacity + (activeStep >= revealIndex ? 0.05 : 0)))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .stroke(Color.white.opacity(0.08), lineWidth: 1)
+        )
+        .shadow(color: Color.black.opacity(0.06), radius: 10, y: 6)
+        .rotationEffect(.degrees(revealedCards.contains(revealIndex) ? finalRotation : foldedRotation))
+        .offset(
+            x: revealedCards.contains(revealIndex) ? finalOffset.width : foldedOffset.width,
+            y: revealedCards.contains(revealIndex) ? finalOffset.height : foldedOffset.height
+        )
+        .opacity(revealedCards.contains(revealIndex) ? 1 : 0)
+        .scaleEffect(revealedCards.contains(revealIndex) ? 1 : 0.9)
+        .animation(.spring(response: 0.56, dampingFraction: 0.8), value: revealedCards)
+        .animation(.easeInOut(duration: 0.32), value: activeStep)
     }
 
     private var foregroundCard: some View {
