@@ -8,7 +8,7 @@ enum Typography {
     static let cardTitle = Font.system(size: 18, weight: .bold, design: .rounded)
     static let controlLabel = Font.system(size: 19, weight: .semibold, design: .rounded)
     static let tabLabel = Font.system(size: 11, weight: .semibold, design: .rounded)
-    static let metadataBadge = Font.system(size: 11, weight: .bold, design: .monospaced)
+    static let metadataBadge = Font.system(size: 12, weight: .semibold, design: .rounded)
 
     static let navIcon = Font.system(size: 21, weight: .semibold, design: .rounded)
     static let subtitle = onboardingSupport
@@ -26,8 +26,18 @@ enum Typography {
     static let stretchName = cardTitle
     static let stretchDescription = Font.system(size: 15, weight: .regular, design: .rounded)
     static let badgeMono = metadataBadge
-    static let tapHint = Font.system(size: 11, weight: .semibold, design: .monospaced)
+    static let tapHint = Font.system(size: 11, weight: .semibold, design: .rounded)
     static let timerMonoLarge = Font.system(size: 48, weight: .thin, design: .monospaced)
-    static let timerLabelSmall = Font.system(size: 10, weight: .semibold, design: .monospaced)
+    static let timerLabelSmall = Font.system(size: 11, weight: .semibold, design: .rounded)
     static let primaryCta = Font.system(size: 18, weight: .bold, design: .rounded)
+
+    static let homeDisplayTitle = Font.system(size: 34, weight: .bold, design: .rounded)
+    static let homeGreeting = Font.system(size: 15, weight: .semibold, design: .rounded)
+    static let homeSupport = Font.system(size: 17, weight: .medium, design: .rounded)
+    static let homeSectionLabel = Font.system(size: 13, weight: .semibold, design: .rounded)
+    static let homeMeta = Font.system(size: 14, weight: .semibold, design: .rounded)
+    static let homeCardTitleLarge = Font.system(size: 29, weight: .bold, design: .rounded)
+    static let homeCardTitle = Font.system(size: 22, weight: .bold, design: .rounded)
+    static let homeCardTitleCompact = Font.system(size: 18, weight: .bold, design: .rounded)
+    static let homeCardSupport = Font.system(size: 15, weight: .medium, design: .rounded)
 }

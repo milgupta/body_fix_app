@@ -22,6 +22,8 @@ struct StretchTimerRoute: Hashable {
     var routineName: String? = nil
     var seriesId: String? = nil
     var seriesLevel: Int? = nil
+    var durationOverrides: [String: Int] = [:]
+    var repOverrides: [String: Int] = [:]
 }
 
 struct SessionCompleteRoute: Hashable {
@@ -36,3 +38,7 @@ struct SessionCompleteRoute: Hashable {
 struct PersonalizedPlanRoute: Hashable {}
 
 struct PersonalizedPlanEditorRoute: Hashable {}
+
+struct SavedPlanDetailRoute: Hashable {
+    let savedRoutineId: UUID
+}

@@ -26,7 +26,6 @@ struct OnboardingProblemAreasView: View {
                     ForEach(OnboardingPainArea.allCases) { area in
                         OnboardingMultiSelectCard(
                             title: area.displayName,
-                            emoji: area.emoji,
                             isSelected: viewModel.selectedPainAreas.contains(area)
                         ) {
                             if viewModel.selectedPainAreas.contains(area) {

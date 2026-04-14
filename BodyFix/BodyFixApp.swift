@@ -22,6 +22,8 @@ private func makeModelContainer() -> ModelContainer {
         PersonalizedPlan.self,
         StretchSession.self,
         RoutineSeriesProgress.self,
+        SavedRoutine.self,
+        StretchTimingOverride.self,
     ])
     let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

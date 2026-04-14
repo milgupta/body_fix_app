@@ -13,8 +13,10 @@ struct StretchTimerView: View {
     @State private var currentRep = 0
     @State private var repPaused = false
     @State private var showEndAlert = false
+    @State private var showSkipAlert = false
     @State private var showNextOverlay = false
     @State private var completePulse = false
+    @State private var pendingNavigationIndex: Int?
 
     private var stretches: [Stretch] {
         route.stretchIds.compactMap { StretchDatabase.stretch(id: $0) }
@@ -25,6 +27,22 @@ struct StretchTimerView: View {
         return stretches[currentIndex]
     }
 
+    private func effectiveDuration(for stretch: Stretch) -> Int {
+        StretchTimingStore.effectiveDuration(for: stretch, overrides: route.durationOverrides)
+    }
+
+    private func effectiveRepCount(for stretch: Stretch) -> Int {
+        StretchTimingStore.effectiveRepCount(for: stretch, overrides: route.repOverrides)
+    }
+
+    private func timerDetailText(for stretch: Stretch) -> String {
+        StretchTimingStore.detailText(
+            for: stretch,
+            durationOverrides: route.durationOverrides,
+            repOverrides: route.repOverrides
+        )
+    }
+
     init(route: StretchTimerRoute, path: Binding<NavigationPath>) {
         self.route = route
         _path = path
@@ -32,7 +50,7 @@ struct StretchTimerView: View {
         let idx = min(max(0, route.startIndex), max(0, list.count - 1))
         _currentIndex = State(initialValue: idx)
         if let first = list[safe: idx] {
-            _timeRemaining = State(initialValue: first.duration)
+            _timeRemaining = State(initialValue: route.durationOverrides[first.id] ?? first.duration)
         } else {
             _timeRemaining = State(initialValue: 0)
         }
@@ -63,6 +81,16 @@ struct StretchTimerView: View {
         } message: {
             Text("Your progress will be saved.")
         }
+        .alert("Skip this stretch?", isPresented: $showSkipAlert) {
+            Button("Stay", role: .cancel) {
+                pendingNavigationIndex = nil
+            }
+            Button("Skip") {
+                applyPendingNavigation()
+            }
+        } message: {
+            Text("Your progress on this stretch will reset.")
+        }
         .onDisappear {
             timer?.invalidate()
         }
@@ -83,10 +111,23 @@ struct StretchTimerView: View {
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundStyle(Color.bfTextSecondary)
                 }
+
                 Spacer()
-                Text("\(currentIndex + 1) of \(stretches.count)")
-                    .font(Typography.badgeMono)
-                    .foregroundStyle(Color.bfMint)
+
+                HStack(spacing: 8) {
+                    navigationButton(systemName: "chevron.left", isEnabled: currentIndex > 0) {
+                        requestNavigation(to: currentIndex - 1)
+                    }
+
+                    Text("\(currentIndex + 1) of \(stretches.count)")
+                        .font(Typography.badgeMono)
+                        .foregroundStyle(Color.bfMint)
+                        .frame(minWidth: 56)
+
+                    navigationButton(systemName: "chevron.right", isEnabled: currentIndex < stretches.count - 1) {
+                        requestNavigation(to: currentIndex + 1)
+                    }
+                }
             }
             .padding(.horizontal, 20)
             .padding(.top, 12)
@@ -99,7 +140,7 @@ struct StretchTimerView: View {
                 .foregroundStyle(Color.bfTextPrimary)
                 .padding(.horizontal, 20)
 
-            Text(stretch.repScheme)
+            Text(timerDetailText(for: stretch))
                 .font(Typography.badgeMono)
                 .foregroundStyle(Color.bfMint)
                 .padding(.horizontal, 10)
@@ -108,7 +149,11 @@ struct StretchTimerView: View {
                 .clipShape(Capsule())
                 .padding(.top, 10)
 
-            Spacer().frame(height: 28)
+            stretchImageCard(stretch: stretch)
+                .padding(.horizontal, 20)
+                .padding(.top, 18)
+
+            Spacer().frame(height: 24)
 
             if stretch.isRepBased {
                 repTimerContent(stretch: stretch)
@@ -128,14 +173,14 @@ struct StretchTimerView: View {
 
             controlButtons(stretch: stretch)
                 .padding(.horizontal, 20)
-                .padding(.bottom, 32)
+                .padding(.bottom, 80)
         }
     }
 
     @ViewBuilder
     private func holdTimerContent(stretch: Stretch) -> some View {
         CircularTimerView(
-            totalSeconds: max(1, stretch.duration),
+            totalSeconds: max(1, effectiveDuration(for: stretch)),
             remainingSeconds: timeRemaining,
             isComplete: holdFinished,
             isRunning: isRunning
@@ -144,7 +189,7 @@ struct StretchTimerView: View {
 
     @ViewBuilder
     private func repTimerContent(stretch: Stretch) -> some View {
-        let target = stretch.targetReps
+        let target = effectiveRepCount(for: stretch)
         VStack(spacing: 16) {
             ZStack {
                 Circle()
@@ -258,7 +303,7 @@ struct StretchTimerView: View {
 
     @ViewBuilder
     private func repControls(stretch: Stretch) -> some View {
-        let target = stretch.targetReps
+        let target = effectiveRepCount(for: stretch)
         if holdFinished {
             Button {
                 HapticManager.shared.mediumImpact()
@@ -352,8 +397,36 @@ struct StretchTimerView: View {
         repPaused = false
         completePulse = false
         if let s = stretches[safe: currentIndex] {
-            timeRemaining = s.duration
+            timeRemaining = effectiveDuration(for: s)
         }
+    }
+
+    private func requestNavigation(to index: Int) {
+        guard stretches.indices.contains(index), index != currentIndex else { return }
+        HapticManager.shared.lightImpact()
+        if hasInProgressState {
+            pendingNavigationIndex = index
+            showSkipAlert = true
+        } else {
+            currentIndex = index
+        }
+    }
+
+    private func applyPendingNavigation() {
+        guard let index = pendingNavigationIndex, stretches.indices.contains(index) else { return }
+        pendingNavigationIndex = nil
+        currentIndex = index
+    }
+
+    private var hasInProgressState: Bool {
+            if let stretch {
+                if stretch.isRepBased {
+                    let target = effectiveRepCount(for: stretch)
+                    return currentRep > 0 && currentRep < target && !holdFinished
+                }
+                return holdStarted && !holdFinished
+            }
+        return false
     }
 
     private func advanceAfterComplete() {
@@ -375,7 +448,9 @@ struct StretchTimerView: View {
     private func finishSession() {
         let names = stretches.map(\.name)
         let muscles = Array(Set(stretches.map(\.muscleGroup))).sorted()
-        let total = stretches.reduce(0) { $0 + $1.duration }
+        let total = stretches.reduce(0) { partial, stretch in
+            partial + effectiveDuration(for: stretch)
+        }
         path.append(
             SessionCompleteRoute(
                 stretchNames: names,
@@ -405,6 +480,60 @@ struct StretchTimerView: View {
             .background(RoundedRectangle(cornerRadius: 20).fill(Color.bfCard))
             .padding(32)
         }
+    }
+
+    @ViewBuilder
+    private func stretchImageCard(stretch: Stretch) -> some View {
+        let image = BodyFixImageResolver.image(for: stretch)
+
+        ZStack {
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .fill(Color.bfSurfaceElevated)
+
+            if let image {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .padding(18)
+            } else {
+                VStack(spacing: 10) {
+                    BodyFixThumbnailView(stretch: stretch, size: 86)
+                    Text("Demo preview unavailable")
+                        .font(Typography.caption)
+                        .foregroundStyle(Color.bfTextMuted)
+                }
+                .padding(20)
+            }
+        }
+        .frame(maxWidth: 280)
+        .frame(height: 188)
+        .overlay(
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .stroke(Color.bfBorder.opacity(0.48), lineWidth: 1)
+        )
+        .shadow(color: Color.black.opacity(0.05), radius: 14, y: 6)
+    }
+
+    private func navigationButton(systemName: String, isEnabled: Bool, action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: systemName)
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(isEnabled ? Color.bfTextSecondary : Color.bfTextDisabled.opacity(0.7))
+                .frame(width: 30, height: 30)
+                .background(
+                    Circle()
+                        .fill(Color.bfSurfaceElevated)
+                )
+                .overlay(
+                    Circle()
+                        .stroke(Color.bfBorder.opacity(0.55), lineWidth: 1)
+                )
+        }
+        .buttonStyle(.plain)
+        .disabled(!isEnabled)
+        .opacity(isEnabled ? 1 : 0.55)
     }
 }
 

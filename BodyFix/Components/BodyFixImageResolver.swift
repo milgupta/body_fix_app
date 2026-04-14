@@ -9,7 +9,7 @@ enum BodyFixImageResolver {
         "chest_corner_stretch": "stretch_pec_minor_corner_stretch",
         "chest_supine_foam": "stretch_supine_chest_stretch",
         "upperback_open_book": "stretch_seated_thoracic_rotation",
-        "biceps_wall_stretch": "stretch_wall_biceps_stretch",
+        "biceps_wall_stretch": "stretch_bicep_wall_stretch",
         "biceps_seated": "stretch_seated_bicep_floor_stretch",
         "biceps_horizon_bar": "stretch_spine_decompression_hang",
         "triceps_overhead": "stretch_overhead_tricep_stretch",
@@ -48,6 +48,16 @@ enum BodyFixImageResolver {
         "neck_shoulders_1": "routine_neck_1",
         "neck_shoulders_2": "routine_neck_2",
         "neck_shoulders_3": "routine_neck_3",
+        "lower_back_pain_relief": "routine_lower_back_quick",
+        "knee_pain_relief": "routine_acl",
+        "hip_flexor_tight_hips": "routine_hip_opener",
+        "shoulder_impingement_relief": "routine_frozen_shoulder",
+        "piriformis_syndrome_relief": "routine_sciatica",
+        "tennis_golf_elbow": "routine_wrist_rescue",
+        "upper_back_rhomboid_pain": "routine_tech_neck_recovery",
+        "ankle_sprain_recovery": "routine_plantar_fasciitis",
+        "hip_bursitis_relief": "routine_it_band",
+        "neck_pain_stiffness": "routine_tech_neck",
     ]
 
     private static let areaNames: [MuscleGroup: String] = [
@@ -62,6 +72,13 @@ enum BodyFixImageResolver {
         .quads: "area_quads",
         .hamstrings: "area_hamstrings",
         .calves: "area_calves",
+    ]
+
+    private static let areaStretchFallbacks: [MuscleGroup: String] = [
+        .biceps: "stretch_bicep_wall_stretch",
+        .triceps: "stretch_overhead_tricep_stretch",
+        .forearms: "stretch_prayer_hands_stretch",
+        .knees: "stretch_supine_knee_flexion",
     ]
 
     static func image(for stretch: Stretch) -> UIImage? {
@@ -92,6 +109,7 @@ enum BodyFixImageResolver {
     static func image(for muscleGroup: MuscleGroup) -> UIImage? {
         let candidates = unique(
             areaNames[muscleGroup],
+            areaStretchFallbacks[muscleGroup],
             normalizedName("area_\(muscleGroup.displayName)")
         )
 

@@ -44,7 +44,7 @@ struct StretchListView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 100)
+                .padding(.bottom, 168)
             }
 
             if !flatStretches.isEmpty {
@@ -55,7 +55,7 @@ struct StretchListView: View {
                         path.append(StretchTimerRoute(stretchIds: ids, startIndex: 0))
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 24)
+                    .padding(.bottom, 72)
                 }
                 .background(
                     LinearGradient(

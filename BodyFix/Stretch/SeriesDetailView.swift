@@ -26,24 +26,15 @@ struct SeriesDetailView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            Color.bfBackground.ignoresSafeArea()
+            Color.bfPageBackground.ignoresSafeArea()
 
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("SERIES")
-                            .font(Typography.badgeMono)
-                            .foregroundStyle(Color.bfMint)
+                VStack(alignment: .leading, spacing: 24) {
+                    hero
 
-                        Text(series?.name ?? "Series")
-                            .font(Typography.screenTitle)
-                            .foregroundStyle(Color.bfTextPrimary)
-
-                        Text(series?.difficultyLabel ?? "Progressive program")
-                            .font(Typography.screenSubtitle)
-                            .foregroundStyle(Color.bfTextTertiary)
-                    }
-                    .padding(.top, 8)
+                    Text("Tap any level to choose a different step.")
+                        .font(Typography.homeMeta)
+                        .foregroundStyle(Color.bfTextMuted)
 
                     ForEach(levelRoutines) { routine in
                         Button {
@@ -60,16 +51,22 @@ struct SeriesDetailView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 120)
+                .padding(.bottom, 146)
             }
 
             if let nextRoutine {
-                GradientButton(title: "Start \(nextRoutine.name)") {
-                    HapticManager.shared.heavyImpact()
-                    path.append(RoutineStretchListRoute(routineId: nextRoutine.id))
+                VStack(spacing: 8) {
+                    Text("Recommended next step")
+                        .font(Typography.homeMeta)
+                        .foregroundStyle(Color.bfTextMuted)
+
+                    GradientButton(title: ctaTitle(for: nextRoutine)) {
+                        HapticManager.shared.heavyImpact()
+                        path.append(RoutineStretchListRoute(routineId: nextRoutine.id))
+                    }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 24)
+                .padding(.bottom, 72)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -87,6 +84,56 @@ struct SeriesDetailView: View {
             }
         }
     }
+
+    private var hero: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Program")
+                .font(Typography.homeMeta)
+                .foregroundStyle(Color.bfBlue)
+
+            Text(series?.name ?? "Series")
+                .font(Typography.homeDisplayTitle)
+                .foregroundStyle(Color.bfTextPrimary)
+                .lineSpacing(-1)
+
+            Text(series?.difficultyLabel ?? "Progressive program")
+                .font(Typography.homeSupport)
+                .foregroundStyle(Color.bfTextTertiary)
+
+            if let series {
+                Text(seriesDescription(for: series))
+                    .font(Typography.homeCardSupport)
+                    .foregroundStyle(Color.bfTextSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .padding(.top, 8)
+    }
+
+    private func seriesDescription(for series: RoutineSeries) -> String {
+        switch series.id {
+        case "series_posture":
+            return "Build from simple posture resets into stronger, longer sessions that help you move tall and relaxed."
+        case "series_lower_back":
+            return "Start with gentle decompression and progress into steadier lower-back support across each level."
+        case "series_neck_shoulders":
+            return "Ease neck and shoulder tension with a structured sequence that grows with your consistency."
+        case "series_hips":
+            return "Unlock tight hips gradually with a smooth progression from mobility basics to deeper release."
+        default:
+            return "A guided progression designed to help you stay consistent and build momentum over time."
+        }
+    }
+
+    private func ctaTitle(for routine: Routine) -> String {
+        let level = routine.level ?? 1
+        switch level {
+        case 1: return "Continue with Step I"
+        case 2: return "Continue with Step II"
+        case 3: return "Continue with Step III"
+        default: return "Start next step"
+        }
+    }
 }
 
 private struct SeriesLevelCard: View {
@@ -95,61 +142,90 @@ private struct SeriesLevelCard: View {
     let isNext: Bool
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                HStack(spacing: 12) {
-                    BodyFixThumbnailView(routine: routine, size: 44)
+        VStack(alignment: .leading, spacing: 16) {
+            HStack(alignment: .top, spacing: 14) {
+                BodyFixThumbnailView(routine: routine, size: 56)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("Step \(routine.level ?? 1)")
+                            .font(Typography.homeMeta)
+                            .foregroundStyle(isNext ? Color.bfBlue : Color.bfTextMuted)
+
+                        Spacer()
+
+                        if isCompleted {
+                            Label("Completed", systemImage: "checkmark.circle.fill")
+                                .font(Typography.homeMeta)
+                                .foregroundStyle(Color.bfMint)
+                        } else if isNext {
+                            Text("Up next")
+                                .font(Typography.homeMeta)
+                                .foregroundStyle(Color.bfBlue)
+                        }
+                    }
 
                     Text(routine.name)
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .font(Typography.homeCardTitle)
                         .foregroundStyle(Color.bfTextPrimary)
-                }
-                Spacer()
-                if isCompleted {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(Color.bfMint)
+                        .multilineTextAlignment(.leading)
+                        .lineSpacing(-1)
+
+                    Text(routine.durationLabel)
+                        .font(Typography.homeMeta)
+                        .foregroundStyle(Color.bfTextSecondary)
                 }
             }
 
-            HStack(spacing: 10) {
+            HStack(spacing: 12) {
                 ForEach(1...3, id: \.self) { level in
-                    VStack(spacing: 6) {
+                    VStack(spacing: 8) {
                         Circle()
-                            .fill(level <= (routine.level ?? 0) && isCompleted ? Color.bfMint : (level == (routine.level ?? 0) ? Color.bfBlue : Color.bfBorder))
-                            .frame(width: 10, height: 10)
+                            .fill(level < (routine.level ?? 0) ? Color.bfMint.opacity(0.65) : (level == (routine.level ?? 0) ? Color.bfBlue : Color.bfBorder.opacity(0.85)))
+                            .frame(width: 12, height: 12)
+
                         Text(levelLabel(level))
-                            .font(.system(size: 10, weight: .medium, design: .monospaced))
+                            .font(Typography.homeMeta)
                             .foregroundStyle(Color.bfTextMuted)
                     }
+
                     if level < 3 {
-                        Rectangle()
-                            .fill(Color.bfBorder)
-                            .frame(height: 2)
+                        Capsule()
+                            .fill(level < (routine.level ?? 0) ? Color.bfMint.opacity(0.55) : Color.bfBorder.opacity(0.85))
+                            .frame(height: 3)
                     }
                 }
             }
 
-            HStack {
-                Text(routine.durationLabel)
-                    .font(Typography.badgeMono)
-                    .foregroundStyle(Color.bfMint)
-                Spacer()
-                if isNext && !isCompleted {
-                    Text("NEXT")
-                        .font(Typography.badgeMono)
-                        .foregroundStyle(Color.bfBlue)
-                }
-            }
+            Text(routineSupportLine)
+                .font(Typography.homeCardSupport)
+                .foregroundStyle(Color.bfTextSecondary)
+                .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(16)
+        .padding(20)
         .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.bfSurfaceElevated)
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: isNext
+                            ? [Color.white.opacity(0.98), Color.bfSurfaceElevated, Color.bfBlue.opacity(0.08)]
+                            : [Color.bfSurfaceElevated, Color.bfSurfaceMuted],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .stroke(isNext ? Color.bfBlue.opacity(0.35) : Color.bfBorder, lineWidth: 1)
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .stroke(isNext ? Color.bfBlue.opacity(0.35) : Color.bfBorder.opacity(0.7), lineWidth: 1)
         )
+        .shadow(color: Color.black.opacity(0.028), radius: 10, y: 4)
+    }
+
+    private var routineSupportLine: String {
+        if isCompleted { return "You’ve already finished this level. Revisit it anytime for a solid reset." }
+        if isNext { return "This is the best next step in your progression when you’re ready to keep going." }
+        return "Part of your guided progression, designed to build confidence before the next level."
     }
 
     private func levelLabel(_ level: Int) -> String {

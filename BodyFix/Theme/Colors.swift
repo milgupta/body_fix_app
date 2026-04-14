@@ -28,6 +28,7 @@ extension Color {
     static let bfBorder = Color(hex: "#D9E1EC")
     static let bfMint = Color(hex: "#163B73")
     static let bfTeal = Color(hex: "#2B5C96")
+    static let bfSliderGreen = Color(hex: "#58BFA2")
     static let bfSliderWarm = Color(hex: "#E6A23C")
     static let bfBlue = Color(hex: "#4F7DBA")
     static let bfTextPrimary = Color(hex: "#1A2433")
@@ -70,6 +71,7 @@ extension ShapeStyle where Self == Color {
     static var bfBorder: Color { .bfBorder }
     static var bfMint: Color { .bfMint }
     static var bfTeal: Color { .bfTeal }
+    static var bfSliderGreen: Color { .bfSliderGreen }
     static var bfSliderWarm: Color { .bfSliderWarm }
     static var bfBlue: Color { .bfBlue }
     static var bfTextPrimary: Color { .bfTextPrimary }

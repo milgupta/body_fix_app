@@ -1,0 +1,6757 @@
+[
+  {
+    "id": "neck_side_tilt",
+    "name": "Neck Side Tilt",
+    "muscle_groups": [
+      "neck",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit tall, gently tilt one ear toward the same shoulder until you feel a stretch along the opposite side of your neck, hold, then switch sides.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "posture"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_neck_side_tilt",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "neck_rotation_stretch",
+    "name": "Neck Rotation Stretch",
+    "muscle_groups": [
+      "neck"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit upright, slowly rotate your head to look over one shoulder until you feel a gentle pull, hold, then return and repeat on the other side.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_neck_rotation_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "chin_tuck",
+    "name": "Chin Tuck",
+    "muscle_groups": [
+      "neck",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 5,
+      "per_side": false,
+      "reps": 10,
+      "cycles": 2,
+      "type": "hold",
+      "display": "2 x 10 reps, 5s hold each"
+    },
+    "description": "Sit tall and gently draw your chin straight back to create a double-chin effect without tilting your head, feeling a stretch at the base of your skull.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "posture",
+        "strength"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_chin_tuck",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "levator_scapulae_stretch",
+    "name": "Levator Scapulae Stretch",
+    "muscle_groups": [
+      "neck",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit upright, place one hand on the back of your head, look down toward your opposite knee at 45 degrees, and gently apply downward pressure to stretch the side of your neck.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_levator_scapulae_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "neck_flexion_stretch",
+    "name": "Neck Flexion Stretch",
+    "muscle_groups": [
+      "neck"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Sit tall, slowly drop your chin toward your chest until you feel a gentle pull along the back of your neck, and breathe deeply.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_neck_flexion_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "upper_trapezius_stretch",
+    "name": "Upper Trapezius Stretch",
+    "muscle_groups": [
+      "neck",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit upright, reach one hand behind your back, use the other hand to tilt your head away from that side, and apply light downward pressure to stretch the upper trapezius.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "posture"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_upper_trapezius_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "sternocleidomastoid_stretch",
+    "name": "Sternocleidomastoid (SCM) Stretch",
+    "muscle_groups": [
+      "neck"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Tilt your head back and rotate it slightly to one side to expose the front of the neck, feeling the stretch along the muscle running from your ear to your collarbone.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_sternocleidomastoid_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "neck_extension_stretch",
+    "name": "Neck Extension Stretch",
+    "muscle_groups": [
+      "neck"
+    ],
+    "timing": {
+      "hold_seconds": 20,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "20s hold"
+    },
+    "description": "Sit or stand tall, slowly tilt your head back looking toward the ceiling, and feel the gentle stretch across the front of your throat and neck.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "mobility",
+        "energize"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_neck_extension_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "occipital_release",
+    "name": "Occipital Floor Release",
+    "muscle_groups": [
+      "neck",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "Lie on your back with a rolled towel placed under the base of your skull and breathe deeply, letting the weight of your head decompress the suboccipital muscles.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "sleep"
+      ],
+      "context": [
+        "tech_neck",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "towel",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_occipital_release",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "neck_pnf_hold",
+    "name": "Neck PNF Isometric Stretch",
+    "muscle_groups": [
+      "neck"
+    ],
+    "timing": {
+      "hold_seconds": 10,
+      "per_side": true,
+      "reps": 3,
+      "cycles": 1,
+      "type": "pnf",
+      "display": "3 reps each side: 5s contract then 5s relax"
+    },
+    "description": "Tilt your head into a side stretch, press your temple against your hand for five seconds without moving, then relax and let your head sink further into the stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [],
+      "context": [
+        "tech_neck",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_neck_pnf_hold",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "neck_pain"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 5
+    }
+  },
+  {
+    "id": "cross_body_shoulder_stretch",
+    "name": "Cross-Body Shoulder Stretch",
+    "muscle_groups": [
+      "shoulders",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Pull one arm straight across your chest with the opposite hand near the elbow until you feel a deep stretch in the back of your shoulder.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "athletic"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_cross_body_shoulder_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "frozen_shoulder"
+    ],
+    "progression": null
+  },
+  {
+    "id": "overhead_shoulder_stretch",
+    "name": "Overhead Shoulder Stretch",
+    "muscle_groups": [
+      "shoulders",
+      "triceps"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Raise one arm overhead, bend the elbow so your hand drops behind your neck, and use the opposite hand to gently press the elbow back until you feel the stretch in the shoulder.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "mobility",
+        "posture"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_overhead_shoulder_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "frozen_shoulder"
+    ],
+    "progression": null
+  },
+  {
+    "id": "doorway_shoulder_stretch",
+    "name": "Doorway Shoulder Stretch",
+    "muscle_groups": [
+      "shoulders",
+      "chest"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Stand in a doorway with both arms raised to 90 degrees pressed against the frame, step one foot forward, and lean gently through the doorway to open the chest and shoulders.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "office",
+        "desk"
+      ]
+    },
+    "position": "standing",
+    "support": "doorway",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_doorway_shoulder_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "frozen_shoulder",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "sleeper_stretch",
+    "name": "Sleeper Stretch",
+    "muscle_groups": [
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lie on your side with your bottom arm out at shoulder height, elbow bent to 90 degrees, then use your top hand to gently press the forearm down to stretch the posterior shoulder capsule.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "sleep",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_sleeper_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "frozen_shoulder"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 15
+    }
+  },
+  {
+    "id": "shoulder_pendulum",
+    "name": "Shoulder Pendulum (Codman Exercise)",
+    "muscle_groups": [
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": null,
+      "per_side": true,
+      "reps": 20,
+      "cycles": 1,
+      "type": "dynamic",
+      "display": "20 pendulum swings each arm"
+    },
+    "description": "Lean forward with one hand on a table for support, let the other arm hang freely, and gently swing it in small circles using body weight rather than muscle contraction.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_shoulder_pendulum",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "frozen_shoulder",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "eagle_arms",
+    "name": "Eagle Arms (Garudasana Arms)",
+    "muscle_groups": [
+      "shoulders",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Extend both arms forward, wrap one arm under the other at the elbows, try to bring your palms together, and lift your elbows to shoulder height to feel the stretch between your shoulder blades.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_eagle_arms",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "thread_the_needle",
+    "name": "Thread the Needle",
+    "muscle_groups": [
+      "shoulders",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "On hands and knees, slide one arm under your body along the floor until your shoulder rests on the ground, feeling the rotational stretch through the upper back and shoulder.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility",
+        "posture"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "athletic"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_thread_the_needle",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "cow_face_arms",
+    "name": "Cow Face Arms (Gomukhasana Arms)",
+    "muscle_groups": [
+      "shoulders",
+      "triceps"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Reach one arm overhead and bend the elbow behind your head while the opposite arm reaches up your back, working to clasp fingers between your shoulder blades.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_cow_face_arms",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "frozen_shoulder"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 10
+    }
+  },
+  {
+    "id": "wall_chest_shoulder_stretch",
+    "name": "Wall Chest and Shoulder Stretch",
+    "muscle_groups": [
+      "shoulders",
+      "chest"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand sideways next to a wall, place your forearm flat against it at shoulder height, and slowly rotate your body away until you feel the stretch across your chest and front shoulder.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_wall_chest_shoulder_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "shoulder_band_pass_through",
+    "name": "Resistance Band Shoulder Pass-Through",
+    "muscle_groups": [
+      "shoulders",
+      "chest",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": null,
+      "per_side": false,
+      "reps": 10,
+      "cycles": 2,
+      "type": "dynamic",
+      "display": "2 x 10 reps"
+    },
+    "description": "Hold a resistance band wide in front of you, then slowly raise it overhead and bring it behind your back in a controlled arc, keeping your arms straight throughout.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "athletic"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "resistance_band",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_shoulder_band_pass_through",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "frozen_shoulder",
+      "postural_kyphosis"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": null
+    }
+  },
+  {
+    "id": "shoulder_internal_rotation_wall",
+    "name": "Wall Shoulder Internal Rotation Stretch",
+    "muscle_groups": [
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand sideways with your elbow at 90 degrees pressed against a wall at shoulder height, then rotate your body forward and away from the wall to stretch the posterior shoulder capsule.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_shoulder_internal_rotation_wall",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "frozen_shoulder"
+    ],
+    "progression": null
+  },
+  {
+    "id": "floor_shoulder_overhead_stretch",
+    "name": "Floor Shoulder Overhead Stretch",
+    "muscle_groups": [
+      "shoulders",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each arm"
+    },
+    "description": "Lie on your back and reach one arm overhead along the floor, then gently extend through your fingertips to lengthen the shoulder and lat.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_floor_shoulder_overhead_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "frozen_shoulder"
+    ],
+    "progression": null
+  },
+  {
+    "id": "shoulder_blade_pinch",
+    "name": "Shoulder Blade Pinch",
+    "muscle_groups": [
+      "shoulders",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 5,
+      "per_side": false,
+      "reps": 10,
+      "cycles": 2,
+      "type": "hold",
+      "display": "2 x 10 reps, 5s hold each"
+    },
+    "description": "Sit or stand tall, draw both shoulder blades toward your spine as if squeezing a pencil between them, hold five seconds, then release completely.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "strength"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_shoulder_blade_pinch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "doorway_pec_stretch",
+    "name": "Doorway Pec Stretch",
+    "muscle_groups": [
+      "chest",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Stand in a doorway with elbows at 90 degrees pressed against the frame at chest height, step one foot forward, and lean through the doorway to stretch both pectorals.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "doorway",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_doorway_pec_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "shoulder_impingement",
+      "frozen_shoulder"
+    ],
+    "progression": null
+  },
+  {
+    "id": "prone_chest_opener",
+    "name": "Prone Chest Opener",
+    "muscle_groups": [
+      "chest",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lie face down and extend one arm out to the side at shoulder height, then slowly roll onto that shoulder until you feel the stretch across the pectoral muscle.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "recovery",
+        "posture"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_prone_chest_opener",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "frozen_shoulder"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_chest_expansion",
+    "name": "Seated Chest Expansion",
+    "muscle_groups": [
+      "chest",
+      "shoulders",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Sit at the edge of a chair, interlace your fingers behind your back, straighten your arms, and lift your hands away from your body while squeezing your shoulder blades together.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "posture",
+        "energize"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_seated_chest_expansion",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "bridge_chest_opener",
+    "name": "Bridge Chest Opener",
+    "muscle_groups": [
+      "chest",
+      "hips",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 3,
+      "type": "hold",
+      "display": "3 x 30s hold"
+    },
+    "description": "Lie on your back with knees bent, lift your hips into a bridge, interlace your hands beneath you on the floor, and roll your shoulders under to open the chest.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "strength",
+        "energize"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_bridge_chest_opener",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "supine_chest_stretch",
+    "name": "Supine Chest Stretch",
+    "muscle_groups": [
+      "chest",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s hold"
+    },
+    "description": "Lie on your back with a rolled towel lengthwise along your spine, extend your arms to the sides at shoulder height with palms up, and let gravity passively open your chest.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "posture",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "towel",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_supine_chest_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "pec_minor_corner_stretch",
+    "name": "Pec Minor Corner Stretch",
+    "muscle_groups": [
+      "chest",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Stand in a corner with both forearms pressed against the walls at shoulder height, then lean your body forward until you feel the stretch across the upper chest and front shoulders.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_pec_minor_corner_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "camel_pose",
+    "name": "Camel Pose (Ustrasana)",
+    "muscle_groups": [
+      "chest",
+      "hips",
+      "lower_back",
+      "core"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 2,
+      "type": "hold",
+      "display": "2 x 30s hold"
+    },
+    "description": "Kneel with hips over knees, reach your hands back to your heels, push your hips forward, and arch your upper back to deeply open the chest and hip flexors.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "strength",
+        "energize"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "athletic"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_camel_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 10
+    }
+  },
+  {
+    "id": "bow_pose",
+    "name": "Bow Pose (Dhanurasana)",
+    "muscle_groups": [
+      "chest",
+      "hips",
+      "quads",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 20,
+      "per_side": false,
+      "reps": null,
+      "cycles": 3,
+      "type": "hold",
+      "display": "3 x 20s hold"
+    },
+    "description": "Lie face down, bend both knees and reach back to grasp your ankles, then kick your feet into your hands to lift your chest and thighs off the floor simultaneously.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "strength",
+        "energize"
+      ],
+      "time": [
+        "pre_workout"
+      ],
+      "context": [
+        "athletic",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_bow_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 5
+    }
+  },
+  {
+    "id": "cat_cow",
+    "name": "Cat-Cow Stretch",
+    "muscle_groups": [
+      "upper_back",
+      "lower_back",
+      "core"
+    ],
+    "timing": {
+      "hold_seconds": null,
+      "per_side": false,
+      "reps": 10,
+      "cycles": 1,
+      "type": "mobilization",
+      "display": "10 slow breath-led reps"
+    },
+    "description": "On hands and knees, alternate between arching your back toward the ceiling on the exhale and letting your belly drop while lifting your head and tailbone on the inhale.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_cat_cow",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "herniated_disc",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "childs_pose",
+    "name": "Child's Pose (Balasana)",
+    "muscle_groups": [
+      "upper_back",
+      "lower_back",
+      "hips",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "Kneel and sit back toward your heels, extend your arms forward on the floor, and relax your forehead down while sinking your chest toward the ground.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep",
+        "post_workout"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_childs_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_thoracic_rotation",
+    "name": "Seated Thoracic Rotation",
+    "muscle_groups": [
+      "upper_back",
+      "core"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit tall in a chair, cross your arms over your chest, and slowly rotate your upper body to one side as far as comfortable while keeping your hips still and facing forward.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "posture"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_thoracic_rotation",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "open_book_stretch",
+    "name": "Open Book Stretch",
+    "muscle_groups": [
+      "upper_back",
+      "chest",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lie on your side with knees stacked and both arms forward at shoulder height, then rotate your top arm back to open your chest like a book while following your hand with your eyes.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_open_book_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "postural_kyphosis",
+      "frozen_shoulder"
+    ],
+    "progression": null
+  },
+  {
+    "id": "wall_angels",
+    "name": "Wall Angels",
+    "muscle_groups": [
+      "upper_back",
+      "shoulders",
+      "chest"
+    ],
+    "timing": {
+      "hold_seconds": null,
+      "per_side": false,
+      "reps": 10,
+      "cycles": 2,
+      "type": "dynamic",
+      "display": "2 x 10 slow reps"
+    },
+    "description": "Stand with your back flat against a wall, press your arms into a W shape, then slowly slide them above your head and back down while keeping your back and arms touching the wall.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "strength"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_wall_angels",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "foam_roller_thoracic_extension",
+    "name": "Foam Roller Thoracic Extension",
+    "muscle_groups": [
+      "upper_back",
+      "chest"
+    ],
+    "timing": {
+      "hold_seconds": 5,
+      "per_side": false,
+      "reps": 6,
+      "cycles": 1,
+      "type": "mobilization",
+      "display": "Roll across 6 spinal segments, 5s pause each"
+    },
+    "description": "Place a foam roller perpendicular to your spine at mid-back level, support your head with your hands, and gently extend back over the roller to mobilize each thoracic segment.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "recovery"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "desk",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "foam_roller",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_foam_roller_thoracic_extension",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "lower_back_pain",
+      "shoulder_impingement"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": null
+    }
+  },
+  {
+    "id": "seated_upper_back_hug",
+    "name": "Seated Upper Back Hug",
+    "muscle_groups": [
+      "upper_back",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Sit upright, wrap both arms around your torso in a self-hug, and round your upper back while reaching your fingertips toward your shoulder blades.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "posture"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_seated_upper_back_hug",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_lat_stretch",
+    "name": "Standing Lat Stretch",
+    "muscle_groups": [
+      "upper_back",
+      "shoulders",
+      "core"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand with feet shoulder-width apart, reach one arm overhead and lean to the opposite side, feeling the stretch from your hip all the way up through the lat and shoulder.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "posture",
+        "energize"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_lat_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "thoracic_extension_chair",
+    "name": "Thoracic Extension Over Chair Back",
+    "muscle_groups": [
+      "upper_back",
+      "chest",
+      "neck"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Sit in a chair, clasp your hands behind your head, and gently arch your upper back over the top edge of the chair while opening your elbows wide to extend the thoracic spine.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "tech_neck"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "chair",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_thoracic_extension_chair",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "neck_pain",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "childs_pose_arm_reach",
+    "name": "Child's Pose with Lateral Arm Reach",
+    "muscle_groups": [
+      "upper_back",
+      "shoulders",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "From child's pose, walk both hands as far as possible to one side to create a crescent stretch in the opposite lat and shoulder, then switch sides.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_childs_pose_arm_reach",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "knee_to_chest_stretch",
+    "name": "Single Knee-to-Chest Stretch",
+    "muscle_groups": [
+      "lower_back",
+      "glutes",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lie on your back with both knees bent, pull one knee toward your chest with both hands, and hold while relaxing the opposite leg flat on the floor.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_knee_to_chest_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica",
+      "herniated_disc"
+    ],
+    "progression": null
+  },
+  {
+    "id": "supine_spinal_twist",
+    "name": "Supine Spinal Twist (Supta Matsyendrasana)",
+    "muscle_groups": [
+      "lower_back",
+      "hips",
+      "core"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each side"
+    },
+    "description": "Lie on your back, draw one knee to your chest, guide it across your body with the opposite hand, extend the same-side arm out, and look away to feel the lumbar rotation.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep",
+        "post_workout"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_supine_spinal_twist",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica",
+      "piriformis_syndrome"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_forward_fold",
+    "name": "Seated Forward Fold (Paschimottanasana)",
+    "muscle_groups": [
+      "lower_back",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "Sit on the floor with legs straight in front, hinge at the hips and reach your hands toward your feet while keeping your spine as long as possible.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep",
+        "post_workout"
+      ],
+      "context": []
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_seated_forward_fold",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica",
+      "herniated_disc"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_forward_fold",
+    "name": "Standing Forward Fold (Uttanasana)",
+    "muscle_groups": [
+      "lower_back",
+      "hamstrings",
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s hold"
+    },
+    "description": "Stand with feet hip-width apart, hinge at the hips and fold forward letting your hands reach toward the floor with a slight bend in the knees to protect the lower back.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "energize"
+      ],
+      "time": [
+        "morning",
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "running",
+        "athletic"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_standing_forward_fold",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica",
+      "herniated_disc"
+    ],
+    "progression": null
+  },
+  {
+    "id": "sphinx_pose",
+    "name": "Sphinx Pose",
+    "muscle_groups": [
+      "lower_back",
+      "core",
+      "chest"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "Lie face down with legs extended, place your forearms flat on the floor under your shoulders, and gently press up to lift your chest while keeping your hips on the ground.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "posture",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_sphinx_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "herniated_disc"
+    ],
+    "progression": null
+  },
+  {
+    "id": "double_knee_to_chest",
+    "name": "Double Knee-to-Chest Stretch",
+    "muscle_groups": [
+      "lower_back",
+      "glutes",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s hold"
+    },
+    "description": "Lie on your back, bring both knees to your chest, wrap your arms around your shins, and gently rock side to side to massage the lower back.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_double_knee_to_chest",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "herniated_disc",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "lower_back_bilateral_rotation",
+    "name": "Lower Back Bilateral Rotation",
+    "muscle_groups": [
+      "lower_back",
+      "hips",
+      "core"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lie on your back with knees bent and feet flat, let both knees fall together to one side while keeping your shoulders on the floor, breathe deeply, then switch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_lower_back_bilateral_rotation",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica",
+      "herniated_disc"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_lower_back_twist",
+    "name": "Seated Lower Back Twist",
+    "muscle_groups": [
+      "lower_back",
+      "core",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit tall in a chair, place one hand on the opposite knee and the other on the back of the chair, then twist your torso toward the back of the chair as far as comfortable.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "posture"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "chair",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_lower_back_twist",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "pelvic_tilt",
+    "name": "Supine Pelvic Tilt",
+    "muscle_groups": [
+      "lower_back",
+      "core",
+      "glutes"
+    ],
+    "timing": {
+      "hold_seconds": 2,
+      "per_side": false,
+      "reps": 15,
+      "cycles": 2,
+      "type": "dynamic",
+      "display": "2 x 15 reps, 2s hold each"
+    },
+    "description": "Lie on your back with knees bent and feet flat, gently flatten your lower back against the floor by contracting your abs and tilting the pelvis, hold briefly, then release.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "strength"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "targeted",
+        "pelvic_floor"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_pelvic_tilt",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "herniated_disc",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "prone_press_up",
+    "name": "Prone Press-Up (McKenzie Extension)",
+    "muscle_groups": [
+      "lower_back",
+      "core"
+    ],
+    "timing": {
+      "hold_seconds": 2,
+      "per_side": false,
+      "reps": 10,
+      "cycles": 2,
+      "type": "dynamic",
+      "display": "2 x 10 slow press-ups"
+    },
+    "description": "Lie face down with hands under your shoulders and slowly press up to lift your chest while keeping your hips on the floor, hold briefly at the top, then lower.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "posture"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_prone_press_up",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "herniated_disc",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_lateral_bend",
+    "name": "Standing Lateral Bend",
+    "muscle_groups": [
+      "lower_back",
+      "core"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand tall, reach one arm overhead and lean directly to the opposite side until you feel the stretch along your entire side from hip to fingertips.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "mobility",
+        "energize"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_lateral_bend",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "spine_decompression_hang",
+    "name": "Doorway Hang Spine Decompression",
+    "muscle_groups": [
+      "lower_back",
+      "upper_back",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 2,
+      "type": "hold",
+      "display": "2 x 30s hang"
+    },
+    "description": "Grip a sturdy doorframe or pull-up bar overhead, allow your body to hang with feet lightly on the floor, and let the spine passively decompress under your body weight.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "doorway",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_spine_decompression_hang",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "herniated_disc",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_side_bend",
+    "name": "Standing Side Bend",
+    "muscle_groups": [
+      "core",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand with feet hip-width apart, extend both arms overhead and clasp your hands, then lean smoothly to one side to lengthen the entire lateral line of the body.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "energize"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "posture"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_side_bend",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "cobra_pose",
+    "name": "Cobra Pose (Bhujangasana)",
+    "muscle_groups": [
+      "core",
+      "lower_back",
+      "chest"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 2,
+      "type": "hold",
+      "display": "2 x 30s hold"
+    },
+    "description": "Lie face down with hands under your shoulders, press through your palms to lift your chest while keeping hips on the floor and drawing your shoulder blades together.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "energize",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "athletic"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_cobra_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "herniated_disc",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_oblique_stretch",
+    "name": "Seated Oblique Stretch",
+    "muscle_groups": [
+      "core",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit tall, raise one arm overhead and lean that arm away from your body while placing the other hand on your thigh, feeling the stretch along your oblique and side body.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_oblique_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "supine_lateral_stretch",
+    "name": "Supine Lateral Stretch",
+    "muscle_groups": [
+      "core",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Lie on your back with arms overhead, shift both arms and both legs to one side to create a crescent shape with your body, feeling the deep side stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_supine_lateral_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "gate_pose",
+    "name": "Gate Pose (Parighasana)",
+    "muscle_groups": [
+      "core",
+      "hips",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Kneel on one knee and extend the opposite leg straight out to the side, then reach the overhead arm in an arc over the extended leg to open the side body.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "posture"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "athletic",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_gate_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "triangle_pose",
+    "name": "Triangle Pose (Trikonasana)",
+    "muscle_groups": [
+      "core",
+      "hips",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand with feet wide apart, turn one foot out 90 degrees, extend arms wide, and hinge sideways to bring one hand toward your shin while the opposite arm reaches skyward.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "strength",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_triangle_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "it_band"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_backbend",
+    "name": "Standing Backbend",
+    "muscle_groups": [
+      "core",
+      "lower_back",
+      "chest"
+    ],
+    "timing": {
+      "hold_seconds": 20,
+      "per_side": false,
+      "reps": null,
+      "cycles": 3,
+      "type": "hold",
+      "display": "3 x 20s hold"
+    },
+    "description": "Stand with feet hip-width apart, place your hands on your lower back for support, and gently arch backward lifting your chest toward the ceiling.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "energize"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_standing_backbend",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "crescent_lunge_side_bend",
+    "name": "Crescent Lunge Side Bend",
+    "muscle_groups": [
+      "core",
+      "hips",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Come into a high lunge with both arms raised overhead, then lean both arms in an arc toward the side of the front leg while keeping your hips square forward.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "strength",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_crescent_lunge_side_bend",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "bicep_wall_stretch",
+    "name": "Bicep Wall Stretch",
+    "muscle_groups": [
+      "biceps",
+      "chest",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand next to a wall, place your palm flat on it behind you at shoulder height with thumb pointing up, and slowly rotate your body away until you feel the stretch in the bicep and chest.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_bicep_wall_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_bicep_floor_stretch",
+    "name": "Seated Bicep Floor Stretch",
+    "muscle_groups": [
+      "biceps",
+      "forearms"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Sit on the floor with hands behind you, fingertips pointing away, and gently slide your hips forward while keeping your arms straight to feel the stretch along the underside of both arms.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_seated_bicep_floor_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "tennis_elbow",
+      "carpal_tunnel"
+    ],
+    "progression": null
+  },
+  {
+    "id": "doorway_bicep_stretch",
+    "name": "Doorway Bicep Stretch",
+    "muscle_groups": [
+      "biceps",
+      "chest"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand in a doorway, grasp the frame at waist height with one hand, then rotate your body outward while keeping your arm straight to stretch the bicep and anterior shoulder.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "doorway",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_doorway_bicep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "reverse_prayer_hands",
+    "name": "Reverse Prayer Hands",
+    "muscle_groups": [
+      "biceps",
+      "forearms",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Bring both hands behind your back, press palms together pointing fingers upward toward your spine, and hold to feel the stretch in the biceps, wrists, and forearms.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_reverse_prayer_hands",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "carpal_tunnel",
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "behind_back_bicep_stretch",
+    "name": "Behind-the-Back Bicep Stretch",
+    "muscle_groups": [
+      "biceps",
+      "shoulders",
+      "chest"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Interlace your fingers behind your back, straighten your arms, and lift your hands away from your body while expanding your chest forward.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "energize"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_behind_back_bicep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "postural_kyphosis",
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "wrist_extension_bicep_stretch",
+    "name": "Wrist Extension Bicep Stretch",
+    "muscle_groups": [
+      "biceps",
+      "forearms"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Extend one arm straight in front at shoulder height with the palm facing up, then use the other hand to gently pull the fingers down toward the floor to stretch the bicep and forearm.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_wrist_extension_bicep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "carpal_tunnel",
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "floor_bicep_stretch",
+    "name": "Floor Bicep Stretch",
+    "muscle_groups": [
+      "biceps",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Sit on the floor with hands behind you, slowly walk your hands further back and straighten your arms to progressively deepen the bicep and anterior shoulder stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_floor_bicep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "tennis_elbow"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 15
+    }
+  },
+  {
+    "id": "bicep_doorframe_stretch",
+    "name": "Bicep Doorframe Supination Stretch",
+    "muscle_groups": [
+      "biceps",
+      "forearms"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Grip a doorframe at waist height with your palm facing forward, extend your arm, and rotate your body away to feel the combined bicep and forearm stretch.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "doorway",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_bicep_doorframe_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "tennis_elbow",
+      "carpal_tunnel"
+    ],
+    "progression": null
+  },
+  {
+    "id": "overhead_tricep_stretch",
+    "name": "Overhead Tricep Stretch",
+    "muscle_groups": [
+      "triceps",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Raise one arm overhead, bend the elbow so your hand drops behind your neck, and use the opposite hand to gently press the elbow back and down until you feel the stretch in your tricep.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_overhead_tricep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_overhead_tricep_stretch",
+    "name": "Seated Overhead Tricep Stretch",
+    "muscle_groups": [
+      "triceps"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit upright, lift one arm overhead and bend the elbow behind your head, then use the opposite hand to gently guide the elbow further back.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_overhead_tricep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "cross_body_tricep_stretch",
+    "name": "Cross-Body Tricep Stretch",
+    "muscle_groups": [
+      "triceps",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Bend one arm and place your hand toward your opposite shoulder blade, then use the other hand to press the back of the elbow further across your chest.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_cross_body_tricep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "tricep_wall_fold_stretch",
+    "name": "Tricep Wall Fold Stretch",
+    "muscle_groups": [
+      "triceps",
+      "shoulders",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Face a wall and place both hands flat on it at shoulder height, then walk your feet back and fold your torso forward at right angles with arms straight to feel the shoulder and tricep stretch.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_tricep_wall_fold_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "lying_tricep_stretch",
+    "name": "Lying Tricep Stretch",
+    "muscle_groups": [
+      "triceps",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lie on your back, bring one arm up vertical and bend the elbow dropping your hand behind your head, then use the other hand to gently hold the elbow back.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "sleep",
+        "post_workout"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_lying_tricep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "tricep_reach_back",
+    "name": "Tricep Reach-Back Stretch",
+    "muscle_groups": [
+      "triceps",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand tall, bend one arm behind your back with palm facing out, then use the opposite hand to gently press the elbow further back and down.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_tricep_reach_back",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "eagle_arm_tricep_stretch",
+    "name": "Eagle Arm Tricep Variation",
+    "muscle_groups": [
+      "triceps",
+      "shoulders",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lift one arm and wrap both arms at the elbows, pressing the top elbow against the bottom arm, then lift both elbows together to feel the combined shoulder-blade and tricep stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_eagle_arm_tricep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement",
+      "postural_kyphosis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "floor_tricep_stretch",
+    "name": "Floor Tricep Reach Stretch",
+    "muscle_groups": [
+      "triceps",
+      "upper_back",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit on your heels, extend one arm forward along the floor and walk the fingertips as far as possible while keeping the opposite hip back, feeling the shoulder and tricep lengthen.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_floor_tricep_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "shoulder_impingement"
+    ],
+    "progression": null
+  },
+  {
+    "id": "wrist_flexor_stretch",
+    "name": "Wrist Flexor Stretch",
+    "muscle_groups": [
+      "forearms"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Extend one arm straight in front with palm facing up, then use the other hand to gently pull your fingers back toward your body until you feel the stretch along the inner forearm.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_wrist_flexor_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "carpal_tunnel",
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "wrist_extensor_stretch",
+    "name": "Wrist Extensor Stretch",
+    "muscle_groups": [
+      "forearms"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Extend one arm in front with the palm facing down, then use the other hand to press the back of the hand downward until you feel the stretch along the outer forearm.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_wrist_extensor_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "tennis_elbow",
+      "carpal_tunnel"
+    ],
+    "progression": null
+  },
+  {
+    "id": "prayer_hands_stretch",
+    "name": "Prayer Hands Wrist Stretch",
+    "muscle_groups": [
+      "forearms",
+      "biceps"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Press your palms together at chest height in prayer position, then slowly lower your joined hands toward your waist while keeping palms pressed together to stretch the forearm flexors.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "relax"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_prayer_hands_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "carpal_tunnel",
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "reverse_prayer_forearm",
+    "name": "Reverse Prayer Forearm Stretch",
+    "muscle_groups": [
+      "forearms",
+      "biceps",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s hold"
+    },
+    "description": "Bring both hands behind your back and press the backs of your hands together, working toward pressing palms together pointing fingers upward for the full forearm and wrist stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "posture",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_reverse_prayer_forearm",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "carpal_tunnel",
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "forearm_wall_stretch",
+    "name": "Forearm Wall Stretch",
+    "muscle_groups": [
+      "forearms",
+      "biceps"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand facing a wall, place your palm flat against it with fingers pointing downward, and gently lean into the wall to stretch the forearm flexors.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_forearm_wall_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "carpal_tunnel",
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_wrist_circles",
+    "name": "Seated Wrist Circles",
+    "muscle_groups": [
+      "forearms"
+    ],
+    "timing": {
+      "hold_seconds": null,
+      "per_side": true,
+      "reps": 10,
+      "cycles": 2,
+      "type": "mobilization",
+      "display": "10 circles each direction per wrist"
+    },
+    "description": "Extend your arms forward and make slow, controlled circles with both wrists clockwise then counterclockwise to warm up the joint and mobilize the surrounding tendons.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_seated_wrist_circles",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "carpal_tunnel",
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "finger_extension_stretch",
+    "name": "Finger Extension Stretch",
+    "muscle_groups": [
+      "forearms"
+    ],
+    "timing": {
+      "hold_seconds": 20,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "20s each hand"
+    },
+    "description": "Hold one hand up with fingers pointing toward the ceiling, then use the other hand to gently bend all four fingers back at the knuckle to stretch the palm and forearm.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_finger_extension_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "carpal_tunnel"
+    ],
+    "progression": null
+  },
+  {
+    "id": "wrist_tendon_glide",
+    "name": "Wrist Tendon Glide",
+    "muscle_groups": [
+      "forearms"
+    ],
+    "timing": {
+      "hold_seconds": 5,
+      "per_side": true,
+      "reps": 5,
+      "cycles": 2,
+      "type": "mobilization",
+      "display": "5 positions, 5s each, 2 rounds per hand"
+    },
+    "description": "Hold your hand up and move slowly through straight fingers, hook, fist, flat fist, and full fist positions to mobilize the tendons and reduce forearm tension.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_wrist_tendon_glide",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "carpal_tunnel",
+      "tennis_elbow"
+    ],
+    "progression": null
+  },
+  {
+    "id": "low_lunge_hip_flexor",
+    "name": "Low Lunge Hip Flexor Stretch (Anjaneyasana)",
+    "muscle_groups": [
+      "hips",
+      "quads",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Step one foot forward into a lunge, lower the back knee to the floor, shift your hips forward and down, and reach your arms overhead to deepen the hip flexor stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_low_lunge_hip_flexor",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "hip_bursitis",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_hip_flexor_stretch",
+    "name": "Standing Hip Flexor Stretch",
+    "muscle_groups": [
+      "hips",
+      "quads"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand tall, take a large step forward with one foot, squeeze the glute of the back leg, and tilt your pelvis forward to feel the stretch in the front of the back hip.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_hip_flexor_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_figure_four_chair",
+    "name": "Seated Figure Four Stretch",
+    "muscle_groups": [
+      "hips",
+      "glutes"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Sit on the edge of a chair, cross one ankle over the opposite knee, sit tall, and gently lean forward from the hips until you feel the stretch in the crossed hip and glute.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "chair",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_figure_four_chair",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "supine_figure_four",
+    "name": "Supine Figure Four Stretch",
+    "muscle_groups": [
+      "hips",
+      "glutes"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each side"
+    },
+    "description": "Lie on your back with knees bent, cross one ankle over the opposite knee, flex the crossed foot, and draw both legs gently toward your chest for a deeper piriformis stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_supine_figure_four",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "pigeon_pose",
+    "name": "Pigeon Pose (Eka Pada Rajakapotasana)",
+    "muscle_groups": [
+      "hips",
+      "glutes"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each side"
+    },
+    "description": "From hands and knees, bring one knee forward and place it behind your wrist while extending the opposite leg straight back, then lower your torso over the bent leg.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_pigeon_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "hip_bursitis",
+      "it_band"
+    ],
+    "progression": null
+  },
+  {
+    "id": "lizard_pose",
+    "name": "Lizard Pose (Utthan Pristhasana)",
+    "muscle_groups": [
+      "hips",
+      "quads",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Step one foot to the outside of your same-side hand in a low lunge, lower your back knee to the floor, and sink your hips toward the ground for a deep hip flexor and groin stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "splits"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_lizard_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "butterfly_stretch",
+    "name": "Butterfly Stretch (Baddha Konasana)",
+    "muscle_groups": [
+      "hips",
+      "glutes",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "Sit on the floor with the soles of your feet together and heels drawn toward your body, gently press your knees down toward the floor while folding your torso forward.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "running",
+        "splits"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_butterfly_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis",
+      "piriformis_syndrome"
+    ],
+    "progression": null
+  },
+  {
+    "id": "deep_squat_hip_stretch",
+    "name": "Deep Squat Hip Stretch (Malasana)",
+    "muscle_groups": [
+      "hips",
+      "glutes",
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s hold"
+    },
+    "description": "Stand with feet shoulder-width apart and toes angled out, lower into a deep squat bringing your seat toward the floor, and press your elbows into the inside of your knees to open the hips.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "athletic",
+        "splits"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_deep_squat_hip_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_hip_circles",
+    "name": "Standing Hip Circles",
+    "muscle_groups": [
+      "hips",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": null,
+      "per_side": false,
+      "reps": 10,
+      "cycles": 2,
+      "type": "mobilization",
+      "display": "10 circles each direction"
+    },
+    "description": "Stand with feet hip-width apart and hands on hips, then make large, slow circles with your pelvis to dynamically warm up and mobilize the entire hip joint.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "energize",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_standing_hip_circles",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "kneeling_hip_flexor_stretch",
+    "name": "Kneeling Hip Flexor Stretch",
+    "muscle_groups": [
+      "hips",
+      "quads"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Kneel on one knee with the opposite foot planted forward, tuck your tailbone under, squeeze the back glute, and shift your hips forward to stretch the hip flexor of the kneeling leg.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_kneeling_hip_flexor_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "hip_bursitis",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "frog_pose",
+    "name": "Frog Pose (Mandukasana)",
+    "muscle_groups": [
+      "hips",
+      "glutes",
+      "quads"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "On forearms and knees, slide your knees as wide apart as comfortable while keeping them at right angles, lower your hips toward the floor, and breathe through the deep groin stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "splits",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_frog_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 20
+    }
+  },
+  {
+    "id": "couch_stretch",
+    "name": "Couch Stretch",
+    "muscle_groups": [
+      "hips",
+      "quads"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each side"
+    },
+    "description": "Kneel with one shin pressed flat against a wall behind you and the opposite foot planted forward in a lunge, then sit up tall and squeeze the back glute to drive the hip into extension.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_couch_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis",
+      "lower_back_pain"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 20
+    }
+  },
+  {
+    "id": "hip_90_90_stretch",
+    "name": "Hip 90-90 Stretch",
+    "muscle_groups": [
+      "hips",
+      "glutes"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each side"
+    },
+    "description": "Sit on the floor with both legs bent at 90 degrees, one in front and one to the side, then lean your torso over the front shin to feel the deep hip external rotator stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_hip_90_90_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "hip_bursitis"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 20
+    }
+  },
+  {
+    "id": "happy_baby_pose",
+    "name": "Happy Baby Pose (Ananda Balasana)",
+    "muscle_groups": [
+      "hips",
+      "glutes",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "Lie on your back, bend both knees and bring them toward your armpits, hold the outside edges of your feet, and gently rock side to side to massage the lower back and open the hips.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_happy_baby_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "hip_bursitis",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "world_greatest_stretch",
+    "name": "World's Greatest Stretch",
+    "muscle_groups": [
+      "hips",
+      "hamstrings",
+      "upper_back",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Step into a deep lunge, place both hands inside the front foot, lower your back knee, then rotate the chest open by reaching the inside arm toward the ceiling and hold.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_world_greatest_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "supine_glute_stretch",
+    "name": "Supine Glute Stretch",
+    "muscle_groups": [
+      "glutes",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Lie on your back with knees bent, cross one ankle over the opposite knee, flex the crossed foot, and hug both legs toward your chest to feel the glute stretch.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_supine_glute_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_figure_four_balance",
+    "name": "Standing Figure Four Balance Stretch",
+    "muscle_groups": [
+      "glutes",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand on one leg, bend the opposite knee and cross the ankle over your standing thigh, then slowly sit back as if onto a chair until you feel the stretch in the raised glute.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "strength",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_figure_four_balance",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_glute_stretch_chair",
+    "name": "Seated Glute Stretch in Chair",
+    "muscle_groups": [
+      "glutes",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Sit at the edge of a chair, cross one ankle over the opposite knee and lean forward from the hips with a flat back until you feel the stretch in the glute of the crossed leg.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "chair",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_glute_stretch_chair",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "lying_glute_crossover",
+    "name": "Lying Glute Crossover Stretch",
+    "muscle_groups": [
+      "glutes",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Lie on your back with one knee bent, pull that knee across your body with the opposite hand while keeping both shoulders flat on the floor to stretch the glute and lumbar rotators.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_lying_glute_crossover",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_spinal_twist_glute",
+    "name": "Seated Spinal Twist with Glute Emphasis",
+    "muscle_groups": [
+      "glutes",
+      "lower_back",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit tall with legs extended, bend one knee and cross that foot outside the opposite thigh, then rotate your upper body toward the bent knee pressing your elbow against it.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": []
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_spinal_twist_glute",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_cross_leg_glute",
+    "name": "Seated Cross-Leg Glute Stretch",
+    "muscle_groups": [
+      "glutes",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each side"
+    },
+    "description": "Sit on the floor with one leg crossed in front, shift your weight toward the front knee and lean forward gently to feel the deep outer glute and hip stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "targeted",
+        "running"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_cross_leg_glute",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "glute_foam_roller_release",
+    "name": "Glute Foam Roller Release",
+    "muscle_groups": [
+      "glutes",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 5,
+      "per_side": true,
+      "reps": 6,
+      "cycles": 1,
+      "type": "mobilization",
+      "display": "60s each side, pause 5s on tender spots"
+    },
+    "description": "Sit on a foam roller with one ankle crossed over the opposite knee, shift your weight onto the crossed side, and slowly roll over the glute and piriformis while pausing on tender areas.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "foam_roller",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_glute_foam_roller_release",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "bridge_glute_hold",
+    "name": "Bridge Glute Hold",
+    "muscle_groups": [
+      "glutes",
+      "hips",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": false,
+      "reps": null,
+      "cycles": 3,
+      "type": "hold",
+      "display": "3 x 30s hold"
+    },
+    "description": "Lie on your back with knees bent and feet flat, press your feet into the floor and lift your hips until your body forms a straight line from shoulders to knees, squeezing the glutes at the top.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "strength",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "pelvic_floor"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_bridge_glute_hold",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "pigeon_pose_glute",
+    "name": "Reclined Pigeon Pose Glute Stretch",
+    "muscle_groups": [
+      "glutes",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each side"
+    },
+    "description": "From pigeon pose, walk your hands forward and lower your torso onto your forearms to maximize the glute and external rotator stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout",
+        "sleep"
+      ],
+      "context": [
+        "athletic",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_pigeon_pose_glute",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "sciatica",
+      "it_band"
+    ],
+    "progression": null
+  },
+  {
+    "id": "lateral_glute_side_stretch",
+    "name": "Lateral Glute Side-Lying Stretch",
+    "muscle_groups": [
+      "glutes",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Lie on your side, bring the top knee forward to the floor in front of you while keeping the bottom leg extended, and feel the stretch in the outer glute and hip.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "sleep",
+        "post_workout"
+      ],
+      "context": [
+        "targeted",
+        "athletic"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_lateral_glute_side_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "piriformis_syndrome",
+      "it_band",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_quad_stretch",
+    "name": "Standing Quad Stretch",
+    "muscle_groups": [
+      "quads",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand on one leg, bend the opposite knee to bring your heel toward your glute, hold the ankle with the same-side hand, and stand tall with knees together.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_quad_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "acl_recovery"
+    ],
+    "progression": null
+  },
+  {
+    "id": "prone_quad_stretch",
+    "name": "Prone Quad Stretch",
+    "muscle_groups": [
+      "quads",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lie face down, bend one knee and reach back to hold your ankle with the same-side hand, gently pulling the heel toward your glute with your hips pressed flat to the floor.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "relax"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_prone_quad_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "acl_recovery",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "kneeling_quad_stretch",
+    "name": "Kneeling Quad Stretch",
+    "muscle_groups": [
+      "quads",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Kneel on one knee, hold your back ankle and tuck the pelvis under, keeping your torso upright to feel the combined quad and hip flexor stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "running",
+        "athletic"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_kneeling_quad_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "acl_recovery"
+    ],
+    "progression": null
+  },
+  {
+    "id": "half_hero_pose",
+    "name": "Half Hero Pose (Ardha Virasana)",
+    "muscle_groups": [
+      "quads",
+      "knees",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each side"
+    },
+    "description": "Kneel with one leg extended forward, sit the same-side glute down beside the bent foot (not on the heel), and hold this deep quad and knee stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "splits",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_half_hero_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "acl_recovery"
+    ],
+    "progression": null
+  },
+  {
+    "id": "reclined_hero_pose",
+    "name": "Reclined Hero Pose (Supta Virasana)",
+    "muscle_groups": [
+      "quads",
+      "hips",
+      "knees"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "Sit between your heels with feet beside your hips, slowly lean back onto your elbows or lie fully back on the floor for an intense quad and hip flexor stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "splits",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_reclined_hero_pose",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 20
+    }
+  },
+  {
+    "id": "thomas_stretch",
+    "name": "Thomas Stretch (Hip Flexor Table Edge)",
+    "muscle_groups": [
+      "quads",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Lie on the edge of a table or bed, hug one knee to your chest, and let the opposite leg hang toward the floor to feel the hip flexor and quad stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_thomas_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_quad_forward_lean",
+    "name": "Standing Quad Stretch with Forward Lean",
+    "muscle_groups": [
+      "quads",
+      "hips",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand on one leg, hold the opposite ankle behind you, then hinge slightly forward at the hip to increase the stretch in the quad and anterior hip.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_quad_forward_lean",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "lizard_quad_stretch",
+    "name": "Lizard Quad Combination Stretch",
+    "muscle_groups": [
+      "quads",
+      "hips",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "From lizard pose, reach the same-side hand back to hold your back ankle, pulling it toward your glute for a combined hip, quad, and hamstring stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "splits",
+        "running"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_lizard_quad_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "couch_stretch_quad",
+    "name": "Couch Stretch Quad Variation",
+    "muscle_groups": [
+      "quads",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each side"
+    },
+    "description": "Kneel with one shin flat against a wall, place the other foot forward in a lunge, then sit up tall and tuck your pelvis to feel the intense quad and hip flexor stretch against the wall.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_couch_stretch_quad",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis",
+      "lower_back_pain"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 20
+    }
+  },
+  {
+    "id": "lunge_runner_spinal_twist",
+    "name": "Runner's Lunge with Spinal Rotation",
+    "muscle_groups": [
+      "quads",
+      "hips",
+      "upper_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Step into a deep runner's lunge, place both hands inside the front foot, then rotate your torso to open the chest by reaching the inside arm toward the ceiling.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "morning",
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_lunge_runner_spinal_twist",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "hip_bursitis",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_hamstring_stretch",
+    "name": "Standing Hamstring Stretch",
+    "muscle_groups": [
+      "hamstrings",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Place one heel on a low surface such as a step or chair, keep the leg straight, then hinge forward at the hips until you feel the pull along the back of the elevated leg.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_hamstring_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_hamstring_floor",
+    "name": "Seated Single-Leg Hamstring Stretch",
+    "muscle_groups": [
+      "hamstrings",
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Sit on the floor with one leg extended and the other bent with sole against the inner thigh, then hinge forward over the straight leg keeping your back flat.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep",
+        "post_workout"
+      ],
+      "context": [
+        "running"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_hamstring_floor",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "supine_hamstring_stretch",
+    "name": "Supine Hamstring Stretch",
+    "muscle_groups": [
+      "hamstrings",
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Lie on your back, draw one knee to your chest then extend the leg toward the ceiling holding the back of the thigh or calf until you feel the stretch down the back of the leg.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "running"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_supine_hamstring_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "supine_hamstring_towel",
+    "name": "Supine Hamstring Stretch with Towel",
+    "muscle_groups": [
+      "hamstrings",
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Lie on your back, loop a towel around one foot, extend the leg toward the ceiling, and use the towel to gently pull it closer while keeping your knee straight.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "sleep",
+        "post_workout"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "towel",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_supine_hamstring_towel",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "wide_leg_forward_fold",
+    "name": "Wide-Legged Forward Fold (Prasarita Padottanasana)",
+    "muscle_groups": [
+      "hamstrings",
+      "hips",
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s hold"
+    },
+    "description": "Stand with feet wide apart, hinge forward at the hips and walk your hands toward the floor between your feet, keeping your legs as straight as possible.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "splits"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_wide_leg_forward_fold",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_straddle_stretch",
+    "name": "Seated Straddle Stretch",
+    "muscle_groups": [
+      "hamstrings",
+      "hips",
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "Sit on the floor with legs spread wide apart, flex your feet, and hinge forward from the hips walking your hands out between your legs to feel the full posterior leg stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "splits"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_seated_straddle_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain"
+    ],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 20
+    }
+  },
+  {
+    "id": "resistance_band_hamstring",
+    "name": "Resistance Band Hamstring Stretch",
+    "muscle_groups": [
+      "hamstrings",
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Lie on your back, loop a resistance band around one foot, extend the leg toward the ceiling, and use the band to gently pull the leg closer without bending the knee.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "resistance_band",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_resistance_band_hamstring",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "downward_facing_dog",
+    "name": "Downward Facing Dog (Adho Mukha Svanasana)",
+    "muscle_groups": [
+      "hamstrings",
+      "calves",
+      "shoulders"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s hold"
+    },
+    "description": "From hands and knees, tuck toes under and lift hips toward the ceiling, straightening legs and pressing heels toward the floor to form an inverted V shape.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "recovery",
+        "energize"
+      ],
+      "time": [
+        "morning",
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_downward_facing_dog",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "plantar_fasciitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "single_leg_forward_fold",
+    "name": "Single-Leg Standing Forward Fold",
+    "muscle_groups": [
+      "hamstrings",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Stand with feet hip-width apart, step one foot slightly forward, hinge at the hips and fold over the front leg keeping it straight, reaching your hands toward the foot.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_single_leg_forward_fold",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "half_splits",
+    "name": "Half Splits (Ardha Hanumanasana)",
+    "muscle_groups": [
+      "hamstrings",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "From a low lunge, straighten the front leg and walk your hands back while flexing the foot, hinging your torso forward over the extended leg to feel the hamstring stretch.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "splits"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_half_splits",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "wall_hamstring_stretch",
+    "name": "Wall Hamstring Stretch (Legs Up the Wall)",
+    "muscle_groups": [
+      "hamstrings",
+      "calves",
+      "lower_back"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": false,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s hold"
+    },
+    "description": "Lie on your back near a wall and extend both legs straight up the wall, adjusting your distance to control intensity, and relax completely into the gravity-assisted hamstring stretch.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "sleep",
+        "post_workout"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "bilateral",
+    "image": {
+      "name": "stretch_wall_hamstring_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "lower_back_pain",
+      "sciatica"
+    ],
+    "progression": null
+  },
+  {
+    "id": "full_splits",
+    "name": "Full Splits (Hanumanasana)",
+    "muscle_groups": [
+      "hamstrings",
+      "hips",
+      "quads"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "From a low lunge, slowly slide the front foot forward and the back leg back until both legs are fully extended on the floor in a complete split.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "mobility",
+        "strength"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "splits"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_full_splits",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [],
+    "progression": {
+      "type": "depth_increase",
+      "interval_seconds": 10
+    }
+  },
+  {
+    "id": "quad_stretch_knee_health",
+    "name": "Standing Quad Stretch for Knee Health",
+    "muscle_groups": [
+      "knees",
+      "quads"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Hold a chair or wall for balance, gently bring one heel toward your glute keeping knees aligned, and stop before any knee discomfort.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "post_workout"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_quad_stretch_knee_health",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "acl_recovery"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_knee_to_chest_chair",
+    "name": "Seated Knee-to-Chest Stretch",
+    "muscle_groups": [
+      "knees",
+      "hips",
+      "glutes"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit in a chair, clasp both hands under one thigh and draw the knee slowly toward your chest, feeling the gentle decompression in the knee joint and stretch in the hip.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "relax"
+      ],
+      "time": [],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "chair",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_knee_to_chest_chair",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "acl_recovery"
+    ],
+    "progression": null
+  },
+  {
+    "id": "supine_knee_flexion",
+    "name": "Supine Knee Flexion Stretch",
+    "muscle_groups": [
+      "knees",
+      "quads"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lie on your back, bend one knee and hold the ankle with one hand and the back of the thigh with the other, slowly pulling the heel toward your glute to gently flex the knee.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "relax"
+      ],
+      "time": [
+        "sleep",
+        "post_workout"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_supine_knee_flexion",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "acl_recovery"
+    ],
+    "progression": null
+  },
+  {
+    "id": "prone_knee_bend",
+    "name": "Prone Knee Bend Stretch",
+    "muscle_groups": [
+      "knees",
+      "quads"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Lie face down, slowly bend one knee bringing the heel toward your glute within a comfortable range, and hold without forcing at any point of discomfort.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "relax"
+      ],
+      "time": [
+        "sleep"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_prone_knee_bend",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "acl_recovery"
+    ],
+    "progression": null
+  },
+  {
+    "id": "it_band_crossover_stretch",
+    "name": "IT Band Crossover Stretch",
+    "muscle_groups": [
+      "knees",
+      "hips",
+      "quads"
+    ],
+    "timing": {
+      "hold_seconds": 45,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "45s each side"
+    },
+    "description": "Stand and cross one leg behind the other, then lean your hip toward a wall while reaching the overhead arm in the same direction to stretch the outer hip and IT band.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_it_band_crossover_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "it_band",
+      "knee_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "hamstring_wall_stretch_knees",
+    "name": "Wall Hamstring Stretch for Knee Relief",
+    "muscle_groups": [
+      "knees",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": 60,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "60s each leg"
+    },
+    "description": "Lie near a wall, place one leg straight up the wall and keep the other flat on the floor, adjusting your distance to control the intensity of the knee and hamstring stretch.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "sleep",
+        "post_workout"
+      ],
+      "context": [
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_hamstring_wall_stretch_knees",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "acl_recovery",
+      "lower_back_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "foam_roller_it_band",
+    "name": "Foam Roller IT Band Release",
+    "muscle_groups": [
+      "knees",
+      "hips"
+    ],
+    "timing": {
+      "hold_seconds": 5,
+      "per_side": true,
+      "reps": 6,
+      "cycles": 1,
+      "type": "mobilization",
+      "display": "60s each leg, pause on tender spots"
+    },
+    "description": "Lie on your side with the foam roller under the outside of your thigh, support your weight on your forearm, and slowly roll from just below the hip to just above the knee.",
+    "difficulty": "advanced",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "foam_roller",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_foam_roller_it_band",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "it_band",
+      "knee_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "calf_stretch_knee_relief",
+    "name": "Calf Stretch for Knee Relief",
+    "muscle_groups": [
+      "knees",
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand arm's length from a wall, step one foot back with the heel flat, and lean forward until you feel the stretch in the calf which relieves tension on the back of the knee.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "running",
+        "athletic",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_calf_stretch_knee_relief",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "knee_pain",
+      "plantar_fasciitis",
+      "acl_recovery"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_calf_wall_stretch",
+    "name": "Standing Gastrocnemius Calf Stretch",
+    "muscle_groups": [
+      "calves",
+      "knees"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand facing a wall with hands on it, step one foot back with the heel flat on the floor, and lean forward until you feel the stretch in the gastrocnemius.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout",
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_calf_wall_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "plantar_fasciitis",
+      "ankle_sprain",
+      "knee_pain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "soleus_bent_knee_stretch",
+    "name": "Soleus Bent-Knee Calf Stretch",
+    "muscle_groups": [
+      "calves",
+      "knees"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand with one foot back, bend the back knee while keeping the heel flat on the floor to isolate the deep soleus muscle beneath the gastrocnemius.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_soleus_bent_knee_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "plantar_fasciitis",
+      "ankle_sprain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_calf_stretch",
+    "name": "Seated Calf Stretch",
+    "muscle_groups": [
+      "calves",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit on the floor with one leg extended, flex the foot and pull the toes back toward your shin with your hand or a towel to feel the calf and Achilles stretch.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "morning",
+        "sleep"
+      ],
+      "context": [
+        "running"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_calf_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "plantar_fasciitis",
+      "ankle_sprain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "downward_dog_calf_pedal",
+    "name": "Downward Dog Calf Pedal",
+    "muscle_groups": [
+      "calves",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": null,
+      "per_side": false,
+      "reps": 20,
+      "cycles": 1,
+      "type": "dynamic",
+      "display": "20 alternating heel presses"
+    },
+    "description": "From downward facing dog, alternately press one heel toward the floor while bending the opposite knee, pedaling your heels to dynamically stretch each calf.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "energize",
+        "mobility"
+      ],
+      "time": [
+        "morning",
+        "pre_workout"
+      ],
+      "context": [
+        "athletic",
+        "running"
+      ]
+    },
+    "position": "lying",
+    "support": "floor",
+    "equipment": "none",
+    "sides": "alternating",
+    "image": {
+      "name": "stretch_downward_dog_calf_pedal",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "plantar_fasciitis",
+      "ankle_sprain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "step_heel_drop",
+    "name": "Step Heel Drop Calf Stretch",
+    "muscle_groups": [
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand on the edge of a step with your heel hanging off, slowly lower your heel below step level, and hold to feel a deep gastrocnemius stretch.",
+    "difficulty": "intermediate",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "none",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_step_heel_drop",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "plantar_fasciitis",
+      "ankle_sprain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "seated_towel_calf_stretch",
+    "name": "Seated Towel Calf Stretch",
+    "muscle_groups": [
+      "calves",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit on the floor, wrap a towel around the ball of one foot, keep your knee straight, and pull the towel toward you to draw the toes back into dorsiflexion.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "relax",
+        "recovery"
+      ],
+      "time": [
+        "sleep",
+        "post_workout"
+      ],
+      "context": [
+        "targeted",
+        "running"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "towel",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_seated_towel_calf_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "plantar_fasciitis",
+      "ankle_sprain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "resistance_band_calf_stretch",
+    "name": "Resistance Band Calf Stretch",
+    "muscle_groups": [
+      "calves",
+      "hamstrings"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Sit on the floor with one leg extended, loop a resistance band around the ball of the foot, and dorsiflex using the band for gentle assistance.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "floor",
+    "equipment": "resistance_band",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_resistance_band_calf_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "plantar_fasciitis",
+      "ankle_sprain"
+    ],
+    "progression": null
+  },
+  {
+    "id": "ankle_circles",
+    "name": "Ankle Circles",
+    "muscle_groups": [
+      "calves",
+      "knees"
+    ],
+    "timing": {
+      "hold_seconds": null,
+      "per_side": true,
+      "reps": 10,
+      "cycles": 2,
+      "type": "mobilization",
+      "display": "10 circles each direction per ankle"
+    },
+    "description": "Sit in a chair, lift one foot off the floor, and make slow full circles with the ankle clockwise then counterclockwise to warm up the joint and mobilize surrounding tissues.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "mobility",
+        "recovery"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "alternating",
+    "image": {
+      "name": "stretch_ankle_circles",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "ankle_sprain",
+      "plantar_fasciitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "standing_ankle_dorsiflexion",
+    "name": "Standing Ankle Dorsiflexion Stretch",
+    "muscle_groups": [
+      "calves",
+      "knees"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each side"
+    },
+    "description": "Stand about a foot from a wall, place one foot forward with toes raised against the wall, then lean toward the wall to stretch the ankle into dorsiflexion.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "post_workout"
+      ],
+      "context": [
+        "athletic",
+        "running",
+        "targeted"
+      ]
+    },
+    "position": "standing",
+    "support": "wall",
+    "equipment": "wall",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_standing_ankle_dorsiflexion",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "ankle_sprain",
+      "plantar_fasciitis"
+    ],
+    "progression": null
+  },
+  {
+    "id": "plantar_fascia_toe_stretch",
+    "name": "Plantar Fascia Toe Stretch",
+    "muscle_groups": [
+      "calves"
+    ],
+    "timing": {
+      "hold_seconds": 30,
+      "per_side": true,
+      "reps": null,
+      "cycles": 1,
+      "type": "hold",
+      "display": "30s each foot"
+    },
+    "description": "Sit in a chair, cross one foot over the opposite knee, hold the toes and gently pull them back toward the shin until you feel the stretch across the arch of the foot.",
+    "difficulty": "beginner",
+    "categories": {
+      "goal": [
+        "recovery",
+        "mobility"
+      ],
+      "time": [
+        "morning"
+      ],
+      "context": [
+        "desk",
+        "office",
+        "targeted"
+      ]
+    },
+    "position": "seated",
+    "support": "chair",
+    "equipment": "none",
+    "sides": "unilateral",
+    "image": {
+      "name": "stretch_plantar_fascia_toe_stretch",
+      "fallback": "default_stretch"
+    },
+    "injury_relevance": [
+      "plantar_fasciitis",
+      "ankle_sprain"
+    ],
+    "progression": null
+  }
+]

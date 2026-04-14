@@ -94,7 +94,6 @@ struct OnboardingPlanPreviewView: View {
                     Text(recommendation.summary)
                         .font(Typography.screenSubtitle)
                         .foregroundStyle(.bfTextSecondary)
-                        .lineLimit(2)
                         .fixedSize(horizontal: false, vertical: true)
                 }
 
@@ -109,12 +108,18 @@ struct OnboardingPlanPreviewView: View {
 
     private var headerBadges: some View {
         HStack(spacing: 10) {
-            previewBadge(title: "\(previewStretches.count) stretches")
-            previewBadge(title: planDurationLabel(recommendation.totalSeconds))
-            if let first = recommendation.focusAreas.first {
-                previewBadge(title: first)
+            previewBadge(title: "\(previewStretches.count) stretches", allowsCompression: false)
+            previewBadge(title: planDurationLabel(recommendation.totalSeconds), allowsCompression: false)
+
+            if let firstArea = recommendation.focusAreas.first {
+                previewBadge(title: firstArea)
+            }
+
+            if recommendation.focusAreas.count > 1 {
+                previewBadge(title: "\(recommendation.focusAreas.count - 1)+")
             }
         }
+        .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
@@ -159,11 +164,14 @@ struct OnboardingPlanPreviewView: View {
         }
     }
 
-    private func previewBadge(title: String) -> some View {
+    private func previewBadge(title: String, allowsCompression: Bool = true) -> some View {
         Text(title)
             .font(Typography.caption)
             .foregroundStyle(.bfAccent)
             .lineLimit(1)
+            .truncationMode(.tail)
+            .fixedSize(horizontal: !allowsCompression, vertical: false)
+            .layoutPriority(allowsCompression ? 0 : 1)
             .padding(.horizontal, 13)
             .padding(.vertical, 8)
             .background(

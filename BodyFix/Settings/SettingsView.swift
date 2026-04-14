@@ -25,79 +25,81 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    header
-                        .padding(.top, 20)
-                        .padding(.bottom, 36)
+            GeometryReader { proxy in
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        header
+                            .padding(.top, 20)
+                            .padding(.bottom, 36)
 
-                    sectionTitle("membership")
-                    VStack(spacing: 10) {
-                        settingsButton(
-                            title: "manage subscription",
-                            systemImage: "creditcard.fill"
-                        ) {
-                            openURL(SettingsExternalLinks.manageSubscriptionsURL)
+                        sectionTitle("membership")
+                        VStack(spacing: 10) {
+                            settingsButton(
+                                title: "manage subscription",
+                                systemImage: "creditcard.fill"
+                            ) {
+                                openURL(SettingsExternalLinks.manageSubscriptionsURL)
+                            }
                         }
+                        .padding(.bottom, 28)
+
+                        sectionTitle("support")
+                        VStack(spacing: 10) {
+                            settingsButton(
+                                title: "contact us",
+                                systemImage: "envelope.fill"
+                            ) {
+                                openMail(subject: "Body Fix support")
+                            }
+
+                            shareRow
+
+                            settingsButton(
+                                title: "feature request & feedback",
+                                systemImage: "lightbulb.fill"
+                            ) {
+                                openMail(subject: "Body Fix feedback")
+                            }
+                        }
+                        .padding(.bottom, 28)
+
+                        sectionTitle("legal")
+                        VStack(spacing: 10) {
+                            settingsButton(
+                                title: "terms of use",
+                                systemImage: "doc.text.fill"
+                            ) {
+                                openURL(SettingsExternalLinks.termsURL)
+                            }
+
+                            settingsButton(
+                                title: "privacy policy",
+                                systemImage: "lock.shield.fill"
+                            ) {
+                                openURL(SettingsExternalLinks.privacyURL)
+                            }
+                        }
+                        .padding(.bottom, 28)
+
+                        #if DEBUG
+                        sectionTitle("developer")
+                        VStack(spacing: 10) {
+                            settingsButton(
+                                title: "reset onboarding (debug)",
+                                systemImage: "arrow.counterclockwise.circle.fill"
+                            ) {
+                                resetOnboardingForTesting()
+                            }
+                        }
+                        .padding(.bottom, 28)
+                        #endif
+
+                        sectionTitle("about")
+                        versionCard
                     }
-                    .padding(.bottom, 28)
-
-                    sectionTitle("support")
-                    VStack(spacing: 10) {
-                        settingsButton(
-                            title: "contact us",
-                            systemImage: "envelope.fill"
-                        ) {
-                            openMail(subject: "BodyFix support")
-                        }
-
-                        shareRow
-
-                        settingsButton(
-                            title: "feature request & feedback",
-                            systemImage: "lightbulb.fill"
-                        ) {
-                            openMail(subject: "BodyFix feedback")
-                        }
-                    }
-                    .padding(.bottom, 28)
-
-                    sectionTitle("legal")
-                    VStack(spacing: 10) {
-                        settingsButton(
-                            title: "terms of use",
-                            systemImage: "doc.text.fill"
-                        ) {
-                            openURL(SettingsExternalLinks.termsURL)
-                        }
-
-                        settingsButton(
-                            title: "privacy policy",
-                            systemImage: "lock.shield.fill"
-                        ) {
-                            openURL(SettingsExternalLinks.privacyURL)
-                        }
-                    }
-                    .padding(.bottom, 28)
-
-                    #if DEBUG
-                    sectionTitle("developer")
-                    VStack(spacing: 10) {
-                        settingsButton(
-                            title: "reset onboarding (debug)",
-                            systemImage: "arrow.counterclockwise.circle.fill"
-                        ) {
-                            resetOnboardingForTesting()
-                        }
-                    }
-                    .padding(.bottom, 28)
-                    #endif
-
-                    sectionTitle("about")
-                    versionCard
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, max(proxy.safeAreaInsets.bottom + 112, 148))
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 32)
             }
             .background(Color.bfBackground.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
@@ -141,11 +143,11 @@ struct SettingsView: View {
     private var shareRow: some View {
         ShareLink(
             item: SettingsExternalLinks.appShareURL,
-            subject: Text("BodyFix"),
-            message: Text("Stretch and recover with BodyFix — guided mobility routines in one app."),
-            preview: SharePreview("BodyFix", icon: Image(systemName: "figure.flexibility"))
+            subject: Text("Body Fix"),
+            message: Text("Stretch and recover with Body Fix — guided mobility routines in one app."),
+            preview: SharePreview("Body Fix", icon: Image(systemName: "figure.flexibility"))
         ) {
-            rowContent(title: "share bodyfix", systemImage: "square.and.arrow.up", showsChevron: true)
+            rowContent(title: "share body fix", systemImage: "square.and.arrow.up", showsChevron: true)
         }
     }
 

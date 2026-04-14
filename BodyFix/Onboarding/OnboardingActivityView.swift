@@ -3,13 +3,13 @@ import SwiftUI
 struct OnboardingActivityView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
 
-    private let options: [(emoji: String, title: String)] = [
-        ("🪑", "Mostly sitting (desk / school / driving)"),
-        ("🔀", "Mix of sitting and moving (office + breaks, hybrid)"),
-        ("👟", "On my feet most of the day (retail, nursing, teaching)"),
-        ("🚶", "Lightly active (walking, errands)"),
-        ("🏋️", "Moderately active (workouts a few times/week)"),
-        ("⚡", "Very active (daily training / sports)"),
+    private let options: [String] = [
+        "Mostly sitting",
+        "Mixed movement",
+        "On my feet most of the day",
+        "Lightly active",
+        "Moderately active",
+        "Very active",
     ]
 
     var body: some View {
@@ -28,13 +28,12 @@ struct OnboardingActivityView: View {
 
             ScrollView {
                 LazyVStack(spacing: 14) {
-                    ForEach(options, id: \.title) { option in
+                    ForEach(options, id: \.self) { option in
                         OnboardingOptionCard(
-                            title: option.title,
-                            emoji: option.emoji,
-                            isSelected: viewModel.activityLevel == option.title
+                            title: option,
+                            isSelected: viewModel.activityLevel == option
                         ) {
-                            viewModel.activityLevel = option.title
+                            viewModel.activityLevel = option
                         }
                     }
                 }

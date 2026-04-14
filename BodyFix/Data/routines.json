@@ -412,5 +412,85 @@
     "tags": ["series"],
     "seriesId": "series_full_body",
     "level": 3
+  },
+  {
+    "id": "lower_back_pain_relief",
+    "name": "Lower Back Pain Relief",
+    "categories": ["injury"],
+    "stretchIds": ["cat_cow", "pelvic_tilt", "knee_to_chest_stretch", "double_knee_to_chest", "childs_pose", "supine_spinal_twist", "cobra_pose", "kneeling_hip_flexor_stretch"],
+    "relatedMuscleGroups": ["lowerBack", "core", "hips", "glutes"],
+    "tags": ["injury", "lower-back", "reduce-pain"]
+  },
+  {
+    "id": "knee_pain_relief",
+    "name": "Knee Pain Relief",
+    "categories": ["injury"],
+    "stretchIds": ["quad_stretch_knee_health", "standing_quad_stretch", "calf_stretch_knee_relief", "hamstring_wall_stretch_knees", "supine_knee_flexion", "prone_knee_bend", "standing_calf_wall_stretch", "seated_knee_to_chest_chair"],
+    "relatedMuscleGroups": ["knees", "quads", "calves", "hamstrings"],
+    "tags": ["injury", "knees", "reduce-pain"]
+  },
+  {
+    "id": "hip_flexor_tight_hips",
+    "name": "Hip Flexor & Tight Hips",
+    "categories": ["injury"],
+    "stretchIds": ["butterfly_stretch", "kneeling_hip_flexor_stretch", "low_lunge_hip_flexor", "pigeon_pose", "hip_90_90_stretch", "lizard_pose", "deep_squat_hip_stretch", "couch_stretch"],
+    "relatedMuscleGroups": ["hips", "glutes", "quads", "lowerBack"],
+    "tags": ["injury", "hips", "desk", "reduce-pain"]
+  },
+  {
+    "id": "shoulder_impingement_relief",
+    "name": "Shoulder Impingement",
+    "categories": ["injury"],
+    "stretchIds": ["shoulder_pendulum", "cross_body_shoulder_stretch", "sleeper_stretch", "doorway_shoulder_stretch", "wall_angels", "shoulder_internal_rotation_wall", "doorway_pec_stretch", "thread_the_needle"],
+    "relatedMuscleGroups": ["shoulders", "chest", "upperBack"],
+    "tags": ["injury", "shoulders", "reduce-pain"]
+  },
+  {
+    "id": "piriformis_syndrome_relief",
+    "name": "Piriformis Syndrome",
+    "categories": ["injury"],
+    "stretchIds": ["supine_figure_four", "seated_figure_four_chair", "pigeon_pose", "supine_glute_stretch", "supine_spinal_twist", "butterfly_stretch", "knee_to_chest_stretch", "lateral_glute_side_stretch"],
+    "relatedMuscleGroups": ["glutes", "hips", "lowerBack"],
+    "tags": ["injury", "glutes", "lower-back", "reduce-pain"]
+  },
+  {
+    "id": "tennis_golf_elbow",
+    "name": "Tennis & Golf Elbow",
+    "categories": ["injury"],
+    "stretchIds": ["wrist_extensor_stretch", "wrist_flexor_stretch", "forearm_wall_stretch", "prayer_hands_stretch", "reverse_prayer_forearm", "wrist_tendon_glide", "cross_body_shoulder_stretch", "overhead_tricep_stretch"],
+    "relatedMuscleGroups": ["forearms", "shoulders", "triceps"],
+    "tags": ["injury", "forearms", "reduce-pain"]
+  },
+  {
+    "id": "upper_back_rhomboid_pain",
+    "name": "Upper Back & Rhomboid Pain",
+    "categories": ["injury"],
+    "stretchIds": ["thread_the_needle", "cat_cow", "seated_thoracic_rotation", "seated_upper_back_hug", "shoulder_blade_pinch", "wall_angels", "pec_minor_corner_stretch", "thoracic_extension_chair"],
+    "relatedMuscleGroups": ["upperBack", "shoulders", "chest"],
+    "tags": ["injury", "upper-back", "posture", "reduce-pain"]
+  },
+  {
+    "id": "ankle_sprain_recovery",
+    "name": "Ankle Sprain Recovery",
+    "categories": ["injury"],
+    "stretchIds": ["ankle_circles", "standing_ankle_dorsiflexion", "standing_calf_wall_stretch", "soleus_bent_knee_stretch", "step_heel_drop", "seated_calf_stretch", "downward_dog_calf_pedal", "plantar_fascia_toe_stretch"],
+    "relatedMuscleGroups": ["calves"],
+    "tags": ["injury", "calves", "recovery"]
+  },
+  {
+    "id": "hip_bursitis_relief",
+    "name": "Hip Bursitis Relief",
+    "categories": ["injury"],
+    "stretchIds": ["standing_hip_circles", "butterfly_stretch", "standing_hip_flexor_stretch", "supine_figure_four", "pigeon_pose", "lizard_pose", "kneeling_hip_flexor_stretch", "it_band_crossover_stretch"],
+    "relatedMuscleGroups": ["hips", "glutes", "quads"],
+    "tags": ["injury", "hips", "reduce-pain"]
+  },
+  {
+    "id": "neck_pain_stiffness",
+    "name": "Neck Pain & Stiffness",
+    "categories": ["injury"],
+    "stretchIds": ["neck_side_tilt", "neck_rotation_stretch", "chin_tuck", "upper_trapezius_stretch", "levator_scapulae_stretch", "sternocleidomastoid_stretch", "neck_flexion_stretch", "occipital_release"],
+    "relatedMuscleGroups": ["neck"],
+    "tags": ["injury", "neck", "reduce-pain"]
   }
 ]

@@ -21,6 +21,7 @@ struct MainTabView: View {
         ZStack {
             tabView(for: .stretch)
             tabView(for: .plan)
+            tabView(for: .analytics)
             tabView(for: .workoutLog)
             tabView(for: .settings)
         }
@@ -35,8 +36,10 @@ struct MainTabView: View {
                 StretchTabRoot(selectedTab: $selectedTab)
             case .plan:
                 PersonalizedPlanTabRoot()
+            case .analytics:
+                AnalyticsTabRoot()
             case .workoutLog:
-                WorkoutLogView(selectedTab: $selectedTab)
+                SavedTabRoot(selectedTab: $selectedTab)
             case .settings:
                 SettingsView()
             }
@@ -50,6 +53,7 @@ struct MainTabView: View {
 private enum AppTab: Int, CaseIterable {
     case stretch
     case plan
+    case analytics
     case workoutLog
     case settings
 
@@ -57,7 +61,8 @@ private enum AppTab: Int, CaseIterable {
         switch self {
         case .stretch: return "Stretch"
         case .plan: return "Your Plan"
-        case .workoutLog: return "Workout Log"
+        case .analytics: return "Analytics"
+        case .workoutLog: return "Saved"
         case .settings: return "Settings"
         }
     }
@@ -66,6 +71,7 @@ private enum AppTab: Int, CaseIterable {
         switch self {
         case .stretch: return "figure.flexibility"
         case .plan: return "sparkles"
+        case .analytics: return "chart.bar.fill"
         case .workoutLog: return "list.clipboard"
         case .settings: return "gearshape.fill"
         }
@@ -186,8 +192,48 @@ private struct PersonalizedPlanTabRoot: View {
                 .navigationDestination(for: RoutineStretchListRoute.self) { route in
                     RoutineStretchListView(route: route, path: $path)
                 }
+                .navigationDestination(for: StretchTimerRoute.self) { route in
+                    StretchTimerView(route: route, path: $path)
+                }
+                .navigationDestination(for: SessionCompleteRoute.self) { route in
+                    SessionCompleteView(route: route, path: $path)
+                }
                 .navigationDestination(for: PersonalizedPlanEditorRoute.self) { _ in
                     PersonalizedPlanEditorView()
+                }
+        }
+    }
+}
+
+private struct AnalyticsTabRoot: View {
+    var body: some View {
+        NavigationStack {
+            AnalyticsView()
+        }
+    }
+}
+
+private struct SavedTabRoot: View {
+    @Binding var selectedTab: Int
+    @State private var path = NavigationPath()
+
+    var body: some View {
+        NavigationStack(path: $path) {
+            WorkoutLogView(selectedTab: $selectedTab, path: $path)
+                .navigationDestination(for: RoutineStretchListRoute.self) { route in
+                    RoutineStretchListView(route: route, path: $path)
+                }
+                .navigationDestination(for: PersonalizedPlanRoute.self) { _ in
+                    PersonalizedPlanDetailView(path: $path)
+                }
+                .navigationDestination(for: PersonalizedPlanEditorRoute.self) { _ in
+                    PersonalizedPlanEditorView()
+                }
+                .navigationDestination(for: SavedPlanDetailRoute.self) { route in
+                    SavedPlanDetailView(route: route, path: $path)
+                }
+                .navigationDestination(for: StretchTimerRoute.self) { route in
+                    StretchTimerView(route: route, path: $path)
                 }
         }
     }

@@ -1,8 +1,60 @@
 import Foundation
 
 enum StretchDatabase {
+    private static let excludedStretchIds: Set<String> = [
+        "open_book_stretch",
+        "foam_roller_thoracic_extension",
+    ]
+
+    private static let legacyStretchAliases: [String: String] = [
+        "neck_chin_tuck": "chin_tuck",
+        "neck_upper_trap_stretch": "upper_trapezius_stretch",
+        "neck_rotation_mobility": "neck_rotation_stretch",
+        "shoulders_cross_body": "cross_body_shoulder_stretch",
+        "shoulders_doorway_pec": "doorway_pec_stretch",
+        "shoulders_sleeper": "sleeper_stretch",
+        "chest_doorway_double": "doorway_pec_stretch",
+        "chest_corner_stretch": "pec_minor_corner_stretch",
+        "chest_supine_foam": "supine_chest_stretch",
+        "upperback_thread_needle": "thread_the_needle",
+        "upperback_cat_cow": "cat_cow",
+        "upperback_open_book": "seated_thoracic_rotation",
+        "lowerback_child_pose": "childs_pose",
+        "lowerback_knee_to_chest": "knee_to_chest_stretch",
+        "lowerback_supine_twist": "supine_spinal_twist",
+        "core_pelvic_tilt": "pelvic_tilt",
+        "biceps_wall_stretch": "bicep_wall_stretch",
+        "biceps_seated": "seated_bicep_floor_stretch",
+        "biceps_horizon_bar": "spine_decompression_hang",
+        "triceps_overhead": "overhead_tricep_stretch",
+        "triceps_cross_reach": "cross_body_tricep_stretch",
+        "triceps_towel": "seated_overhead_tricep_stretch",
+        "forearms_extensor": "wrist_extensor_stretch",
+        "forearms_flexor": "wrist_flexor_stretch",
+        "forearms_prayer": "prayer_hands_stretch",
+        "hips_pigeon": "pigeon_pose",
+        "hips_hip_flexor_lunge": "kneeling_hip_flexor_stretch",
+        "hips_butterfly": "butterfly_stretch",
+        "glutes_figure_four": "supine_figure_four",
+        "glutes_lying_hug": "supine_glute_stretch",
+        "glutes_seated_figure_four": "seated_figure_four_chair",
+        "quads_standing": "standing_quad_stretch",
+        "quads_side_lying": "prone_quad_stretch",
+        "quads_prone": "prone_quad_stretch",
+        "hamstrings_standing_fold": "standing_forward_fold",
+        "hamstrings_seated": "seated_hamstring_floor",
+        "hamstrings_supine_strap": "supine_hamstring_towel",
+        "knees_heel_slides": "supine_knee_flexion",
+        "calves_wall": "standing_calf_wall_stretch",
+        "calves_stair_drop": "step_heel_drop",
+        "calves_soleus": "soleus_bent_knee_stretch",
+    ]
+
+    private static let primaryStretches: [Stretch] = loadPrimaryStretches()
+    private static let legacyFallbackStretches: [Stretch] = loadJSONResource(named: "stretches", as: [Stretch].self) ?? []
+
     static func loadAll() -> [Stretch] {
-        loadJSONResource(named: "stretches", as: [Stretch].self) ?? []
+        primaryStretches
     }
 
     static func loadAllRoutines() -> [Routine] {
@@ -51,7 +103,14 @@ enum StretchDatabase {
     }
 
     static func stretch(id: String) -> Stretch? {
-        loadAll().first { $0.id == id }
+        if let stretch = primaryStretches.first(where: { $0.id == id }) {
+            return stretch
+        }
+        if let alias = legacyStretchAliases[id],
+           let stretch = primaryStretches.first(where: { $0.id == alias }) {
+            return stretch
+        }
+        return legacyFallbackStretches.first(where: { $0.id == id })
     }
 
     static func routine(id: String) -> Routine? {
@@ -133,8 +192,9 @@ enum StretchDatabase {
 
     static func browseAreas(prioritizing profile: UserProfile?) -> [MuscleGroup] {
         let base: [MuscleGroup] = [
-            .neck, .shoulders, .chest, .upperBack, .lowerBack,
-            .core, .hips, .glutes, .quads, .hamstrings, .calves,
+            .lowerBack, .neck, .shoulders, .knees, .hips,
+            .upperBack, .hamstrings, .calves, .glutes, .quads,
+            .core, .chest, .biceps, .triceps, .forearms,
         ]
         guard let profile else { return base }
         let preferred = profile.problemAreas.compactMap(muscleGroup(fromDisplayName:))
@@ -210,5 +270,151 @@ enum StretchDatabase {
         profile.lifestyle.localizedCaseInsensitiveContains("desk")
             || profile.activityLevel.localizedCaseInsensitiveContains("mostly sitting")
             || profile.problemTimes.contains(where: { $0.localizedCaseInsensitiveContains("sitting") })
+    }
+
+    private static func loadPrimaryStretches() -> [Stretch] {
+        let rawStretches = loadJSONResource(named: "stretches_v2_150", as: [RawStretchV2].self) ?? []
+        return rawStretches.compactMap(normalizeStretch)
+    }
+
+    private static func normalizeStretch(_ raw: RawStretchV2) -> Stretch? {
+        guard !excludedStretchIds.contains(raw.id),
+              let primaryGroup = raw.primaryMuscleGroup,
+              let imageName = raw.image?.name,
+              !imageName.isEmpty
+        else {
+            return nil
+        }
+
+        return Stretch(
+            id: raw.id,
+            name: raw.name,
+            muscleGroup: primaryGroup.rawValue,
+            duration: raw.timing.durationValue,
+            repScheme: raw.timing.repScheme,
+            description: raw.description,
+            difficulty: raw.numericDifficulty,
+            imageName: imageName
+        )
+    }
+}
+
+private struct RawStretchV2: Decodable {
+    let id: String
+    let name: String
+    let muscleGroups: [String]
+    let timing: RawStretchTiming
+    let description: String
+    let difficulty: String
+    let image: RawStretchImage?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case muscleGroups = "muscle_groups"
+        case timing
+        case description
+        case difficulty
+        case image
+    }
+
+    var primaryMuscleGroup: MuscleGroup? {
+        muscleGroups.lazy.compactMap(MuscleGroup.init(v2Identifier:)).first
+    }
+
+    var numericDifficulty: Int {
+        switch difficulty.lowercased() {
+        case "beginner":
+            return 1
+        case "intermediate":
+            return 2
+        case "advanced":
+            return 3
+        default:
+            return 2
+        }
+    }
+}
+
+private struct RawStretchTiming: Decodable {
+    let holdSeconds: Int?
+    let perSide: Bool
+    let reps: Int?
+    let cycles: Int?
+    let type: String
+    let display: String
+
+    enum CodingKeys: String, CodingKey {
+        case holdSeconds = "hold_seconds"
+        case perSide = "per_side"
+        case reps
+        case cycles
+        case type
+        case display
+    }
+
+    var durationValue: Int {
+        if let holdSeconds, holdSeconds > 0 {
+            return holdSeconds
+        }
+        return 30
+    }
+
+    var repScheme: String {
+        let trimmedDisplay = display.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedDisplay.isEmpty {
+            return trimmedDisplay
+        }
+
+        if let reps, reps > 0 {
+            let prefix = (cycles ?? 1) > 1 ? "\(cycles ?? 1) x " : ""
+            return "\(prefix)\(reps) reps"
+        }
+
+        let suffix = perSide ? " each side" : ""
+        return "\(durationValue)s\(suffix)"
+    }
+}
+
+private struct RawStretchImage: Decodable {
+    let name: String
+}
+
+private extension MuscleGroup {
+    init?(v2Identifier: String) {
+        switch v2Identifier {
+        case "neck":
+            self = .neck
+        case "shoulders":
+            self = .shoulders
+        case "chest":
+            self = .chest
+        case "upper_back":
+            self = .upperBack
+        case "lower_back":
+            self = .lowerBack
+        case "core":
+            self = .core
+        case "biceps":
+            self = .biceps
+        case "triceps":
+            self = .triceps
+        case "forearms":
+            self = .forearms
+        case "hips":
+            self = .hips
+        case "glutes":
+            self = .glutes
+        case "quads":
+            self = .quads
+        case "hamstrings":
+            self = .hamstrings
+        case "knees":
+            self = .knees
+        case "calves":
+            self = .calves
+        default:
+            return nil
+        }
     }
 }

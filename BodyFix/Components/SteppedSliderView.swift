@@ -36,7 +36,7 @@ struct SteppedSliderView: View {
                     RoundedRectangle(cornerRadius: trackHeight / 2)
                         .fill(
                             LinearGradient(
-                                colors: [.bfTeal, .bfSliderWarm],
+                                colors: [.bfMint, .bfSliderGreen],
                                 startPoint: .leading,
                                 endPoint: .trailing
                             )

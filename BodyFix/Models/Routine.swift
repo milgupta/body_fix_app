@@ -22,11 +22,15 @@ struct Routine: Identifiable, Codable, Hashable {
     let level: Int?
 
     var durationLabel: String {
-        durationMinutes == 1 ? "1 MINUTE" : "\(durationMinutes) MINUTES"
+        durationMinutes == 1 ? "1 min" : "\(durationMinutes) min"
     }
 
     var shortDurationLabel: String {
-        durationMinutes == 1 ? "1 MIN" : "\(durationMinutes) MIN"
+        durationMinutes == 1 ? "1 min" : "\(durationMinutes) min"
+    }
+
+    var invitingDurationLabel: String {
+        durationMinutes == 1 ? "1 minute" : "\(durationMinutes) minutes"
     }
 
     var thumbnailStretchIds: [String] {
