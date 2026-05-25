@@ -8,6 +8,8 @@ struct StretchTimerView: View {
     @State private var timeRemaining: Int
     @State private var isRunning = false
     @State private var timer: Timer?
+    @State private var holdSegmentStartedAt: Date?
+    @State private var holdElapsedBeforeSegment: TimeInterval = 0
     @State private var holdFinished = false
     @State private var holdStarted = false
     @State private var currentRep = 0
@@ -17,6 +19,7 @@ struct StretchTimerView: View {
     @State private var showNextOverlay = false
     @State private var completePulse = false
     @State private var pendingNavigationIndex: Int?
+    @State private var showInstructions = false
 
     private var stretches: [Stretch] {
         route.stretchIds.compactMap { StretchDatabase.stretch(id: $0) }
@@ -58,7 +61,12 @@ struct StretchTimerView: View {
 
     var body: some View {
         ZStack {
-            Color.bfBackground.ignoresSafeArea()
+            LinearGradient(
+                colors: [Color.bfPageBackground, Color.white, Color(hex: "#F6F8FC")],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
 
             if let stretch {
                 mainContent(stretch: stretch)
@@ -97,143 +105,149 @@ struct StretchTimerView: View {
         .onChange(of: currentIndex) { _, _ in
             resetForCurrentStretch()
         }
+        .sheet(isPresented: $showInstructions) {
+            if let stretch {
+                instructionsSheet(for: stretch)
+                    .presentationDetents([.fraction(0.34), .medium])
+                    .presentationDragIndicator(.visible)
+            }
+        }
     }
 
     @ViewBuilder
     private func mainContent(stretch: Stretch) -> some View {
-        VStack(spacing: 0) {
-            HStack {
-                Button {
-                    HapticManager.shared.mediumImpact()
-                    showEndAlert = true
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(Color.bfTextSecondary)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 18) {
+                topBar
+
+                VStack(spacing: 12) {
+                    Text(stretch.name)
+                        .font(Typography.navTitle)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(Color.bfTextPrimary)
+                        .padding(.horizontal, 8)
+
+                    Button {
+                        HapticManager.shared.lightImpact()
+                        showInstructions = true
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundStyle(Color.bfTextSecondary)
+                            .frame(width: 36, height: 36)
+                            .background(Circle().fill(Color.white.opacity(0.9)))
+                            .overlay(Circle().stroke(Color.bfBorder.opacity(0.6), lineWidth: 1))
+                    }
+                    .buttonStyle(.plain)
                 }
 
-                Spacer()
+                if stretch.isRepBased {
+                    repTimerContent(stretch: stretch)
+                } else {
+                    holdTimerContent(stretch: stretch)
+                }
 
-                HStack(spacing: 8) {
-                    navigationButton(systemName: "chevron.left", isEnabled: currentIndex > 0) {
-                        requestNavigation(to: currentIndex - 1)
+                controlButtons(stretch: stretch)
+
+                if stretch.isRepBased, currentRep > 0, !holdFinished {
+                    Button {
+                        HapticManager.shared.lightImpact()
+                        repPaused.toggle()
+                    } label: {
+                        Text(repPaused ? "Resume reps" : "Pause reps")
+                            .font(Typography.homeMeta)
+                            .foregroundStyle(Color.bfTextMuted)
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 8)
+                            .background(Capsule().fill(Color.white.opacity(0.84)))
+                            .overlay(Capsule().stroke(Color.bfBorder.opacity(0.55), lineWidth: 1))
                     }
-
-                    Text("\(currentIndex + 1) of \(stretches.count)")
-                        .font(Typography.badgeMono)
-                        .foregroundStyle(Color.bfMint)
-                        .frame(minWidth: 56)
-
-                    navigationButton(systemName: "chevron.right", isEnabled: currentIndex < stretches.count - 1) {
-                        requestNavigation(to: currentIndex + 1)
-                    }
+                    .buttonStyle(.plain)
                 }
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 24)
             .padding(.top, 12)
+            .padding(.bottom, 120)
+        }
+    }
 
-            Spacer().frame(height: 24)
-
-            Text(stretch.name)
-                .font(Typography.navTitle)
-                .multilineTextAlignment(.center)
-                .foregroundStyle(Color.bfTextPrimary)
-                .padding(.horizontal, 20)
-
-            Text(timerDetailText(for: stretch))
-                .font(Typography.badgeMono)
-                .foregroundStyle(Color.bfMint)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 4)
-                .background(Color.bfBlue.opacity(0.08))
-                .clipShape(Capsule())
-                .padding(.top, 10)
-
-            stretchImageCard(stretch: stretch)
-                .padding(.horizontal, 20)
-                .padding(.top, 18)
-
-            Spacer().frame(height: 24)
-
-            if stretch.isRepBased {
-                repTimerContent(stretch: stretch)
-            } else {
-                holdTimerContent(stretch: stretch)
+    private var topBar: some View {
+        HStack {
+            Button {
+                HapticManager.shared.mediumImpact()
+                showEndAlert = true
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(Color.bfTextSecondary)
+                    .frame(width: 38, height: 38)
+                    .background(Circle().fill(Color.white.opacity(0.88)))
+                    .overlay(Circle().stroke(Color.bfBorder.opacity(0.55), lineWidth: 1))
             }
-
-            Text(stretch.description)
-                .font(Typography.screenSubtitle)
-                .foregroundStyle(Color.bfTextTertiary)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: 300)
-                .padding(.top, 24)
-                .padding(.horizontal, 20)
+            .buttonStyle(.plain)
 
             Spacer()
 
-            controlButtons(stretch: stretch)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 80)
+            HStack(spacing: 10) {
+                navigationButton(systemName: "chevron.left", isEnabled: currentIndex > 0) {
+                    requestNavigation(to: currentIndex - 1)
+                }
+
+                Text("\(currentIndex + 1) of \(stretches.count)")
+                    .font(Typography.homeMeta)
+                    .foregroundStyle(Color.bfBlue)
+                    .frame(minWidth: 70)
+
+                navigationButton(systemName: "chevron.right", isEnabled: currentIndex < stretches.count - 1) {
+                    requestNavigation(to: currentIndex + 1)
+                }
+            }
         }
     }
 
     @ViewBuilder
     private func holdTimerContent(stretch: Stretch) -> some View {
-        CircularTimerView(
-            totalSeconds: max(1, effectiveDuration(for: stretch)),
-            remainingSeconds: timeRemaining,
-            isComplete: holdFinished,
-            isRunning: isRunning
-        )
+        TimelineView(.animation(minimumInterval: 1.0 / 60.0, paused: !isRunning)) { context in
+            let elapsed = holdElapsedSeconds(for: stretch, at: context.date)
+            let remaining = holdRemainingSeconds(for: stretch, elapsed: elapsed)
+
+            VStack(spacing: 18) {
+                progressHeroCircle(
+                    stretch: stretch,
+                    progress: holdProgress(for: stretch, elapsed: elapsed),
+                    ringColor: holdFinished ? Color.bfMint : (isRunning ? Color.bfBlue : Color.bfBlue.opacity(0.6))
+                )
+
+                VStack(spacing: 4) {
+                    Text(formattedTime(remaining))
+                        .font(Typography.timerMonoLarge)
+                        .foregroundStyle(Color.bfTextPrimary)
+                        .contentTransition(.numericText())
+                }
+            }
+            .onChange(of: elapsed) { _, newElapsed in
+                completeHoldIfNeeded(stretch: stretch, elapsed: newElapsed)
+            }
+        }
     }
 
     @ViewBuilder
     private func repTimerContent(stretch: Stretch) -> some View {
         let target = effectiveRepCount(for: stretch)
         VStack(spacing: 16) {
-            ZStack {
-                Circle()
-                    .stroke(Color.bfCard, lineWidth: 8)
-                    .frame(width: 200, height: 200)
-                Circle()
-                    .trim(from: 0, to: CGFloat(min(currentRep, target)) / CGFloat(max(1, target)))
-                    .stroke(
-                        holdFinished ? Color.bfMint : Color.bfBlue,
-                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
-                    )
-                    .frame(width: 200, height: 200)
-                    .rotationEffect(.degrees(-90))
-                    .animation(.easeInOut(duration: 0.2), value: currentRep)
+            progressHeroCircle(
+                stretch: stretch,
+                progress: CGFloat(min(currentRep, target)) / CGFloat(max(1, target)),
+                ringColor: holdFinished ? Color.bfMint : Color.bfBlue
+            )
 
-                VStack(spacing: 6) {
-                    Text("\(min(currentRep, target)) / \(target)")
-                        .font(Typography.timerMonoLarge)
-                        .foregroundStyle(Color.bfTextPrimary)
-                    Text("REPS")
-                        .font(Typography.timerLabelSmall)
-                        .foregroundStyle(Color.bfTextMuted)
-                }
-            }
-            .frame(width: 200, height: 200)
-
-            if currentRep > 0, currentRep < target, !repPaused {
-                Button {
-                    HapticManager.shared.mediumImpact()
-                    currentRep += 1
-                    if currentRep >= target {
-                        holdFinished = true
-                        HapticManager.shared.success()
-                    }
-                } label: {
-                    Text("Next rep")
-                        .font(Typography.primaryCta)
-                        .foregroundStyle(Color.bfTextPrimary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(RoundedRectangle(cornerRadius: 14).fill(Color.bfCard))
-                        .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.bfBorder))
-                }
-                .buttonStyle(.plain)
+            VStack(spacing: 4) {
+                Text("\(min(currentRep, target)) / \(target)")
+                    .font(Typography.timerMonoLarge)
+                    .foregroundStyle(Color.bfTextPrimary)
+                Text("reps")
+                    .font(Typography.timerLabelSmall)
+                    .foregroundStyle(Color.bfTextMuted)
             }
         }
     }
@@ -249,148 +263,94 @@ struct StretchTimerView: View {
 
     @ViewBuilder
     private func holdControls(stretch: Stretch) -> some View {
-        if holdFinished {
-            Button {
-                HapticManager.shared.mediumImpact()
-                advanceAfterComplete()
-            } label: {
-                Text("Complete ✓")
-                    .font(Typography.primaryCta)
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(RoundedRectangle(cornerRadius: 14).fill(Color.bfMint))
+        transportControls(
+            centerSystemName: holdFinished ? "checkmark" : (isRunning ? "pause.fill" : "play.fill"),
+            centerStyle: holdFinished ? .complete : (isRunning ? .secondary : .primary),
+            centerAction: {
+                if holdFinished {
+                    HapticManager.shared.mediumImpact()
+                    advanceAfterComplete()
+                } else if isRunning {
+                    HapticManager.shared.mediumImpact()
+                    pauseHold()
+                } else if holdStarted, holdRemainingSeconds(for: stretch) > 0 {
+                    HapticManager.shared.mediumImpact()
+                    resumeHold(stretch: stretch)
+                } else {
+                    HapticManager.shared.heavyImpact()
+                    holdStarted = true
+                    startHoldTimer(stretch: stretch)
+                }
             }
-            .buttonStyle(.plain)
-            .scaleEffect(completePulse ? 1.03 : 1)
-            .animation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true), value: completePulse)
-            .onAppear { completePulse = true }
-        } else if isRunning {
-            Button {
-                HapticManager.shared.mediumImpact()
-                pauseHold()
-            } label: {
-                Text("Pause")
-                    .font(Typography.primaryCta)
-                    .foregroundStyle(Color.bfTextTertiary)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(RoundedRectangle(cornerRadius: 14).fill(Color.bfCard))
-                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.bfBorder))
-            }
-            .buttonStyle(.plain)
-        } else if holdStarted, timeRemaining > 0 {
-            Button {
-                HapticManager.shared.mediumImpact()
-                resumeHold(stretch: stretch)
-            } label: {
-                Text("Resume")
-                    .font(Typography.primaryCta)
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(RoundedRectangle(cornerRadius: 14).fill(.bfGradient))
-            }
-            .buttonStyle(.plain)
-        } else {
-            GradientButton(title: "Start Timer", showShadow: true) {
-                HapticManager.shared.heavyImpact()
-                holdStarted = true
-                startHoldTimer(stretch: stretch)
-            }
-        }
+        )
+        .scaleEffect(holdFinished && completePulse ? 1.03 : 1)
+        .animation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true), value: completePulse)
+        .onAppear { if holdFinished { completePulse = true } }
     }
 
     @ViewBuilder
     private func repControls(stretch: Stretch) -> some View {
         let target = effectiveRepCount(for: stretch)
-        if holdFinished {
-            Button {
-                HapticManager.shared.mediumImpact()
-                advanceAfterComplete()
-            } label: {
-                Text("Complete ✓")
-                    .font(Typography.primaryCta)
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(RoundedRectangle(cornerRadius: 14).fill(Color.bfMint))
-            }
-            .buttonStyle(.plain)
-            .scaleEffect(completePulse ? 1.03 : 1)
-            .animation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true), value: completePulse)
-            .onAppear { completePulse = true }
-        } else if currentRep == 0 {
-            GradientButton(title: "Start", showShadow: true) {
-                HapticManager.shared.heavyImpact()
-                repPaused = false
-                currentRep = 1
-                if target <= 1 {
-                    holdFinished = true
-                    HapticManager.shared.success()
+        transportControls(
+            centerSystemName: holdFinished ? "checkmark" : (currentRep == 0 || repPaused ? "play.fill" : "plus"),
+            centerStyle: holdFinished ? .complete : (currentRep == 0 ? .primary : .secondary),
+            centerAction: {
+                if holdFinished {
+                    HapticManager.shared.mediumImpact()
+                    advanceAfterComplete()
+                } else if currentRep == 0 {
+                    HapticManager.shared.heavyImpact()
+                    repPaused = false
+                    currentRep = 1
+                    if target <= 1 {
+                        holdFinished = true
+                        HapticManager.shared.success()
+                    }
+                } else if repPaused {
+                    HapticManager.shared.mediumImpact()
+                    repPaused = false
+                } else if currentRep < target {
+                    HapticManager.shared.mediumImpact()
+                    currentRep += 1
+                    if currentRep >= target {
+                        holdFinished = true
+                        HapticManager.shared.success()
+                    }
                 }
             }
-        } else if currentRep < target {
-            Button {
-                HapticManager.shared.mediumImpact()
-                repPaused.toggle()
-            } label: {
-                Text(repPaused ? "Resume" : "Pause")
-                    .font(Typography.primaryCta)
-                    .foregroundStyle(Color.bfTextTertiary)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(RoundedRectangle(cornerRadius: 14).fill(Color.bfCard))
-                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.bfBorder))
-            }
-            .buttonStyle(.plain)
-        }
+        )
+        .scaleEffect(holdFinished && completePulse ? 1.03 : 1)
+        .animation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true), value: completePulse)
+        .onAppear { if holdFinished { completePulse = true } }
     }
 
     private func startHoldTimer(stretch: Stretch) {
         timer?.invalidate()
+        holdSegmentStartedAt = Date()
         isRunning = true
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            Task { @MainActor in
-                if timeRemaining > 0 {
-                    timeRemaining -= 1
-                }
-                if timeRemaining == 0 {
-                    timer?.invalidate()
-                    isRunning = false
-                    holdFinished = true
-                    HapticManager.shared.success()
-                }
-            }
-        }
     }
 
     private func pauseHold() {
         timer?.invalidate()
+        if let start = holdSegmentStartedAt {
+            holdElapsedBeforeSegment += Date().timeIntervalSince(start)
+        }
+        holdSegmentStartedAt = nil
         isRunning = false
     }
 
     private func resumeHold(stretch: Stretch) {
-        guard timeRemaining > 0 else { return }
+        guard holdRemainingSeconds(for: stretch) > 0 else { return }
+        timer?.invalidate()
+        holdSegmentStartedAt = Date()
         isRunning = true
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            Task { @MainActor in
-                if timeRemaining > 0 {
-                    timeRemaining -= 1
-                }
-                if timeRemaining == 0 {
-                    timer?.invalidate()
-                    isRunning = false
-                    holdFinished = true
-                    HapticManager.shared.success()
-                }
-            }
-        }
     }
 
     private func resetForCurrentStretch() {
         timer?.invalidate()
         isRunning = false
+        holdSegmentStartedAt = nil
+        holdElapsedBeforeSegment = 0
         holdFinished = false
         holdStarted = false
         currentRep = 0
@@ -483,35 +443,37 @@ struct StretchTimerView: View {
     }
 
     @ViewBuilder
-    private func stretchImageCard(stretch: Stretch) -> some View {
+    private func stretchImage(stretch: Stretch, size: CGFloat, cornerRadius: CGFloat) -> some View {
         let image = BodyFixImageResolver.image(for: stretch)
 
         ZStack {
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .fill(Color.bfSurfaceElevated)
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [Color.white.opacity(0.95), Color.bfSurfaceElevated, Color(hex: "#F6F8FC")],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
 
             if let image {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
-                    .padding(18)
+                    .scaledToFill()
+                    .frame(width: size, height: size)
+                    .clipped()
             } else {
                 VStack(spacing: 10) {
-                    BodyFixThumbnailView(stretch: stretch, size: 86)
-                    Text("Demo preview unavailable")
-                        .font(Typography.caption)
-                        .foregroundStyle(Color.bfTextMuted)
+                    BodyFixThumbnailView(stretch: stretch, size: 156)
                 }
-                .padding(20)
             }
         }
-        .frame(maxWidth: 280)
-        .frame(height: 188)
+        .frame(width: size, height: size)
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.48), lineWidth: 1)
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .stroke(Color.white.opacity(0.92), lineWidth: 5)
         )
-        .shadow(color: Color.black.opacity(0.05), radius: 14, y: 6)
     }
 
     private func navigationButton(systemName: String, isEnabled: Bool, action: @escaping () -> Void) -> some View {
@@ -534,6 +496,227 @@ struct StretchTimerView: View {
         .buttonStyle(.plain)
         .disabled(!isEnabled)
         .opacity(isEnabled ? 1 : 0.55)
+    }
+
+    @ViewBuilder
+    private func transportControls(
+        centerSystemName: String,
+        centerStyle: TimerPrimaryButtonStyle,
+        centerAction: @escaping () -> Void
+    ) -> some View {
+        HStack(alignment: .center, spacing: 26) {
+            transportSideButton(systemName: "backward.fill", isEnabled: currentIndex > 0) {
+                requestNavigation(to: currentIndex - 1)
+            }
+
+            transportPrimaryButton(systemName: centerSystemName, style: centerStyle, action: centerAction)
+
+            transportSideButton(systemName: "forward.fill", isEnabled: currentIndex < stretches.count - 1) {
+                requestNavigation(to: currentIndex + 1)
+            }
+        }
+    }
+
+    private func transportSideButton(systemName: String, isEnabled: Bool, action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: systemName)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(isEnabled ? Color.bfTextSecondary : Color.bfTextDisabled.opacity(0.8))
+                .frame(width: 56, height: 56)
+                .background(Circle().fill(Color.white.opacity(0.9)))
+                .overlay(Circle().stroke(Color.bfBorder.opacity(0.55), lineWidth: 1))
+        }
+        .buttonStyle(.plain)
+        .disabled(!isEnabled)
+        .opacity(isEnabled ? 1 : 0.55)
+    }
+
+    private func transportPrimaryButton(systemName: String, style: TimerPrimaryButtonStyle, action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: systemName)
+                .font(.system(size: 22, weight: .bold))
+                .foregroundStyle(style.foreground)
+                .frame(width: 84, height: 84)
+                .background(
+                    Circle()
+                        .fill(style.fill)
+                )
+                .overlay(
+                    Circle()
+                        .stroke(style.stroke, lineWidth: style.lineWidth)
+                )
+                .shadow(color: style.shadowColor, radius: 14, y: 6)
+        }
+        .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    private func instructionsSheet(for stretch: Stretch) -> some View {
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 18) {
+                    Text(stretch.name)
+                        .font(Typography.navTitle)
+                        .foregroundStyle(Color.bfTextPrimary)
+
+                    Text(timerDetailText(for: stretch))
+                        .font(Typography.homeMeta)
+                        .foregroundStyle(Color.bfBlue)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(Color.bfBlue.opacity(0.08))
+                        .clipShape(Capsule())
+
+                    Text(stretch.description)
+                        .font(Typography.screenSubtitle)
+                        .foregroundStyle(Color.bfTextSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(24)
+            }
+            .background(Color.bfPageBackground)
+        }
+    }
+
+    private func holdElapsedSeconds(for stretch: Stretch, at date: Date = Date()) -> Double {
+        var elapsed = holdElapsedBeforeSegment
+        if isRunning, let start = holdSegmentStartedAt {
+            elapsed += date.timeIntervalSince(start)
+        }
+        return min(Double(effectiveDuration(for: stretch)), elapsed)
+    }
+
+    private func holdRemainingSeconds(for stretch: Stretch, elapsed: Double? = nil, at date: Date = Date()) -> Int {
+        let total = effectiveDuration(for: stretch)
+        let consumed = elapsed ?? holdElapsedSeconds(for: stretch, at: date)
+        let remaining = Double(total) - consumed
+        return max(0, Int(ceil(remaining - 0.000_001)))
+    }
+
+    private func holdProgress(for stretch: Stretch, elapsed: Double? = nil) -> CGFloat {
+        let total = max(1, effectiveDuration(for: stretch))
+        let consumed = elapsed ?? holdElapsedSeconds(for: stretch)
+        return CGFloat(consumed / Double(total))
+    }
+
+    private func completeHoldIfNeeded(stretch: Stretch, elapsed: Double) {
+        guard isRunning, !holdFinished else { return }
+        let total = Double(effectiveDuration(for: stretch))
+        guard elapsed >= total else { return }
+        holdElapsedBeforeSegment = total
+        holdSegmentStartedAt = nil
+        isRunning = false
+        holdFinished = true
+        timeRemaining = 0
+        HapticManager.shared.success()
+    }
+
+    private func formattedTime(_ totalSeconds: Int) -> String {
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        return "\(minutes):" + String(format: "%02d", seconds)
+    }
+
+    @ViewBuilder
+    private func progressHeroCircle(stretch: Stretch, progress: CGFloat, ringColor: Color) -> some View {
+        let heroSize: CGFloat = 292
+        let cornerRadius: CGFloat = 48
+        let imageInset: CGFloat = 22
+        let imageSize = heroSize - (imageInset * 2)
+
+        ZStack {
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .fill(Color.white.opacity(0.88))
+                .frame(width: heroSize, height: heroSize)
+                .shadow(color: Color.black.opacity(0.04), radius: 20, y: 10)
+
+            stretchImage(stretch: stretch, size: imageSize, cornerRadius: cornerRadius - 12)
+
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .stroke(Color.bfSurfaceMuted.opacity(0.95), lineWidth: 12)
+                .frame(width: heroSize, height: heroSize)
+
+            RoundedSquareProgressShape(
+                progress: max(0, min(progress, 1)),
+                cornerRadius: cornerRadius
+            )
+                .stroke(
+                    ringColor,
+                    style: StrokeStyle(lineWidth: 12, lineCap: .round)
+                )
+                .frame(width: heroSize, height: heroSize)
+                .animation(.easeInOut(duration: 0.35), value: holdFinished)
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+private struct RoundedSquareProgressShape: Shape {
+    let progress: CGFloat
+    let cornerRadius: CGFloat
+
+    func path(in rect: CGRect) -> Path {
+        let basePath = Path(
+            roundedRect: rect,
+            cornerSize: CGSize(width: cornerRadius, height: cornerRadius),
+            style: .continuous
+        )
+
+        return basePath.trimmedPath(from: 0, to: progress)
+    }
+}
+
+private enum TimerPrimaryButtonStyle {
+    case primary
+    case secondary
+    case complete
+
+    var fill: AnyShapeStyle {
+        switch self {
+        case .primary:
+            return AnyShapeStyle(LinearGradient(colors: [Color.bfBlue, Color(hex: "#5E83CD")], startPoint: .topLeading, endPoint: .bottomTrailing))
+        case .secondary:
+            return AnyShapeStyle(Color.white.opacity(0.94))
+        case .complete:
+            return AnyShapeStyle(Color.bfMint)
+        }
+    }
+
+    var stroke: Color {
+        switch self {
+        case .secondary: return Color.bfBorder.opacity(0.6)
+        default: return .clear
+        }
+    }
+
+    var lineWidth: CGFloat {
+        switch self {
+        case .secondary: return 1
+        default: return 0
+        }
+    }
+
+    var foreground: Color {
+        switch self {
+        case .primary, .complete: return .white
+        case .secondary: return Color.bfTextPrimary
+        }
+    }
+
+    var shadowColor: Color {
+        switch self {
+        case .primary:
+            return Color.bfBlue.opacity(0.18)
+        case .complete:
+            return Color.bfMint.opacity(0.22)
+        case .secondary:
+            return Color.black.opacity(0.05)
+        }
     }
 }
 

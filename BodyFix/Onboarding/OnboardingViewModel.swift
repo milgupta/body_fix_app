@@ -28,6 +28,18 @@ class OnboardingViewModel {
 
     // Screen 8: Pain Awareness
     var selectedPainAreas: Set<OnboardingPainArea> = []
+    var problemAreaOtherText: String = ""
+
+    var problemAreasForProfile: [String] {
+        var areas = selectedPainAreas.filter { $0 != .other }.map(\.rawValue)
+        if selectedPainAreas.contains(.other) {
+            let custom = problemAreaOtherText.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !custom.isEmpty {
+                areas.append(custom)
+            }
+        }
+        return areas
+    }
 
     // Screen 9: Daily Movement
     var activityLevel: String = ""
@@ -75,7 +87,12 @@ class OnboardingViewModel {
         case 5: return true
         case 6: return true
         case 7: return true
-        case 8: return !selectedPainAreas.isEmpty
+        case 8:
+            guard !selectedPainAreas.isEmpty else { return false }
+            if selectedPainAreas.contains(.other) {
+                return !problemAreaOtherText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            }
+            return true
         case 9: return !activityLevel.isEmpty
         case 10: return !lifestyle.isEmpty
         case 11: return !selectedProblemTimes.isEmpty
@@ -116,7 +133,7 @@ class OnboardingViewModel {
             lifestyle: lifestyle,
             stretchingFrequency: stretchingFrequency,
             dailyTime: dailyTime,
-            problemAreas: selectedPainAreas.map(\.rawValue),
+            problemAreas: problemAreasForProfile,
             problemTimes: Array(selectedProblemTimes),
             commitmentDays: commitmentDays,
             healthConditions: Array(selectedHealthConditions).sorted(),

@@ -27,7 +27,7 @@ enum Typography {
     static let stretchDescription = Font.system(size: 15, weight: .regular, design: .rounded)
     static let badgeMono = metadataBadge
     static let tapHint = Font.system(size: 11, weight: .semibold, design: .rounded)
-    static let timerMonoLarge = Font.system(size: 48, weight: .thin, design: .monospaced)
+    static let timerMonoLarge = Font.system(size: 62, weight: .medium, design: .rounded)
     static let timerLabelSmall = Font.system(size: 11, weight: .semibold, design: .rounded)
     static let primaryCta = Font.system(size: 18, weight: .bold, design: .rounded)
 

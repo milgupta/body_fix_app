@@ -5,6 +5,8 @@ struct CircularTimerView: View {
     let remainingSeconds: Int
     var isComplete: Bool
     var isRunning: Bool
+    var diameter: CGFloat = 232
+    var lineWidth: CGFloat = 12
 
     private var progress: CGFloat {
         guard totalSeconds > 0 else { return 0 }
@@ -19,16 +21,21 @@ struct CircularTimerView: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color.bfCard, lineWidth: 8)
-                .frame(width: 200, height: 200)
+                .fill(Color.white.opacity(0.85))
+                .frame(width: diameter, height: diameter)
+                .shadow(color: Color.black.opacity(0.035), radius: 18, y: 8)
+
+            Circle()
+                .stroke(Color.bfSurfaceMuted, lineWidth: lineWidth)
+                .frame(width: diameter, height: diameter)
 
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
                     ringColor,
-                    style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                    style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
                 )
-                .frame(width: 200, height: 200)
+                .frame(width: diameter, height: diameter)
                 .rotationEffect(.degrees(-90))
                 .animation(.linear(duration: 1), value: progress)
                 .animation(.easeInOut(duration: 0.35), value: isComplete)
@@ -44,7 +51,7 @@ struct CircularTimerView: View {
                     .foregroundStyle(isComplete ? Color.bfMint : Color.bfTextMuted)
             }
         }
-        .frame(width: 200, height: 200)
+        .frame(width: diameter, height: diameter)
     }
 }
 

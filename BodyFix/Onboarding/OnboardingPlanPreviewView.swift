@@ -17,7 +17,7 @@ struct OnboardingPlanPreviewView: View {
             lifestyle: viewModel.lifestyle,
             stretchingFrequency: viewModel.stretchingFrequency,
             dailyTime: viewModel.dailyTime,
-            problemAreas: viewModel.selectedPainAreas.map(\.displayName),
+            problemAreas: viewModel.problemAreasForProfile,
             problemTimes: Array(viewModel.selectedProblemTimes),
             commitmentDays: viewModel.commitmentDays,
             healthConditions: Array(viewModel.selectedHealthConditions).sorted(),
@@ -38,24 +38,33 @@ struct OnboardingPlanPreviewView: View {
             Color.bfPageBackground.ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: 22) {
                     header
+                    firstStepCard
                     stretchList
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 14)
-                .padding(.bottom, 144)
+                .padding(.bottom, 166)
             }
 
-            OnboardingContinueButton(label: "Start My Plan") {
-                HapticManager.shared.success()
-                let profile = viewModel.saveProfile(to: modelContext)
-                PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
-                try? modelContext.save()
+            VStack(spacing: 10) {
+                Text(ctaReassurance)
+                    .font(Typography.caption)
+                    .foregroundStyle(Color.bfTextSecondary)
+                    .frame(maxWidth: .infinity)
+                    .opacity(showContent ? 1 : 0)
+
+                OnboardingContinueButton(label: "Start My Plan") {
+                    HapticManager.shared.success()
+                    let profile = viewModel.saveProfile(to: modelContext)
+                    PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
+                    try? modelContext.save()
+                }
+                .opacity(showContent ? 1 : 0)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 26)
-            .opacity(showContent ? 1 : 0)
         }
         .onAppear {
             withAnimation(.easeOut(duration: 0.6)) {
@@ -87,11 +96,11 @@ struct OnboardingPlanPreviewView: View {
 
             VStack(alignment: .leading, spacing: 14) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Your first Body Fix plan")
+                    Text("Your plan is ready")
                         .font(Typography.screenTitle)
                         .foregroundStyle(.bfTextPrimary)
 
-                    Text(recommendation.summary)
+                    Text(headerSummary)
                         .font(Typography.screenSubtitle)
                         .foregroundStyle(.bfTextSecondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -103,6 +112,58 @@ struct OnboardingPlanPreviewView: View {
             .padding(.vertical, 18)
             .background(headerPanel)
         }
+        .opacity(showContent ? 1 : 0)
+    }
+
+    private var firstStepCard: some View {
+        HStack(spacing: 14) {
+            if let firstStretch = previewStretches.first {
+                BodyFixThumbnailView(stretch: firstStretch, size: 50)
+            } else {
+                Image(systemName: "play.fill")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundStyle(Color.white)
+                    .frame(width: 50, height: 50)
+                    .background(Circle().fill(Color.bfAccent))
+            }
+
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Today's first step")
+                    .font(Typography.metadataBadge)
+                    .foregroundStyle(Color.bfAccent)
+
+                Text(firstStepTitle)
+                    .font(Typography.controlLabel)
+                    .foregroundStyle(Color.bfTextPrimary)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Text("Begin here. We'll guide you through each hold.")
+                    .font(Typography.caption)
+                    .foregroundStyle(Color.bfTextSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 6)
+
+            Text(planDurationLabel(recommendation.totalSeconds))
+                .font(Typography.metadataBadge)
+                .foregroundStyle(Color.bfAccent)
+                .lineLimit(1)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 7)
+                .background(Capsule().fill(Color.bfAccent.opacity(0.1)))
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Color.bfSurfaceElevated)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .stroke(Color.bfAccent.opacity(0.18), lineWidth: 1)
+        )
+        .shadow(color: Color.black.opacity(0.025), radius: 10, y: 4)
         .opacity(showContent ? 1 : 0)
     }
 
@@ -152,12 +213,12 @@ struct OnboardingPlanPreviewView: View {
 
     private var stretchList: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("What your plan includes")
+            Text("Your first session")
                 .font(Typography.sectionTitle)
                 .foregroundStyle(.bfTextPrimary)
 
             ForEach(Array(previewStretches.enumerated()), id: \.element.id) { index, stretch in
-                OnboardingPlanRow(stretch: stretch, index: index)
+                OnboardingPlanRow(stretch: stretch, index: index, isFirstStep: index == 0)
                     .opacity(showContent ? 1 : 0)
                     .animation(.easeOut(duration: 0.45).delay(Double(index) * 0.06), value: showContent)
             }
@@ -191,17 +252,39 @@ struct OnboardingPlanPreviewView: View {
         if minutes > 0 { return "\(minutes)m" }
         return "\(remainder)s"
     }
+
+    private var headerSummary: String {
+        let duration = planDurationLabel(recommendation.totalSeconds)
+        let areaPhrase = recommendation.focusAreas.first.map { $0.lowercased() }
+
+        if let areaPhrase {
+            return "Start with a \(duration) routine built for your \(areaPhrase) needs and daily rhythm."
+        }
+        return "Start with a \(duration) routine built from what you told us."
+    }
+
+    private var firstStepTitle: String {
+        previewStretches.first?.name ?? "Start your first stretch"
+    }
+
+    private var ctaReassurance: String {
+        if recommendation.totalSeconds < 60 {
+            return "Less than 1 minute today"
+        }
+        return "Only \(planDurationLabel(recommendation.totalSeconds)) today"
+    }
 }
 
 private struct OnboardingPlanRow: View {
     let stretch: Stretch
     let index: Int
+    let isFirstStep: Bool
 
     var body: some View {
         HStack(spacing: 14) {
             ZStack {
                 Circle()
-                    .fill(Color.bfSurfaceMuted)
+                    .fill(isFirstStep ? Color.bfAccent.opacity(0.12) : Color.bfSurfaceMuted)
                     .frame(width: 28, height: 28)
 
                 Text("\(index + 1)")
@@ -212,13 +295,28 @@ private struct OnboardingPlanRow: View {
             BodyFixThumbnailView(stretch: stretch, size: 52)
 
             VStack(alignment: .leading, spacing: 5) {
-                Text(stretch.name)
-                    .font(Typography.controlLabel)
-                    .foregroundStyle(.bfTextPrimary)
+                if isFirstStep {
+                    Text("Start here")
+                        .font(Typography.metadataBadge)
+                        .foregroundStyle(Color.bfAccent)
+                        .lineLimit(1)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 5)
+                        .background(Capsule().fill(Color.bfAccent.opacity(0.1)))
+                }
 
-                Text("\(stretch.duration)s · \(stretch.repScheme)")
-                    .font(Typography.caption)
-                    .foregroundStyle(.bfTextSecondary)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(stretch.name)
+                        .font(Typography.controlLabel)
+                        .foregroundStyle(.bfTextPrimary)
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    Text("\(stretch.duration)s · \(stretch.repScheme)")
+                        .font(Typography.caption)
+                        .foregroundStyle(.bfTextSecondary)
+                        .lineLimit(2)
+                }
             }
 
             Spacer()
@@ -230,9 +328,9 @@ private struct OnboardingPlanRow: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.65), lineWidth: 1)
+                .stroke(isFirstStep ? Color.bfAccent.opacity(0.28) : Color.bfBorder.opacity(0.65), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.02), radius: 8, y: 3)
+        .shadow(color: Color.black.opacity(isFirstStep ? 0.035 : 0.02), radius: isFirstStep ? 10 : 8, y: 3)
     }
 }
 

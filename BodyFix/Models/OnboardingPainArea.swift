@@ -16,6 +16,7 @@ enum OnboardingPainArea: String, CaseIterable, Identifiable {
     case calves
     case ankles
     case wholeBody
+    case other
 
     var id: String { rawValue }
 
@@ -36,6 +37,7 @@ enum OnboardingPainArea: String, CaseIterable, Identifiable {
         case .calves: return "Calves"
         case .ankles: return "Ankles"
         case .wholeBody: return "Whole Body Stiffness"
+        case .other: return "Other"
         }
     }
 
@@ -56,6 +58,7 @@ enum OnboardingPainArea: String, CaseIterable, Identifiable {
         case .calves: return "🦶"
         case .ankles: return "👟"
         case .wholeBody: return "🧍"
+        case .other: return "✏️"
         }
     }
 }
