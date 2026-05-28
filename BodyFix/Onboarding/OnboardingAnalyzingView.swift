@@ -328,7 +328,7 @@ private struct AnalysisCardStack: View {
     private var foregroundCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             if let leadRoutine {
-                Text(leadRoutine.durationLabel)
+                Text(StretchDatabase.durationLabel(for: leadRoutine))
                     .font(Typography.badgeMono)
                     .foregroundStyle(Color.white.opacity(0.82))
 

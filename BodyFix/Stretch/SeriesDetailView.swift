@@ -171,7 +171,7 @@ private struct SeriesLevelCard: View {
                         .multilineTextAlignment(.leading)
                         .lineSpacing(-1)
 
-                    Text(routine.durationLabel)
+                    Text(StretchDatabase.durationLabel(for: routine))
                         .font(Typography.homeMeta)
                         .foregroundStyle(Color.bfTextSecondary)
                 }

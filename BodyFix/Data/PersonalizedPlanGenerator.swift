@@ -29,7 +29,7 @@ enum PersonalizedPlanGenerator {
 
         let focusAreas = focusAreaLabels(from: profile)
         let stretches = generateStretches(for: bestRoutine, profile: profile)
-        let totalSeconds = stretches.reduce(0) { $0 + $1.duration }
+        let totalSeconds = StretchTimingStore.totalDuration(for: stretches, overrides: [:])
         return PersonalizedPlanRecommendation(
             routine: bestRoutine,
             stretches: stretches,
@@ -176,18 +176,20 @@ enum PersonalizedPlanGenerator {
         }
 
         if targetMinutes > 0 {
-            if routine.durationMinutes <= targetMinutes {
+            let routineMinutes = StretchDatabase.durationMinutes(for: routine)
+            if routineMinutes <= targetMinutes {
                 total += 8
-            } else if routine.durationMinutes <= targetMinutes + 2 {
+            } else if routineMinutes <= targetMinutes + 2 {
                 total += 4
             } else {
                 total -= 4
             }
         }
 
+        let routineMinutes = StretchDatabase.durationMinutes(for: routine)
         if commitmentDays <= 2 {
             if routine.hasCategory(.quick) { total += 5 }
-            if routine.durationMinutes <= 5 { total += 3 }
+            if routineMinutes <= 5 { total += 3 }
         } else if commitmentDays >= 5 {
             if tags.contains("daily-maintenance") || routine.hasCategory(.featured) {
                 total += 4
@@ -205,14 +207,14 @@ enum PersonalizedPlanGenerator {
         }
         if healthFlags.contains("chronic pain") || healthFlags.contains("fibromyalgia") {
             if tags.contains("reduce-pain") { total += 6 }
-            if routine.durationMinutes <= 5 { total += 3 }
+            if routineMinutes <= 5 { total += 3 }
         }
         if healthFlags.contains("pregnancy")
             || healthFlags.contains("osteoporosis")
             || healthFlags.contains("heart condition")
             || healthFlags.contains("high blood pressure")
         {
-            if routine.durationMinutes > 10 { total -= 5 }
+            if routineMinutes > 10 { total -= 5 }
             if tags.contains("athletic") || tags.contains("warmup") || tags.contains("post-workout") {
                 total -= 3
             }
@@ -413,7 +415,7 @@ enum PersonalizedPlanGenerator {
 
     private static func durationWindow(for profile: UserProfile, routine: Routine) -> DurationWindow {
         let parsed = parsedMinutes(from: profile.dailyTime)
-        let target = max(60, (parsed > 0 ? parsed : max(1, routine.durationMinutes)) * 60)
+        let target = max(60, (parsed > 0 ? parsed : max(1, StretchDatabase.durationMinutes(for: routine))) * 60)
         return DurationWindow(
             target: target,
             lowerBound: max(60, target - 60),

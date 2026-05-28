@@ -122,7 +122,7 @@ struct BodySilhouetteView: View {
             return CGRect(x: w * 0.33, y: h * 0.75, width: w * 0.34, height: h * 0.12)
         case .ankles:
             return CGRect(x: w * 0.32, y: h * 0.88, width: w * 0.36, height: h * 0.06)
-        case .wholeBody:
+        case .wholeBody, .other:
             return CGRect(x: w * 0.25, y: h * 0.1, width: w * 0.5, height: h * 0.8)
         }
     }

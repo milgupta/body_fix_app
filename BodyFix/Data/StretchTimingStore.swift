@@ -89,6 +89,10 @@ enum StretchTimingStore {
             return "\(repCountLabel(repCount)) · \(trimmedScheme)"
         }
 
+        if duration == stretch.duration {
+            return trimmedScheme
+        }
+
         let baseDuration = "\(stretch.duration)s"
         if trimmedScheme.localizedCaseInsensitiveContains(baseDuration) {
             return trimmedScheme.replacingOccurrences(

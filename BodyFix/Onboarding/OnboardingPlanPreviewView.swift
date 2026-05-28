@@ -1,9 +1,11 @@
 import SwiftUI
 import SwiftData
+import StoreKit
 
 struct OnboardingPlanPreviewView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.requestReview) private var requestReview
     @State private var showContent = false
 
     private var draftProfile: UserProfile {
@@ -48,23 +50,21 @@ struct OnboardingPlanPreviewView: View {
                 .padding(.bottom, 166)
             }
 
-            VStack(spacing: 10) {
-                Text(ctaReassurance)
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.bfTextSecondary)
-                    .frame(maxWidth: .infinity)
-                    .opacity(showContent ? 1 : 0)
-
-                OnboardingContinueButton(label: "Start My Plan") {
-                    HapticManager.shared.success()
-                    let profile = viewModel.saveProfile(to: modelContext)
-                    PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
-                    try? modelContext.save()
+            OnboardingContinueButton(label: "Start My Plan") {
+                HapticManager.shared.success()
+                let profile = viewModel.saveProfile(to: modelContext)
+                PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
+                try? modelContext.save()
+                AnalyticsTracker.capture("onboarding_plan_created")
+                if RatingManager.canRequestOnboardingRating() {
+                    requestReview()
+                    RatingManager.markReviewRequested(trigger: .onboardingPlan)
                 }
-                .opacity(showContent ? 1 : 0)
+                PaywallManager.shared.requestPaywallAfterOnboarding()
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 26)
+            .opacity(showContent ? 1 : 0)
         }
         .onAppear {
             withAnimation(.easeOut(duration: 0.6)) {
@@ -94,8 +94,23 @@ struct OnboardingPlanPreviewView: View {
                 Spacer()
             }
 
-            VStack(alignment: .leading, spacing: 14) {
-                VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Built from your answers")
+                        .font(Typography.metadataBadge)
+                        .foregroundStyle(Color.bfAccent)
+                        .lineLimit(1)
+                        .padding(.horizontal, 11)
+                        .padding(.vertical, 7)
+                        .background(
+                            Capsule()
+                                .fill(Color.white.opacity(0.78))
+                        )
+                        .overlay(
+                            Capsule()
+                                .stroke(Color.bfAccent.opacity(0.18), lineWidth: 1)
+                        )
+
                     Text("Your plan is ready")
                         .font(Typography.screenTitle)
                         .foregroundStyle(.bfTextPrimary)
@@ -109,7 +124,7 @@ struct OnboardingPlanPreviewView: View {
                 headerBadges
             }
             .padding(.horizontal, 18)
-            .padding(.vertical, 18)
+            .padding(.vertical, 20)
             .background(headerPanel)
         }
         .opacity(showContent ? 1 : 0)
@@ -189,9 +204,9 @@ struct OnboardingPlanPreviewView: View {
             .fill(
                 LinearGradient(
                     colors: [
-                        Color.white.opacity(0.7),
-                        Color.bfSurfaceElevated.opacity(0.82),
-                        Color.bfSurfaceMuted.opacity(0.88)
+                        Color(hex: "#F5FAFF"),
+                        Color(hex: "#EAF3FF"),
+                        Color.bfSurfaceElevated.opacity(0.96)
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
@@ -199,16 +214,23 @@ struct OnboardingPlanPreviewView: View {
             )
             .overlay(alignment: .topLeading) {
                 Circle()
-                    .fill(Color.bfAccent.opacity(0.08))
-                    .frame(width: 150, height: 150)
-                    .blur(radius: 18)
-                    .offset(x: -30, y: -46)
+                    .fill(Color.bfAccent.opacity(0.16))
+                    .frame(width: 168, height: 168)
+                    .blur(radius: 22)
+                    .offset(x: -48, y: -58)
+            }
+            .overlay(alignment: .bottomTrailing) {
+                Circle()
+                    .fill(Color.bfBlue.opacity(0.12))
+                    .frame(width: 128, height: 128)
+                    .blur(radius: 24)
+                    .offset(x: 42, y: 42)
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 28, style: .continuous)
-                    .stroke(Color.white.opacity(0.55), lineWidth: 1)
+                    .stroke(Color.bfAccent.opacity(0.16), lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.025), radius: 12, y: 5)
+            .shadow(color: Color.bfAccent.opacity(0.08), radius: 18, y: 8)
     }
 
     private var stretchList: some View {
@@ -228,20 +250,20 @@ struct OnboardingPlanPreviewView: View {
     private func previewBadge(title: String, allowsCompression: Bool = true) -> some View {
         Text(title)
             .font(Typography.caption)
-            .foregroundStyle(.bfAccent)
+            .foregroundStyle(Color.bfAccent)
             .lineLimit(1)
             .truncationMode(.tail)
             .fixedSize(horizontal: !allowsCompression, vertical: false)
             .layoutPriority(allowsCompression ? 0 : 1)
-            .padding(.horizontal, 13)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 9)
             .background(
                 Capsule()
-                    .fill(Color.white.opacity(0.7))
+                    .fill(Color.white.opacity(0.86))
             )
             .overlay(
                 Capsule()
-                    .stroke(Color.bfBorder.opacity(0.4), lineWidth: 0.8)
+                    .stroke(Color.bfAccent.opacity(0.18), lineWidth: 1)
             )
     }
 
@@ -267,12 +289,6 @@ struct OnboardingPlanPreviewView: View {
         previewStretches.first?.name ?? "Start your first stretch"
     }
 
-    private var ctaReassurance: String {
-        if recommendation.totalSeconds < 60 {
-            return "Less than 1 minute today"
-        }
-        return "Only \(planDurationLabel(recommendation.totalSeconds)) today"
-    }
 }
 
 private struct OnboardingPlanRow: View {
@@ -312,7 +328,7 @@ private struct OnboardingPlanRow: View {
                         .lineLimit(2)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Text("\(stretch.duration)s · \(stretch.repScheme)")
+                    Text(timingLabel)
                         .font(Typography.caption)
                         .foregroundStyle(.bfTextSecondary)
                         .lineLimit(2)
@@ -331,6 +347,14 @@ private struct OnboardingPlanRow: View {
                 .stroke(isFirstStep ? Color.bfAccent.opacity(0.28) : Color.bfBorder.opacity(0.65), lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(isFirstStep ? 0.035 : 0.02), radius: isFirstStep ? 10 : 8, y: 3)
+    }
+
+    private var timingLabel: String {
+        let duration = "\(stretch.duration)s"
+        if stretch.repScheme.hasPrefix(duration) {
+            return stretch.repScheme
+        }
+        return "\(duration) · \(stretch.repScheme)"
     }
 }
 

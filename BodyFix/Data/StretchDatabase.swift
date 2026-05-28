@@ -98,6 +98,27 @@ enum StretchDatabase {
         routine.stretchIds.compactMap(stretch(id:))
     }
 
+    static func totalDurationSeconds(for routine: Routine) -> Int {
+        StretchTimingStore.totalDuration(for: stretches(for: routine), overrides: [:])
+    }
+
+    static func durationMinutes(for routine: Routine) -> Int {
+        let seconds = totalDurationSeconds(for: routine)
+        guard seconds > 0 else { return routine.durationMinutes }
+        return max(1, Int(ceil(Double(seconds) / 60.0)))
+    }
+
+    static func durationLabel(for routine: Routine) -> String {
+        let minutes = durationMinutes(for: routine)
+        guard minutes > 0 else { return routine.durationLabel }
+        return minutes == 1 ? "1 min" : "\(minutes) min"
+    }
+
+    static func invitingDurationLabel(for routine: Routine) -> String {
+        let minutes = durationMinutes(for: routine)
+        return minutes == 1 ? "1 minute" : "\(minutes) minutes"
+    }
+
     static func stretches(for muscle: MuscleGroup) -> [Stretch] {
         loadAll().filter { $0.muscleGroup == muscle.rawValue }
     }
@@ -294,7 +315,9 @@ enum StretchDatabase {
             repScheme: raw.timing.repScheme,
             description: raw.description,
             difficulty: raw.numericDifficulty,
-            imageName: imageName
+            imageName: imageName,
+            position: raw.position,
+            support: raw.support
         )
     }
 }
@@ -306,6 +329,8 @@ private struct RawStretchV2: Decodable {
     let timing: RawStretchTiming
     let description: String
     let difficulty: String
+    let position: String?
+    let support: String?
     let image: RawStretchImage?
 
     enum CodingKeys: String, CodingKey {
@@ -315,6 +340,8 @@ private struct RawStretchV2: Decodable {
         case timing
         case description
         case difficulty
+        case position
+        case support
         case image
     }
 
@@ -354,10 +381,15 @@ private struct RawStretchTiming: Decodable {
     }
 
     var durationValue: Int {
+        let multiplier = max(1, cycles ?? 1) * (perSide ? 2 : 1)
         if let holdSeconds, holdSeconds > 0 {
-            return holdSeconds
+            let repMultiplier = max(1, reps ?? 1)
+            return holdSeconds * repMultiplier * multiplier
         }
-        return 30
+        if let reps, reps > 0 {
+            return reps * multiplier * 3
+        }
+        return 30 * multiplier
     }
 
     var repScheme: String {

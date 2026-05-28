@@ -417,7 +417,7 @@ private struct FeaturedRoutineCard: View {
                 }
 
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(routine.invitingDurationLabel)
+                    Text(StretchDatabase.invitingDurationLabel(for: routine))
                         .font(Typography.homeMeta)
                         .foregroundStyle(Color.bfHeroTextSecondary)
 
@@ -565,7 +565,7 @@ private struct HomeRoutineCarouselCard: View {
     var body: some View {
         HStack(alignment: .top, spacing: 18) {
             VStack(alignment: .leading, spacing: 12) {
-                Text(routine.invitingDurationLabel)
+                Text(StretchDatabase.invitingDurationLabel(for: routine))
                     .font(Typography.homeMeta)
                     .foregroundStyle(Color.bfBlue)
 
@@ -575,33 +575,39 @@ private struct HomeRoutineCarouselCard: View {
                     .multilineTextAlignment(.leading)
                     .lineSpacing(-1)
                     .lineLimit(3)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 Text(supportLine)
                     .font(Typography.homeCardSupport)
                     .foregroundStyle(Color.bfTextSecondary)
                     .multilineTextAlignment(.leading)
                     .lineLimit(3)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 Spacer(minLength: 0)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .layoutPriority(1)
 
             VStack(spacing: 12) {
-                HStack(spacing: 10) {
+                HStack(spacing: 8) {
                     ForEach(Array(routine.thumbnailStretchIds.prefix(2).enumerated()), id: \.offset) { _, stretchId in
-                        BodyFixThumbnailView(stretch: StretchDatabase.stretch(id: stretchId), size: 54)
+                        BodyFixThumbnailView(stretch: StretchDatabase.stretch(id: stretchId), size: 48)
                     }
                 }
 
-                HStack(spacing: 10) {
+                HStack(spacing: 8) {
                     ForEach(Array(routine.thumbnailStretchIds.dropFirst(2).prefix(2).enumerated()), id: \.offset) { _, stretchId in
-                        BodyFixThumbnailView(stretch: StretchDatabase.stretch(id: stretchId), size: 46)
+                        BodyFixThumbnailView(stretch: StretchDatabase.stretch(id: stretchId), size: 42)
                     }
                 }
             }
-            .frame(maxWidth: 124)
+            .frame(maxWidth: 110)
+            .layoutPriority(0)
         }
         .padding(22)
-        .frame(width: 302, height: 186, alignment: .leading)
+        .frame(width: 302, alignment: .leading)
+        .frame(minHeight: 186, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: 30, style: .continuous)
                 .fill(
@@ -634,7 +640,7 @@ private struct RoutineGridCard: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
 
-                Text(routine.durationLabel)
+                Text(StretchDatabase.durationLabel(for: routine))
                     .font(Typography.homeMeta)
                     .foregroundStyle(Color.bfMint)
             }
@@ -668,7 +674,7 @@ private struct QuickRoutineCard: View {
                     .foregroundStyle(Color.bfTextPrimary)
                     .lineLimit(2)
 
-                Text(routine.durationLabel)
+                Text(StretchDatabase.durationLabel(for: routine))
                     .font(Typography.homeMeta)
                     .foregroundStyle(Color.bfMint)
             }
@@ -844,7 +850,7 @@ private struct SearchResultsOverlay: View {
                     ForEach(routineResults.prefix(5)) { routine in
                         resultRow(
                             title: routine.name,
-                            subtitle: routine.durationLabel,
+                            subtitle: StretchDatabase.durationLabel(for: routine),
                             type: "Routine",
                             routine: routine,
                             stretch: routine.thumbnailStretchIds.compactMap { StretchDatabase.stretch(id: $0) }.first

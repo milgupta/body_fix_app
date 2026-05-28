@@ -2,18 +2,24 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
+    @State private var tabBarVisibility = TabBarVisibility()
     private let tabs = AppTab.allCases
 
     var body: some View {
         ZStack(alignment: .bottom) {
             tabContent
 
-            BodyFixTabBar(selectedTab: $selectedTab, tabs: tabs)
-                .padding(.horizontal, 18)
-                .padding(.top, 4)
-                .padding(.bottom, 0)
+            if !tabBarVisibility.isHidden {
+                BodyFixTabBar(selectedTab: $selectedTab, tabs: tabs)
+                    .padding(.horizontal, 18)
+                    .padding(.top, 4)
+                    .padding(.bottom, 0)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
         }
+        .animation(.easeInOut(duration: 0.22), value: tabBarVisibility.isHidden)
         .background(Color.bfBackground.ignoresSafeArea())
+        .environment(tabBarVisibility)
     }
 
     @ViewBuilder

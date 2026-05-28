@@ -31,7 +31,7 @@ enum SavedRoutineStore {
             stretchIds: routine.stretchIds,
             displayTitle: routine.name,
             displaySummary: "\(routine.stretchIds.count) stretches",
-            durationSeconds: routine.durationMinutes * 60
+            durationSeconds: resolvedDuration(for: routine)
         )
         modelContext.insert(favorite)
         return true
@@ -98,8 +98,13 @@ enum SavedRoutineStore {
             return plan.targetDurationSeconds
         }
         if let routine {
-            return routine.durationMinutes * 60
+            return resolvedDuration(for: routine)
         }
         return 0
+    }
+
+    private static func resolvedDuration(for routine: Routine) -> Int {
+        let seconds = StretchDatabase.totalDurationSeconds(for: routine)
+        return seconds > 0 ? seconds : routine.durationMinutes * 60
     }
 }

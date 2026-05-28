@@ -96,7 +96,7 @@ struct AnalyticsView: View {
                         .font(.system(size: 54, weight: .bold, design: .rounded))
                         .foregroundStyle(Color.bfTextPrimary)
 
-                    Text(snapshot.hasSessions ? "Built from streak, sessions, and minutes." : "No sessions yet")
+                    Text(snapshot.hasSessions ? "Built from streak, stretches, and minutes." : "No stretches yet")
                         .font(Typography.caption)
                         .foregroundStyle(Color.bfTextMuted)
                         .multilineTextAlignment(.center)
@@ -142,9 +142,9 @@ struct AnalyticsView: View {
                     accent: Color.bfBlue
                 )
                 AnalyticsStatCard(
-                    title: "Sessions this week",
-                    value: "\(snapshot.sessionsThisWeek)",
-                    detail: snapshot.sessionsThisWeek == 1 ? "session" : "sessions",
+                    title: "Stretches this week",
+                    value: "\(snapshot.completedStretchesThisWeek)",
+                    detail: snapshot.completedStretchesThisWeek == 1 ? "stretch" : "stretches",
                     accent: Color.bfAccentWarm
                 )
                 AnalyticsStatCard(

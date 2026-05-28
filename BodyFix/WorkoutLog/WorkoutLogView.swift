@@ -89,7 +89,7 @@ struct WorkoutLogView: View {
                                         SavedRoutineCard(
                                             title: routine.name,
                                             subtitle: "\(routine.stretchIds.count) stretches",
-                                            detail: routine.shortDurationLabel,
+                                            detail: StretchDatabase.durationLabel(for: routine),
                                             tag: "Routine",
                                             thumbnail: .routine(routine)
                                         )

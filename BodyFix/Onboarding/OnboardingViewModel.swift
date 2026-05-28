@@ -5,7 +5,7 @@ import Observation
 @Observable
 class OnboardingViewModel {
     var currentStep: Int = 0
-    let totalSteps: Int = 21
+    let totalSteps: Int = 20
 
     // Screen 1: Name
     var userName: String = ""
@@ -69,9 +69,7 @@ class OnboardingViewModel {
     // Screen 18: Motivation Level
     var motivationLevel: String = ""
 
-    // Screen 19: Fair Trial (no input)
-
-    // Screen 20: Plan Preview (no input)
+    // Screen 19: Plan Preview (no input)
 
     var progress: Double {
         Double(currentStep) / Double(totalSteps)
@@ -104,7 +102,6 @@ class OnboardingViewModel {
         case 17: return true
         case 18: return !motivationLevel.isEmpty
         case 19: return true
-        case 20: return true
         default: return false
         }
     }

@@ -11,6 +11,9 @@ struct BodyFixApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+                .onAppear {
+                    AnalyticsTracker.configure()
+                }
         }
         .modelContainer(sharedModelContainer)
     }

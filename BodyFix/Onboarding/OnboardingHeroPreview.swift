@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct OnboardingHeroPreview: View {
-    private let featuredIds = ["posture_reset", "desk_relief", "sleep_wind_down"]
+    private let featuredIds = ["at_the_office", "desk_relief", "posture_reset"]
 
     private var routines: [Routine] {
         featuredIds.compactMap { StretchDatabase.routine(id: $0) }
@@ -27,25 +27,31 @@ struct OnboardingHeroPreview: View {
             VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 16) {
                     if let heroRoutine = routines.first {
-                        VStack(alignment: .leading, spacing: 14) {
-                            Text(heroRoutine.durationLabel)
-                                .font(Typography.badgeMono)
-                                .foregroundStyle(Color.white.opacity(0.82))
+                        HStack(alignment: .top, spacing: 12) {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text(StretchDatabase.durationLabel(for: heroRoutine))
+                                    .font(Typography.badgeMono)
+                                    .foregroundStyle(Color.white.opacity(0.82))
 
-                            Text(heroRoutine.name)
-                                .font(.system(size: 24, weight: .bold, design: .rounded))
-                                .foregroundStyle(Color.white)
+                                Text(heroRoutine.name)
+                                    .font(.system(size: 23, weight: .bold, design: .rounded))
+                                    .foregroundStyle(Color.white)
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(2)
+                                    .fixedSize(horizontal: false, vertical: true)
 
-                            Text("A focused reset for posture, pain, and everyday stiffness.")
-                                .font(.system(size: 13, weight: .medium, design: .rounded))
-                                .foregroundStyle(Color.white.opacity(0.76))
-                                .lineLimit(2)
-
-                            HStack(spacing: 10) {
-                                ForEach(routines.prefix(3), id: \.id) { routine in
-                                    BodyFixThumbnailView(routine: routine, size: 46, isFeatured: true)
-                                }
+                                Text("A desk-friendly reset for posture, pain, and everyday stiffness.")
+                                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                                    .foregroundStyle(Color.white.opacity(0.76))
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(3)
+                                    .fixedSize(horizontal: false, vertical: true)
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .layoutPriority(1)
+
+                            heroImage(for: heroRoutine)
+                                .layoutPriority(0)
                         }
                         .padding(18)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -83,16 +89,18 @@ struct OnboardingHeroPreview: View {
                         HStack(spacing: 10) {
                             ForEach(routines.dropFirst().prefix(2), id: \.id) { routine in
                                 VStack(alignment: .leading, spacing: 10) {
-                                    BodyFixThumbnailView(routine: routine, size: 38)
+                                    BodyFixThumbnailView(routine: routine, size: 32)
                                     Text(routine.name)
                                         .font(.system(size: 13, weight: .semibold, design: .rounded))
                                         .foregroundStyle(Color.bfTextPrimary)
+                                        .multilineTextAlignment(.leading)
                                         .lineLimit(2)
-                                    Text(routine.shortDurationLabel)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                    Text(StretchDatabase.durationLabel(for: routine))
                                         .font(Typography.timerLabelSmall)
                                         .foregroundStyle(Color.bfMint)
                                 }
-                                .padding(12)
+                                .padding(10)
                                 .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
                                 .background(
                                     RoundedRectangle(cornerRadius: 20, style: .continuous)
@@ -133,6 +141,24 @@ struct OnboardingHeroPreview: View {
                 .padding(.bottom, 40)
             }
             .frame(width: 244, height: 508)
+        }
+    }
+
+    @ViewBuilder
+    private func heroImage(for routine: Routine) -> some View {
+        if let image = BodyFixImageResolver.image(for: routine) {
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 76, height: 90)
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .stroke(Color.white.opacity(0.18), lineWidth: 1)
+                )
+                .shadow(color: Color.black.opacity(0.2), radius: 14, y: 8)
+        } else {
+            BodyFixThumbnailView(routine: routine, size: 76, isFeatured: true)
         }
     }
 }

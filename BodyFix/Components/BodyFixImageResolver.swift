@@ -116,6 +116,21 @@ enum BodyFixImageResolver {
         return resolve(candidates: candidates)
     }
 
+    static func beforeImage(for stretch: Stretch) -> UIImage? {
+        guard let imageName = beforeImageName(for: stretch) else { return nil }
+        return resolveBundledPNG(candidates: [imageName], inDirectory: "images/images_before")
+    }
+
+    static func afterImage(for stretch: Stretch) -> UIImage? {
+        let candidates = unique(
+            "endframe_\(stretch.id)",
+            normalizedName("endframe_\(stretch.imageName.removingPrefix("stretch_"))"),
+            normalizedName("endframe_\(stretch.imageName)")
+        )
+
+        return resolveBundledPNG(candidates: candidates, inDirectory: "images/images_after")
+    }
+
     private static func resolve(candidates: [String]) -> UIImage? {
         for name in candidates {
             let cacheKey = name as NSString
@@ -129,6 +144,51 @@ enum BodyFixImageResolver {
         }
 
         return nil
+    }
+
+    private static func resolveBundledPNG(candidates: [String], inDirectory directory: String) -> UIImage? {
+        for name in candidates {
+            let cacheKey = "\(directory)/\(name)" as NSString
+            if let cached = cache.object(forKey: cacheKey) {
+                return cached
+            }
+
+            guard let url = Bundle.main.url(forResource: name, withExtension: "png", subdirectory: directory)
+                ?? Bundle.main.url(forResource: name, withExtension: "png"),
+                  let image = UIImage(contentsOfFile: url.path)
+            else {
+                continue
+            }
+
+            cache.setObject(image, forKey: cacheKey)
+            return image
+        }
+
+        return nil
+    }
+
+    private static func beforeImageName(for stretch: Stretch) -> String? {
+        let position = stretch.position?.lowercased()
+        let support = stretch.support?.lowercased()
+
+        switch (position, support) {
+        case ("standing", "wall"):
+            return "before_standing_wall_side"
+        case ("standing", "doorway"):
+            return "before_standing_doorway_side"
+        case ("standing", _):
+            return "before_standing_none_front"
+        case ("seated", "chair"):
+            return "before_seated_chair_3quarter"
+        case ("seated", _):
+            return "before_seated_floor_3quarter"
+        case ("lying", "wall"):
+            return "before_lying_wall_side"
+        case ("lying", _):
+            return "before_lying_floor_3quarter"
+        default:
+            return nil
+        }
     }
 
     private static func normalizedName(_ value: String) -> String {
@@ -151,5 +211,11 @@ enum BodyFixImageResolver {
             guard let value, !value.isEmpty, seen.insert(value).inserted else { return nil }
             return value
         }
+    }
+}
+
+private extension String {
+    func removingPrefix(_ prefix: String) -> String {
+        hasPrefix(prefix) ? String(dropFirst(prefix.count)) : self
     }
 }

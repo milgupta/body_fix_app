@@ -16,6 +16,9 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [UserProfile]
     @Query private var plans: [PersonalizedPlan]
+    @AppStorage(PaywallManager.subscriptionKey) private var isSubscribed = false
+    @State private var showReminderSetup = false
+    @State private var showPaywall = false
 
     private var appVersionString: String {
         let v = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -31,6 +34,12 @@ struct SettingsView: View {
                         header
                             .padding(.top, 20)
                             .padding(.bottom, 36)
+
+                        sectionTitle("notifications")
+                        VStack(spacing: 10) {
+                            notificationsRow
+                        }
+                        .padding(.bottom, 28)
 
                         sectionTitle("membership")
                         VStack(spacing: 10) {
@@ -103,6 +112,12 @@ struct SettingsView: View {
             }
             .background(Color.bfBackground.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
+            .sheet(isPresented: $showReminderSetup) {
+                ReminderSetupView()
+            }
+            .sheet(isPresented: $showPaywall) {
+                PaywallSheetView {} onDismissed: {}
+            }
         }
     }
 
@@ -149,6 +164,85 @@ struct SettingsView: View {
         ) {
             rowContent(title: "share body fix", systemImage: "square.and.arrow.up", showsChevron: true)
         }
+    }
+
+    private var notificationsRow: some View {
+        Button {
+            HapticManager.shared.lightImpact()
+            if isSubscribed {
+                AnalyticsTracker.capture("notification_setup_started", properties: ["source": "settings"])
+                showReminderSetup = true
+            } else {
+                AnalyticsTracker.capture("notification_locked_row_tapped")
+                showPaywall = true
+            }
+        } label: {
+            HStack(spacing: 14) {
+                Image(systemName: isSubscribed ? "bell.fill" : "lock.fill")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(Color.bfMint)
+                    .frame(width: 28, alignment: .center)
+
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("stretch reminders")
+                        .font(Typography.controlLabel)
+                        .foregroundStyle(Color.bfTextPrimary)
+
+                    Text(isSubscribed ? reminderSummary : "unlock to set reminders")
+                        .font(Typography.caption)
+                        .foregroundStyle(Color.bfTextTertiary)
+                }
+
+                Spacer(minLength: 8)
+
+                if !isSubscribed {
+                    Text("PRO")
+                        .font(Typography.metadataBadge)
+                        .foregroundStyle(Color.bfHeroSurface)
+                        .padding(.horizontal, 9)
+                        .padding(.vertical, 6)
+                        .background(Capsule().fill(Color(hex: "#5EEAD4")))
+                }
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(Color.bfTextMuted)
+            }
+            .padding(.horizontal, 18)
+            .padding(.vertical, 20)
+            .background(
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .fill(Color.bfSurfaceElevated)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .stroke(Color.bfBorder.opacity(0.46), lineWidth: 1)
+            )
+            .shadow(color: Color.black.opacity(0.02), radius: 8, y: 3)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var reminderSummary: String {
+        let preferences = ReminderStore.preferences
+        guard preferences.hasCompleteSchedule else { return "choose days and time" }
+        return "\(daySummary(preferences.days)) at \(timeSummary(hour: preferences.hour, minute: preferences.minute))"
+    }
+
+    private func daySummary(_ days: Set<Int>) -> String {
+        let labels = [1: "Sun", 2: "Mon", 3: "Tue", 4: "Wed", 5: "Thu", 6: "Fri", 7: "Sat"]
+        return days.sorted().compactMap { labels[$0] }.joined(separator: " ")
+    }
+
+    private func timeSummary(hour: Int?, minute: Int?) -> String {
+        guard let hour, let minute else { return "Choose time" }
+        var components = DateComponents()
+        components.hour = hour
+        components.minute = minute
+        let date = Calendar.current.date(from: components) ?? Date()
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
     }
 
     private func rowContent(title: String, systemImage: String, showsChevron: Bool) -> some View {
@@ -218,6 +312,7 @@ struct SettingsView: View {
         for plan in plans {
             modelContext.delete(plan)
         }
+        UserDefaults.standard.set(false, forKey: PaywallManager.subscriptionKey)
         try? modelContext.save()
     }
     #endif

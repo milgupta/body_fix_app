@@ -1,8 +1,12 @@
 import SwiftUI
+import SwiftData
 
 struct StretchTimerView: View {
     let route: StretchTimerRoute
     @Binding var path: NavigationPath
+    @Environment(\.modelContext) private var modelContext
+    @Environment(TabBarVisibility.self) private var tabBarVisibility
+    @Query private var profiles: [UserProfile]
 
     @State private var currentIndex: Int
     @State private var timeRemaining: Int
@@ -20,6 +24,7 @@ struct StretchTimerView: View {
     @State private var completePulse = false
     @State private var pendingNavigationIndex: Int?
     @State private var showInstructions = false
+    @State private var savedCompletedStretchIndices: Set<Int> = []
 
     private var stretches: [Stretch] {
         route.stretchIds.compactMap { StretchDatabase.stretch(id: $0) }
@@ -81,6 +86,8 @@ struct StretchTimerView: View {
         }
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .tabBar)
+        .onAppear { tabBarVisibility.suppressTabBar() }
+        .onDisappear { tabBarVisibility.restoreTabBar() }
         .alert("End routine?", isPresented: $showEndAlert) {
             Button("Continue", role: .cancel) {}
             Button("End") {
@@ -108,7 +115,7 @@ struct StretchTimerView: View {
         .sheet(isPresented: $showInstructions) {
             if let stretch {
                 instructionsSheet(for: stretch)
-                    .presentationDetents([.fraction(0.34), .medium])
+                    .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
             }
         }
@@ -167,7 +174,7 @@ struct StretchTimerView: View {
             }
             .padding(.horizontal, 24)
             .padding(.top, 12)
-            .padding(.bottom, 120)
+            .padding(.bottom, 48)
         }
     }
 
@@ -178,13 +185,15 @@ struct StretchTimerView: View {
                 showEndAlert = true
             } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(Color.bfTextSecondary)
-                    .frame(width: 38, height: 38)
-                    .background(Circle().fill(Color.white.opacity(0.88)))
-                    .overlay(Circle().stroke(Color.bfBorder.opacity(0.55), lineWidth: 1))
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundStyle(Color.bfTextPrimary)
+                    .frame(width: 44, height: 44)
+                    .background(Circle().fill(Color.white))
+                    .overlay(Circle().stroke(Color.bfBorder.opacity(0.7), lineWidth: 1))
+                    .shadow(color: Color.black.opacity(0.06), radius: 6, y: 2)
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("End routine")
 
             Spacer()
 
@@ -304,6 +313,7 @@ struct StretchTimerView: View {
                     currentRep = 1
                     if target <= 1 {
                         holdFinished = true
+                        saveCompletedStretchIfNeeded(stretch)
                         HapticManager.shared.success()
                     }
                 } else if repPaused {
@@ -314,6 +324,7 @@ struct StretchTimerView: View {
                     currentRep += 1
                     if currentRep >= target {
                         holdFinished = true
+                        saveCompletedStretchIfNeeded(stretch)
                         HapticManager.shared.success()
                     }
                 }
@@ -571,6 +582,8 @@ struct StretchTimerView: View {
                         .background(Color.bfBlue.opacity(0.08))
                         .clipShape(Capsule())
 
+                    StretchComparisonView(stretch: stretch)
+
                     Text(stretch.description)
                         .font(Typography.screenSubtitle)
                         .foregroundStyle(Color.bfTextSecondary)
@@ -613,7 +626,28 @@ struct StretchTimerView: View {
         isRunning = false
         holdFinished = true
         timeRemaining = 0
+        saveCompletedStretchIfNeeded(stretch)
         HapticManager.shared.success()
+    }
+
+    private func saveCompletedStretchIfNeeded(_ stretch: Stretch) {
+        guard !savedCompletedStretchIndices.contains(currentIndex) else { return }
+        savedCompletedStretchIndices.insert(currentIndex)
+
+        modelContext.insert(
+            StretchSession(
+                muscleGroups: [stretch.muscleGroup],
+                stretchNames: [stretch.name],
+                totalDuration: effectiveDuration(for: stretch),
+                stretchCount: 1
+            )
+        )
+
+        if let profile = profiles.first {
+            StreakUpdater.applySessionCompletion(to: profile, at: Date())
+        }
+
+        try? modelContext.save()
     }
 
     private func formattedTime(_ totalSeconds: Int) -> String {
@@ -653,6 +687,68 @@ struct StretchTimerView: View {
                 .animation(.easeInOut(duration: 0.35), value: holdFinished)
         }
         .frame(maxWidth: .infinity)
+    }
+}
+
+private struct StretchComparisonView: View {
+    let stretch: Stretch
+
+    private var beforeImage: UIImage? {
+        BodyFixImageResolver.beforeImage(for: stretch)
+    }
+
+    private var afterImage: UIImage? {
+        BodyFixImageResolver.afterImage(for: stretch)
+    }
+
+    var body: some View {
+        if beforeImage != nil || afterImage != nil {
+            if let beforeImage, let afterImage {
+                HStack(spacing: 12) {
+                    comparisonPanel(image: beforeImage, label: "Before")
+                    comparisonPanel(image: afterImage, label: "After")
+                }
+                .padding(.top, 2)
+            } else if let image = beforeImage ?? afterImage {
+                comparisonPanel(image: image, label: beforeImage == nil ? "After" : "Before")
+                    .frame(maxWidth: 260)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 2)
+            }
+        }
+    }
+
+    private func comparisonPanel(image: UIImage, label: String) -> some View {
+        Image(uiImage: image)
+            .resizable()
+            .scaledToFill()
+            .frame(maxWidth: .infinity)
+            .aspectRatio(1, contentMode: .fill)
+            .clipped()
+            .overlay(alignment: .topLeading) {
+                Text(label)
+                    .font(Typography.metadataBadge)
+                    .foregroundStyle(Color.bfTextPrimary)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(.ultraThinMaterial, in: Capsule())
+                    .overlay(
+                        Capsule()
+                            .stroke(Color.white.opacity(0.68), lineWidth: 1)
+                    )
+                    .padding(10)
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(Color.bfSurfaceElevated)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .stroke(Color.bfBorder.opacity(0.62), lineWidth: 1)
+            )
+            .shadow(color: Color.black.opacity(0.04), radius: 14, y: 7)
+            .accessibilityLabel("\(label) position for \(stretch.name)")
     }
 }
 

@@ -4,7 +4,7 @@ struct AnalyticsSnapshot {
     let flexometerScore: Int
     let currentStreak: Int
     let longestStreak: Int
-    let sessionsThisWeek: Int
+    let completedStretchesThisWeek: Int
     let minutesThisWeek: Int
     let hasSessions: Bool
     let supportMessage: String
@@ -12,7 +12,7 @@ struct AnalyticsSnapshot {
 
 enum AnalyticsCalculator {
     private static let streakTarget = 7
-    private static let sessionsTarget = 5
+    private static let completedStretchesTarget = 5
     private static let minutesTarget = 60
 
     static func snapshot(
@@ -27,25 +27,25 @@ enum AnalyticsCalculator {
 
         let weekStart = calendar.date(byAdding: .day, value: -6, to: calendar.startOfDay(for: now)) ?? now
         let weeklySessions = sessions.filter { $0.date >= weekStart }
-        let sessionsThisWeek = weeklySessions.count
+        let completedStretchesThisWeek = weeklySessions.reduce(0) { $0 + max($1.stretchCount, 1) }
         let minutesThisWeek = weeklySessions.reduce(0) { $0 + max($1.totalDuration, 0) } / 60
 
         let streakPoints = min(Double(max(currentStreak, profile?.stretchStreak ?? 0)) / Double(streakTarget), 1) * 40
-        let sessionPoints = min(Double(sessionsThisWeek) / Double(sessionsTarget), 1) * 35
+        let stretchPoints = min(Double(completedStretchesThisWeek) / Double(completedStretchesTarget), 1) * 35
         let minutePoints = min(Double(minutesThisWeek) / Double(minutesTarget), 1) * 25
-        let score = max(0, min(Int(round(streakPoints + sessionPoints + minutePoints)), 100))
+        let score = max(0, min(Int(round(streakPoints + stretchPoints + minutePoints)), 100))
 
         return AnalyticsSnapshot(
             flexometerScore: score,
             currentStreak: currentStreak,
             longestStreak: longestStreak,
-            sessionsThisWeek: sessionsThisWeek,
+            completedStretchesThisWeek: completedStretchesThisWeek,
             minutesThisWeek: minutesThisWeek,
             hasSessions: sessions.isEmpty == false,
             supportMessage: supportMessage(
                 hasSessions: sessions.isEmpty == false,
                 score: score,
-                sessionsThisWeek: sessionsThisWeek,
+                completedStretchesThisWeek: completedStretchesThisWeek,
                 currentStreak: currentStreak
             )
         )
@@ -54,11 +54,11 @@ enum AnalyticsCalculator {
     private static func supportMessage(
         hasSessions: Bool,
         score: Int,
-        sessionsThisWeek: Int,
+        completedStretchesThisWeek: Int,
         currentStreak: Int
     ) -> String {
         guard hasSessions else {
-            return "Complete your first stretch session to start building your Flexometer."
+            return "Complete your first stretch to start building your Flexometer."
         }
 
         if score >= 80 {
@@ -69,11 +69,11 @@ enum AnalyticsCalculator {
             return "Your streak is doing the heavy lifting. A few more minutes this week will push you higher."
         }
 
-        if sessionsThisWeek >= 2 {
+        if completedStretchesThisWeek >= 2 {
             return "You are warming up nicely. Keep showing up this week to raise your Flexometer."
         }
 
-        return "A little consistency goes a long way. One more session will start moving this score up."
+        return "A little consistency goes a long way. One more stretch will start moving this score up."
     }
 
     private static func uniqueSessionDays(from sessions: [StretchSession], calendar: Calendar) -> [Date] {

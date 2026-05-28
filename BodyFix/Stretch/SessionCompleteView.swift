@@ -1,11 +1,14 @@
 import SwiftUI
 import SwiftData
 import UIKit
+import StoreKit
 
 struct SessionCompleteView: View {
     let route: SessionCompleteRoute
     @Binding var path: NavigationPath
     @Environment(\.modelContext) private var modelContext
+    @Environment(TabBarVisibility.self) private var tabBarVisibility
+    @Environment(\.requestReview) private var requestReview
     @Query private var profiles: [UserProfile]
     @Query private var seriesProgressEntries: [RoutineSeriesProgress]
 
@@ -71,11 +74,14 @@ struct SessionCompleteView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .tabBar)
         .onAppear {
+            tabBarVisibility.suppressTabBar()
             guard !didSave else { return }
             didSave = true
             saveSession()
+            handlePostSessionEngagement()
             renderShareImage()
         }
+        .onDisappear { tabBarVisibility.restoreTabBar() }
     }
 
     private var statsGrid: some View {
@@ -130,18 +136,32 @@ struct SessionCompleteView: View {
     }
 
     private func saveSession() {
-        let session = StretchSession(
-            muscleGroups: route.muscleGroupRaws,
-            stretchNames: route.stretchNames,
-            totalDuration: route.totalSeconds,
-            stretchCount: route.stretchNames.count
+        if let p = profile {
+            StreakUpdater.applySessionCompletion(to: p, at: Date())
+        }
+        UserDefaults.standard.set(
+            UserDefaults.standard.integer(forKey: "total_sessions_completed") + 1,
+            forKey: "total_sessions_completed"
         )
-        modelContext.insert(session)
-
-        guard let p = profile else { return }
-        StreakUpdater.applySessionCompletion(to: p, at: Date())
         updateSeriesProgressIfNeeded()
         try? modelContext.save()
+    }
+
+    private func handlePostSessionEngagement() {
+        let problemArea = profile?.problemAreas.first
+        NotificationManager.shared.scheduleInactivityNudge(problemArea: problemArea)
+
+        let completedSessionCount = UserDefaults.standard.integer(forKey: "total_sessions_completed")
+        let completedSeries = (route.seriesLevel ?? 0) >= 3
+        if let trigger = RatingManager.eligibleMilestoneTrigger(
+            isSubscribed: PaywallManager.shared.isSubscribed,
+            completedSessionCount: completedSessionCount,
+            currentStreak: profile?.stretchStreak ?? 0,
+            completedSeries: completedSeries
+        ) {
+            requestReview()
+            RatingManager.markReviewRequested(trigger: trigger)
+        }
     }
 
     private func updateSeriesProgressIfNeeded() {
