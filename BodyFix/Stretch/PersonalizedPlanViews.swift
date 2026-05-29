@@ -7,8 +7,6 @@ struct PersonalizedPlanDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [UserProfile]
     @Query private var plans: [PersonalizedPlan]
-    @Query private var savedRoutines: [SavedRoutine]
-    @Query private var timingOverrides: [StretchTimingOverride]
 
     private var profile: UserProfile? { profiles.first }
     private var currentPlan: PersonalizedPlan? { plans.max(by: { $0.updatedAt < $1.updatedAt }) }
@@ -28,24 +26,15 @@ struct PersonalizedPlanDetailView: View {
         return recommendation?.stretches ?? []
     }
 
-    private var totalSeconds: Int {
-        StretchTimingStore.totalDuration(for: stretches, overrides: activeOverrides)
-    }
-
-    private var livePlanSaved: Bool {
-        SavedRoutineStore.isLivePlanSaved(in: savedRoutines)
-    }
-
-    private var ownerId: String {
-        StretchTimingStore.livePlanOwnerId
-    }
-
-    private var activeOverrides: [String: Int] {
-        StretchTimingStore.durationOverrideMap(kind: .livePersonalizedPlan, ownerId: ownerId, overrides: timingOverrides)
-    }
-
-    private var activeRepOverrides: [String: Int] {
-        StretchTimingStore.repOverrideMap(kind: .livePersonalizedPlan, ownerId: ownerId, overrides: timingOverrides)
+    private var displayModel: PersonalizedPlanDisplayModel {
+        .from(
+            plan: currentPlan,
+            recommendation: recommendation,
+            profile: profile,
+            stretches: stretches,
+            eyebrow: "Based on your profile",
+            title: "Your plan"
+        )
     }
 
     var body: some View {
@@ -53,26 +42,38 @@ struct PersonalizedPlanDetailView: View {
             Color.bfPageBackground.ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 24) {
-                    header
+                VStack(alignment: .leading, spacing: 22) {
+                    topBar
 
-                    if let routine {
-                        planHero(routine: routine)
-                        whyCard
-                        stretchesSection
+                    if routine != nil, !stretches.isEmpty {
+                        PersonalizedPlanPreviewHeader(model: displayModel)
+                        PersonalizedPlanFirstStepCard(
+                            firstStretch: stretches.first,
+                            title: displayModel.firstStepTitle
+                        )
+                        PersonalizedPlanStretchList(stretches: stretches)
                     } else {
                         emptyState
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 18)
-                .padding(.bottom, 184)
+                .padding(.top, 14)
+                .padding(.bottom, 166)
             }
 
-            if let routine {
-                startPlanAction(routine: routine)
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 72)
+            if let routine, !stretches.isEmpty {
+                OnboardingContinueButton(label: "Start Plan", style: .gradientPrimary) {
+                    HapticManager.shared.mediumImpact()
+                    path.append(
+                        StretchTimerRoute(
+                            stretchIds: stretches.map(\.id),
+                            startIndex: 0,
+                            routineName: routine.name
+                        )
+                    )
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 26)
             }
         }
         .toolbar(.hidden, for: .navigationBar)
@@ -81,8 +82,8 @@ struct PersonalizedPlanDetailView: View {
         }
     }
 
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 12) {
+    private var topBar: some View {
+        HStack(spacing: 12) {
             if showsBackButton {
                 Button {
                     HapticManager.shared.softImpact()
@@ -98,94 +99,16 @@ struct PersonalizedPlanDetailView: View {
                 .buttonStyle(.plain)
             }
 
-            VStack(alignment: .leading, spacing: 8) {
-                if routine != nil {
-                    HStack {
-                        Spacer(minLength: 0)
-                        headerActions
-                    }
-                }
+            Spacer(minLength: 0)
 
-                HStack(alignment: .top, spacing: 12) {
-                    Text("Your plan")
-                        .font(Typography.screenTitle)
-                        .foregroundStyle(Color.bfTextPrimary)
-                }
-            }
-        }
-    }
-
-    private func planHero(routine: Routine) -> some View {
-        HStack(spacing: 10) {
-            planBadge("\(stretches.count) stretches")
-            planBadge(planDurationLabel(totalSeconds))
-            if let first = (currentPlan?.sourceProblemAreas.first ?? recommendation?.focusAreas.first) {
-                planBadge(first)
-            }
-        }
-    }
-
-    private var whyCard: some View {
-        Text(currentPlan?.rationale ?? recommendation?.rationale ?? "This routine reflects the goals and areas you told us matter most.")
-            .font(Typography.caption)
-            .foregroundStyle(Color.bfTextSecondary)
-    }
-
-    private var stretchesSection: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            Text("What your plan includes")
-                .font(Typography.sectionTitle)
-                .foregroundStyle(Color.bfTextPrimary)
-
-            ForEach(Array(stretches.enumerated()), id: \.element.id) { index, stretch in
-                PlanStretchRow(
-                    stretch: stretch,
-                    detailText: StretchTimingStore.detailText(
-                        for: stretch,
-                        durationOverrides: activeOverrides,
-                        repOverrides: activeRepOverrides
-                    ),
-                    valueText: StretchTimingStore.controlLabel(
-                        for: stretch,
-                        durationOverrides: activeOverrides,
-                        repOverrides: activeRepOverrides
-                    ),
-                    onDecrease: {
-                        adjustValue(for: stretch, delta: stretch.isRepBased ? -StretchTimingStore.repAdjustmentStep : -StretchTimingStore.adjustmentStep)
-                    },
-                    onIncrease: {
-                        adjustValue(for: stretch, delta: stretch.isRepBased ? StretchTimingStore.repAdjustmentStep : StretchTimingStore.adjustmentStep)
-                    }
-                )
+            if routine != nil {
+                headerActions
             }
         }
     }
 
     private var headerActions: some View {
         HStack(spacing: 8) {
-            Menu {
-                Button(livePlanSaved ? "Remove current plan" : "Save current plan") {
-                    toggleLivePlanSave()
-                }
-
-                if currentPlan != nil {
-                    Button("Save this snapshot") {
-                        saveSnapshot()
-                    }
-                }
-            } label: {
-                Image(systemName: livePlanSaved ? "bookmark.fill" : "bookmark")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(livePlanSaved ? Color.bfAccent : Color.bfTextMuted)
-                    .frame(width: 42, height: 42)
-                    .background(Circle().fill(Color.bfSurfaceElevated))
-                    .overlay(
-                        Circle()
-                            .stroke(Color.bfBorder.opacity(0.55), lineWidth: 1)
-                    )
-            }
-            .accessibilityLabel(livePlanSaved ? "Saved plan options" : "Save plan options")
-
             Button {
                 HapticManager.shared.lightImpact()
                 path.append(PersonalizedPlanEditorRoute())
@@ -227,33 +150,6 @@ struct PersonalizedPlanDetailView: View {
         }
     }
 
-    private func startPlanAction(routine: Routine) -> some View {
-        VStack(spacing: 0) {
-            GradientButton(title: "Start Plan") {
-                HapticManager.shared.mediumImpact()
-                path.append(
-                    StretchTimingStore.timerRoute(
-                        stretchIds: stretches.map(\.id),
-                        startIndex: 0,
-                        routineName: routine.name,
-                        durationOverrides: activeOverrides,
-                        repOverrides: activeRepOverrides
-                    )
-                )
-            }
-        }
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 26, style: .continuous)
-                .fill(Color.bfPageBackground.opacity(0.96))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 26, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.5), lineWidth: 1)
-        )
-        .shadow(color: Color.black.opacity(0.05), radius: 14, y: 4)
-    }
-
     private var emptyState: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("No plan yet")
@@ -275,23 +171,6 @@ struct PersonalizedPlanDetailView: View {
         )
     }
 
-    private func planBadge(_ title: String) -> some View {
-        Text(title)
-            .font(Typography.caption)
-            .foregroundStyle(Color.bfAccent)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(Capsule().fill(Color.bfSurfaceMuted))
-    }
-
-    private func planDurationLabel(_ seconds: Int) -> String {
-        let minutes = seconds / 60
-        let remainder = seconds % 60
-        if minutes > 0 && remainder > 0 { return "\(minutes)m \(remainder)s" }
-        if minutes > 0 { return "\(minutes)m" }
-        return "\(remainder)s"
-    }
-
     private func ensurePlanExists() {
         guard let profile, currentPlan == nil else { return }
         PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
@@ -301,118 +180,8 @@ struct PersonalizedPlanDetailView: View {
     private func regeneratePlan() {
         guard let profile else { return }
         HapticManager.shared.mediumImpact()
-        let refreshedPlan = PersonalizedPlanGenerator.upsertPlan(for: profile, existing: currentPlan, in: modelContext)
-        SavedRoutineStore.refreshLivePlanFavorite(
-            plan: refreshedPlan,
-            routine: StretchDatabase.routine(id: refreshedPlan.routineId),
-            saved: savedRoutines
-        )
+        PersonalizedPlanGenerator.upsertPlan(for: profile, existing: currentPlan, in: modelContext)
         try? modelContext.save()
-    }
-
-    private func toggleLivePlanSave() {
-        guard let currentPlan else { return }
-        HapticManager.shared.lightImpact()
-        _ = SavedRoutineStore.toggleLivePlan(
-            plan: currentPlan,
-            routine: routine,
-            saved: savedRoutines,
-            in: modelContext
-        )
-        try? modelContext.save()
-    }
-
-    private func saveSnapshot() {
-        guard let currentPlan else { return }
-        HapticManager.shared.success()
-        SavedRoutineStore.savePlanSnapshot(
-            plan: currentPlan,
-            routine: routine,
-            title: routine?.name ?? "Body Fix plan snapshot",
-            summary: currentPlan.summary,
-            in: modelContext
-        )
-        try? modelContext.save()
-    }
-
-    private func adjustValue(for stretch: Stretch, delta: Int) {
-        if stretch.isRepBased {
-            let updated = StretchTimingStore.adjustedRepCount(for: stretch, delta: delta, overrides: activeRepOverrides)
-            StretchTimingStore.setRepCount(
-                for: stretch,
-                repCount: updated,
-                ownerKind: .livePersonalizedPlan,
-                ownerId: ownerId,
-                overrides: timingOverrides,
-                in: modelContext
-            )
-        } else {
-            let updated = StretchTimingStore.adjustedDuration(for: stretch, delta: delta, overrides: activeOverrides)
-            StretchTimingStore.setDuration(
-                for: stretch,
-                durationSeconds: updated,
-                ownerKind: .livePersonalizedPlan,
-                ownerId: ownerId,
-                overrides: timingOverrides,
-                in: modelContext
-            )
-        }
-        try? modelContext.save()
-    }
-}
-
-private struct PlanStretchRow: View {
-    let stretch: Stretch
-    let detailText: String
-    let valueText: String
-    let onDecrease: () -> Void
-    let onIncrease: () -> Void
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(alignment: .top, spacing: 12) {
-                BodyFixThumbnailView(stretch: stretch, size: 52)
-
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(stretch.name)
-                        .font(Typography.stretchName)
-                        .foregroundStyle(Color.bfTextPrimary)
-                        .multilineTextAlignment(.leading)
-
-                    Text(detailText)
-                        .font(Typography.stretchDescription)
-                        .foregroundStyle(Color.bfTextTertiary)
-                        .lineLimit(2)
-                }
-
-                Spacer(minLength: 8)
-
-                StretchTimingAdjuster(
-                    valueText: valueText,
-                    onDecrease: onDecrease,
-                    onIncrease: onIncrease
-                )
-            }
-
-            HStack(spacing: 6) {
-                Circle()
-                    .fill(Color.green.opacity(0.85))
-                    .frame(width: 6, height: 6)
-                Text("TAP TO START")
-                    .font(Typography.tapHint)
-                    .foregroundStyle(Color.bfTextMuted)
-            }
-            .padding(.top, 12)
-        }
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .fill(Color.bfSurfaceElevated)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.5), lineWidth: 1)
-        )
     }
 }
 
@@ -421,7 +190,6 @@ struct PersonalizedPlanEditorView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [UserProfile]
     @Query private var plans: [PersonalizedPlan]
-    @Query private var savedRoutines: [SavedRoutine]
 
     @State private var selectedGoals: Set<String> = []
     @State private var selectedAreas: Set<String> = []
@@ -431,16 +199,8 @@ struct PersonalizedPlanEditorView: View {
     @State private var longTermGoal: String = ""
     @State private var selectedHealthConditions: Set<String> = []
     @State private var didLoad = false
-    @State private var initialGoals: Set<String> = []
-    @State private var initialAreas: Set<String> = []
-    @State private var initialLifestyle: String = ""
-    @State private var initialDailyTime: String = ""
-    @State private var initialCommitmentDays: String = ""
-    @State private var initialLongTermGoal: String = ""
-    @State private var initialHealthConditions: Set<String> = []
 
     private let columns = [GridItem(.adaptive(minimum: 110), spacing: 10)]
-    private let areaOptions = OnboardingPainArea.allCases.map(\.displayName)
 
     private var profile: UserProfile? { profiles.first }
     private var currentPlan: PersonalizedPlan? { plans.max(by: { $0.updatedAt < $1.updatedAt }) }
@@ -493,87 +253,69 @@ struct PersonalizedPlanEditorView: View {
             && !longTermGoal.isEmpty
     }
 
-    private var hasChanges: Bool {
-        selectedGoals != initialGoals
-            || selectedAreas != initialAreas
-            || lifestyle != initialLifestyle
-            || dailyTime != initialDailyTime
-            || commitmentDays != initialCommitmentDays
-            || longTermGoal != initialLongTermGoal
-            || selectedHealthConditions != initialHealthConditions
-    }
-
-    private var canRegenerate: Bool {
-        canSave && hasChanges
-    }
-
     var body: some View {
-        ZStack(alignment: .bottom) {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 22) {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Button {
-                            HapticManager.shared.softImpact()
-                            dismiss()
-                        } label: {
-                            Image(systemName: "chevron.left")
-                                .font(Typography.navIcon)
-                                .foregroundStyle(Color.bfTextPrimary)
-                                .frame(width: 42, height: 42)
-                                .background(Circle().fill(Color.bfSurfaceElevated))
-                                .overlay(Circle().stroke(Color.bfBorder.opacity(0.75), lineWidth: 1))
-                        }
-                        .buttonStyle(.plain)
-
-                        Text("Update your plan")
-                            .font(Typography.screenTitle)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 22) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Button {
+                        HapticManager.shared.softImpact()
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .font(Typography.navIcon)
                             .foregroundStyle(Color.bfTextPrimary)
-
-                        Text("Adjust the inputs that shape your routine, then regenerate your Body Fix plan.")
-                            .font(Typography.screenSubtitle)
-                            .foregroundStyle(Color.bfTextSecondary)
+                            .frame(width: 42, height: 42)
+                            .background(Circle().fill(Color.bfSurfaceElevated))
+                            .overlay(Circle().stroke(Color.bfBorder.opacity(0.75), lineWidth: 1))
                     }
+                    .buttonStyle(.plain)
 
-                    editorSection(title: "Goals", subtitle: "Choose up to 3.") {
-                        chipGrid(goals, selection: $selectedGoals, limit: 3)
-                    }
+                    Text("Update your plan")
+                        .font(Typography.screenTitle)
+                        .foregroundStyle(Color.bfTextPrimary)
 
-                    editorSection(title: "Problem areas", subtitle: "Pick what matters most right now.") {
-                        chipGrid(areaOptions, selection: $selectedAreas)
-                    }
-
-                    editorSection(title: "Lifestyle", subtitle: nil) {
-                        singleSelectGrid(lifestyleOptions, selection: $lifestyle)
-                    }
-
-                    editorSection(title: "Daily time", subtitle: nil) {
-                        singleSelectGrid(durationOptions, selection: $dailyTime)
-                    }
-
-                    editorSection(title: "Commitment", subtitle: nil) {
-                        singleSelectGrid(commitmentOptions, selection: $commitmentDays)
-                    }
-
-                    editorSection(title: "Long-term goal", subtitle: nil) {
-                        singleSelectGrid(longTermGoals, selection: $longTermGoal)
-                    }
-
-                    editorSection(title: "Health conditions", subtitle: "Optional.") {
-                        chipGrid(healthOptions, selection: $selectedHealthConditions)
-                    }
+                    Text("Adjust the inputs that shape your routine, then regenerate your Body Fix plan.")
+                        .font(Typography.screenSubtitle)
+                        .foregroundStyle(Color.bfTextSecondary)
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 18)
-                .padding(.bottom, 176)
-            }
 
-            GradientButton(title: "Regenerate Plan", showShadow: false) {
-                saveAndRegenerate()
+                editorSection(title: "Goals", subtitle: "Choose up to 3.") {
+                    chipGrid(goals, selection: $selectedGoals, limit: 3)
+                }
+
+                editorSection(title: "Problem areas", subtitle: "Pick what matters most right now.") {
+                    chipGrid(OnboardingPainArea.allCases.map(\.displayName), selection: $selectedAreas)
+                }
+
+                editorSection(title: "Lifestyle", subtitle: nil) {
+                    singleSelectGrid(lifestyleOptions, selection: $lifestyle)
+                }
+
+                editorSection(title: "Daily time", subtitle: nil) {
+                    singleSelectGrid(durationOptions, selection: $dailyTime)
+                }
+
+                editorSection(title: "Commitment", subtitle: nil) {
+                    singleSelectGrid(commitmentOptions, selection: $commitmentDays)
+                }
+
+                editorSection(title: "Long-term goal", subtitle: nil) {
+                    singleSelectGrid(longTermGoals, selection: $longTermGoal)
+                }
+
+                editorSection(title: "Health conditions", subtitle: "Optional.") {
+                    chipGrid(healthOptions, selection: $selectedHealthConditions)
+                }
+
+                GradientButton(title: "Regenerate Plan", showShadow: false) {
+                    saveAndRegenerate()
+                }
+                .opacity(canSave ? 1 : 0.45)
+                .disabled(!canSave)
             }
-            .opacity(canRegenerate ? 1 : 0.45)
-            .disabled(!canRegenerate)
             .padding(.horizontal, 20)
-            .padding(.bottom, 72)
+            .padding(.top, 18)
+            .padding(.bottom, 40)
         }
         .background(Color.bfPageBackground.ignoresSafeArea())
         .toolbar(.hidden, for: .navigationBar)
@@ -645,54 +387,28 @@ struct PersonalizedPlanEditorView: View {
     private func loadFromProfileIfNeeded() {
         guard !didLoad, let profile else { return }
         selectedGoals = Set(profile.bodyGoals)
-        selectedAreas = Set(profile.problemAreas.compactMap(displayProblemArea(fromStoredValue:)))
+        selectedAreas = Set(profile.problemAreas)
         lifestyle = profile.lifestyle
         dailyTime = profile.dailyTime
         commitmentDays = profile.commitmentDays
         longTermGoal = profile.longTermGoal
         selectedHealthConditions = Set(profile.healthConditions)
-        initialGoals = selectedGoals
-        initialAreas = selectedAreas
-        initialLifestyle = lifestyle
-        initialDailyTime = dailyTime
-        initialCommitmentDays = commitmentDays
-        initialLongTermGoal = longTermGoal
-        initialHealthConditions = selectedHealthConditions
         didLoad = true
     }
 
     private func saveAndRegenerate() {
-        guard let profile, canRegenerate else { return }
+        guard let profile else { return }
         HapticManager.shared.success()
         profile.bodyGoals = Array(selectedGoals).sorted()
-        profile.problemAreas = selectedAreas
-            .compactMap(storedProblemArea(fromDisplayValue:))
-            .sorted()
+        profile.problemAreas = Array(selectedAreas).sorted()
         profile.lifestyle = lifestyle
         profile.dailyTime = dailyTime
         profile.commitmentDays = commitmentDays
         profile.longTermGoal = longTermGoal
         profile.healthConditions = Array(selectedHealthConditions).sorted()
-        let refreshedPlan = PersonalizedPlanGenerator.upsertPlan(for: profile, existing: currentPlan, in: modelContext)
-        SavedRoutineStore.refreshLivePlanFavorite(
-            plan: refreshedPlan,
-            routine: StretchDatabase.routine(id: refreshedPlan.routineId),
-            saved: savedRoutines
-        )
+        PersonalizedPlanGenerator.upsertPlan(for: profile, existing: currentPlan, in: modelContext)
         try? modelContext.save()
         dismiss()
-    }
-
-    private func displayProblemArea(fromStoredValue value: String) -> String? {
-        OnboardingPainArea.allCases.first { area in
-            area.rawValue == value || area.displayName.caseInsensitiveCompare(value) == .orderedSame
-        }?.displayName
-    }
-
-    private func storedProblemArea(fromDisplayValue value: String) -> String? {
-        OnboardingPainArea.allCases.first { area in
-            area.displayName.caseInsensitiveCompare(value) == .orderedSame || area.rawValue == value
-        }?.rawValue
     }
 }
 

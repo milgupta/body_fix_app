@@ -2,6 +2,8 @@ import SwiftUI
 
 struct MuscleSelectView: View {
     @Binding var path: NavigationPath
+    @Environment(\.dismiss) private var dismiss
+    @Environment(TabBarVisibility.self) private var tabBarVisibility
     @State private var selectedMuscles: Set<MuscleGroup> = []
 
     private let columns = [
@@ -70,5 +72,35 @@ struct MuscleSelectView: View {
             }
         }
         .animation(.spring(response: 0.45, dampingFraction: 0.82), value: selectedMuscles.isEmpty)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    HapticManager.shared.mediumImpact()
+                    dismiss()
+                } label: {
+                    Label("Back", systemImage: "chevron.left")
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundStyle(Color.bfTextPrimary)
+                        .labelStyle(.titleAndIcon)
+                        .padding(.horizontal, 14)
+                        .frame(height: 46)
+                        .background(
+                            Capsule(style: .continuous)
+                                .fill(Color.bfSurfaceElevated.opacity(0.96))
+                                .shadow(color: Color.black.opacity(0.12), radius: 12, y: 5)
+                        )
+                        .overlay(
+                            Capsule(style: .continuous)
+                                .stroke(Color.bfBorder.opacity(0.65), lineWidth: 1)
+                        )
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Back")
+            }
+        }
+        .toolbar(.hidden, for: .tabBar)
+        .onAppear { tabBarVisibility.suppressTabBar() }
+        .onDisappear { tabBarVisibility.restoreTabBar() }
     }
 }

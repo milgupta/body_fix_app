@@ -14,10 +14,8 @@ struct ContentView: View {
 
     var body: some View {
         Group {
-            if onboardingComplete && isSubscribed {
+            if onboardingComplete {
                 MainTabView()
-            } else if onboardingComplete {
-                LockedUnlockView()
             } else {
                 OnboardingContainerView()
             }

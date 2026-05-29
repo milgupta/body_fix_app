@@ -219,6 +219,9 @@ private struct AnalysisCardStack: View {
     let activeStep: Int
     let revealedCards: Set<Int>
 
+    private let foregroundCardWidth: CGFloat = 220
+    private let foregroundCardPadding: CGFloat = 20
+
     private var leadRoutine: Routine? { routines.first }
     private var supportRoutine: Routine? { routines.dropFirst().first }
     private var recoveryRoutine: Routine? { routines.dropFirst(2).first }
@@ -350,10 +353,12 @@ private struct AnalysisCardStack: View {
                         BodyFixThumbnailView(routine: routine, size: 42, isFeatured: true)
                     }
                 }
+                .frame(width: foregroundCardWidth - foregroundCardPadding * 2, alignment: .center)
+                .padding(.top, 2)
             }
         }
-        .padding(20)
-        .frame(width: 220, height: 170, alignment: .topLeading)
+        .padding(foregroundCardPadding)
+        .frame(width: foregroundCardWidth, height: 170, alignment: .topLeading)
         .background(
             RoundedRectangle(cornerRadius: 30, style: .continuous)
                 .fill(LinearGradient.bfHeroGradient)

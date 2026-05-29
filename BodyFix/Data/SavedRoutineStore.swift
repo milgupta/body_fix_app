@@ -79,6 +79,11 @@ enum SavedRoutineStore {
         modelContext.insert(snapshot)
     }
 
+    static func remove(_ favorite: SavedRoutine, in modelContext: ModelContext) {
+        modelContext.delete(favorite)
+        try? modelContext.save()
+    }
+
     static func refreshLivePlanFavorite(
         plan: PersonalizedPlan,
         routine: Routine?,

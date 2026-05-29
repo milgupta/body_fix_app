@@ -27,17 +27,26 @@ struct OnboardingContainerView: View {
                                 Image(systemName: "chevron.left")
                                     .font(Typography.navIcon)
                                     .foregroundStyle(Color.bfTextPrimary)
-                                    .frame(width: 42, height: 42)
-                                    .background(Circle().fill(Color.bfSurfaceElevated))
-                                    .overlay(Circle().stroke(Color.bfBorder.opacity(0.75), lineWidth: 1))
+                                    .frame(width: 44, height: 44)
+                                    .background(
+                                        Circle()
+                                            .fill(Color.bfSurfaceElevated)
+                                            .shadow(color: Color.black.opacity(0.05), radius: 10, y: 5)
+                                    )
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.bfBorder.opacity(0.55), lineWidth: 1)
+                                    )
+                                    .clipShape(Circle())
                             }
+                            .buttonStyle(.plain)
                         }
 
                         ProgressBar(progress: viewModel.progress)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 12)
-                    .padding(.bottom, 20)
+                    .padding(.horizontal, 24)
+                    .padding(.top, 10)
+                    .padding(.bottom, 18)
                 }
 
                 screenContent

@@ -28,15 +28,19 @@ struct OnboardingWelcomeView: View {
                 .scaleEffect(showContent ? 1 : 0.88)
 
             VStack(spacing: 0) {
-                Spacer(minLength: 32)
+                Spacer(minLength: 12)
 
                 OnboardingHeroPreview()
+                    .frame(maxWidth: .infinity)
+                    .frame(maxHeight: .infinity)
+                    .layoutPriority(1)
+                    .padding(.horizontal, 12)
                     .scaleEffect(showContent ? 1 : 0.94)
                     .offset(y: showContent ? 0 : 28)
                     .opacity(showContent ? 1.0 : 0)
                     .animation(.spring(response: 0.82, dampingFraction: 0.9), value: showContent)
 
-                Spacer(minLength: 30)
+                Spacer(minLength: 18)
 
                 VStack(spacing: 10) {
                     Text("Your body is telling you something.")

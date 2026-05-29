@@ -5,6 +5,7 @@ import SwiftData
 struct WorkoutLogView: View {
     @Binding var selectedTab: Int
     @Binding var path: NavigationPath
+    @Environment(\.modelContext) private var modelContext
     @Query(sort: \SavedRoutine.updatedAt, order: .reverse) private var savedRoutines: [SavedRoutine]
     @Query private var plans: [PersonalizedPlan]
 
@@ -42,10 +43,12 @@ struct WorkoutLogView: View {
                         if let livePlanFavorite {
                             favoriteSectionLabel("YOUR CURRENT PLAN")
 
-                            Button {
+                            SavedFavoriteRow(
+                                onRemove: { removeFavorite(livePlanFavorite) }
+                            ) {
                                 HapticManager.shared.lightImpact()
                                 path.append(PersonalizedPlanRoute())
-                            } label: {
+                            } content: {
                                 SavedRoutineCard(
                                     title: "Your current plan",
                                     subtitle: currentPlan?.summary ?? livePlanFavorite.displaySummary,
@@ -54,17 +57,18 @@ struct WorkoutLogView: View {
                                     thumbnail: .stretch(stretch(for: currentPlan?.stretchIds.first ?? livePlanFavorite.stretchIds.first))
                                 )
                             }
-                            .buttonStyle(.plain)
                         }
 
                         if !snapshotFavorites.isEmpty {
                             favoriteSectionLabel("PLAN SNAPSHOTS")
 
                             ForEach(snapshotFavorites) { favorite in
-                                Button {
+                                SavedFavoriteRow(
+                                    onRemove: { removeFavorite(favorite) }
+                                ) {
                                     HapticManager.shared.lightImpact()
                                     path.append(SavedPlanDetailRoute(savedRoutineId: favorite.id))
-                                } label: {
+                                } content: {
                                     SavedRoutineCard(
                                         title: favorite.displayTitle,
                                         subtitle: favorite.displaySummary,
@@ -73,7 +77,6 @@ struct WorkoutLogView: View {
                                         thumbnail: .stretch(stretch(for: favorite.stretchIds.first))
                                     )
                                 }
-                                .buttonStyle(.plain)
                             }
                         }
 
@@ -82,10 +85,12 @@ struct WorkoutLogView: View {
 
                             ForEach(presetFavorites) { favorite in
                                 if let routineId = favorite.routineId, let routine = StretchDatabase.routine(id: routineId) {
-                                    Button {
+                                    SavedFavoriteRow(
+                                        onRemove: { removeFavorite(favorite) }
+                                    ) {
                                         HapticManager.shared.lightImpact()
                                         path.append(RoutineStretchListRoute(routineId: routine.id))
-                                    } label: {
+                                    } content: {
                                         SavedRoutineCard(
                                             title: routine.name,
                                             subtitle: "\(routine.stretchIds.count) stretches",
@@ -94,7 +99,6 @@ struct WorkoutLogView: View {
                                             thumbnail: .routine(routine)
                                         )
                                     }
-                                    .buttonStyle(.plain)
                                 }
                             }
                         }
@@ -173,6 +177,43 @@ struct WorkoutLogView: View {
     private func stretch(for id: String?) -> Stretch? {
         guard let id else { return nil }
         return StretchDatabase.stretch(id: id)
+    }
+
+    private func removeFavorite(_ favorite: SavedRoutine) {
+        HapticManager.shared.softImpact()
+        withAnimation(.easeInOut(duration: 0.25)) {
+            SavedRoutineStore.remove(favorite, in: modelContext)
+        }
+    }
+}
+
+private struct SavedFavoriteRow<Content: View>: View {
+    let onRemove: () -> Void
+    let action: () -> Void
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 10) {
+            Button(action: action, label: content)
+                .buttonStyle(.plain)
+
+            Button(action: onRemove) {
+                Image(systemName: "xmark")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(Color.bfTextMuted)
+                    .frame(width: 36, height: 36)
+                    .background(
+                        Circle()
+                            .fill(Color.bfSurfaceMuted)
+                    )
+                    .overlay(
+                        Circle()
+                            .stroke(Color.bfBorder.opacity(0.55), lineWidth: 1)
+                    )
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Remove from saved")
+        }
     }
 }
 

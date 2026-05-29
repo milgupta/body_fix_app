@@ -787,10 +787,7 @@ private struct SeriesCard: View {
                         .offset(x: -26, y: -22)
                 }
         )
-        .overlay(
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
-                .stroke(Color.bfBorder.opacity(0.55), lineWidth: 1)
-        )
+        .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
         .shadow(color: Color.black.opacity(0.03), radius: 12, y: 4)
     }
 }

@@ -7,6 +7,7 @@ struct OnboardingPlanPreviewView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.requestReview) private var requestReview
     @State private var showContent = false
+    @State private var trialIntroStep: TrialIntroStep?
 
     private var draftProfile: UserProfile {
         UserProfile(
@@ -31,11 +32,45 @@ struct OnboardingPlanPreviewView: View {
         PersonalizedPlanGenerator.recommendation(for: draftProfile)
     }
 
-    private var previewStretches: [Stretch] {
-        recommendation.stretches
+    private var displayModel: PersonalizedPlanDisplayModel {
+        .from(
+            recommendation: recommendation,
+            eyebrow: "Built from your answers",
+            title: "Your plan is ready"
+        )
     }
 
     var body: some View {
+        Group {
+            switch trialIntroStep {
+            case .tryFree:
+                OnboardingTrialTryFreeView {
+                    withAnimation(.easeInOut(duration: 0.28)) {
+                        trialIntroStep = .reminder
+                    }
+                }
+
+            case .reminder:
+                OnboardingTrialReminderView {
+                    withAnimation(.easeInOut(duration: 0.28)) {
+                        trialIntroStep = .tryFree
+                    }
+                } onContinue: {
+                    continueThroughTrialIntro()
+                }
+
+            case nil:
+                planPreview
+            }
+        }
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.6)) {
+                showContent = true
+            }
+        }
+    }
+
+    private var planPreview: some View {
         ZStack(alignment: .bottom) {
             Color.bfPageBackground.ignoresSafeArea()
 
@@ -50,26 +85,15 @@ struct OnboardingPlanPreviewView: View {
                 .padding(.bottom, 166)
             }
 
-            OnboardingContinueButton(label: "Start My Plan") {
+            OnboardingContinueButton(label: "Start My Plan", style: .gradientPrimary) {
                 HapticManager.shared.success()
-                let profile = viewModel.saveProfile(to: modelContext)
-                PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
-                try? modelContext.save()
-                AnalyticsTracker.capture("onboarding_plan_created")
-                if RatingManager.canRequestOnboardingRating() {
-                    requestReview()
-                    RatingManager.markReviewRequested(trigger: .onboardingPlan)
+                withAnimation(.easeInOut(duration: 0.28)) {
+                    trialIntroStep = .tryFree
                 }
-                PaywallManager.shared.requestPaywallAfterOnboarding()
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 26)
             .opacity(showContent ? 1 : 0)
-        }
-        .onAppear {
-            withAnimation(.easeOut(duration: 0.6)) {
-                showContent = true
-            }
         }
     }
 
@@ -94,143 +118,17 @@ struct OnboardingPlanPreviewView: View {
                 Spacer()
             }
 
-            VStack(alignment: .leading, spacing: 16) {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Built from your answers")
-                        .font(Typography.metadataBadge)
-                        .foregroundStyle(Color.bfAccent)
-                        .lineLimit(1)
-                        .padding(.horizontal, 11)
-                        .padding(.vertical, 7)
-                        .background(
-                            Capsule()
-                                .fill(Color.white.opacity(0.78))
-                        )
-                        .overlay(
-                            Capsule()
-                                .stroke(Color.bfAccent.opacity(0.18), lineWidth: 1)
-                        )
-
-                    Text("Your plan is ready")
-                        .font(Typography.screenTitle)
-                        .foregroundStyle(.bfTextPrimary)
-
-                    Text(headerSummary)
-                        .font(Typography.screenSubtitle)
-                        .foregroundStyle(.bfTextSecondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                headerBadges
-            }
-            .padding(.horizontal, 18)
-            .padding(.vertical, 20)
-            .background(headerPanel)
+            PersonalizedPlanPreviewHeader(model: displayModel)
         }
         .opacity(showContent ? 1 : 0)
     }
 
     private var firstStepCard: some View {
-        HStack(spacing: 14) {
-            if let firstStretch = previewStretches.first {
-                BodyFixThumbnailView(stretch: firstStretch, size: 50)
-            } else {
-                Image(systemName: "play.fill")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundStyle(Color.white)
-                    .frame(width: 50, height: 50)
-                    .background(Circle().fill(Color.bfAccent))
-            }
-
-            VStack(alignment: .leading, spacing: 5) {
-                Text("Today's first step")
-                    .font(Typography.metadataBadge)
-                    .foregroundStyle(Color.bfAccent)
-
-                Text(firstStepTitle)
-                    .font(Typography.controlLabel)
-                    .foregroundStyle(Color.bfTextPrimary)
-                    .lineLimit(2)
-                    .fixedSize(horizontal: false, vertical: true)
-
-                Text("Begin here. We'll guide you through each hold.")
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.bfTextSecondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-
-            Spacer(minLength: 6)
-
-            Text(planDurationLabel(recommendation.totalSeconds))
-                .font(Typography.metadataBadge)
-                .foregroundStyle(Color.bfAccent)
-                .lineLimit(1)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 7)
-                .background(Capsule().fill(Color.bfAccent.opacity(0.1)))
-        }
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .fill(Color.bfSurfaceElevated)
+        PersonalizedPlanFirstStepCard(
+            firstStretch: displayModel.stretches.first,
+            title: displayModel.firstStepTitle
         )
-        .overlay(
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(Color.bfAccent.opacity(0.18), lineWidth: 1)
-        )
-        .shadow(color: Color.black.opacity(0.025), radius: 10, y: 4)
         .opacity(showContent ? 1 : 0)
-    }
-
-    private var headerBadges: some View {
-        HStack(spacing: 10) {
-            previewBadge(title: "\(previewStretches.count) stretches", allowsCompression: false)
-            previewBadge(title: planDurationLabel(recommendation.totalSeconds), allowsCompression: false)
-
-            if let firstArea = recommendation.focusAreas.first {
-                previewBadge(title: firstArea)
-            }
-
-            if recommendation.focusAreas.count > 1 {
-                previewBadge(title: "\(recommendation.focusAreas.count - 1)+")
-            }
-        }
-        .fixedSize(horizontal: false, vertical: true)
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-
-    private var headerPanel: some View {
-        RoundedRectangle(cornerRadius: 28, style: .continuous)
-            .fill(
-                LinearGradient(
-                    colors: [
-                        Color(hex: "#F5FAFF"),
-                        Color(hex: "#EAF3FF"),
-                        Color.bfSurfaceElevated.opacity(0.96)
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
-            .overlay(alignment: .topLeading) {
-                Circle()
-                    .fill(Color.bfAccent.opacity(0.16))
-                    .frame(width: 168, height: 168)
-                    .blur(radius: 22)
-                    .offset(x: -48, y: -58)
-            }
-            .overlay(alignment: .bottomTrailing) {
-                Circle()
-                    .fill(Color.bfBlue.opacity(0.12))
-                    .frame(width: 128, height: 128)
-                    .blur(radius: 24)
-                    .offset(x: 42, y: 42)
-            }
-            .overlay(
-                RoundedRectangle(cornerRadius: 28, style: .continuous)
-                    .stroke(Color.bfAccent.opacity(0.16), lineWidth: 1)
-            )
-            .shadow(color: Color.bfAccent.opacity(0.08), radius: 18, y: 8)
     }
 
     private var stretchList: some View {
@@ -239,122 +137,248 @@ struct OnboardingPlanPreviewView: View {
                 .font(Typography.sectionTitle)
                 .foregroundStyle(.bfTextPrimary)
 
-            ForEach(Array(previewStretches.enumerated()), id: \.element.id) { index, stretch in
-                OnboardingPlanRow(stretch: stretch, index: index, isFirstStep: index == 0)
+            ForEach(Array(displayModel.stretches.enumerated()), id: \.element.id) { index, stretch in
+                PersonalizedPlanStretchRow(stretch: stretch, index: index, isFirstStep: index == 0)
                     .opacity(showContent ? 1 : 0)
                     .animation(.easeOut(duration: 0.45).delay(Double(index) * 0.06), value: showContent)
             }
         }
     }
 
-    private func previewBadge(title: String, allowsCompression: Bool = true) -> some View {
-        Text(title)
-            .font(Typography.caption)
-            .foregroundStyle(Color.bfAccent)
-            .lineLimit(1)
-            .truncationMode(.tail)
-            .fixedSize(horizontal: !allowsCompression, vertical: false)
-            .layoutPriority(allowsCompression ? 0 : 1)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 9)
-            .background(
-                Capsule()
-                    .fill(Color.white.opacity(0.86))
-            )
-            .overlay(
-                Capsule()
-                    .stroke(Color.bfAccent.opacity(0.18), lineWidth: 1)
-            )
-    }
-
-    private func planDurationLabel(_ seconds: Int) -> String {
-        let minutes = seconds / 60
-        let remainder = seconds % 60
-        if minutes > 0 && remainder > 0 { return "\(minutes)m \(remainder)s" }
-        if minutes > 0 { return "\(minutes)m" }
-        return "\(remainder)s"
-    }
-
-    private var headerSummary: String {
-        let duration = planDurationLabel(recommendation.totalSeconds)
-        let areaPhrase = recommendation.focusAreas.first.map { $0.lowercased() }
-
-        if let areaPhrase {
-            return "Start with a \(duration) routine built for your \(areaPhrase) needs and daily rhythm."
+    private func continueThroughTrialIntro() {
+        HapticManager.shared.success()
+        PaywallManager.shared.presentOnboardingPaywalls {
+            finishOnboardingAndEnterApp()
         }
-        return "Start with a \(duration) routine built from what you told us."
     }
 
-    private var firstStepTitle: String {
-        previewStretches.first?.name ?? "Start your first stretch"
+    private func finishOnboardingAndEnterApp() {
+        let profile = viewModel.saveProfile(to: modelContext)
+        PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
+        try? modelContext.save()
+        AnalyticsTracker.capture("onboarding_plan_created")
+        if RatingManager.canRequestOnboardingRating() {
+            requestReview()
+            RatingManager.markReviewRequested(trigger: .onboardingPlan)
+        }
     }
-
 }
 
-private struct OnboardingPlanRow: View {
-    let stretch: Stretch
-    let index: Int
-    let isFirstStep: Bool
+private enum TrialIntroStep {
+    case tryFree
+    case reminder
+}
+
+private struct OnboardingTrialTryFreeView: View {
+    let onTryNow: () -> Void
+    @State private var didAppear = false
 
     var body: some View {
-        HStack(spacing: 14) {
-            ZStack {
-                Circle()
-                    .fill(isFirstStep ? Color.bfAccent.opacity(0.12) : Color.bfSurfaceMuted)
-                    .frame(width: 28, height: 28)
+        VStack(spacing: 0) {
+            Spacer().frame(height: 82)
 
-                Text("\(index + 1)")
-                    .font(Typography.metadataBadge)
-                    .foregroundStyle(Color.bfAccent)
-            }
+            Text("We want you to\ntry Body Fix for free.")
+                .font(.system(size: 30, weight: .bold, design: .rounded))
+                .foregroundStyle(Color.black)
+                .multilineTextAlignment(.center)
+                .lineSpacing(2)
 
-            BodyFixThumbnailView(stretch: stretch, size: 52)
+            Spacer(minLength: 44)
 
-            VStack(alignment: .leading, spacing: 5) {
-                if isFirstStep {
-                    Text("Start here")
-                        .font(Typography.metadataBadge)
-                        .foregroundStyle(Color.bfAccent)
-                        .lineLimit(1)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 5)
-                        .background(Capsule().fill(Color.bfAccent.opacity(0.1)))
-                }
+            TrialMockImageStack(isPresented: didAppear)
+                .frame(height: 330)
 
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(stretch.name)
-                        .font(Typography.controlLabel)
-                        .foregroundStyle(.bfTextPrimary)
-                        .lineLimit(2)
-                        .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 18)
 
-                    Text(timingLabel)
-                        .font(Typography.caption)
-                        .foregroundStyle(.bfTextSecondary)
-                        .lineLimit(2)
-                }
-            }
+            TrialNoPaymentRow()
 
-            Spacer()
+            TrialPrimaryButton(title: "Try NOW", action: onTryNow)
+                .padding(.top, 18)
+                .padding(.horizontal, 28)
+
+            Spacer().frame(height: 42)
         }
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.bfSurfaceElevated)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .stroke(isFirstStep ? Color.bfAccent.opacity(0.28) : Color.bfBorder.opacity(0.65), lineWidth: 1)
-        )
-        .shadow(color: Color.black.opacity(isFirstStep ? 0.035 : 0.02), radius: isFirstStep ? 10 : 8, y: 3)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white.ignoresSafeArea())
+        .onAppear {
+            withAnimation(.spring(response: 0.62, dampingFraction: 0.82).delay(0.08)) {
+                didAppear = true
+            }
+        }
+    }
+}
+
+private struct OnboardingTrialReminderView: View {
+    let onBack: () -> Void
+    let onContinue: () -> Void
+    @State private var didAppear = false
+
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            Color.white.ignoresSafeArea()
+
+            Button {
+                HapticManager.shared.softImpact()
+                onBack()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(Typography.navIcon)
+                    .foregroundStyle(Color.bfTextMuted)
+                    .frame(width: 44, height: 44)
+            }
+            .buttonStyle(.plain)
+            .padding(.leading, 24)
+            .padding(.top, 44)
+
+            VStack(spacing: 0) {
+                Spacer().frame(height: 176)
+
+                Text("We'll send you\na reminder before your\nfree trial ends")
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                    .foregroundStyle(Color.black)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(3)
+
+                Spacer().frame(height: 52)
+
+                TrialReminderBell(isPresented: didAppear)
+
+                Spacer(minLength: 86)
+
+                TrialNoPaymentRow()
+
+                TrialPrimaryButton(title: "Continue for FREE", action: onContinue)
+                    .padding(.top, 18)
+                    .padding(.horizontal, 28)
+
+                Spacer().frame(height: 42)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .onAppear {
+            withAnimation(.spring(response: 0.58, dampingFraction: 0.78).delay(0.08)) {
+                didAppear = true
+            }
+        }
+    }
+}
+
+private struct TrialMockImageStack: View {
+    let isPresented: Bool
+
+    var body: some View {
+        ZStack {
+            TrialBundledPNGImage(name: "onboarding_image")
+                .frame(width: 190)
+                .rotationEffect(.degrees(isPresented ? -9 : -2))
+                .offset(x: isPresented ? -76 : 0, y: isPresented ? 26 : 44)
+                .scaleEffect(isPresented ? 0.78 : 0.66)
+                .opacity(isPresented ? 0.62 : 0)
+                .animation(.spring(response: 0.72, dampingFraction: 0.82).delay(0.12), value: isPresented)
+
+            TrialBundledPNGImage(name: "mock_image2")
+                .frame(width: 224)
+                .rotationEffect(.degrees(isPresented ? 8 : 1))
+                .offset(x: isPresented ? 74 : 0, y: isPresented ? 8 : 40)
+                .scaleEffect(isPresented ? 0.78 : 0.64)
+                .opacity(isPresented ? 0.70 : 0)
+                .animation(.spring(response: 0.72, dampingFraction: 0.82).delay(0.2), value: isPresented)
+
+            TrialBundledPNGImage(name: "mock_image1")
+                .frame(width: 204)
+                .rotationEffect(.degrees(isPresented ? -2 : 0))
+                .offset(x: isPresented ? -10 : 0, y: isPresented ? -4 : 34)
+                .scaleEffect(isPresented ? 1 : 0.86)
+                .opacity(isPresented ? 1 : 0)
+                .animation(.spring(response: 0.62, dampingFraction: 0.82).delay(0.04), value: isPresented)
+        }
+    }
+}
+
+private struct TrialBundledPNGImage: View {
+    let name: String
+
+    var body: some View {
+        Group {
+            if let image = Self.image(named: name) {
+                Image(uiImage: image)
+                    .resizable()
+                    .interpolation(.high)
+                    .scaledToFit()
+            } else {
+                Color.clear
+            }
+        }
     }
 
-    private var timingLabel: String {
-        let duration = "\(stretch.duration)s"
-        if stretch.repScheme.hasPrefix(duration) {
-            return stretch.repScheme
+    private static func image(named name: String) -> UIImage? {
+        if let url = Bundle.main.url(forResource: name, withExtension: "png", subdirectory: "images"),
+           let image = UIImage(contentsOfFile: url.path) {
+            return image
         }
-        return "\(duration) · \(stretch.repScheme)"
+        guard let url = Bundle.main.url(forResource: name, withExtension: "png") else {
+            return nil
+        }
+        return UIImage(contentsOfFile: url.path)
+    }
+}
+
+private struct TrialReminderBell: View {
+    let isPresented: Bool
+
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            Image(systemName: "bell.fill")
+                .font(.system(size: 112, weight: .bold))
+                .foregroundStyle(Color.bfAccent.opacity(0.18))
+                .scaleEffect(isPresented ? 1 : 0.82)
+
+            Text("1")
+                .font(.system(size: 42, weight: .bold, design: .rounded))
+                .foregroundStyle(Color.white)
+                .frame(width: 72, height: 72)
+                .background(Circle().fill(Color.red))
+                .offset(x: 28, y: -8)
+                .scaleEffect(isPresented ? 1 : 0.72)
+        }
+        .frame(width: 176, height: 138)
+        .opacity(isPresented ? 1 : 0)
+    }
+}
+
+private struct TrialNoPaymentRow: View {
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "checkmark")
+                .font(.system(size: 20, weight: .bold))
+
+            Text("No Payment Due Now")
+                .font(Typography.sectionTitle)
+        }
+        .foregroundStyle(Color.black)
+    }
+}
+
+private struct TrialPrimaryButton: View {
+    let title: String
+    let action: () -> Void
+
+    var body: some View {
+        Button {
+            HapticManager.shared.lightImpact()
+            action()
+        } label: {
+            Text(title)
+                .font(Typography.primaryCta)
+                .foregroundStyle(Color.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 64)
+                .background(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(Color.black)
+                )
+        }
+        .buttonStyle(.plain)
     }
 }
 

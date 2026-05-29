@@ -7,6 +7,10 @@ struct BodyFixApp: App {
         makeModelContainer()
     }()
 
+    init() {
+        PaywallManager.shared.configure()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

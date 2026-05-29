@@ -1,5 +1,5 @@
 {
-  "originHash" : "47cbe4ef2adc7155b834c1fb5ae451e260f9ef6ba19f0658c4fcafd3565fad48",
+  "originHash" : "23f87f3286bd8834e6c8bd30c5b17d3e62643076c14c5ab60fc258f073f0dc29",
   "pins" : [
     {
       "identity" : "posthog-ios",
@@ -8,6 +8,42 @@
       "state" : {
         "revision" : "e8bbc824e1fb32cbe0563d73fab2373668fb94ec",
         "version" : "3.59.1"
+      }
+    },
+    {
+      "identity" : "superscript-ios-next",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/superwall/superscript-ios-next",
+      "state" : {
+        "revision" : "abb2c8c96e958aabe11a84df67860ad7bbef3b68",
+        "version" : "1.0.14"
+      }
+    },
+    {
+      "identity" : "superwall-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/superwall/Superwall-iOS",
+      "state" : {
+        "revision" : "f738aeb3d55f326f96279fb803ebfa3cac39e3e0",
+        "version" : "4.15.3"
+      }
+    },
+    {
+      "identity" : "swift-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-algorithms.git",
+      "state" : {
+        "revision" : "87e50f483c54e6efd60e885f7f5aa946cee68023",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics.git",
+      "state" : {
+        "revision" : "0c0290ff6b24942dadb83a929ffaaa1481df04a2",
+        "version" : "1.1.1"
       }
     }
   ],

@@ -14,6 +14,10 @@ enum APIConfig {
         stringValue(for: "POSTHOG_HOST")
     }
 
+    static var superwallAPIKey: String? {
+        stringValue(for: "SUPERWALL_API_KEY")
+    }
+
     private static func stringValue(for key: String) -> String? {
         guard let url = Bundle.main.url(forResource: "Config", withExtension: "plist"),
               let data = try? Data(contentsOf: url),

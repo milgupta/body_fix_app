@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A1B2C3D42F70000100112233 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D42F70000200112233 /* PostHog */; };
+		B95BE8CC2FC972F100A9AEBA /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = B95BE8CB2FC972F100A9AEBA /* Algorithms */; };
+		B95BE8CF2FC9734700A9AEBA /* SuperwallKit in Frameworks */ = {isa = PBXBuildFile; productRef = B95BE8CE2FC9734700A9AEBA /* SuperwallKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +29,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B95BE8CC2FC972F100A9AEBA /* Algorithms in Frameworks */,
 				A1B2C3D42F70000100112233 /* PostHog in Frameworks */,
+				B95BE8CF2FC9734700A9AEBA /* SuperwallKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +75,8 @@
 			name = BodyFix;
 			packageProductDependencies = (
 				A1B2C3D42F70000200112233 /* PostHog */,
+				B95BE8CB2FC972F100A9AEBA /* Algorithms */,
+				B95BE8CE2FC9734700A9AEBA /* SuperwallKit */,
 			);
 			productName = BodyFix;
 			productReference = B97EAEB82F5F9BD20097FB11 /* BodyFix.app */;
@@ -102,6 +108,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				A1B2C3D42F70000300112233 /* XCRemoteSwiftPackageReference "posthog-ios" */,
+				B95BE8CA2FC972F100A9AEBA /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				B95BE8CD2FC9734700A9AEBA /* XCRemoteSwiftPackageReference "Superwall-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B97EAEB92F5F9BD20097FB11 /* Products */;
@@ -132,25 +140,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		A1B2C3D42F70000300112233 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/PostHog/posthog-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		A1B2C3D42F70000200112233 /* PostHog */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A1B2C3D42F70000300112233 /* XCRemoteSwiftPackageReference "posthog-ios" */;
-			productName = PostHog;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B97EAEC32F5F9BD40097FB11 /* Debug */ = {
@@ -381,6 +370,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A1B2C3D42F70000300112233 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		B95BE8CA2FC972F100A9AEBA /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+		B95BE8CD2FC9734700A9AEBA /* XCRemoteSwiftPackageReference "Superwall-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/superwall/Superwall-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.15.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A1B2C3D42F70000200112233 /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D42F70000300112233 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
+		};
+		B95BE8CB2FC972F100A9AEBA /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B95BE8CA2FC972F100A9AEBA /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		B95BE8CE2FC9734700A9AEBA /* SuperwallKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B95BE8CD2FC9734700A9AEBA /* XCRemoteSwiftPackageReference "Superwall-iOS" */;
+			productName = SuperwallKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B97EAEB02F5F9BD20097FB11 /* Project object */;
 }

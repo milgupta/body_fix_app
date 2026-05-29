@@ -8,19 +8,23 @@ struct MuscleCardView: View {
     var body: some View {
         Button(action: action) {
             GeometryReader { geo in
-                HStack(spacing: 0) {
+                HStack(spacing: 10) {
                     BodyFixThumbnailView(muscleGroup: group, size: 44)
-                    .frame(width: geo.size.width * 0.4)
+                        .frame(width: min(geo.size.width * 0.32, 54))
 
                     Text(group.displayName)
                         .font(Typography.muscleCardLabel)
                         .foregroundStyle(isSelected ? Color.bfTextPrimary : Color.bfTextSecondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.72)
+                        .allowsTightening(true)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .layoutPriority(1)
                 }
                 .frame(maxHeight: .infinity)
             }
-            .frame(height: 80)
+            .frame(height: 88)
             .padding(.horizontal, 12)
             .background(
                 RoundedRectangle(cornerRadius: 16)

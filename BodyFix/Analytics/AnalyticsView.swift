@@ -91,19 +91,13 @@ struct AnalyticsView: View {
                         style: StrokeStyle(lineWidth: 24, lineCap: .round)
                     )
 
-                VStack(spacing: 8) {
-                    Text("\(snapshot.flexometerScore)%")
-                        .font(.system(size: 54, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color.bfTextPrimary)
-
-                    Text(snapshot.hasSessions ? "Built from streak, stretches, and minutes." : "No stretches yet")
-                        .font(Typography.caption)
-                        .foregroundStyle(Color.bfTextMuted)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.top, 18)
+                Text("\(snapshot.flexometerScore)%")
+                    .font(.system(size: 54, weight: .bold, design: .rounded))
+                    .foregroundStyle(Color.bfTextPrimary)
+                    .padding(.horizontal, 16)
             }
-            .frame(height: 248)
+            .frame(height: 224)
+            .padding(.top, 4)
 
             Text(snapshot.supportMessage)
                 .font(Typography.homeSupport)
@@ -165,7 +159,7 @@ private struct AnalyticsStatCard: View {
     let accent: Color
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
+        VStack(alignment: .leading, spacing: 12) {
             Text(title.uppercased())
                 .font(Typography.badgeMono)
                 .foregroundStyle(Color.bfTextMuted)
@@ -191,8 +185,8 @@ private struct AnalyticsStatCard: View {
                         .frame(width: 26, height: 8)
                 )
         }
-        .frame(maxWidth: .infinity, minHeight: 170, alignment: .leading)
-        .padding(18)
+        .frame(maxWidth: .infinity, minHeight: 144, alignment: .leading)
+        .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 26, style: .continuous)
                 .fill(Color.bfSurfaceElevated)

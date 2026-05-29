@@ -27,15 +27,15 @@ enum PersonalizedPlanGenerator {
             durationMinutes: 4
         )
 
-        let focusAreas = focusAreaLabels(from: profile)
+        let focusAreas = Array(profile.problemAreas.prefix(3))
         let stretches = generateStretches(for: bestRoutine, profile: profile)
-        let totalSeconds = StretchTimingStore.totalDuration(for: stretches, overrides: [:])
+        let totalSeconds = stretches.reduce(0) { $0 + $1.duration }
         return PersonalizedPlanRecommendation(
             routine: bestRoutine,
             stretches: stretches,
             totalSeconds: totalSeconds,
-            rationale: buildRationale(for: bestRoutine, profile: profile, selectedGroups: orderedProblemGroups(from: profile.problemAreas)),
-            summary: buildSummary(for: profile, focusAreas: focusAreas),
+            rationale: buildRationale(for: bestRoutine, profile: profile),
+            summary: buildSummary(for: profile),
             focusAreas: focusAreas
         )
     }
@@ -176,20 +176,18 @@ enum PersonalizedPlanGenerator {
         }
 
         if targetMinutes > 0 {
-            let routineMinutes = StretchDatabase.durationMinutes(for: routine)
-            if routineMinutes <= targetMinutes {
+            if routine.durationMinutes <= targetMinutes {
                 total += 8
-            } else if routineMinutes <= targetMinutes + 2 {
+            } else if routine.durationMinutes <= targetMinutes + 2 {
                 total += 4
             } else {
                 total -= 4
             }
         }
 
-        let routineMinutes = StretchDatabase.durationMinutes(for: routine)
         if commitmentDays <= 2 {
             if routine.hasCategory(.quick) { total += 5 }
-            if routineMinutes <= 5 { total += 3 }
+            if routine.durationMinutes <= 5 { total += 3 }
         } else if commitmentDays >= 5 {
             if tags.contains("daily-maintenance") || routine.hasCategory(.featured) {
                 total += 4
@@ -207,14 +205,14 @@ enum PersonalizedPlanGenerator {
         }
         if healthFlags.contains("chronic pain") || healthFlags.contains("fibromyalgia") {
             if tags.contains("reduce-pain") { total += 6 }
-            if routineMinutes <= 5 { total += 3 }
+            if routine.durationMinutes <= 5 { total += 3 }
         }
         if healthFlags.contains("pregnancy")
             || healthFlags.contains("osteoporosis")
             || healthFlags.contains("heart condition")
             || healthFlags.contains("high blood pressure")
         {
-            if routineMinutes > 10 { total -= 5 }
+            if routine.durationMinutes > 10 { total -= 5 }
             if tags.contains("athletic") || tags.contains("warmup") || tags.contains("post-workout") {
                 total -= 3
             }
@@ -226,90 +224,53 @@ enum PersonalizedPlanGenerator {
         return total
     }
 
-    private static func buildSummary(for profile: UserProfile, focusAreas: [String]) -> String {
+    private static func buildSummary(for profile: UserProfile) -> String {
+        let topArea = profile.problemAreas.first?.lowercased()
         let lifestyle = normalize(profile.lifestyle)
-        let areaPhrase = readableAreaPhrase(from: focusAreas)
 
-        if let areaPhrase, lifestyle.contains("desk") || lifestyle.contains("class") {
-            return "A simple routine built for \(areaPhrase), posture, and desk-heavy days."
+        if let topArea, lifestyle.contains("desk") || lifestyle.contains("class") {
+            return "A simple routine built for \(topArea), posture, and desk-heavy days."
         }
-        if let areaPhrase {
-            return "A simple routine built around your \(areaPhrase) needs and daily rhythm."
+        if let topArea {
+            return "A simple routine built around your \(topArea) needs and daily rhythm."
         }
         return "A simple routine built around what you told us."
     }
 
     private static func generateStretches(for routine: Routine, profile: UserProfile) -> [Stretch] {
-        let routineStretches = StretchDatabase.stretches(for: routine)
-        let allStretches = StretchDatabase.loadAll()
-        let selectedGroups = orderedProblemGroups(from: profile.problemAreas)
-        let targetWindow = durationWindow(for: profile, routine: routine)
+        let allStretches = StretchDatabase.stretches(for: routine)
+        guard !allStretches.isEmpty else { return [] }
 
-        guard !routineStretches.isEmpty || !allStretches.isEmpty else { return [] }
+        let targetSeconds = max(60, parsedMinutes(from: profile.dailyTime) * 60)
+        let preferredGroups = mappedProblemGroups(from: profile.problemAreas)
 
-        var chosen: [Stretch] = []
-        var chosenIds = Set<String>()
-
-        for group in selectedGroups {
-            if chosen.contains(where: { $0.muscle == group }) {
-                continue
+        let prioritized = allStretches.sorted { lhs, rhs in
+            let lhsScore = stretchScore(lhs, preferredGroups: preferredGroups, baseOrder: routine.stretchIds)
+            let rhsScore = stretchScore(rhs, preferredGroups: preferredGroups, baseOrder: routine.stretchIds)
+            if lhsScore == rhsScore {
+                return baseIndex(lhs, in: routine.stretchIds) < baseIndex(rhs, in: routine.stretchIds)
             }
-
-            if let candidate = bestCoverageStretch(
-                for: group,
-                in: routineStretches,
-                chosenIds: chosenIds,
-                preferredGroups: Set(selectedGroups),
-                routine: routine
-            ) ?? bestCoverageStretch(
-                for: group,
-                in: allStretches,
-                chosenIds: chosenIds,
-                preferredGroups: Set(selectedGroups),
-                routine: routine
-            ) {
-                chosen.append(candidate)
-                chosenIds.insert(candidate.id)
-            }
+            return lhsScore > rhsScore
         }
 
-        let rankedCandidates = rankedStretchPool(
-            routineStretches: routineStretches,
-            allStretches: allStretches,
-            preferredGroups: Set(selectedGroups),
-            routine: routine
-        )
+        var chosen: [Stretch] = []
+        var running = 0
+        let minimumCount = minimumStretchCount(for: targetSeconds)
 
-        var running = totalDuration(of: chosen)
-
-        for stretch in rankedCandidates where !chosenIds.contains(stretch.id) {
-            if running < targetWindow.lowerBound {
-                chosen.append(stretch)
-                chosenIds.insert(stretch.id)
-                running += stretch.duration
-                continue
-            }
-
+        for stretch in prioritized {
             let proposed = running + stretch.duration
-            if proposed <= targetWindow.upperBound,
-               abs(targetWindow.target - proposed) < abs(targetWindow.target - running) {
+            if chosen.count < minimumCount || proposed <= targetSeconds {
                 chosen.append(stretch)
-                chosenIds.insert(stretch.id)
                 running = proposed
             }
         }
 
-        chosen = trimPlanIfHelpful(
-            chosen,
-            targetWindow: targetWindow,
-            selectedGroups: selectedGroups
-        )
-
-        if chosen.isEmpty, let fallback = rankedCandidates.first {
-            chosen = [fallback]
+        if chosen.isEmpty, let first = prioritized.first {
+            chosen = [first]
         }
 
-        return chosen
+        let chosenIds = Set(chosen.map(\.id))
+        return allStretches.filter { chosenIds.contains($0.id) }
     }
 
     private static func stretchScore(_ stretch: Stretch, preferredGroups: Set<MuscleGroup>, baseOrder: [String]) -> Int {
@@ -323,16 +284,23 @@ enum PersonalizedPlanGenerator {
         return score
     }
 
+    private static func minimumStretchCount(for targetSeconds: Int) -> Int {
+        switch targetSeconds {
+        case ..<180: return 3
+        case ..<300: return 4
+        case ..<600: return 5
+        default: return 6
+        }
+    }
+
     private static func baseIndex(_ stretch: Stretch, in ids: [String]) -> Int {
         ids.firstIndex(of: stretch.id) ?? ids.count
     }
 
-    private static func buildRationale(for routine: Routine, profile: UserProfile, selectedGroups: [MuscleGroup]) -> String {
+    private static func buildRationale(for routine: Routine, profile: UserProfile) -> String {
         var parts: [String] = []
 
-        if !selectedGroups.isEmpty {
-            parts.append(contentsOf: selectedGroups.prefix(2).map { $0.displayName.lowercased() })
-        } else if let firstArea = profile.problemAreas.first {
+        if let firstArea = profile.problemAreas.first {
             parts.append(firstArea.lowercased())
         }
 
@@ -361,22 +329,6 @@ enum PersonalizedPlanGenerator {
         return "Built from your goals, time commitment, and target areas."
     }
 
-    private static func focusAreaLabels(from profile: UserProfile) -> [String] {
-        let selectedGroups = orderedProblemGroups(from: profile.problemAreas)
-        if !selectedGroups.isEmpty {
-            return Array(selectedGroups.prefix(3).map(\.displayName))
-        }
-        return Array(profile.problemAreas.prefix(3))
-    }
-
-    private static func orderedProblemGroups(from areas: [String]) -> [MuscleGroup] {
-        var ordered: [MuscleGroup] = []
-        for group in mappedProblemGroupsPreservingOrder(from: areas) where !ordered.contains(group) {
-            ordered.append(group)
-        }
-        return ordered
-    }
-
     private static func parsedMinutes(from value: String) -> Int {
         if value.contains("20+") { return 20 }
         let digits = value.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
@@ -390,15 +342,11 @@ enum PersonalizedPlanGenerator {
     }
 
     private static func mappedProblemGroups(from areas: [String]) -> Set<MuscleGroup> {
-        Set(mappedProblemGroupsPreservingOrder(from: areas))
-    }
-
-    private static func mappedProblemGroupsPreservingOrder(from areas: [String]) -> [MuscleGroup] {
-        var groups: [MuscleGroup] = []
+        var groups = Set<MuscleGroup>()
         for area in areas {
             let normalized = normalize(area)
             if normalized == "ankles" {
-                groups.append(.calves)
+                groups.insert(.calves)
                 continue
             }
             if normalized.contains("whole body") {
@@ -406,126 +354,11 @@ enum PersonalizedPlanGenerator {
             }
             if let group = MuscleGroup.allCases.first(where: {
                 normalize($0.rawValue) == normalized || normalize($0.displayName) == normalized
-            }), !groups.contains(group) {
-                groups.append(group)
+            }) {
+                groups.insert(group)
             }
         }
         return groups
-    }
-
-    private static func durationWindow(for profile: UserProfile, routine: Routine) -> DurationWindow {
-        let parsed = parsedMinutes(from: profile.dailyTime)
-        let target = max(60, (parsed > 0 ? parsed : max(1, StretchDatabase.durationMinutes(for: routine))) * 60)
-        return DurationWindow(
-            target: target,
-            lowerBound: max(60, target - 60),
-            upperBound: target + 60
-        )
-    }
-
-    private static func bestCoverageStretch(
-        for group: MuscleGroup,
-        in candidates: [Stretch],
-        chosenIds: Set<String>,
-        preferredGroups: Set<MuscleGroup>,
-        routine: Routine
-    ) -> Stretch? {
-        candidates
-            .filter { $0.muscle == group && !chosenIds.contains($0.id) }
-            .sorted {
-                compareStretches(
-                    $0,
-                    $1,
-                    preferredGroups: preferredGroups,
-                    baseOrder: routine.stretchIds
-                )
-            }
-            .first
-    }
-
-    private static func rankedStretchPool(
-        routineStretches: [Stretch],
-        allStretches: [Stretch],
-        preferredGroups: Set<MuscleGroup>,
-        routine: Routine
-    ) -> [Stretch] {
-        var seen = Set<String>()
-        let ordered = routineStretches + allStretches
-        return ordered
-            .filter { seen.insert($0.id).inserted }
-            .sorted {
-                compareStretches(
-                    $0,
-                    $1,
-                    preferredGroups: preferredGroups,
-                    baseOrder: routine.stretchIds
-                )
-            }
-    }
-
-    private static func compareStretches(
-        _ lhs: Stretch,
-        _ rhs: Stretch,
-        preferredGroups: Set<MuscleGroup>,
-        baseOrder: [String]
-    ) -> Bool {
-        let lhsScore = stretchScore(lhs, preferredGroups: preferredGroups, baseOrder: baseOrder)
-        let rhsScore = stretchScore(rhs, preferredGroups: preferredGroups, baseOrder: baseOrder)
-        if lhsScore == rhsScore {
-            return baseIndex(lhs, in: baseOrder) < baseIndex(rhs, in: baseOrder)
-        }
-        return lhsScore > rhsScore
-    }
-
-    private static func trimPlanIfHelpful(
-        _ stretches: [Stretch],
-        targetWindow: DurationWindow,
-        selectedGroups: [MuscleGroup]
-    ) -> [Stretch] {
-        var best = stretches
-        var improved = true
-
-        while improved {
-            improved = false
-            for candidate in best {
-                let reduced = best.filter { $0.id != candidate.id }
-                guard !reduced.isEmpty else { continue }
-                guard preservesCoverage(reduced, requiredGroups: selectedGroups) else { continue }
-                guard totalDuration(of: reduced) >= targetWindow.lowerBound else { continue }
-                if abs(targetWindow.target - totalDuration(of: reduced)) < abs(targetWindow.target - totalDuration(of: best)) {
-                    best = reduced
-                    improved = true
-                    break
-                }
-            }
-        }
-
-        return best
-    }
-
-    private static func preservesCoverage(_ stretches: [Stretch], requiredGroups: [MuscleGroup]) -> Bool {
-        let covered = Set(stretches.compactMap(\.muscle))
-        for group in requiredGroups where StretchDatabase.stretches(for: group).isEmpty == false {
-            if !covered.contains(group) {
-                return false
-            }
-        }
-        return true
-    }
-
-    private static func totalDuration(of stretches: [Stretch]) -> Int {
-        stretches.reduce(0) { $0 + $1.duration }
-    }
-
-    private static func readableAreaPhrase(from focusAreas: [String]) -> String? {
-        let cleaned = focusAreas
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .filter { !$0.isEmpty }
-
-        guard !cleaned.isEmpty else { return nil }
-        if cleaned.count == 1 { return cleaned[0].lowercased() }
-        if cleaned.count == 2 { return "\(cleaned[0].lowercased()) and \(cleaned[1].lowercased())" }
-        return "\(cleaned[0].lowercased()), \(cleaned[1].lowercased()), and \(cleaned[2].lowercased())"
     }
 
     private static func normalize(_ value: String) -> String {
@@ -535,10 +368,4 @@ enum PersonalizedPlanGenerator {
             .replacingOccurrences(of: "_", with: " ")
             .replacingOccurrences(of: "-", with: " ")
     }
-}
-
-private struct DurationWindow {
-    let target: Int
-    let lowerBound: Int
-    let upperBound: Int
 }
