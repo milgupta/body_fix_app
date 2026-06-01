@@ -18,7 +18,11 @@ class PaywallManager {
 
     func configure() {
         guard !isConfigured, let apiKey = APIConfig.superwallAPIKey else { return }
-        Superwall.configure(apiKey: apiKey)
+        let options = SuperwallOptions()
+        #if DEBUG
+        options.shouldBypassAppTransactionCheck = true
+        #endif
+        Superwall.configure(apiKey: apiKey, options: options)
         isConfigured = true
     }
 

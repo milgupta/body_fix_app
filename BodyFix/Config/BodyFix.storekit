@@ -1,0 +1,179 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "B0D1F1C0",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_askToBuyEnabled" : false,
+    "_billingGracePeriodEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_disableDialogs" : false,
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_renewalBillingIssuesEnabled" : false,
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ],
+    "_timeRate" : 0
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "B0D1F1C1",
+      "localizations" : [
+        {
+          "description" : "Unlock Body Fix Premium",
+          "displayName" : "Body Fix Premium",
+          "locale" : "en_US"
+        }
+      ],
+      "name" : "Body Fix Premium",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "B0D1F1C2",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlock Body Fix Premium",
+              "displayName" : "Body Fix Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "monthly_1",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Body Fix Monthly",
+          "subscriptionGroupID" : "B0D1F1C1",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "72.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "B0D1F1C3",
+          "introductoryOffer" : {
+            "internalID" : "intro_yearly",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "Unlock Body Fix Premium",
+              "displayName" : "Body Fix Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Body Fix Yearly",
+          "subscriptionGroupID" : "B0D1F1C1",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "34.99",
+          "familyShareable" : false,
+          "groupNumber" : 3,
+          "internalID" : "B0D1F1C4",
+          "introductoryOffer" : {
+            "internalID" : "intro_yearly_3",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "Unlock Body Fix Premium",
+              "displayName" : "Body Fix Yearly Promo",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "yearly_3",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Body Fix Yearly Promo",
+          "subscriptionGroupID" : "B0D1F1C1",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
