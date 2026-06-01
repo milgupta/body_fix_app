@@ -131,7 +131,7 @@ struct HomeView: View {
             TabView(selection: $featuredIndex) {
                 ForEach(Array(featured.enumerated()), id: \.element.id) { index, routine in
                     Button {
-                        HapticManager.shared.mediumImpact()
+                        HapticManager.shared.lightImpact()
                         path.append(RoutineStretchListRoute(routineId: routine.id))
                     } label: {
                         FeaturedRoutineCard(routine: routine)
@@ -168,6 +168,7 @@ struct HomeView: View {
 
                 if !searchText.isEmpty {
                     Button {
+                        HapticManager.shared.softImpact()
                         searchText = ""
                     } label: {
                         Image(systemName: "xmark.circle.fill")
@@ -257,7 +258,7 @@ struct HomeView: View {
                 HStack(spacing: 16) {
                     ForEach(routines) { routine in
                         Button {
-                            HapticManager.shared.mediumImpact()
+                            HapticManager.shared.lightImpact()
                             path.append(RoutineStretchListRoute(routineId: routine.id))
                         } label: {
                             HomeRoutineCarouselCard(routine: routine, style: style)
@@ -285,7 +286,7 @@ struct HomeView: View {
             LazyVGrid(columns: gridColumns, spacing: 14) {
                 ForEach(routines) { routine in
                     Button {
-                        HapticManager.shared.mediumImpact()
+                        HapticManager.shared.lightImpact()
                         path.append(RoutineStretchListRoute(routineId: routine.id))
                     } label: {
                         RoutineGridCard(routine: routine)
@@ -335,7 +336,7 @@ struct HomeView: View {
                 HStack(spacing: 16) {
                     ForEach(series) { item in
                         Button {
-                            HapticManager.shared.mediumImpact()
+                            HapticManager.shared.lightImpact()
                             path.append(SeriesDetailRoute(seriesId: item.id))
                         } label: {
                             SeriesCard(series: item, completedLevel: completedLevel(for: item.id))

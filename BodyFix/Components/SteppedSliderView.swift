@@ -11,6 +11,7 @@ struct SteppedSliderView: View {
 
     @State private var isDragging = false
     @State private var lastNotchValue: Int = 0
+    @State private var didChangeValue = false
 
     var body: some View {
         VStack(spacing: 16) {
@@ -56,6 +57,7 @@ struct SteppedSliderView: View {
                                     if !isDragging {
                                         isDragging = true
                                         lastNotchValue = value
+                                        didChangeValue = false
                                     }
                                     let newX = drag.location.x - thumbSize / 2
                                     let clamped = max(0, min(totalWidth, newX))
@@ -65,12 +67,15 @@ struct SteppedSliderView: View {
                                     if newValue != lastNotchValue {
                                         HapticManager.shared.selection()
                                         lastNotchValue = newValue
+                                        didChangeValue = true
                                     }
                                     value = max(range.lowerBound, min(range.upperBound, newValue))
                                 }
                                 .onEnded { _ in
                                     isDragging = false
-                                    HapticManager.shared.lightImpact()
+                                    if didChangeValue {
+                                        HapticManager.shared.lightImpact()
+                                    }
                                 }
                         )
                 }

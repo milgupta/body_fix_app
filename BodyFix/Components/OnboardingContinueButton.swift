@@ -9,13 +9,14 @@ struct OnboardingContinueButton: View {
     var label: String = "Next"
     var style: Style = .standard
     var isEnabled: Bool = true
+    var feedback: HapticManager.Feedback = .light
     let action: () -> Void
 
     private var usesGradient: Bool { style == .gradientPrimary }
 
     var body: some View {
         Button {
-            HapticManager.shared.lightImpact()
+            HapticManager.shared.play(feedback)
             action()
         } label: {
             ZStack {

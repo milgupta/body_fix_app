@@ -18,6 +18,7 @@ struct PaywallSheetView: View {
                 HStack {
                     Spacer()
                     Button {
+                        HapticManager.shared.softImpact()
                         PaywallManager.shared.markPaywallDismissed()
                         onDismissed()
                         dismiss()

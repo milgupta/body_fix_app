@@ -77,6 +77,7 @@ struct SessionCompleteView: View {
             tabBarVisibility.suppressTabBar()
             guard !didSave else { return }
             didSave = true
+            HapticManager.shared.success()
             saveSession()
             handlePostSessionEngagement()
             renderShareImage()
@@ -129,6 +130,9 @@ struct SessionCompleteView: View {
                     .background(RoundedRectangle(cornerRadius: 14).fill(.bfGradient))
             }
             .padding(.horizontal, 20)
+            .simultaneousGesture(TapGesture().onEnded {
+                HapticManager.shared.lightImpact()
+            })
             .onAppear {
                 try? data.write(to: url)
             }
@@ -272,9 +276,6 @@ enum StreakUpdater {
             let days = cal.dateComponents([.day], from: lastDay, to: today).day ?? 0
             if days == 1 {
                 profile.stretchStreak += 1
-                if profile.stretchStreak % 7 == 0, profile.stretchStreak > 0 {
-                    HapticManager.shared.success()
-                }
             } else if days > 1 {
                 profile.stretchStreak = 1
             }

@@ -29,6 +29,7 @@ struct LockedUnlockView: View {
 
             VStack(spacing: 12) {
                 Button {
+                    HapticManager.shared.mediumImpact()
                     AnalyticsTracker.capture("locked_unlock_cta_tapped")
                     showPaywall = true
                 } label: {

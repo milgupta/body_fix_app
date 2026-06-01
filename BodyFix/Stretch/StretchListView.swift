@@ -33,7 +33,7 @@ struct StretchListView: View {
 
                             ForEach(stretches) { stretch in
                                 StretchCardView(stretch: stretch) {
-                                    HapticManager.shared.mediumImpact()
+                                    HapticManager.shared.lightImpact()
                                     let ids = flatStretches.map(\.id)
                                     if let idx = ids.firstIndex(of: stretch.id) {
                                         path.append(StretchTimerRoute(stretchIds: ids, startIndex: idx))
@@ -72,7 +72,7 @@ struct StretchListView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    HapticManager.shared.mediumImpact()
+                    HapticManager.shared.softImpact()
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.left")

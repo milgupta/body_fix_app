@@ -17,6 +17,7 @@ struct SettingsView: View {
     @Query private var profiles: [UserProfile]
     @Query private var plans: [PersonalizedPlan]
     @AppStorage(PaywallManager.subscriptionKey) private var isSubscribed = false
+    @AppStorage(HapticManager.enabledKey) private var hapticsEnabled = true
     @State private var showReminderSetup = false
     @State private var showPaywall = false
 
@@ -38,6 +39,12 @@ struct SettingsView: View {
                         sectionTitle("notifications")
                         VStack(spacing: 10) {
                             notificationsRow
+                        }
+                        .padding(.bottom, 28)
+
+                        sectionTitle("experience")
+                        VStack(spacing: 10) {
+                            hapticsRow
                         }
                         .padding(.bottom, 28)
 
@@ -164,15 +171,19 @@ struct SettingsView: View {
         ) {
             rowContent(title: "share body fix", systemImage: "square.and.arrow.up", showsChevron: true)
         }
+        .simultaneousGesture(TapGesture().onEnded {
+            HapticManager.shared.lightImpact()
+        })
     }
 
     private var notificationsRow: some View {
         Button {
-            HapticManager.shared.lightImpact()
             if isSubscribed {
+                HapticManager.shared.lightImpact()
                 AnalyticsTracker.capture("notification_setup_started", properties: ["source": "settings"])
                 showReminderSetup = true
             } else {
+                HapticManager.shared.mediumImpact()
                 AnalyticsTracker.capture("notification_locked_row_tapped")
                 showPaywall = true
             }
@@ -221,6 +232,35 @@ struct SettingsView: View {
             .shadow(color: Color.black.opacity(0.02), radius: 8, y: 3)
         }
         .buttonStyle(.plain)
+    }
+
+    private var hapticsRow: some View {
+        HStack(spacing: 14) {
+            Image(systemName: "waveform")
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(Color.bfMint)
+                .frame(width: 28, alignment: .center)
+
+            Text("haptics")
+                .font(Typography.controlLabel)
+                .foregroundStyle(Color.bfTextPrimary)
+
+            Spacer(minLength: 8)
+
+            Toggle("Haptics", isOn: $hapticsEnabled)
+                .labelsHidden()
+        }
+        .padding(.horizontal, 18)
+        .padding(.vertical, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Color.bfSurfaceElevated)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .stroke(Color.bfBorder.opacity(0.46), lineWidth: 1)
+        )
+        .shadow(color: Color.black.opacity(0.02), radius: 8, y: 3)
     }
 
     private var reminderSummary: String {

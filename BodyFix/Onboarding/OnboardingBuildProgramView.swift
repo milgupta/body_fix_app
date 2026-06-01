@@ -62,8 +62,7 @@ struct OnboardingBuildProgramView: View {
 
             Spacer().frame(height: 24)
 
-            OnboardingContinueButton(label: "Build My Program") {
-                HapticManager.shared.mediumImpact()
+            OnboardingContinueButton(label: "Build My Program", feedback: .medium) {
                 withAnimation(.easeInOut(duration: 0.35)) {
                     viewModel.advance()
                 }

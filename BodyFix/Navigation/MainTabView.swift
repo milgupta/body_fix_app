@@ -117,6 +117,7 @@ private struct BodyFixTabBar: View {
                         let isSelected = selectedTab == tab.rawValue
 
                         Button {
+                            guard !isSelected else { return }
                             HapticManager.shared.selection()
                             withAnimation(.spring(response: 0.3, dampingFraction: 0.84)) {
                                 selectedTab = tab.rawValue

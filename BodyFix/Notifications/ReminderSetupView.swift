@@ -52,6 +52,7 @@ struct ReminderSetupView: View {
     private var header: some View {
         HStack {
             Button {
+                HapticManager.shared.softImpact()
                 dismiss()
             } label: {
                 Image(systemName: "chevron.left")
@@ -88,7 +89,7 @@ struct ReminderSetupView: View {
                 ForEach(days, id: \.weekday) { item in
                     let isSelected = selectedDays.contains(item.weekday)
                     Button {
-                        HapticManager.shared.lightImpact()
+                        HapticManager.shared.selection()
                         if isSelected {
                             selectedDays.remove(item.weekday)
                         } else {
@@ -133,7 +134,9 @@ struct ReminderSetupView: View {
                 .foregroundStyle(Color.bfTextPrimary)
 
             Button {
-                HapticManager.shared.lightImpact()
+                if !showsTimePicker {
+                    HapticManager.shared.lightImpact()
+                }
                 if selectedTime == nil {
                     selectedTime = Date()
                 }
@@ -183,14 +186,25 @@ struct ReminderSetupView: View {
             guard let hour = components.hour, let minute = components.minute else { return }
 
             NotificationManager.shared.requestPermission { granted in
-                guard granted else { return }
+                guard granted else {
+                    HapticManager.shared.error()
+                    hint = "Notifications are disabled. Enable them in Settings to save reminders."
+                    return
+                }
                 NotificationManager.shared.scheduleReminders(
                     days: selectedDays,
                     hour: hour,
                     minute: minute,
                     problemArea: primaryProblemArea
-                )
-                dismiss()
+                ) { didSchedule in
+                    if didSchedule {
+                        HapticManager.shared.success()
+                        dismiss()
+                    } else {
+                        HapticManager.shared.error()
+                        hint = "We couldn't save your reminders. Please try again."
+                    }
+                }
             }
         } label: {
             Text("Save")

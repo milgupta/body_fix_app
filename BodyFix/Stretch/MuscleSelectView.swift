@@ -35,7 +35,7 @@ struct MuscleSelectView: View {
                                 group: group,
                                 isSelected: selectedMuscles.contains(group)
                             ) {
-                                HapticManager.shared.mediumImpact()
+                                HapticManager.shared.selection()
                                 if selectedMuscles.contains(group) {
                                     selectedMuscles.remove(group)
                                 } else {
@@ -53,7 +53,7 @@ struct MuscleSelectView: View {
             if !selectedMuscles.isEmpty {
                 VStack(spacing: 0) {
                     Button {
-                        HapticManager.shared.heavyImpact()
+                        HapticManager.shared.lightImpact()
                         path.append(StretchListRoute(muscles: selectedMuscles, perGroup: 3))
                     } label: {
                         Text("View \(selectedMuscles.count * 3) Stretches →")
@@ -76,7 +76,7 @@ struct MuscleSelectView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    HapticManager.shared.mediumImpact()
+                    HapticManager.shared.softImpact()
                     dismiss()
                 } label: {
                     Label("Back", systemImage: "chevron.left")

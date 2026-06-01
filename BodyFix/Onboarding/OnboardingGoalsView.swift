@@ -38,7 +38,8 @@ struct OnboardingGoalsView: View {
                         OnboardingMultiSelectCard(
                             title: option.title,
                             emoji: option.emoji,
-                            isSelected: isSelected
+                            isSelected: isSelected,
+                            canToggle: isSelected || viewModel.selectedBodyGoals.count < 3
                         ) {
                             if isSelected {
                                 viewModel.selectedBodyGoals.remove(option.title)

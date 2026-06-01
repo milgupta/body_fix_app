@@ -18,15 +18,23 @@ final class NotificationManager {
         }
     }
 
-    func scheduleReminders(days: Set<Int>, hour: Int, minute: Int, problemArea: String?) {
-        guard PaywallManager.shared.isSubscribed else { return }
+    func scheduleReminders(
+        days: Set<Int>,
+        hour: Int,
+        minute: Int,
+        problemArea: String?,
+        completion: @escaping (Bool) -> Void
+    ) {
+        guard PaywallManager.shared.isSubscribed else {
+            completion(false)
+            return
+        }
 
         removeReminderRequests()
-        ReminderStore.save(days: days, hour: hour, minute: minute)
-        AnalyticsTracker.capture(
-            "notification_setup_saved",
-            properties: ["days": Array(days).sorted(), "hour": hour, "minute": minute]
-        )
+
+        let group = DispatchGroup()
+        let resultLock = NSLock()
+        var didFail = false
 
         for day in days {
             var components = DateComponents()
@@ -45,7 +53,32 @@ final class NotificationManager {
                 content: content,
                 trigger: UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
             )
-            UNUserNotificationCenter.current().add(request)
+            group.enter()
+            UNUserNotificationCenter.current().add(request) { error in
+                if error != nil {
+                    resultLock.lock()
+                    didFail = true
+                    resultLock.unlock()
+                }
+                group.leave()
+            }
+        }
+
+        group.notify(queue: .main) {
+            resultLock.lock()
+            let succeeded = !didFail
+            resultLock.unlock()
+
+            if succeeded {
+                ReminderStore.save(days: days, hour: hour, minute: minute)
+                AnalyticsTracker.capture(
+                    "notification_setup_saved",
+                    properties: ["days": Array(days).sorted(), "hour": hour, "minute": minute]
+                )
+            } else {
+                self.removeReminderRequests()
+            }
+            completion(succeeded)
         }
     }
 

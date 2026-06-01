@@ -38,7 +38,7 @@ struct SeriesDetailView: View {
 
                     ForEach(levelRoutines) { routine in
                         Button {
-                            HapticManager.shared.mediumImpact()
+                            HapticManager.shared.lightImpact()
                             path.append(RoutineStretchListRoute(routineId: routine.id))
                         } label: {
                             SeriesLevelCard(
@@ -74,7 +74,7 @@ struct SeriesDetailView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    HapticManager.shared.mediumImpact()
+                    HapticManager.shared.softImpact()
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.left")

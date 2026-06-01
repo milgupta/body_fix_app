@@ -91,6 +91,7 @@ struct StretchTimerView: View {
         .alert("End routine?", isPresented: $showEndAlert) {
             Button("Continue", role: .cancel) {}
             Button("End") {
+                HapticManager.shared.warning()
                 path = NavigationPath()
             }
         } message: {
@@ -101,6 +102,7 @@ struct StretchTimerView: View {
                 pendingNavigationIndex = nil
             }
             Button("Skip") {
+                HapticManager.shared.warning()
                 applyPendingNavigation()
             }
         } message: {
@@ -320,7 +322,7 @@ struct StretchTimerView: View {
                     HapticManager.shared.mediumImpact()
                     repPaused = false
                 } else if currentRep < target {
-                    HapticManager.shared.mediumImpact()
+                    HapticManager.shared.selection()
                     currentRep += 1
                     if currentRep >= target {
                         holdFinished = true

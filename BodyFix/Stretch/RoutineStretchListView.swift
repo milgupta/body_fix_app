@@ -61,7 +61,7 @@ struct RoutineStretchListView: View {
                                 repOverrides: activeRepOverrides
                             ),
                             onTap: {
-                                HapticManager.shared.mediumImpact()
+                                HapticManager.shared.lightImpact()
                                 let ids = stretches.map(\.id)
                                 if let idx = ids.firstIndex(of: stretch.id) {
                                     path.append(
@@ -114,7 +114,7 @@ struct RoutineStretchListView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    HapticManager.shared.mediumImpact()
+                    HapticManager.shared.softImpact()
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
@@ -176,7 +176,7 @@ struct RoutineStretchListView: View {
     }
 
     private func toggleSave(_ routine: Routine) {
-        HapticManager.shared.lightImpact()
+        HapticManager.shared.mediumImpact()
         _ = SavedRoutineStore.togglePreset(routine: routine, saved: savedRoutines, in: modelContext)
         try? modelContext.save()
     }

@@ -62,8 +62,7 @@ struct PersonalizedPlanDetailView: View {
             }
 
             if let routine, !stretches.isEmpty {
-                OnboardingContinueButton(label: "Start Plan", style: .gradientPrimary) {
-                    HapticManager.shared.mediumImpact()
+                OnboardingContinueButton(label: "Start Plan", style: .gradientPrimary, feedback: .heavy) {
                     path.append(
                         StretchTimerRoute(
                             stretchIds: stretches.map(\.id),
@@ -356,10 +355,11 @@ struct PersonalizedPlanEditorView: View {
             ForEach(items, id: \.self) { item in
                 let isSelected = selection.wrappedValue.contains(item)
                 Button {
-                    HapticManager.shared.selection()
                     if isSelected {
+                        HapticManager.shared.selection()
                         selection.wrappedValue.remove(item)
                     } else if limit == nil || selection.wrappedValue.count < limit! {
+                        HapticManager.shared.selection()
                         selection.wrappedValue.insert(item)
                     }
                 } label: {
@@ -374,6 +374,7 @@ struct PersonalizedPlanEditorView: View {
         LazyVGrid(columns: columns, alignment: .leading, spacing: 10) {
             ForEach(items, id: \.self) { item in
                 Button {
+                    guard selection.wrappedValue != item else { return }
                     HapticManager.shared.selection()
                     selection.wrappedValue = item
                 } label: {

@@ -108,13 +108,11 @@ class OnboardingViewModel {
 
     func advance() {
         guard currentStep < totalSteps - 1 else { return }
-        HapticManager.shared.softImpact()
         currentStep += 1
     }
 
     func goBack() {
         guard currentStep > 0 else { return }
-        HapticManager.shared.softImpact()
         currentStep -= 1
     }
 

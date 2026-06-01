@@ -60,8 +60,7 @@ struct OnboardingWelcomeView: View {
 
                 Spacer().frame(height: 30)
 
-                OnboardingContinueButton(label: "Start Feeling Better") {
-                    HapticManager.shared.mediumImpact()
+                OnboardingContinueButton(label: "Start Feeling Better", feedback: .medium) {
                     withAnimation(.easeInOut(duration: 0.35)) {
                         viewModel.advance()
                     }

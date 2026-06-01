@@ -63,7 +63,7 @@ struct SavedPlanDetailView: View {
 
             if let savedPlan, !stretches.isEmpty {
                 GradientButton(title: "Start Saved Plan") {
-                    HapticManager.shared.mediumImpact()
+                    HapticManager.shared.heavyImpact()
                     path.append(
                         StretchTimingStore.timerRoute(
                             stretchIds: savedPlan.stretchIds,

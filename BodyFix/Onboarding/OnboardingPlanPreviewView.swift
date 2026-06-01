@@ -85,8 +85,7 @@ struct OnboardingPlanPreviewView: View {
                 .padding(.bottom, 166)
             }
 
-            OnboardingContinueButton(label: "Start My Plan", style: .gradientPrimary) {
-                HapticManager.shared.success()
+            OnboardingContinueButton(label: "Start My Plan", style: .gradientPrimary, feedback: .success) {
                 withAnimation(.easeInOut(duration: 0.28)) {
                     trialIntroStep = .tryFree
                 }
@@ -365,7 +364,7 @@ private struct TrialPrimaryButton: View {
 
     var body: some View {
         Button {
-            HapticManager.shared.lightImpact()
+            HapticManager.shared.mediumImpact()
             action()
         } label: {
             Text(title)

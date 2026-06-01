@@ -29,6 +29,7 @@ struct ReminderSoftPromptView: View {
                 }
 
                 Button {
+                    HapticManager.shared.mediumImpact()
                     onSetup()
                 } label: {
                     Text("Set Up Reminders")
@@ -42,6 +43,7 @@ struct ReminderSoftPromptView: View {
                 .padding(.top, 10)
 
                 Button {
+                    HapticManager.shared.softImpact()
                     onNotNow()
                 } label: {
                     Text("Not now")

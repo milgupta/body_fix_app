@@ -55,6 +55,7 @@ class PaywallManager {
             onComplete()
         }
         mainHandler.onError { _ in
+            HapticManager.shared.error()
             self.clearOnboardingHandlers()
             onComplete()
         }
@@ -69,6 +70,7 @@ class PaywallManager {
     func markSubscriptionActive() {
         UserDefaults.standard.set(true, forKey: Self.subscriptionKey)
         UserDefaults.standard.set(false, forKey: Self.showPaywallAfterOnboardingKey)
+        HapticManager.shared.success()
         AnalyticsTracker.capture("subscription_activated")
     }
 
@@ -115,6 +117,7 @@ class PaywallManager {
             onComplete()
         }
         declineHandler.onError { _ in
+            HapticManager.shared.error()
             self.clearOnboardingHandlers()
             onComplete()
         }

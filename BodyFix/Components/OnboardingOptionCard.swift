@@ -8,7 +8,9 @@ struct OnboardingOptionCard: View {
 
     var body: some View {
         Button {
-            HapticManager.shared.selection()
+            if !isSelected {
+                HapticManager.shared.selection()
+            }
             action()
         } label: {
             HStack(spacing: 14) {

@@ -4,11 +4,14 @@ struct OnboardingMultiSelectCard: View {
     let title: String
     var emoji: String = ""
     let isSelected: Bool
+    var canToggle: Bool = true
     let action: () -> Void
 
     var body: some View {
         Button {
-            HapticManager.shared.selection()
+            if canToggle {
+                HapticManager.shared.selection()
+            }
             action()
         } label: {
             HStack(spacing: 14) {

@@ -74,8 +74,7 @@ struct OnboardingValidationView: View {
 
                 Spacer().frame(height: 20)
 
-                OnboardingContinueButton(label: "Find My Fix") {
-                    HapticManager.shared.mediumImpact()
+                OnboardingContinueButton(label: "Find My Fix", feedback: .medium) {
                     withAnimation(.easeInOut(duration: 0.35)) {
                         viewModel.advance()
                     }
