@@ -6,7 +6,7 @@ private enum SettingsExternalLinks {
     static let termsURL = URL(string: "https://getbodyfix.com/terms.html")!
     static let manageSubscriptionsURL = URL(string: "itms-apps://apps.apple.com/account/subscriptions")!
     /// Swap for your App Store product page when available.
-    static let appShareURL = URL(string: "https://apps.apple.com")!
+    static let appShareURL = URL(string: "https://getbodyfix.com/")!
 }
 
 struct SettingsView: View {
