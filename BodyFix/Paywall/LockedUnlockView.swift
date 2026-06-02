@@ -4,11 +4,6 @@ import SwiftData
 struct LockedUnlockView: View {
     @Query private var profiles: [UserProfile]
     @Query private var plans: [PersonalizedPlan]
-    @AppStorage(PaywallManager.showPaywallAfterOnboardingKey) private var showPaywallAfterOnboarding = false
-    @AppStorage("show_reminder_prompt_after_subscription") private var showReminderPromptAfterSubscription = false
-    @State private var showPaywall = false
-    @State private var showReminderPrompt = false
-    @State private var showReminderSetup = false
 
     private var profile: UserProfile? { profiles.first }
     private var plan: PersonalizedPlan? { plans.first }
@@ -31,7 +26,7 @@ struct LockedUnlockView: View {
                 Button {
                     HapticManager.shared.mediumImpact()
                     AnalyticsTracker.capture("locked_unlock_cta_tapped")
-                    showPaywall = true
+                    PaywallManager.shared.presentMainPaywall(source: "locked_unlock")
                 } label: {
                     Text("Unlock Body Fix")
                         .font(Typography.primaryCta)
@@ -56,28 +51,6 @@ struct LockedUnlockView: View {
         }
         .onAppear {
             AnalyticsTracker.capture("locked_unlock_screen_shown")
-            if showPaywallAfterOnboarding {
-                showPaywallAfterOnboarding = false
-                showPaywall = true
-            }
-        }
-        .sheet(isPresented: $showPaywall) {
-            PaywallSheetView {
-                showReminderPromptAfterSubscription = true
-                showReminderPrompt = true
-            } onDismissed: {}
-        }
-        .fullScreenCover(isPresented: $showReminderPrompt) {
-            ReminderSoftPromptView {
-                showReminderPrompt = false
-                showReminderSetup = true
-            } onNotNow: {
-                showReminderPrompt = false
-                showReminderPromptAfterSubscription = false
-            }
-        }
-        .sheet(isPresented: $showReminderSetup) {
-            ReminderSetupView()
         }
     }
 

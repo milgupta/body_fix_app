@@ -1,11 +1,9 @@
 import SwiftUI
-import SwiftData
 
-/// Replace with your real URLs and support email before release.
 private enum SettingsExternalLinks {
-    static let supportEmail = "support@bodyfix.app"
-    static let privacyURL = URL(string: "https://www.apple.com/legal/privacy/")!
-    static let termsURL = URL(string: "https://www.apple.com/legal/internet-services/terms/site.html")!
+    static let supportEmail = "hello@getbodyfix.com"
+    static let privacyURL = URL(string: "https://getbodyfix.com/privacy.html")!
+    static let termsURL = URL(string: "https://getbodyfix.com/terms.html")!
     static let manageSubscriptionsURL = URL(string: "itms-apps://apps.apple.com/account/subscriptions")!
     /// Swap for your App Store product page when available.
     static let appShareURL = URL(string: "https://apps.apple.com")!
@@ -13,13 +11,10 @@ private enum SettingsExternalLinks {
 
 struct SettingsView: View {
     @Environment(\.openURL) private var openURL
-    @Environment(\.modelContext) private var modelContext
-    @Query private var profiles: [UserProfile]
-    @Query private var plans: [PersonalizedPlan]
-    @AppStorage(PaywallManager.subscriptionKey) private var isSubscribed = false
     @AppStorage(HapticManager.enabledKey) private var hapticsEnabled = true
+    @State private var paywallManager = PaywallManager.shared
     @State private var showReminderSetup = false
-    @State private var showPaywall = false
+    @State private var browserDestination: InAppBrowserDestination?
 
     private var appVersionString: String {
         let v = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -85,30 +80,17 @@ struct SettingsView: View {
                                 title: "terms of use",
                                 systemImage: "doc.text.fill"
                             ) {
-                                openURL(SettingsExternalLinks.termsURL)
+                                openInAppBrowser(SettingsExternalLinks.termsURL)
                             }
 
                             settingsButton(
                                 title: "privacy policy",
                                 systemImage: "lock.shield.fill"
                             ) {
-                                openURL(SettingsExternalLinks.privacyURL)
+                                openInAppBrowser(SettingsExternalLinks.privacyURL)
                             }
                         }
                         .padding(.bottom, 28)
-
-                        #if DEBUG
-                        sectionTitle("developer")
-                        VStack(spacing: 10) {
-                            settingsButton(
-                                title: "reset onboarding (debug)",
-                                systemImage: "arrow.counterclockwise.circle.fill"
-                            ) {
-                                resetOnboardingForTesting()
-                            }
-                        }
-                        .padding(.bottom, 28)
-                        #endif
 
                         sectionTitle("about")
                         versionCard
@@ -122,8 +104,9 @@ struct SettingsView: View {
             .sheet(isPresented: $showReminderSetup) {
                 ReminderSetupView()
             }
-            .sheet(isPresented: $showPaywall) {
-                PaywallSheetView {} onDismissed: {}
+            .sheet(item: $browserDestination) { destination in
+                InAppBrowserView(url: destination.url)
+                    .ignoresSafeArea()
             }
         }
     }
@@ -178,18 +161,18 @@ struct SettingsView: View {
 
     private var notificationsRow: some View {
         Button {
-            if isSubscribed {
+            if paywallManager.isSubscribed {
                 HapticManager.shared.lightImpact()
                 AnalyticsTracker.capture("notification_setup_started", properties: ["source": "settings"])
                 showReminderSetup = true
             } else {
                 HapticManager.shared.mediumImpact()
                 AnalyticsTracker.capture("notification_locked_row_tapped")
-                showPaywall = true
+                paywallManager.presentMainPaywall(source: "settings_reminders")
             }
         } label: {
             HStack(spacing: 14) {
-                Image(systemName: isSubscribed ? "bell.fill" : "lock.fill")
+                Image(systemName: paywallManager.isSubscribed ? "bell.fill" : "lock.fill")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundStyle(Color.bfMint)
                     .frame(width: 28, alignment: .center)
@@ -199,14 +182,14 @@ struct SettingsView: View {
                         .font(Typography.controlLabel)
                         .foregroundStyle(Color.bfTextPrimary)
 
-                    Text(isSubscribed ? reminderSummary : "unlock to set reminders")
+                    Text(paywallManager.isSubscribed ? reminderSummary : "unlock to set reminders")
                         .font(Typography.caption)
                         .foregroundStyle(Color.bfTextTertiary)
                 }
 
                 Spacer(minLength: 8)
 
-                if !isSubscribed {
+                if !paywallManager.isSubscribed {
                     Text("PRO")
                         .font(Typography.metadataBadge)
                         .foregroundStyle(Color.bfHeroSurface)
@@ -344,18 +327,10 @@ struct SettingsView: View {
         openURL(url)
     }
 
-    #if DEBUG
-    private func resetOnboardingForTesting() {
-        for profile in profiles {
-            modelContext.delete(profile)
-        }
-        for plan in plans {
-            modelContext.delete(plan)
-        }
-        UserDefaults.standard.set(false, forKey: PaywallManager.subscriptionKey)
-        try? modelContext.save()
+    private func openInAppBrowser(_ url: URL) {
+        browserDestination = InAppBrowserDestination(url: url)
     }
-    #endif
+
 }
 
 #Preview {

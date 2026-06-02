@@ -160,6 +160,7 @@ struct PersonalizedPlanFirstStepCard: View {
             }
         }
         .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .fill(Color.bfSurfaceElevated)
@@ -174,6 +175,10 @@ struct PersonalizedPlanFirstStepCard: View {
 
 struct PersonalizedPlanStretchList: View {
     let stretches: [Stretch]
+    let durationOverrides: [String: Int]
+    let repOverrides: [String: Int]
+    let onDecrease: (Stretch) -> Void
+    let onIncrease: (Stretch) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -182,7 +187,22 @@ struct PersonalizedPlanStretchList: View {
                 .foregroundStyle(.bfTextPrimary)
 
             ForEach(Array(stretches.enumerated()), id: \.element.id) { index, stretch in
-                PersonalizedPlanStretchRow(stretch: stretch, index: index, isFirstStep: index == 0)
+                PersonalizedPlanStretchRow(
+                    stretch: stretch,
+                    isFirstStep: index == 0,
+                    detailText: StretchTimingStore.detailText(
+                        for: stretch,
+                        durationOverrides: durationOverrides,
+                        repOverrides: repOverrides
+                    ),
+                    valueText: StretchTimingStore.controlLabel(
+                        for: stretch,
+                        durationOverrides: durationOverrides,
+                        repOverrides: repOverrides
+                    ),
+                    onDecrease: { onDecrease(stretch) },
+                    onIncrease: { onIncrease(stretch) }
+                )
             }
         }
     }
@@ -190,21 +210,30 @@ struct PersonalizedPlanStretchList: View {
 
 struct PersonalizedPlanStretchRow: View {
     let stretch: Stretch
-    let index: Int
     let isFirstStep: Bool
+    let detailText: String
+    let valueText: String?
+    let onDecrease: (() -> Void)?
+    let onIncrease: (() -> Void)?
+
+    init(
+        stretch: Stretch,
+        isFirstStep: Bool,
+        detailText: String? = nil,
+        valueText: String? = nil,
+        onDecrease: (() -> Void)? = nil,
+        onIncrease: (() -> Void)? = nil
+    ) {
+        self.stretch = stretch
+        self.isFirstStep = isFirstStep
+        self.detailText = detailText ?? StretchTimingStore.detailText(for: stretch, durationOverrides: [:])
+        self.valueText = valueText
+        self.onDecrease = onDecrease
+        self.onIncrease = onIncrease
+    }
 
     var body: some View {
-        HStack(spacing: 14) {
-            ZStack {
-                Circle()
-                    .fill(isFirstStep ? Color.bfAccent.opacity(0.12) : Color.bfSurfaceMuted)
-                    .frame(width: 28, height: 28)
-
-                Text("\(index + 1)")
-                    .font(Typography.metadataBadge)
-                    .foregroundStyle(Color.bfAccent)
-            }
-
+        HStack(alignment: .top, spacing: 14) {
             BodyFixThumbnailView(stretch: stretch, size: 52)
 
             VStack(alignment: .leading, spacing: 5) {
@@ -225,16 +254,28 @@ struct PersonalizedPlanStretchRow: View {
                         .lineLimit(2)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Text(timingLabel)
+                    Text(detailText)
                         .font(Typography.caption)
                         .foregroundStyle(.bfTextSecondary)
                         .lineLimit(2)
                 }
-            }
 
-            Spacer()
+                if let valueText, let onDecrease, let onIncrease {
+                    HStack {
+                        Spacer(minLength: 0)
+
+                        StretchTimingAdjuster(
+                            valueText: valueText,
+                            onDecrease: onDecrease,
+                            onIncrease: onIncrease
+                        )
+                    }
+                    .padding(.top, 4)
+                }
+            }
         }
         .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(Color.bfSurfaceElevated)
@@ -244,14 +285,6 @@ struct PersonalizedPlanStretchRow: View {
                 .stroke(isFirstStep ? Color.bfAccent.opacity(0.28) : Color.bfBorder.opacity(0.65), lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(isFirstStep ? 0.035 : 0.02), radius: isFirstStep ? 10 : 8, y: 3)
-    }
-
-    private var timingLabel: String {
-        let duration = "\(stretch.duration)s"
-        if stretch.repScheme.hasPrefix(duration) {
-            return stretch.repScheme
-        }
-        return "\(duration) · \(stretch.repScheme)"
     }
 }
 

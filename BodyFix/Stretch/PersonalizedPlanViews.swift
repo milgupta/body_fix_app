@@ -7,6 +7,7 @@ struct PersonalizedPlanDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [UserProfile]
     @Query private var plans: [PersonalizedPlan]
+    @Query private var timingOverrides: [StretchTimingOverride]
 
     private var profile: UserProfile? { profiles.first }
     private var currentPlan: PersonalizedPlan? { plans.max(by: { $0.updatedAt < $1.updatedAt }) }
@@ -24,6 +25,22 @@ struct PersonalizedPlanDetailView: View {
             return PersonalizedPlanGenerator.stretches(for: currentPlan, fallbackProfile: profile)
         }
         return recommendation?.stretches ?? []
+    }
+
+    private var activeOverrides: [String: Int] {
+        StretchTimingStore.durationOverrideMap(
+            kind: .livePersonalizedPlan,
+            ownerId: StretchTimingStore.livePlanOwnerId,
+            overrides: timingOverrides
+        )
+    }
+
+    private var activeRepOverrides: [String: Int] {
+        StretchTimingStore.repOverrideMap(
+            kind: .livePersonalizedPlan,
+            ownerId: StretchTimingStore.livePlanOwnerId,
+            overrides: timingOverrides
+        )
     }
 
     private var displayModel: PersonalizedPlanDisplayModel {
@@ -51,7 +68,27 @@ struct PersonalizedPlanDetailView: View {
                             firstStretch: stretches.first,
                             title: displayModel.firstStepTitle
                         )
-                        PersonalizedPlanStretchList(stretches: stretches)
+                        PersonalizedPlanStretchList(
+                            stretches: stretches,
+                            durationOverrides: activeOverrides,
+                            repOverrides: activeRepOverrides,
+                            onDecrease: {
+                                adjustValue(
+                                    for: $0,
+                                    delta: $0.isRepBased
+                                        ? -StretchTimingStore.repAdjustmentStep
+                                        : -StretchTimingStore.adjustmentStep
+                                )
+                            },
+                            onIncrease: {
+                                adjustValue(
+                                    for: $0,
+                                    delta: $0.isRepBased
+                                        ? StretchTimingStore.repAdjustmentStep
+                                        : StretchTimingStore.adjustmentStep
+                                )
+                            }
+                        )
                     } else {
                         emptyState
                     }
@@ -64,15 +101,17 @@ struct PersonalizedPlanDetailView: View {
             if let routine, !stretches.isEmpty {
                 OnboardingContinueButton(label: "Start Plan", style: .gradientPrimary, feedback: .heavy) {
                     path.append(
-                        StretchTimerRoute(
+                        StretchTimingStore.timerRoute(
                             stretchIds: stretches.map(\.id),
                             startIndex: 0,
-                            routineName: routine.name
+                            routineName: routine.name,
+                            durationOverrides: activeOverrides,
+                            repOverrides: activeRepOverrides
                         )
                     )
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 26)
+                .padding(.bottom, 84)
             }
         }
         .toolbar(.hidden, for: .navigationBar)
@@ -182,6 +221,31 @@ struct PersonalizedPlanDetailView: View {
         PersonalizedPlanGenerator.upsertPlan(for: profile, existing: currentPlan, in: modelContext)
         try? modelContext.save()
     }
+
+    private func adjustValue(for stretch: Stretch, delta: Int) {
+        if stretch.isRepBased {
+            let updated = StretchTimingStore.adjustedRepCount(for: stretch, delta: delta, overrides: activeRepOverrides)
+            StretchTimingStore.setRepCount(
+                for: stretch,
+                repCount: updated,
+                ownerKind: .livePersonalizedPlan,
+                ownerId: StretchTimingStore.livePlanOwnerId,
+                overrides: timingOverrides,
+                in: modelContext
+            )
+        } else {
+            let updated = StretchTimingStore.adjustedDuration(for: stretch, delta: delta, overrides: activeOverrides)
+            StretchTimingStore.setDuration(
+                for: stretch,
+                durationSeconds: updated,
+                ownerKind: .livePersonalizedPlan,
+                ownerId: StretchTimingStore.livePlanOwnerId,
+                overrides: timingOverrides,
+                in: modelContext
+            )
+        }
+        try? modelContext.save()
+    }
 }
 
 struct PersonalizedPlanEditorView: View {
@@ -198,6 +262,7 @@ struct PersonalizedPlanEditorView: View {
     @State private var longTermGoal: String = ""
     @State private var selectedHealthConditions: Set<String> = []
     @State private var didLoad = false
+    @State private var hasChanges = false
 
     private let columns = [GridItem(.adaptive(minimum: 110), spacing: 10)]
 
@@ -243,78 +308,73 @@ struct PersonalizedPlanEditorView: View {
         "Pregnancy", "Sciatica", "Surgery", "Vertigo",
     ]
 
-    private var canSave: Bool {
-        !selectedGoals.isEmpty
-            && !selectedAreas.isEmpty
-            && !lifestyle.isEmpty
-            && !dailyTime.isEmpty
-            && !commitmentDays.isEmpty
-            && !longTermGoal.isEmpty
-    }
-
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 22) {
-                VStack(alignment: .leading, spacing: 12) {
-                    Button {
-                        HapticManager.shared.softImpact()
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .font(Typography.navIcon)
+        ZStack(alignment: .bottom) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 22) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Button {
+                            HapticManager.shared.softImpact()
+                            dismiss()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .font(Typography.navIcon)
+                                .foregroundStyle(Color.bfTextPrimary)
+                                .frame(width: 42, height: 42)
+                                .background(Circle().fill(Color.bfSurfaceElevated))
+                                .overlay(Circle().stroke(Color.bfBorder.opacity(0.75), lineWidth: 1))
+                        }
+                        .buttonStyle(.plain)
+
+                        Text("Update your plan")
+                            .font(Typography.screenTitle)
                             .foregroundStyle(Color.bfTextPrimary)
-                            .frame(width: 42, height: 42)
-                            .background(Circle().fill(Color.bfSurfaceElevated))
-                            .overlay(Circle().stroke(Color.bfBorder.opacity(0.75), lineWidth: 1))
+
+                        Text("Adjust the inputs that shape your routine, then regenerate your Body Fix plan.")
+                            .font(Typography.screenSubtitle)
+                            .foregroundStyle(Color.bfTextSecondary)
                     }
-                    .buttonStyle(.plain)
 
-                    Text("Update your plan")
-                        .font(Typography.screenTitle)
-                        .foregroundStyle(Color.bfTextPrimary)
+                    editorSection(title: "Goals", subtitle: "Choose up to 3.") {
+                        chipGrid(goals, selection: $selectedGoals, limit: 3)
+                    }
 
-                    Text("Adjust the inputs that shape your routine, then regenerate your Body Fix plan.")
-                        .font(Typography.screenSubtitle)
-                        .foregroundStyle(Color.bfTextSecondary)
+                    editorSection(title: "Problem areas", subtitle: "Pick what matters most right now.") {
+                        chipGrid(OnboardingPainArea.allCases.map(\.displayName), selection: $selectedAreas)
+                    }
+
+                    editorSection(title: "Lifestyle", subtitle: nil) {
+                        singleSelectGrid(lifestyleOptions, selection: $lifestyle)
+                    }
+
+                    editorSection(title: "Daily time", subtitle: nil) {
+                        singleSelectGrid(durationOptions, selection: $dailyTime)
+                    }
+
+                    editorSection(title: "Commitment", subtitle: nil) {
+                        singleSelectGrid(commitmentOptions, selection: $commitmentDays)
+                    }
+
+                    editorSection(title: "Long-term goal", subtitle: nil) {
+                        singleSelectGrid(longTermGoals, selection: $longTermGoal)
+                    }
+
+                    editorSection(title: "Health conditions", subtitle: "Optional.") {
+                        chipGrid(healthOptions, selection: $selectedHealthConditions)
+                    }
                 }
-
-                editorSection(title: "Goals", subtitle: "Choose up to 3.") {
-                    chipGrid(goals, selection: $selectedGoals, limit: 3)
-                }
-
-                editorSection(title: "Problem areas", subtitle: "Pick what matters most right now.") {
-                    chipGrid(OnboardingPainArea.allCases.map(\.displayName), selection: $selectedAreas)
-                }
-
-                editorSection(title: "Lifestyle", subtitle: nil) {
-                    singleSelectGrid(lifestyleOptions, selection: $lifestyle)
-                }
-
-                editorSection(title: "Daily time", subtitle: nil) {
-                    singleSelectGrid(durationOptions, selection: $dailyTime)
-                }
-
-                editorSection(title: "Commitment", subtitle: nil) {
-                    singleSelectGrid(commitmentOptions, selection: $commitmentDays)
-                }
-
-                editorSection(title: "Long-term goal", subtitle: nil) {
-                    singleSelectGrid(longTermGoals, selection: $longTermGoal)
-                }
-
-                editorSection(title: "Health conditions", subtitle: "Optional.") {
-                    chipGrid(healthOptions, selection: $selectedHealthConditions)
-                }
-
-                GradientButton(title: "Regenerate Plan", showShadow: false) {
-                    saveAndRegenerate()
-                }
-                .opacity(canSave ? 1 : 0.45)
-                .disabled(!canSave)
+                .padding(.horizontal, 20)
+                .padding(.top, 18)
+                .padding(.bottom, 184)
             }
+
+            GradientButton(title: "Regenerate Plan", showShadow: false) {
+                saveAndRegenerate()
+            }
+            .opacity(hasChanges ? 1 : 0.45)
+            .disabled(!hasChanges)
             .padding(.horizontal, 20)
-            .padding(.top, 18)
-            .padding(.bottom, 40)
+            .padding(.bottom, 84)
         }
         .background(Color.bfPageBackground.ignoresSafeArea())
         .toolbar(.hidden, for: .navigationBar)
@@ -358,9 +418,11 @@ struct PersonalizedPlanEditorView: View {
                     if isSelected {
                         HapticManager.shared.selection()
                         selection.wrappedValue.remove(item)
+                        hasChanges = true
                     } else if limit == nil || selection.wrappedValue.count < limit! {
                         HapticManager.shared.selection()
                         selection.wrappedValue.insert(item)
+                        hasChanges = true
                     }
                 } label: {
                     PlanChoiceChip(title: item, isSelected: isSelected)
@@ -377,6 +439,7 @@ struct PersonalizedPlanEditorView: View {
                     guard selection.wrappedValue != item else { return }
                     HapticManager.shared.selection()
                     selection.wrappedValue = item
+                    hasChanges = true
                 } label: {
                     PlanChoiceChip(title: item, isSelected: selection.wrappedValue == item)
                 }

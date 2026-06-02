@@ -6,7 +6,6 @@ struct OnboardingActivityView: View {
     private let options: [String] = [
         "Mostly sitting",
         "Mixed movement",
-        "On my feet most of the day",
         "Lightly active",
         "Moderately active",
         "Very active",

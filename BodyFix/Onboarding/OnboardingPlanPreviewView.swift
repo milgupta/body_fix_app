@@ -8,6 +8,7 @@ struct OnboardingPlanPreviewView: View {
     @Environment(\.requestReview) private var requestReview
     @State private var showContent = false
     @State private var trialIntroStep: TrialIntroStep?
+    @State private var isAwaitingRatingPresentation = false
 
     private var draftProfile: UserProfile {
         UserProfile(
@@ -86,10 +87,9 @@ struct OnboardingPlanPreviewView: View {
             }
 
             OnboardingContinueButton(label: "Start My Plan", style: .gradientPrimary, feedback: .success) {
-                withAnimation(.easeInOut(duration: 0.28)) {
-                    trialIntroStep = .tryFree
-                }
+                startTrialIntro()
             }
+            .disabled(isAwaitingRatingPresentation)
             .padding(.horizontal, 20)
             .padding(.bottom, 26)
             .opacity(showContent ? 1 : 0)
@@ -137,7 +137,7 @@ struct OnboardingPlanPreviewView: View {
                 .foregroundStyle(.bfTextPrimary)
 
             ForEach(Array(displayModel.stretches.enumerated()), id: \.element.id) { index, stretch in
-                PersonalizedPlanStretchRow(stretch: stretch, index: index, isFirstStep: index == 0)
+                PersonalizedPlanStretchRow(stretch: stretch, isFirstStep: index == 0)
                     .opacity(showContent ? 1 : 0)
                     .animation(.easeOut(duration: 0.45).delay(Double(index) * 0.06), value: showContent)
             }
@@ -151,15 +151,35 @@ struct OnboardingPlanPreviewView: View {
         }
     }
 
+    private func startTrialIntro() {
+        if RatingManager.canRequestOnboardingRating() {
+            isAwaitingRatingPresentation = true
+            requestReview()
+            RatingManager.markReviewRequested(trigger: .onboardingPlan)
+            Task {
+                try? await Task.sleep(nanoseconds: 1_500_000_000)
+                await MainActor.run {
+                    isAwaitingRatingPresentation = false
+                    showTrialIntro()
+                }
+            }
+            return
+        }
+
+        showTrialIntro()
+    }
+
+    private func showTrialIntro() {
+        withAnimation(.easeInOut(duration: 0.28)) {
+            trialIntroStep = .tryFree
+        }
+    }
+
     private func finishOnboardingAndEnterApp() {
         let profile = viewModel.saveProfile(to: modelContext)
         PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
         try? modelContext.save()
         AnalyticsTracker.capture("onboarding_plan_created")
-        if RatingManager.canRequestOnboardingRating() {
-            requestReview()
-            RatingManager.markReviewRequested(trigger: .onboardingPlan)
-        }
     }
 }
 
@@ -258,6 +278,7 @@ private struct OnboardingTrialReminderView: View {
             withAnimation(.spring(response: 0.58, dampingFraction: 0.78).delay(0.08)) {
                 didAppear = true
             }
+            NotificationManager.shared.requestPermission { _ in }
         }
     }
 }

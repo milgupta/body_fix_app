@@ -3,10 +3,7 @@ import SwiftData
 
 struct ContentView: View {
     @Query private var profiles: [UserProfile]
-    @AppStorage(PaywallManager.subscriptionKey) private var isSubscribed = false
-    @AppStorage("show_reminder_prompt_after_subscription") private var showReminderPromptAfterSubscription = false
-    @State private var showReminderPrompt = false
-    @State private var showReminderSetup = false
+    @State private var paywallManager = PaywallManager.shared
 
     private var onboardingComplete: Bool {
         profiles.first?.onboardingComplete ?? false
@@ -14,33 +11,13 @@ struct ContentView: View {
 
     var body: some View {
         Group {
-            if onboardingComplete {
+            if !onboardingComplete {
+                OnboardingContainerView()
+            } else if paywallManager.isSubscribed {
                 MainTabView()
             } else {
-                OnboardingContainerView()
+                LockedUnlockView()
             }
-        }
-        .onAppear {
-            if isSubscribed, showReminderPromptAfterSubscription {
-                showReminderPrompt = true
-            }
-        }
-        .onChange(of: isSubscribed) { _, newValue in
-            if newValue, showReminderPromptAfterSubscription {
-                showReminderPrompt = true
-            }
-        }
-        .fullScreenCover(isPresented: $showReminderPrompt) {
-            ReminderSoftPromptView {
-                showReminderPrompt = false
-                showReminderSetup = true
-            } onNotNow: {
-                showReminderPrompt = false
-                showReminderPromptAfterSubscription = false
-            }
-        }
-        .sheet(isPresented: $showReminderSetup) {
-            ReminderSetupView()
         }
     }
 }

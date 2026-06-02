@@ -1,20 +1,22 @@
 import Foundation
+import Observation
 import SuperwallKit
 
-class PaywallManager {
+@Observable
+final class PaywallManager: SuperwallDelegate {
     static let shared = PaywallManager()
 
-    static let subscriptionKey = "bodyfix_subscription_active"
     static let paywallShownDateKey = "paywall_shown_date"
-    static let showPaywallAfterOnboardingKey = "show_paywall_after_onboarding"
     static let onboardingMainPlacement = "paywall_main"
     static let onboardingDeclinePlacement = "paywall_decline"
 
     private init() {}
 
+    private(set) var isSubscribed = false
     private var isConfigured = false
     private var onboardingMainHandler: PaywallPresentationHandler?
     private var onboardingDeclineHandler: PaywallPresentationHandler?
+    private var lockedMainHandler: PaywallPresentationHandler?
 
     func configure() {
         guard !isConfigured, let apiKey = APIConfig.superwallAPIKey else { return }
@@ -23,13 +25,41 @@ class PaywallManager {
         options.shouldBypassAppTransactionCheck = true
         #endif
         Superwall.configure(apiKey: apiKey, options: options)
+        Superwall.shared.delegate = self
+        updateSubscriptionStatus(Superwall.shared.subscriptionStatus)
         isConfigured = true
     }
 
-    func showPaywall() {
-        // When Superwall is integrated, register placement here.
-        UserDefaults.standard.set(Date(), forKey: Self.paywallShownDateKey)
-        AnalyticsTracker.capture("paywall_shown")
+    func presentMainPaywall(source: String) {
+        guard isConfigured else {
+            HapticManager.shared.error()
+            return
+        }
+
+        let handler = PaywallPresentationHandler()
+        lockedMainHandler = handler
+        handler.onPresent { _ in
+            self.markPaywallShown(placement: Self.onboardingMainPlacement)
+        }
+        handler.onDismiss { _, result in
+            if case .declined = result {
+                AnalyticsTracker.capture("subscription_dismissed")
+            }
+            self.lockedMainHandler = nil
+        }
+        handler.onSkip { _ in
+            self.lockedMainHandler = nil
+        }
+        handler.onError { _ in
+            HapticManager.shared.error()
+            self.lockedMainHandler = nil
+        }
+
+        Superwall.shared.register(
+            placement: Self.onboardingMainPlacement,
+            params: ["source": source],
+            handler: handler
+        )
     }
 
     func presentOnboardingPaywalls(onComplete: @escaping () -> Void) {
@@ -49,7 +79,7 @@ class PaywallManager {
             case .declined:
                 self.presentOnboardingDeclinePaywall(onComplete: onComplete)
             case .purchased, .restored:
-                self.markSubscriptionActive()
+                HapticManager.shared.success()
                 self.clearOnboardingHandlers()
                 onComplete()
             }
@@ -71,31 +101,15 @@ class PaywallManager {
         )
     }
 
-    func markSubscriptionActive() {
-        UserDefaults.standard.set(true, forKey: Self.subscriptionKey)
-        UserDefaults.standard.set(false, forKey: Self.showPaywallAfterOnboardingKey)
-        HapticManager.shared.success()
-        AnalyticsTracker.capture("subscription_activated")
-    }
-
-    func markPaywallDismissed() {
-        UserDefaults.standard.set(false, forKey: Self.showPaywallAfterOnboardingKey)
-        AnalyticsTracker.capture("subscription_dismissed")
-    }
-
-    func requestPaywallAfterOnboarding() {
-        UserDefaults.standard.set(true, forKey: Self.showPaywallAfterOnboardingKey)
-    }
-
-    func showExitOffer() {}
-
-    var isSubscribed: Bool {
-        UserDefaults.standard.bool(forKey: Self.subscriptionKey)
-    }
-
     var wasPaywallShownToday: Bool {
         guard let date = UserDefaults.standard.object(forKey: Self.paywallShownDateKey) as? Date else { return false }
         return Calendar.current.isDateInToday(date)
+    }
+
+    func subscriptionStatusDidChange(from oldValue: SubscriptionStatus, to newValue: SubscriptionStatus) {
+        updateSubscriptionStatus(newValue)
+        guard oldValue.isActive != newValue.isActive else { return }
+        AnalyticsTracker.capture(newValue.isActive ? "subscription_activated" : "subscription_deactivated")
     }
 
     private func presentOnboardingDeclinePaywall(onComplete: @escaping () -> Void) {
@@ -107,11 +121,11 @@ class PaywallManager {
         }
         declineHandler.onDismiss { _, result in
             if case .purchased = result {
-                self.markSubscriptionActive()
+                HapticManager.shared.success()
             } else if case .restored = result {
-                self.markSubscriptionActive()
+                HapticManager.shared.success()
             } else {
-                self.markPaywallDismissed()
+                AnalyticsTracker.capture("subscription_dismissed")
             }
             self.clearOnboardingHandlers()
             onComplete()
@@ -141,5 +155,9 @@ class PaywallManager {
     private func clearOnboardingHandlers() {
         onboardingMainHandler = nil
         onboardingDeclineHandler = nil
+    }
+
+    private func updateSubscriptionStatus(_ status: SubscriptionStatus) {
+        isSubscribed = status.isActive
     }
 }
