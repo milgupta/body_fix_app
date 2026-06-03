@@ -51,7 +51,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
-         identifier = "../../../../../Library/Developer/Xcode/DerivedData/BodyFix-fxzcfkvsryirwegchxhtrylsofsr/SourcePackages/checkouts/Superwall-iOS/Examples/Basic/Basic/Superwall_Basic-Products.storekit">
+         identifier = "../../BodyFix/Config/BodyFix.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
