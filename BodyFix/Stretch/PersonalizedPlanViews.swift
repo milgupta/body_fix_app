@@ -260,7 +260,6 @@ struct PersonalizedPlanEditorView: View {
     @State private var dailyTime: String = ""
     @State private var commitmentDays: String = ""
     @State private var longTermGoal: String = ""
-    @State private var selectedHealthConditions: Set<String> = []
     @State private var didLoad = false
     @State private var hasChanges = false
 
@@ -300,12 +299,6 @@ struct PersonalizedPlanEditorView: View {
 
     private let commitmentOptions = [
         "1 day", "2 days", "3 days", "4 days", "5 days", "6 days", "Every day",
-    ]
-
-    private let healthOptions = [
-        "Arthritis", "Chronic Pain", "Dizziness", "Fibromyalgia", "Heart Condition",
-        "Herniated Disc", "High Blood Pressure", "Injury", "Osteoporosis",
-        "Pregnancy", "Sciatica", "Surgery", "Vertigo",
     ]
 
     var body: some View {
@@ -359,9 +352,6 @@ struct PersonalizedPlanEditorView: View {
                         singleSelectGrid(longTermGoals, selection: $longTermGoal)
                     }
 
-                    editorSection(title: "Health conditions", subtitle: "Optional.") {
-                        chipGrid(healthOptions, selection: $selectedHealthConditions)
-                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 18)
@@ -456,7 +446,6 @@ struct PersonalizedPlanEditorView: View {
         dailyTime = profile.dailyTime
         commitmentDays = profile.commitmentDays
         longTermGoal = profile.longTermGoal
-        selectedHealthConditions = Set(profile.healthConditions)
         didLoad = true
     }
 
@@ -469,7 +458,6 @@ struct PersonalizedPlanEditorView: View {
         profile.dailyTime = dailyTime
         profile.commitmentDays = commitmentDays
         profile.longTermGoal = longTermGoal
-        profile.healthConditions = Array(selectedHealthConditions).sorted()
         PersonalizedPlanGenerator.upsertPlan(for: profile, existing: currentPlan, in: modelContext)
         try? modelContext.save()
         dismiss()

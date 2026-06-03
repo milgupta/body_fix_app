@@ -97,7 +97,6 @@ enum PersonalizedPlanGenerator {
         let groups = Set(routine.relatedMuscleGroups.map(normalize))
         let targetMinutes = parsedMinutes(from: profile.dailyTime)
         let commitmentDays = parsedCommitmentDays(from: profile.commitmentDays)
-        let healthFlags = Set(profile.healthConditions.map(normalize))
         let problemGroups = mappedProblemGroups(from: profile.problemAreas)
 
         if routine.hasCategory(.recommendedCandidate) { total += 10 }
@@ -191,33 +190,6 @@ enum PersonalizedPlanGenerator {
         } else if commitmentDays >= 5 {
             if tags.contains("daily-maintenance") || routine.hasCategory(.featured) {
                 total += 4
-            }
-        }
-
-        if healthFlags.contains("injury") && routine.hasCategory(.injury) {
-            total += 6
-        }
-        if healthFlags.contains("sciatica") && normalize(routine.id).contains("sciatica") {
-            total += 12
-        }
-        if healthFlags.contains("herniated disc") && normalize(routine.id).contains("herniated") {
-            total += 12
-        }
-        if healthFlags.contains("chronic pain") || healthFlags.contains("fibromyalgia") {
-            if tags.contains("reduce-pain") { total += 6 }
-            if routine.durationMinutes <= 5 { total += 3 }
-        }
-        if healthFlags.contains("pregnancy")
-            || healthFlags.contains("osteoporosis")
-            || healthFlags.contains("heart condition")
-            || healthFlags.contains("high blood pressure")
-        {
-            if routine.durationMinutes > 10 { total -= 5 }
-            if tags.contains("athletic") || tags.contains("warmup") || tags.contains("post-workout") {
-                total -= 3
-            }
-            if routine.hasCategory(.quick) || routine.hasCategory(.featured) {
-                total += 2
             }
         }
 

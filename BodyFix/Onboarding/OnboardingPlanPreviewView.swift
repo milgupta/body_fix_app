@@ -24,7 +24,6 @@ struct OnboardingPlanPreviewView: View {
             problemAreas: viewModel.problemAreasForProfile,
             problemTimes: Array(viewModel.selectedProblemTimes),
             commitmentDays: viewModel.commitmentDays,
-            healthConditions: Array(viewModel.selectedHealthConditions).sorted(),
             onboardingComplete: true
         )
     }

@@ -4,6 +4,7 @@ private enum SettingsExternalLinks {
     static let supportEmail = "hello@getbodyfix.com"
     static let privacyURL = URL(string: "https://getbodyfix.com/privacy.html")!
     static let termsURL = URL(string: "https://getbodyfix.com/terms.html")!
+    static let citationsURL = URL(string: "https://getbodyfix.com/citations.html")!
     static let manageSubscriptionsURL = URL(string: "itms-apps://apps.apple.com/account/subscriptions")!
     /// Swap for your App Store product page when available.
     static let appShareURL = URL(string: "https://getbodyfix.com/")!
@@ -76,6 +77,13 @@ struct SettingsView: View {
 
                         sectionTitle("legal")
                         VStack(spacing: 10) {
+                            settingsButton(
+                                title: "health information & citations",
+                                systemImage: "book.pages.fill"
+                            ) {
+                                openInAppBrowser(SettingsExternalLinks.citationsURL)
+                            }
+
                             settingsButton(
                                 title: "terms of use",
                                 systemImage: "doc.text.fill"

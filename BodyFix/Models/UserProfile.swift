@@ -15,7 +15,7 @@ final class UserProfile {
     var problemAreas: [String]
     var problemTimes: [String]
     var commitmentDays: String
-    /// Health conditions or concerns selected during onboarding (may be empty if skipped).
+    /// Legacy field retained for SwiftData store compatibility; no longer collected or used.
     var healthConditions: [String]
     var onboardingComplete: Bool
     var subscriptionActive: Bool
