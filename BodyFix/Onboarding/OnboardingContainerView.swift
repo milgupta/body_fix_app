@@ -6,7 +6,11 @@ struct OnboardingContainerView: View {
     @Environment(\.modelContext) private var modelContext
 
     private var showsNavBar: Bool {
-        ![0, 4, 7, 16, 18].contains(viewModel.currentStep)
+        ![0, 4, 7, 16, 19].contains(viewModel.currentStep)
+    }
+
+    private var showsBackButton: Bool {
+        viewModel.currentStep > 0
     }
 
     var body: some View {
@@ -17,7 +21,7 @@ struct OnboardingContainerView: View {
             VStack(spacing: 0) {
                 if showsNavBar {
                     HStack(spacing: 16) {
-                        if viewModel.currentStep > 0 {
+                        if showsBackButton {
                             Button {
                                 HapticManager.shared.softImpact()
                                 withAnimation(.easeInOut(duration: 0.35)) {
@@ -80,8 +84,9 @@ struct OnboardingContainerView: View {
             case 14: OnboardingEducationView()
             case 15: OnboardingCommitmentView()
             case 16: OnboardingAnalyzingView()
-            case 17: OnboardingMotivationLevelView()
-            case 18: OnboardingPlanPreviewView()
+            case 17: OnboardingSignatureView()
+            case 18: OnboardingMotivationLevelView()
+            case 19: OnboardingPlanPreviewView()
             default: EmptyView()
             }
         }

@@ -56,7 +56,8 @@ enum StretchTimingStore {
         seriesId: String? = nil,
         seriesLevel: Int? = nil,
         durationOverrides: [String: Int],
-        repOverrides: [String: Int] = [:]
+        repOverrides: [String: Int] = [:],
+        showsStartCountdown: Bool = false
     ) -> StretchTimerRoute {
         StretchTimerRoute(
             stretchIds: stretchIds,
@@ -65,7 +66,8 @@ enum StretchTimingStore {
             seriesId: seriesId,
             seriesLevel: seriesLevel,
             durationOverrides: durationOverrides,
-            repOverrides: repOverrides
+            repOverrides: repOverrides,
+            showsStartCountdown: showsStartCountdown
         )
     }
 

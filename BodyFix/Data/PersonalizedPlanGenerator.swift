@@ -247,7 +247,7 @@ enum PersonalizedPlanGenerator {
 
     private static func stretchScore(_ stretch: Stretch, preferredGroups: Set<MuscleGroup>, baseOrder: [String]) -> Int {
         var score = 0
-        if let muscle = stretch.muscle, preferredGroups.contains(muscle) {
+        if stretch.muscles.contains(where: preferredGroups.contains) {
             score += 10
         }
         score += max(0, 8 - baseIndex(stretch, in: baseOrder))

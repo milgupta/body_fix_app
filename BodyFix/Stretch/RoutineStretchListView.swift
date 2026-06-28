@@ -101,7 +101,8 @@ struct RoutineStretchListView: View {
                             seriesId: routine?.seriesId,
                             seriesLevel: routine?.level,
                             durationOverrides: activeOverrides,
-                            repOverrides: activeRepOverrides
+                            repOverrides: activeRepOverrides,
+                            showsStartCountdown: true
                         )
                     )
                 }

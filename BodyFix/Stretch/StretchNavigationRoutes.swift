@@ -24,6 +24,7 @@ struct StretchTimerRoute: Hashable {
     var seriesLevel: Int? = nil
     var durationOverrides: [String: Int] = [:]
     var repOverrides: [String: Int] = [:]
+    var showsStartCountdown: Bool = false
 }
 
 struct SessionCompleteRoute: Hashable {

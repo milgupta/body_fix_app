@@ -33,11 +33,7 @@ struct OnboardingPlanPreviewView: View {
     }
 
     private var displayModel: PersonalizedPlanDisplayModel {
-        .from(
-            recommendation: recommendation,
-            eyebrow: "Built from your answers",
-            title: "Your plan is ready"
-        )
+        .from(recommendation: recommendation)
     }
 
     var body: some View {
@@ -77,7 +73,6 @@ struct OnboardingPlanPreviewView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 22) {
                     header
-                    firstStepCard
                     stretchList
                 }
                 .padding(.horizontal, 20)
@@ -116,16 +111,11 @@ struct OnboardingPlanPreviewView: View {
                 Spacer()
             }
 
-            PersonalizedPlanPreviewHeader(model: displayModel)
+            PersonalizedPlanSpotlightCard(
+                model: displayModel,
+                profile: draftProfile
+            )
         }
-        .opacity(showContent ? 1 : 0)
-    }
-
-    private var firstStepCard: some View {
-        PersonalizedPlanFirstStepCard(
-            firstStretch: displayModel.stretches.first,
-            title: displayModel.firstStepTitle
-        )
         .opacity(showContent ? 1 : 0)
     }
 

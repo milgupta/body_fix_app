@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 private enum SettingsExternalLinks {
     static let supportEmail = "hello@getbodyfix.com"
@@ -13,14 +14,20 @@ private enum SettingsExternalLinks {
 struct SettingsView: View {
     @Environment(\.openURL) private var openURL
     @AppStorage(HapticManager.enabledKey) private var hapticsEnabled = true
+    @Query private var profiles: [UserProfile]
     @State private var paywallManager = PaywallManager.shared
     @State private var showReminderSetup = false
     @State private var browserDestination: InAppBrowserDestination?
+    @State private var showNameEditor = false
 
     private var appVersionString: String {
         let v = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
         let b = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
         return "\(v) (\(b))"
+    }
+
+    private var profile: UserProfile? {
+        profiles.first
     }
 
     var body: some View {
@@ -32,22 +39,28 @@ struct SettingsView: View {
                             .padding(.top, 20)
                             .padding(.bottom, 36)
 
-                        sectionTitle("notifications")
+                        sectionTitle("Profile")
+                        VStack(spacing: 10) {
+                            nameRow
+                        }
+                        .padding(.bottom, 28)
+
+                        sectionTitle("Notifications")
                         VStack(spacing: 10) {
                             notificationsRow
                         }
                         .padding(.bottom, 28)
 
-                        sectionTitle("experience")
+                        sectionTitle("Experience")
                         VStack(spacing: 10) {
                             hapticsRow
                         }
                         .padding(.bottom, 28)
 
-                        sectionTitle("membership")
+                        sectionTitle("Membership")
                         VStack(spacing: 10) {
                             settingsButton(
-                                title: "manage subscription",
+                                title: "Manage Subscription",
                                 systemImage: "creditcard.fill"
                             ) {
                                 openURL(SettingsExternalLinks.manageSubscriptionsURL)
@@ -55,10 +68,10 @@ struct SettingsView: View {
                         }
                         .padding(.bottom, 28)
 
-                        sectionTitle("support")
+                        sectionTitle("Support")
                         VStack(spacing: 10) {
                             settingsButton(
-                                title: "contact us",
+                                title: "Contact Us",
                                 systemImage: "envelope.fill"
                             ) {
                                 openMail(subject: "Body Fix support")
@@ -67,7 +80,7 @@ struct SettingsView: View {
                             shareRow
 
                             settingsButton(
-                                title: "feature request & feedback",
+                                title: "Feature Request & Feedback",
                                 systemImage: "lightbulb.fill"
                             ) {
                                 openMail(subject: "Body Fix feedback")
@@ -75,24 +88,24 @@ struct SettingsView: View {
                         }
                         .padding(.bottom, 28)
 
-                        sectionTitle("legal")
+                        sectionTitle("Legal")
                         VStack(spacing: 10) {
                             settingsButton(
-                                title: "health information & citations",
+                                title: "Health Information & Citations",
                                 systemImage: "book.pages.fill"
                             ) {
                                 openInAppBrowser(SettingsExternalLinks.citationsURL)
                             }
 
                             settingsButton(
-                                title: "terms of use",
+                                title: "Terms Of Use",
                                 systemImage: "doc.text.fill"
                             ) {
                                 openInAppBrowser(SettingsExternalLinks.termsURL)
                             }
 
                             settingsButton(
-                                title: "privacy policy",
+                                title: "Privacy Policy",
                                 systemImage: "lock.shield.fill"
                             ) {
                                 openInAppBrowser(SettingsExternalLinks.privacyURL)
@@ -100,7 +113,7 @@ struct SettingsView: View {
                         }
                         .padding(.bottom, 28)
 
-                        sectionTitle("about")
+                        sectionTitle("About")
                         versionCard
                     }
                     .padding(.horizontal, 20)
@@ -116,15 +129,20 @@ struct SettingsView: View {
                 InAppBrowserView(url: destination.url)
                     .ignoresSafeArea()
             }
+            .sheet(isPresented: $showNameEditor) {
+                if let profile {
+                    NameEditorView(profile: profile)
+                }
+            }
         }
     }
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("settings")
+            Text("Settings")
                 .font(Typography.screenTitle)
                 .foregroundStyle(Color.bfTextPrimary)
-            Text("preferences & support")
+            Text("Preferences & Support")
                 .font(Typography.screenSubtitle)
                 .foregroundStyle(Color.bfTextTertiary)
         }
@@ -133,9 +151,8 @@ struct SettingsView: View {
 
     private func sectionTitle(_ text: String) -> some View {
         Text(text)
-            .font(Typography.metadataBadge)
+            .font(.system(size: 14, weight: .semibold, design: .rounded))
             .foregroundStyle(Color.bfTextMuted)
-            .textCase(.lowercase)
             .padding(.bottom, 10)
     }
 
@@ -160,11 +177,60 @@ struct SettingsView: View {
             message: Text("Stretch and recover with Body Fix — guided mobility routines in one app."),
             preview: SharePreview("Body Fix", icon: Image(systemName: "figure.flexibility"))
         ) {
-            rowContent(title: "share body fix", systemImage: "square.and.arrow.up", showsChevron: true)
+            rowContent(title: "Share Body Fix", systemImage: "square.and.arrow.up", showsChevron: true)
         }
         .simultaneousGesture(TapGesture().onEnded {
             HapticManager.shared.lightImpact()
         })
+    }
+
+    private var nameRow: some View {
+        Button {
+            HapticManager.shared.lightImpact()
+            showNameEditor = true
+        } label: {
+            HStack(spacing: 14) {
+                Image(systemName: "person.fill")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(Color.bfMint)
+                    .frame(width: 28, alignment: .center)
+
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Name")
+                        .font(Typography.controlLabel)
+                        .foregroundStyle(Color.bfTextPrimary)
+
+                    Text(profileNameSummary)
+                        .font(Typography.caption)
+                        .foregroundStyle(Color.bfTextTertiary)
+                }
+
+                Spacer(minLength: 8)
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(Color.bfTextMuted)
+            }
+            .padding(.horizontal, 18)
+            .padding(.vertical, 20)
+            .background(
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .fill(Color.bfSurfaceElevated)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .stroke(Color.bfBorder.opacity(0.46), lineWidth: 1)
+            )
+            .shadow(color: Color.black.opacity(0.02), radius: 8, y: 3)
+        }
+        .buttonStyle(.plain)
+        .disabled(profile == nil)
+        .opacity(profile == nil ? 0.55 : 1)
+    }
+
+    private var profileNameSummary: String {
+        let trimmed = profile?.name.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        return trimmed.isEmpty ? "Add Your Name" : trimmed
     }
 
     private var notificationsRow: some View {
@@ -186,11 +252,11 @@ struct SettingsView: View {
                     .frame(width: 28, alignment: .center)
 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("stretch reminders")
+                    Text("Stretch Reminders")
                         .font(Typography.controlLabel)
                         .foregroundStyle(Color.bfTextPrimary)
 
-                    Text(paywallManager.isSubscribed ? reminderSummary : "unlock to set reminders")
+                    Text(paywallManager.isSubscribed ? reminderSummary : "Unlock To Set Reminders")
                         .font(Typography.caption)
                         .foregroundStyle(Color.bfTextTertiary)
                 }
@@ -232,7 +298,7 @@ struct SettingsView: View {
                 .foregroundStyle(Color.bfMint)
                 .frame(width: 28, alignment: .center)
 
-            Text("haptics")
+            Text("Haptics")
                 .font(Typography.controlLabel)
                 .foregroundStyle(Color.bfTextPrimary)
 
@@ -256,8 +322,8 @@ struct SettingsView: View {
 
     private var reminderSummary: String {
         let preferences = ReminderStore.preferences
-        guard preferences.hasCompleteSchedule else { return "choose days and time" }
-        return "\(daySummary(preferences.days)) at \(timeSummary(hour: preferences.hour, minute: preferences.minute))"
+        guard preferences.hasCompleteSchedule else { return "Choose Days And Time" }
+        return "\(daySummary(preferences.days)) At \(timeSummary(hour: preferences.hour, minute: preferences.minute))"
     }
 
     private func daySummary(_ days: Set<Int>) -> String {
@@ -266,7 +332,7 @@ struct SettingsView: View {
     }
 
     private func timeSummary(hour: Int?, minute: Int?) -> String {
-        guard let hour, let minute else { return "Choose time" }
+        guard let hour, let minute else { return "Choose Time" }
         var components = DateComponents()
         components.hour = hour
         components.minute = minute
@@ -308,7 +374,7 @@ struct SettingsView: View {
 
     private var versionCard: some View {
         HStack {
-            Text("version")
+            Text("Version")
                 .font(Typography.controlLabel)
                 .foregroundStyle(Color.bfTextPrimary)
             Spacer()
@@ -339,6 +405,75 @@ struct SettingsView: View {
         browserDestination = InAppBrowserDestination(url: url)
     }
 
+}
+
+private struct NameEditorView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
+    let profile: UserProfile
+
+    @State private var name: String
+
+    init(profile: UserProfile) {
+        self.profile = profile
+        _name = State(initialValue: profile.name)
+    }
+
+    private var trimmedName: String {
+        name.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    var body: some View {
+        NavigationStack {
+            VStack(alignment: .leading, spacing: 18) {
+                Text("Name")
+                    .font(Typography.navTitle)
+                    .foregroundStyle(Color.bfTextPrimary)
+
+                TextField("Your Name", text: $name)
+                    .font(Typography.controlLabel)
+                    .textInputAutocapitalization(.words)
+                    .submitLabel(.done)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .fill(Color.bfSurfaceElevated)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(Color.bfBorder.opacity(0.56), lineWidth: 1)
+                    )
+                    .onSubmit(save)
+
+                Spacer()
+            }
+            .padding(24)
+            .background(Color.bfBackground.ignoresSafeArea())
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        save()
+                    }
+                }
+            }
+        }
+        .presentationDetents([.height(260)])
+        .presentationDragIndicator(.visible)
+    }
+
+    private func save() {
+        profile.name = trimmedName
+        try? modelContext.save()
+        HapticManager.shared.success()
+        dismiss()
+    }
 }
 
 #Preview {

@@ -5,7 +5,7 @@ import Observation
 @Observable
 class OnboardingViewModel {
     var currentStep: Int = 0
-    let totalSteps: Int = 19
+    let totalSteps: Int = 20
 
     // Screen 1: Name
     var userName: String = ""
@@ -63,10 +63,13 @@ class OnboardingViewModel {
 
     // Screen 16: Analyzing (no input)
 
-    // Screen 17: Motivation Level
+    // Screen 17: Signature Commitment (kept only for this onboarding session)
+    var commitmentSignatureStrokes: [[CGPoint]] = []
+
+    // Screen 18: Motivation Level
     var motivationLevel: String = ""
 
-    // Screen 18: Plan Preview (no input)
+    // Screen 19: Plan Preview (no input)
 
     var progress: Double {
         Double(currentStep) / Double(totalSteps)
@@ -96,8 +99,9 @@ class OnboardingViewModel {
         case 14: return true
         case 15: return !commitmentDays.isEmpty
         case 16: return true
-        case 17: return !motivationLevel.isEmpty
-        case 18: return true
+        case 17: return !commitmentSignatureStrokes.isEmpty
+        case 18: return !motivationLevel.isEmpty
+        case 19: return true
         default: return false
         }
     }

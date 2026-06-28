@@ -1,0 +1,810 @@
+{
+  "customerCode": "",
+  "provider": "cloudflare_stream",
+  "videos": {
+    "ankle_circles": {
+      "filename": "anklecircles.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/be7a8e521c9420676b798d8f4847e7ba/manifest/video.m3u8",
+      "name": "Ankle Circles",
+      "uid": "be7a8e521c9420676b798d8f4847e7ba"
+    },
+    "behind_back_bicep_stretch": {
+      "filename": "behindthebackbicepstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/5c5652a0be73733b04275367654e0b49/manifest/video.m3u8",
+      "name": "Behind-the-Back Bicep Stretch",
+      "uid": "5c5652a0be73733b04275367654e0b49"
+    },
+    "bicep_doorframe_stretch": {
+      "filename": "bicepdoorframestretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/1e74e81033efeef317023c0c9d8409e3/manifest/video.m3u8",
+      "name": "Bicep Doorframe Supination Stretch",
+      "uid": "1e74e81033efeef317023c0c9d8409e3"
+    },
+    "bicep_wall_stretch": {
+      "filename": "bicepwallstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/26709d1ebd94877bcbdc85ddb8d63759/manifest/video.m3u8",
+      "name": "Bicep Wall Stretch",
+      "uid": "26709d1ebd94877bcbdc85ddb8d63759"
+    },
+    "bow_pose": {
+      "filename": "bowpose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/ef4f405f5d8851afd14f2336243816f0/manifest/video.m3u8",
+      "name": "Bow Pose (Dhanurasana)",
+      "uid": "ef4f405f5d8851afd14f2336243816f0"
+    },
+    "bridge_chest_opener": {
+      "filename": "bridgechestopener.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/92edd1a58d97cbde2d5445f7dd9222c6/manifest/video.m3u8",
+      "name": "Bridge Chest Opener",
+      "uid": "92edd1a58d97cbde2d5445f7dd9222c6"
+    },
+    "bridge_glute_hold": {
+      "filename": "bridgeglutehold.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/a551862e260edb58a0d866a5e5495c65/manifest/video.m3u8",
+      "name": "Bridge Glute Hold",
+      "uid": "a551862e260edb58a0d866a5e5495c65"
+    },
+    "butterfly_stretch": {
+      "filename": "butterflystretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/08e158d5bcbdb20032c57e54ab194d82/manifest/video.m3u8",
+      "name": "Butterfly Stretch (Baddha Konasana)",
+      "uid": "08e158d5bcbdb20032c57e54ab194d82"
+    },
+    "calf_stretch_knee_relief": {
+      "filename": "calfstretchforkneerelief.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/b92ff43e04908dd8beda506abd5e7044/manifest/video.m3u8",
+      "name": "Calf Stretch for Knee Relief",
+      "uid": "b92ff43e04908dd8beda506abd5e7044"
+    },
+    "camel_pose": {
+      "filename": "camelpose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/7c0fe06aeababa82d80b5d0dcef19fdf/manifest/video.m3u8",
+      "name": "Camel Pose (Ustrasana)",
+      "uid": "7c0fe06aeababa82d80b5d0dcef19fdf"
+    },
+    "cat_cow": {
+      "filename": "catcowstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/2fbd8ed9d16f72aacbefe9964cd68ace/manifest/video.m3u8",
+      "name": "Cat-Cow Stretch",
+      "uid": "2fbd8ed9d16f72aacbefe9964cd68ace"
+    },
+    "childs_pose": {
+      "filename": "childspose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/a841a246599ad3030a29cc2c072df095/manifest/video.m3u8",
+      "name": "Child's Pose (Balasana)",
+      "uid": "a841a246599ad3030a29cc2c072df095"
+    },
+    "childs_pose_arm_reach": {
+      "filename": "childsposewitharmreach.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/ee8570405a9221e9d1a5613cf1999fe2/manifest/video.m3u8",
+      "name": "Child's Pose with Lateral Arm Reach",
+      "uid": "ee8570405a9221e9d1a5613cf1999fe2"
+    },
+    "chin_tuck": {
+      "filename": "chintuck.mov",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/0c7ff3d45c59c6496e31e1d827aab71c/manifest/video.m3u8",
+      "name": "Chin Tuck",
+      "uid": "0c7ff3d45c59c6496e31e1d827aab71c"
+    },
+    "cobra_pose": {
+      "filename": "cobrapose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/532b57e341d54ce47bd003b93a0de6da/manifest/video.m3u8",
+      "name": "Cobra Pose (Bhujangasana)",
+      "uid": "532b57e341d54ce47bd003b93a0de6da"
+    },
+    "couch_stretch": {
+      "filename": "couchstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/f44d883b3df2892f8e5c49f77df5ebfe/manifest/video.m3u8",
+      "name": "Couch Stretch",
+      "uid": "f44d883b3df2892f8e5c49f77df5ebfe"
+    },
+    "couch_stretch_quad": {
+      "filename": "couchstretchquadvariation.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/380e438feafde721cc169e2d5f355975/manifest/video.m3u8",
+      "name": "Couch Stretch Quad Variation",
+      "uid": "380e438feafde721cc169e2d5f355975"
+    },
+    "cow_face_arms": {
+      "filename": "cowfacearms.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/e37474264beeb0c65b220ef55f51501a/manifest/video.m3u8",
+      "name": "Cow Face Arms (Gomukhasana Arms)",
+      "uid": "e37474264beeb0c65b220ef55f51501a"
+    },
+    "crescent_lunge_side_bend": {
+      "filename": "crosslungesidebend.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/0405eacbdd649f23fabe7fca897e53af/manifest/video.m3u8",
+      "name": "Crescent Lunge Side Bend",
+      "uid": "0405eacbdd649f23fabe7fca897e53af"
+    },
+    "cross_body_shoulder_stretch": {
+      "filename": "crossbodyshoulderstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/37f4821be8b4ec8d2522cd49603809ba/manifest/video.m3u8",
+      "name": "Cross-Body Shoulder Stretch",
+      "uid": "37f4821be8b4ec8d2522cd49603809ba"
+    },
+    "cross_body_tricep_stretch": {
+      "filename": "crossbodytricepstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/591f8a8aab1dc5613ea600dc21d912d0/manifest/video.m3u8",
+      "name": "Cross-Body Tricep Stretch",
+      "uid": "591f8a8aab1dc5613ea600dc21d912d0"
+    },
+    "deep_squat_hip_stretch": {
+      "filename": "deepsquathipstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/a17a0d9e98c7c78ef98a984c746c027c/manifest/video.m3u8",
+      "name": "Deep Squat Hip Stretch (Malasana)",
+      "uid": "a17a0d9e98c7c78ef98a984c746c027c"
+    },
+    "doorway_bicep_stretch": {
+      "filename": "doorwarbicepstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/0c3e810c79d8b5b88bcb98f8313e7ccd/manifest/video.m3u8",
+      "name": "Doorway Bicep Stretch",
+      "uid": "0c3e810c79d8b5b88bcb98f8313e7ccd"
+    },
+    "doorway_pec_stretch": {
+      "filename": "doorwayshoulderstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/e09bed5019b58881ff398b3682aaa5d3/manifest/video.m3u8",
+      "name": "Doorway Pec Stretch",
+      "uid": "e09bed5019b58881ff398b3682aaa5d3"
+    },
+    "doorway_shoulder_stretch": {
+      "filename": "doorwayshoulderstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/e09bed5019b58881ff398b3682aaa5d3/manifest/video.m3u8",
+      "name": "Doorway Shoulder Stretch",
+      "uid": "e09bed5019b58881ff398b3682aaa5d3"
+    },
+    "double_knee_to_chest": {
+      "filename": "doublekneetocheststretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/412742fe766d8efa4ad4fb408a3ccf0d/manifest/video.m3u8",
+      "name": "Double Knee-to-Chest Stretch",
+      "uid": "412742fe766d8efa4ad4fb408a3ccf0d"
+    },
+    "downward_dog_calf_pedal": {
+      "filename": "downwarddogcalfpedal.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/33cc6752deeb94ccde9d2fbca54f6fcd/manifest/video.m3u8",
+      "name": "Downward Dog Calf Pedal",
+      "uid": "33cc6752deeb94ccde9d2fbca54f6fcd"
+    },
+    "downward_facing_dog": {
+      "filename": "downwardfacingdog.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/d41d920cf92436df2a8334efbf936778/manifest/video.m3u8",
+      "name": "Downward Facing Dog (Adho Mukha Svanasana)",
+      "uid": "d41d920cf92436df2a8334efbf936778"
+    },
+    "eagle_arm_tricep_stretch": {
+      "filename": "eaglearmtricepvariation.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/f2e10622f8e91631d3b1a5cbbf00c12b/manifest/video.m3u8",
+      "name": "Eagle Arm Tricep Variation",
+      "uid": "f2e10622f8e91631d3b1a5cbbf00c12b"
+    },
+    "eagle_arms": {
+      "filename": "eaglearms.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/d41dd82a4e86dc108fa00d8ce5d3c5f1/manifest/video.m3u8",
+      "name": "Eagle Arms (Garudasana Arms)",
+      "uid": "d41dd82a4e86dc108fa00d8ce5d3c5f1"
+    },
+    "finger_extension_stretch": {
+      "filename": "fingerextensionstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/19f90a8313fe4d4b9830924288b98bef/manifest/video.m3u8",
+      "name": "Finger Extension Stretch",
+      "uid": "19f90a8313fe4d4b9830924288b98bef"
+    },
+    "floor_bicep_stretch": {
+      "filename": "floorbicepstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/49e431623a7634e22ae35e286f571c93/manifest/video.m3u8",
+      "name": "Floor Bicep Stretch",
+      "uid": "49e431623a7634e22ae35e286f571c93"
+    },
+    "floor_shoulder_overhead_stretch": {
+      "filename": "floorshoulderoverheadstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/2575acc188fae9b6493d3c2f167fdfed/manifest/video.m3u8",
+      "name": "Floor Shoulder Overhead Stretch",
+      "uid": "2575acc188fae9b6493d3c2f167fdfed"
+    },
+    "foam_roller_it_band": {
+      "filename": "foamrolleritbandrelease.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/3cb026fa90bf6d28f9810967b9e194ea/manifest/video.m3u8",
+      "name": "Foam Roller IT Band Release",
+      "uid": "3cb026fa90bf6d28f9810967b9e194ea"
+    },
+    "forearm_wall_stretch": {
+      "filename": "forearmwallstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/9faba7c406e9da510d0198eabb497bee/manifest/video.m3u8",
+      "name": "Forearm Wall Stretch",
+      "uid": "9faba7c406e9da510d0198eabb497bee"
+    },
+    "full_splits": {
+      "filename": "fullsplits.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/10360a1b3160dd970bc65a697b6d3de0/manifest/video.m3u8",
+      "name": "Full Splits (Hanumanasana)",
+      "uid": "10360a1b3160dd970bc65a697b6d3de0"
+    },
+    "gate_pose": {
+      "filename": "gatepose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/9cf1c515e93041352d47ba3fd00e9c82/manifest/video.m3u8",
+      "name": "Gate Pose (Parighasana)",
+      "uid": "9cf1c515e93041352d47ba3fd00e9c82"
+    },
+    "glute_foam_roller_release": {
+      "filename": "glutefoamrollerrelease.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/db0f9a0313955161620a0426b49ea4e7/manifest/video.m3u8",
+      "name": "Glute Foam Roller Release",
+      "uid": "db0f9a0313955161620a0426b49ea4e7"
+    },
+    "half_hero_pose": {
+      "filename": "halfheropose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/bbb72ee7e6f230ce41318deeb3556558/manifest/video.m3u8",
+      "name": "Half Hero Pose (Ardha Virasana)",
+      "uid": "bbb72ee7e6f230ce41318deeb3556558"
+    },
+    "half_splits": {
+      "filename": "halfsplits.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/e59b2a347b919cb268c36bfb42a8d3cf/manifest/video.m3u8",
+      "name": "Half Splits (Ardha Hanumanasana)",
+      "uid": "e59b2a347b919cb268c36bfb42a8d3cf"
+    },
+    "hamstring_wall_stretch_knees": {
+      "filename": "hamstringwallstretchforkneerelief.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/d00239ac8876781a8260b44fe9e61907/manifest/video.m3u8",
+      "name": "Wall Hamstring Stretch for Knee Relief",
+      "uid": "d00239ac8876781a8260b44fe9e61907"
+    },
+    "happy_baby_pose": {
+      "filename": "happybabypose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/5d22de9ce9cdbc0ea3f86a318bde5059/manifest/video.m3u8",
+      "name": "Happy Baby Pose (Ananda Balasana)",
+      "uid": "5d22de9ce9cdbc0ea3f86a318bde5059"
+    },
+    "hip_90_90_stretch": {
+      "filename": "hip90:90stretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/bdf8a3935197cfb40f31859082daffb4/manifest/video.m3u8",
+      "name": "Hip 90-90 Stretch",
+      "uid": "bdf8a3935197cfb40f31859082daffb4"
+    },
+    "it_band_crossover_stretch": {
+      "filename": "itbandcrossoverstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/daba6aae3b5340a93f0ee7242a294c1d/manifest/video.m3u8",
+      "name": "IT Band Crossover Stretch",
+      "uid": "daba6aae3b5340a93f0ee7242a294c1d"
+    },
+    "knee_to_chest_stretch": {
+      "filename": "kneetocheststretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/ac3d74e782b722e3794d9968380ca00b/manifest/video.m3u8",
+      "name": "Single Knee-to-Chest Stretch",
+      "uid": "ac3d74e782b722e3794d9968380ca00b"
+    },
+    "kneeling_hip_flexor_stretch": {
+      "filename": "kneelinghipflexorstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/99e47aeeb56fac3a40b5124d61f30a91/manifest/video.m3u8",
+      "name": "Kneeling Hip Flexor Stretch",
+      "uid": "99e47aeeb56fac3a40b5124d61f30a91"
+    },
+    "kneeling_quad_stretch": {
+      "filename": "kneelingquadstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/9ae1c685d4eba836de401dd7519eb197/manifest/video.m3u8",
+      "name": "Kneeling Quad Stretch",
+      "uid": "9ae1c685d4eba836de401dd7519eb197"
+    },
+    "levator_scapulae_stretch": {
+      "filename": "levatorscapulaestretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/fc7215f64f3b5c26ea68de38547a4c30/manifest/video.m3u8",
+      "name": "Levator Scapulae Stretch",
+      "uid": "fc7215f64f3b5c26ea68de38547a4c30"
+    },
+    "lizard_pose": {
+      "filename": "lizardpose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/2312265fd31b9b35af70a051016ca480/manifest/video.m3u8",
+      "name": "Lizard Pose (Utthan Pristhasana)",
+      "uid": "2312265fd31b9b35af70a051016ca480"
+    },
+    "low_lunge_hip_flexor": {
+      "filename": "lowlungehipflexor.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/c96daed18770561acf3ed7cf26aad024/manifest/video.m3u8",
+      "name": "Low Lunge Hip Flexor Stretch (Anjaneyasana)",
+      "uid": "c96daed18770561acf3ed7cf26aad024"
+    },
+    "lower_back_bilateral_rotation": {
+      "filename": "lowerbackbilateralrotation.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/176de9f3e7ab6c0d38fcba399d2d74ef/manifest/video.m3u8",
+      "name": "Lower Back Bilateral Rotation",
+      "uid": "176de9f3e7ab6c0d38fcba399d2d74ef"
+    },
+    "lunge_runner_spinal_twist": {
+      "filename": "runnerslungespinaltwist.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/3c567106196defc22fdad8b1987ea095/manifest/video.m3u8",
+      "name": "Runner's Lunge with Spinal Rotation",
+      "uid": "3c567106196defc22fdad8b1987ea095"
+    },
+    "lying_glute_crossover": {
+      "filename": "lyingglutecrossoverstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/a43dbab64c1999ec6b12b56a9ee65445/manifest/video.m3u8",
+      "name": "Lying Glute Crossover Stretch",
+      "uid": "a43dbab64c1999ec6b12b56a9ee65445"
+    },
+    "neck_extension_stretch": {
+      "filename": "neckextensionstretch.mov",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/ddfe4715c53c06abff5cc3ffdf1d23b7/manifest/video.m3u8",
+      "name": "Neck Extension Stretch",
+      "uid": "ddfe4715c53c06abff5cc3ffdf1d23b7"
+    },
+    "neck_flexion_stretch": {
+      "filename": "neckflexionstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/e9ec32397943d241b3a3756a8de10afe/manifest/video.m3u8",
+      "name": "Neck Flexion Stretch",
+      "uid": "e9ec32397943d241b3a3756a8de10afe"
+    },
+    "neck_pnf_hold": {
+      "filename": "neckpnfhold.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/67ad50b33c9455aec131406bc18a9fd0/manifest/video.m3u8",
+      "name": "Neck PNF Isometric Stretch",
+      "uid": "67ad50b33c9455aec131406bc18a9fd0"
+    },
+    "neck_rotation_stretch": {
+      "filename": "neckrotationstretch.mov",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/9232aab3f2e1eb8071d89232bf979efe/manifest/video.m3u8",
+      "name": "Neck Rotation Stretch",
+      "uid": "9232aab3f2e1eb8071d89232bf979efe"
+    },
+    "neck_side_tilt": {
+      "filename": "necksidetilt.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/09d4cc701a6172a6f627b5dff57509df/manifest/video.m3u8",
+      "name": "Neck Side Tilt",
+      "uid": "09d4cc701a6172a6f627b5dff57509df"
+    },
+    "occipital_release": {
+      "filename": "occipitalrelease.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/d7f572aa9b9fd69793cd396100781b9b/manifest/video.m3u8",
+      "name": "Occipital Floor Release",
+      "uid": "d7f572aa9b9fd69793cd396100781b9b"
+    },
+    "overhead_shoulder_stretch": {
+      "filename": "overheadshoulderstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/88a37f3797dfdf9622ddf6907c93ab71/manifest/video.m3u8",
+      "name": "Overhead Shoulder Stretch",
+      "uid": "88a37f3797dfdf9622ddf6907c93ab71"
+    },
+    "overhead_tricep_stretch": {
+      "filename": "overheadtricepstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/e498f35e1d724aae014b0be352a05c5e/manifest/video.m3u8",
+      "name": "Overhead Tricep Stretch",
+      "uid": "e498f35e1d724aae014b0be352a05c5e"
+    },
+    "pec_minor_corner_stretch": {
+      "filename": "pecminorcornerstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/b831b9900395064bd48dd22729841dc3/manifest/video.m3u8",
+      "name": "Pec Minor Corner Stretch",
+      "uid": "b831b9900395064bd48dd22729841dc3"
+    },
+    "pelvic_tilt": {
+      "filename": "supinepelvictilt.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/0d491608393183236170ceb771c4a7e0/manifest/video.m3u8",
+      "name": "Supine Pelvic Tilt",
+      "uid": "0d491608393183236170ceb771c4a7e0"
+    },
+    "plantar_fascia_toe_stretch": {
+      "filename": "plantarfasciatoestretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/87481b9adefbf411eec3a61f00bc5401/manifest/video.m3u8",
+      "name": "Plantar Fascia Toe Stretch",
+      "uid": "87481b9adefbf411eec3a61f00bc5401"
+    },
+    "prayer_hands_stretch": {
+      "filename": "prayerhandsstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/973907dfbfe27aea38624996c3e0cdc1/manifest/video.m3u8",
+      "name": "Prayer Hands Wrist Stretch",
+      "uid": "973907dfbfe27aea38624996c3e0cdc1"
+    },
+    "prone_chest_opener": {
+      "filename": "floorshoulderoverheadstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/2575acc188fae9b6493d3c2f167fdfed/manifest/video.m3u8",
+      "name": "Prone Chest Opener",
+      "uid": "2575acc188fae9b6493d3c2f167fdfed"
+    },
+    "prone_knee_bend": {
+      "filename": "pronekneebendstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/182bca31c3c55ce124fe96428a77dfcf/manifest/video.m3u8",
+      "name": "Prone Knee Bend Stretch",
+      "uid": "182bca31c3c55ce124fe96428a77dfcf"
+    },
+    "prone_press_up": {
+      "filename": "pronepressupmckenzie.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/39ccaee61fa7aaefba7b39487cb27fdb/manifest/video.m3u8",
+      "name": "Prone Press-Up (McKenzie Extension)",
+      "uid": "39ccaee61fa7aaefba7b39487cb27fdb"
+    },
+    "prone_quad_stretch": {
+      "filename": "pronequadstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/d86bc281b2f090d492acfed7025e3042/manifest/video.m3u8",
+      "name": "Prone Quad Stretch",
+      "uid": "d86bc281b2f090d492acfed7025e3042"
+    },
+    "quad_stretch_knee_health": {
+      "filename": "quadstretchkneehealth.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/c18918517605f31213cb7c0fa0395b41/manifest/video.m3u8",
+      "name": "Standing Quad Stretch for Knee Health",
+      "uid": "c18918517605f31213cb7c0fa0395b41"
+    },
+    "resistance_band_hamstring": {
+      "filename": "resistancebandhamstringstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/79ad7a20384b63ebc93cf453fb482290/manifest/video.m3u8",
+      "name": "Resistance Band Hamstring Stretch",
+      "uid": "79ad7a20384b63ebc93cf453fb482290"
+    },
+    "reverse_prayer_forearm": {
+      "filename": "reverseprayerforearmstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/e84c0fe5523043aececd3ef78909dee1/manifest/video.m3u8",
+      "name": "Reverse Prayer Forearm Stretch",
+      "uid": "e84c0fe5523043aececd3ef78909dee1"
+    },
+    "reverse_prayer_hands": {
+      "filename": "reverseprayerhands.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/f74835987a72176509e1fe906fb551da/manifest/video.m3u8",
+      "name": "Reverse Prayer Hands",
+      "uid": "f74835987a72176509e1fe906fb551da"
+    },
+    "seated_bicep_floor_stretch": {
+      "filename": "seatedbicepfloorstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/572ef94340d877acbafe8a0f9dda1c45/manifest/video.m3u8",
+      "name": "Seated Bicep Floor Stretch",
+      "uid": "572ef94340d877acbafe8a0f9dda1c45"
+    },
+    "seated_calf_stretch": {
+      "filename": "seatedcalfstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/d5d6d987164fcb5430be0b1196d48d3c/manifest/video.m3u8",
+      "name": "Seated Calf Stretch",
+      "uid": "d5d6d987164fcb5430be0b1196d48d3c"
+    },
+    "seated_chest_expansion": {
+      "filename": "seatedchessexpansion.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/6cda39e4d2d0c521d61b93e05465b021/manifest/video.m3u8",
+      "name": "Seated Chest Expansion",
+      "uid": "6cda39e4d2d0c521d61b93e05465b021"
+    },
+    "seated_cross_leg_glute": {
+      "filename": "seatedcrossleggedglutestretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/5880eed64363372563f9c53a9924d2d5/manifest/video.m3u8",
+      "name": "Seated Cross-Leg Glute Stretch",
+      "uid": "5880eed64363372563f9c53a9924d2d5"
+    },
+    "seated_figure_four_chair": {
+      "filename": "seatedfigurefourstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/fe691b65fc6e263fa383aace41bf137f/manifest/video.m3u8",
+      "name": "Seated Figure Four Stretch",
+      "uid": "fe691b65fc6e263fa383aace41bf137f"
+    },
+    "seated_forward_fold": {
+      "filename": "seatedforwardfold.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/989d2dc19509b6d34e8471a345b0956c/manifest/video.m3u8",
+      "name": "Seated Forward Fold (Paschimottanasana)",
+      "uid": "989d2dc19509b6d34e8471a345b0956c"
+    },
+    "seated_glute_stretch_chair": {
+      "filename": "seatedglutestretchinchair.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/7bc1c547b68a513d8dc0a5e84bbec263/manifest/video.m3u8",
+      "name": "Seated Glute Stretch in Chair",
+      "uid": "7bc1c547b68a513d8dc0a5e84bbec263"
+    },
+    "seated_hamstring_floor": {
+      "filename": "seatedhamstringfloorstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/ffecba82d3be567484e45af727720932/manifest/video.m3u8",
+      "name": "Seated Single-Leg Hamstring Stretch",
+      "uid": "ffecba82d3be567484e45af727720932"
+    },
+    "seated_knee_to_chest_chair": {
+      "filename": "seatedkneetochestinchair.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/0282aa2f8e84deb639bc2f384e7fb5e7/manifest/video.m3u8",
+      "name": "Seated Knee-to-Chest Stretch",
+      "uid": "0282aa2f8e84deb639bc2f384e7fb5e7"
+    },
+    "seated_lower_back_twist": {
+      "filename": "seatedlowerbacktwist.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/28bf8872091a318b0ac34d1adb824906/manifest/video.m3u8",
+      "name": "Seated Lower Back Twist",
+      "uid": "28bf8872091a318b0ac34d1adb824906"
+    },
+    "seated_oblique_stretch": {
+      "filename": "seatedobliquestretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/7367255795121725c8eae5e71f38a6c5/manifest/video.m3u8",
+      "name": "Seated Oblique Stretch",
+      "uid": "7367255795121725c8eae5e71f38a6c5"
+    },
+    "seated_overhead_tricep_stretch": {
+      "filename": "seatedoverheadtricepstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/ab7b855df0d0a696047d4772c218d5a2/manifest/video.m3u8",
+      "name": "Seated Overhead Tricep Stretch",
+      "uid": "ab7b855df0d0a696047d4772c218d5a2"
+    },
+    "seated_spinal_twist_glute": {
+      "filename": "seatedspinaltwistglutestretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/ab7278511aa80e8479f97ab1517c815d/manifest/video.m3u8",
+      "name": "Seated Spinal Twist with Glute Emphasis",
+      "uid": "ab7278511aa80e8479f97ab1517c815d"
+    },
+    "seated_straddle_stretch": {
+      "filename": "seatedsaddlestretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/a66a3e13d50aeadd65c1ad2c12ddda84/manifest/video.m3u8",
+      "name": "Seated Straddle Stretch",
+      "uid": "a66a3e13d50aeadd65c1ad2c12ddda84"
+    },
+    "seated_thoracic_rotation": {
+      "filename": "seatedthoracicrotation.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/69a0f0bd26d8ab544c577b45884a2b17/manifest/video.m3u8",
+      "name": "Seated Thoracic Rotation",
+      "uid": "69a0f0bd26d8ab544c577b45884a2b17"
+    },
+    "seated_upper_back_hug": {
+      "filename": "seatedupperbackhug.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/2d7e1f220aa770981e215e693ce6ec69/manifest/video.m3u8",
+      "name": "Seated Upper Back Hug",
+      "uid": "2d7e1f220aa770981e215e693ce6ec69"
+    },
+    "seated_wrist_circles": {
+      "filename": "seatedwristcircles.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/8883345ee5a90d064e193bf387ff18c0/manifest/video.m3u8",
+      "name": "Seated Wrist Circles",
+      "uid": "8883345ee5a90d064e193bf387ff18c0"
+    },
+    "shoulder_band_pass_through": {
+      "filename": "shoulderbandpassthrough.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/cf99fffac9dbedb90a388e4085c52673/manifest/video.m3u8",
+      "name": "Resistance Band Shoulder Pass-Through",
+      "uid": "cf99fffac9dbedb90a388e4085c52673"
+    },
+    "shoulder_blade_pinch": {
+      "filename": "shoulderbladepinch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/613b73029480f81eecf7a8af6b977172/manifest/video.m3u8",
+      "name": "Shoulder Blade Pinch",
+      "uid": "613b73029480f81eecf7a8af6b977172"
+    },
+    "shoulder_internal_rotation_wall": {
+      "filename": "shoulderinternalrotationwallstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/30f57358bbbfd16b96ad8e99415d27d7/manifest/video.m3u8",
+      "name": "Wall Shoulder Internal Rotation Stretch",
+      "uid": "30f57358bbbfd16b96ad8e99415d27d7"
+    },
+    "shoulder_pendulum": {
+      "filename": "shoulderpendulum.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/cedf3dbcbd8887b07e9ea08b4bbd0e0f/manifest/video.m3u8",
+      "name": "Shoulder Pendulum (Codman Exercise)",
+      "uid": "cedf3dbcbd8887b07e9ea08b4bbd0e0f"
+    },
+    "single_leg_forward_fold": {
+      "filename": "singlelegstandingforwardfold.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/224038dc4442d3a72fed1d846a74f31c/manifest/video.m3u8",
+      "name": "Single-Leg Standing Forward Fold",
+      "uid": "224038dc4442d3a72fed1d846a74f31c"
+    },
+    "sleeper_stretch": {
+      "filename": "sleeperstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/d17a7404d2aaf0a27760038d299bdc03/manifest/video.m3u8",
+      "name": "Sleeper Stretch",
+      "uid": "d17a7404d2aaf0a27760038d299bdc03"
+    },
+    "soleus_bent_knee_stretch": {
+      "filename": "soleusbentkneestretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/2b65c62c52e9dbf1e8a6b39d07c012a8/manifest/video.m3u8",
+      "name": "Soleus Bent-Knee Calf Stretch",
+      "uid": "2b65c62c52e9dbf1e8a6b39d07c012a8"
+    },
+    "sphinx_pose": {
+      "filename": "sphinxpose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/1dde6293cc72ed304b0d23c38776a7b4/manifest/video.m3u8",
+      "name": "Sphinx Pose",
+      "uid": "1dde6293cc72ed304b0d23c38776a7b4"
+    },
+    "spine_decompression_hang": {
+      "filename": "spinedecompressionhang.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/f256d98b71c6555e1ba6943a867f6225/manifest/video.m3u8",
+      "name": "Doorway Hang Spine Decompression",
+      "uid": "f256d98b71c6555e1ba6943a867f6225"
+    },
+    "standing_ankle_dorsiflexion": {
+      "filename": "standingankledorsiflexion.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/a093f85fdef6806fd23b0ea808904cc4/manifest/video.m3u8",
+      "name": "Standing Ankle Dorsiflexion Stretch",
+      "uid": "a093f85fdef6806fd23b0ea808904cc4"
+    },
+    "standing_backbend": {
+      "filename": "standingbackbend.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/44ee720dcaf2d2e2b99c27498fb46f54/manifest/video.m3u8",
+      "name": "Standing Backbend",
+      "uid": "44ee720dcaf2d2e2b99c27498fb46f54"
+    },
+    "standing_calf_wall_stretch": {
+      "filename": "standingcalfwallstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/ed490a9f007d49b339d87d1ac8de79e5/manifest/video.m3u8",
+      "name": "Standing Gastrocnemius Calf Stretch",
+      "uid": "ed490a9f007d49b339d87d1ac8de79e5"
+    },
+    "standing_figure_four_balance": {
+      "filename": "standingfigurefourbalance.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/5a5f8250023babfa4e8757cd71e4bc2e/manifest/video.m3u8",
+      "name": "Standing Figure Four Balance Stretch",
+      "uid": "5a5f8250023babfa4e8757cd71e4bc2e"
+    },
+    "standing_forward_fold": {
+      "filename": "standingforwardfold.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/60e61b6d48f87c783f68c24c35b100e5/manifest/video.m3u8",
+      "name": "Standing Forward Fold (Uttanasana)",
+      "uid": "60e61b6d48f87c783f68c24c35b100e5"
+    },
+    "standing_hamstring_stretch": {
+      "filename": "standinghamstringstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/fa20e9dff072c7bf5279362eebfbace6/manifest/video.m3u8",
+      "name": "Standing Hamstring Stretch",
+      "uid": "fa20e9dff072c7bf5279362eebfbace6"
+    },
+    "standing_hip_circles": {
+      "filename": "standinghipcircles.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/f718e33c516934d77ce3c651cf436ad5/manifest/video.m3u8",
+      "name": "Standing Hip Circles",
+      "uid": "f718e33c516934d77ce3c651cf436ad5"
+    },
+    "standing_hip_flexor_stretch": {
+      "filename": "standinghipflexor.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/1f15e1d22476b3a62ea086a0fc59b81d/manifest/video.m3u8",
+      "name": "Standing Hip Flexor Stretch",
+      "uid": "1f15e1d22476b3a62ea086a0fc59b81d"
+    },
+    "standing_lat_stretch": {
+      "filename": "standinglatstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/e819cb333c7c0ae3bf3405ef2b9f0cd4/manifest/video.m3u8",
+      "name": "Standing Lat Stretch",
+      "uid": "e819cb333c7c0ae3bf3405ef2b9f0cd4"
+    },
+    "standing_lateral_bend": {
+      "filename": "standinglateralbend.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/71666bba61f78626f722da93fbf260cd/manifest/video.m3u8",
+      "name": "Standing Lateral Bend",
+      "uid": "71666bba61f78626f722da93fbf260cd"
+    },
+    "standing_quad_forward_lean": {
+      "filename": "standingquadforwardlean.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/c4238bede77b9c8c3661e3efbfb9321c/manifest/video.m3u8",
+      "name": "Standing Quad Stretch with Forward Lean",
+      "uid": "c4238bede77b9c8c3661e3efbfb9321c"
+    },
+    "standing_quad_stretch": {
+      "filename": "standingquadstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/a7694e203a2f76e3e0c944db1526d8b3/manifest/video.m3u8",
+      "name": "Standing Quad Stretch",
+      "uid": "a7694e203a2f76e3e0c944db1526d8b3"
+    },
+    "standing_side_bend": {
+      "filename": "standingsidebend.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/6b5cdb47c2e54ed926c67b41103f2f27/manifest/video.m3u8",
+      "name": "Standing Side Bend",
+      "uid": "6b5cdb47c2e54ed926c67b41103f2f27"
+    },
+    "sternocleidomastoid_stretch": {
+      "filename": "sternocleidomastoidstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/7b10a8e8adea7a7b0ad051b5679203fa/manifest/video.m3u8",
+      "name": "Sternocleidomastoid (SCM) Stretch",
+      "uid": "7b10a8e8adea7a7b0ad051b5679203fa"
+    },
+    "supine_chest_stretch": {
+      "filename": "supinecheststretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/2540895d4aea3fa86a7cfec2ad4d2167/manifest/video.m3u8",
+      "name": "Supine Chest Stretch",
+      "uid": "2540895d4aea3fa86a7cfec2ad4d2167"
+    },
+    "supine_figure_four": {
+      "filename": "supinefigurefourstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/bb4b8e744dd1a9d1c7ee02175b8d973b/manifest/video.m3u8",
+      "name": "Supine Figure Four Stretch",
+      "uid": "bb4b8e744dd1a9d1c7ee02175b8d973b"
+    },
+    "supine_glute_stretch": {
+      "filename": "supineglutestretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/fa7b9834bbafa45fb57aca128f5be7b7/manifest/video.m3u8",
+      "name": "Supine Glute Stretch",
+      "uid": "fa7b9834bbafa45fb57aca128f5be7b7"
+    },
+    "supine_hamstring_stretch": {
+      "filename": "supinehamstringstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/75eaf4989242f67feb9e30ea0d4aa501/manifest/video.m3u8",
+      "name": "Supine Hamstring Stretch",
+      "uid": "75eaf4989242f67feb9e30ea0d4aa501"
+    },
+    "supine_lateral_stretch": {
+      "filename": "supinelateralstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/b8247cd43fa1813cda2d5c58b9d2f2a2/manifest/video.m3u8",
+      "name": "Supine Lateral Stretch",
+      "uid": "b8247cd43fa1813cda2d5c58b9d2f2a2"
+    },
+    "supine_spinal_twist": {
+      "filename": "supinesupinaltwist.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/c370f2e80dbbf98051e01d065469e2da/manifest/video.m3u8",
+      "name": "Supine Spinal Twist (Supta Matsyendrasana)",
+      "uid": "c370f2e80dbbf98051e01d065469e2da"
+    },
+    "thomas_stretch": {
+      "filename": "thomasstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/751d2e447f5b469d7803076d9957e6a3/manifest/video.m3u8",
+      "name": "Thomas Stretch (Hip Flexor Table Edge)",
+      "uid": "751d2e447f5b469d7803076d9957e6a3"
+    },
+    "thread_the_needle": {
+      "filename": "threattheneedle.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/504cdbdf7fed5b64f3a920feb38de380/manifest/video.m3u8",
+      "name": "Thread the Needle",
+      "uid": "504cdbdf7fed5b64f3a920feb38de380"
+    },
+    "triangle_pose": {
+      "filename": "trianglepose.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/80f18150365bb9c6c85e77fe4893db80/manifest/video.m3u8",
+      "name": "Triangle Pose (Trikonasana)",
+      "uid": "80f18150365bb9c6c85e77fe4893db80"
+    },
+    "tricep_reach_back": {
+      "filename": "tricepreachbackstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/5f2ebf76243d36e0be0e1dfc278ea159/manifest/video.m3u8",
+      "name": "Tricep Reach-Back Stretch",
+      "uid": "5f2ebf76243d36e0be0e1dfc278ea159"
+    },
+    "tricep_wall_fold_stretch": {
+      "filename": "tricepwallfoldstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/43eacadfc3449453f23fab843bf85359/manifest/video.m3u8",
+      "name": "Tricep Wall Fold Stretch",
+      "uid": "43eacadfc3449453f23fab843bf85359"
+    },
+    "upper_trapezius_stretch": {
+      "filename": "uppertrepeziusstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/95844a26aa50942dcc7f59d5095117bc/manifest/video.m3u8",
+      "name": "Upper Trapezius Stretch",
+      "uid": "95844a26aa50942dcc7f59d5095117bc"
+    },
+    "wall_angels": {
+      "filename": "wallangels.mov",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/94197ad635246423d0c665e3ec7f221c/manifest/video.m3u8",
+      "name": "Wall Angels",
+      "uid": "94197ad635246423d0c665e3ec7f221c"
+    },
+    "wall_chest_shoulder_stretch": {
+      "filename": "wallchestandshoulderstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/15f4026105214aaf07665a3c7b7fd414/manifest/video.m3u8",
+      "name": "Wall Chest and Shoulder Stretch",
+      "uid": "15f4026105214aaf07665a3c7b7fd414"
+    },
+    "wall_hamstring_stretch": {
+      "filename": "wallhamstringstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/3b32a7cd6e673ca00dcf1a29871f58c3/manifest/video.m3u8",
+      "name": "Wall Hamstring Stretch (Legs Up the Wall)",
+      "uid": "3b32a7cd6e673ca00dcf1a29871f58c3"
+    },
+    "wide_leg_forward_fold": {
+      "filename": "widelegforwardfold.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/124d25d570ebcd7891c3420d6930f0dd/manifest/video.m3u8",
+      "name": "Wide-Legged Forward Fold (Prasarita Padottanasana)",
+      "uid": "124d25d570ebcd7891c3420d6930f0dd"
+    },
+    "world_greatest_stretch": {
+      "filename": "worldsgreateststretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/838d0e8880194da2e0b3dbc1028c8330/manifest/video.m3u8",
+      "name": "World's Greatest Stretch",
+      "uid": "838d0e8880194da2e0b3dbc1028c8330"
+    },
+    "wrist_extension_bicep_stretch": {
+      "filename": "wristextensionbicepstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/499ea92bb833cb7977225747e9de29f7/manifest/video.m3u8",
+      "name": "Wrist Extension Bicep Stretch",
+      "uid": "499ea92bb833cb7977225747e9de29f7"
+    },
+    "wrist_extensor_stretch": {
+      "filename": "wristextensiorstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/04615531a92a68fca4b05524002ccea2/manifest/video.m3u8",
+      "name": "Wrist Extensor Stretch",
+      "uid": "04615531a92a68fca4b05524002ccea2"
+    },
+    "wrist_flexor_stretch": {
+      "filename": "wristflexorstretch.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/af09db55feb3a1ee2e5c3ad5f71f708c/manifest/video.m3u8",
+      "name": "Wrist Flexor Stretch",
+      "uid": "af09db55feb3a1ee2e5c3ad5f71f708c"
+    },
+    "wrist_tendon_glide": {
+      "filename": "wristtendonglide.mp4",
+      "hlsURL": "https://customer-uwg4z2fuj95pxsgd.cloudflarestream.com/3394b83074a5aecb831ff3b565793e5a/manifest/video.m3u8",
+      "name": "Wrist Tendon Glide",
+      "uid": "3394b83074a5aecb831ff3b565793e5a"
+    }
+  }
+}

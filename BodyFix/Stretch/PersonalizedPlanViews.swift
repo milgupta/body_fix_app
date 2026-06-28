@@ -48,9 +48,7 @@ struct PersonalizedPlanDetailView: View {
             plan: currentPlan,
             recommendation: recommendation,
             profile: profile,
-            stretches: stretches,
-            eyebrow: "Based on your profile",
-            title: "Your plan"
+            stretches: stretches
         )
     }
 
@@ -63,10 +61,9 @@ struct PersonalizedPlanDetailView: View {
                     topBar
 
                     if routine != nil, !stretches.isEmpty {
-                        PersonalizedPlanPreviewHeader(model: displayModel)
-                        PersonalizedPlanFirstStepCard(
-                            firstStretch: stretches.first,
-                            title: displayModel.firstStepTitle
+                        PersonalizedPlanSpotlightCard(
+                            model: displayModel,
+                            profile: profile
                         )
                         PersonalizedPlanStretchList(
                             stretches: stretches,
@@ -106,7 +103,8 @@ struct PersonalizedPlanDetailView: View {
                             startIndex: 0,
                             routineName: routine.name,
                             durationOverrides: activeOverrides,
-                            repOverrides: activeRepOverrides
+                            repOverrides: activeRepOverrides,
+                            showsStartCountdown: true
                         )
                     )
                 }
@@ -169,22 +167,6 @@ struct PersonalizedPlanDetailView: View {
             }
             .buttonStyle(.plain)
             .accessibilityLabel("Update plan")
-
-            Button {
-                regeneratePlan()
-            } label: {
-                Image(systemName: "arrow.clockwise")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(Color.bfAccent)
-                    .frame(width: 42, height: 42)
-                    .background(Circle().fill(Color.bfSurfaceMuted))
-                    .overlay(
-                        Circle()
-                            .stroke(Color.bfBorder.opacity(0.55), lineWidth: 1)
-                    )
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel("Refresh plan")
         }
     }
 
@@ -212,13 +194,6 @@ struct PersonalizedPlanDetailView: View {
     private func ensurePlanExists() {
         guard let profile, currentPlan == nil else { return }
         PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
-        try? modelContext.save()
-    }
-
-    private func regeneratePlan() {
-        guard let profile else { return }
-        HapticManager.shared.mediumImpact()
-        PersonalizedPlanGenerator.upsertPlan(for: profile, existing: currentPlan, in: modelContext)
         try? modelContext.save()
     }
 

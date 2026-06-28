@@ -1,24 +1,15 @@
 import SwiftUI
 
 struct PersonalizedPlanDisplayModel {
-    let eyebrow: String
-    let title: String
-    let summary: String
     let stretches: [Stretch]
     let totalSeconds: Int
     let focusAreas: [String]
-
-    var firstStepTitle: String {
-        stretches.first?.name ?? "Start your first stretch"
-    }
 
     static func from(
         plan: PersonalizedPlan?,
         recommendation: PersonalizedPlanRecommendation?,
         profile: UserProfile?,
-        stretches: [Stretch],
-        eyebrow: String,
-        title: String
+        stretches: [Stretch]
     ) -> PersonalizedPlanDisplayModel {
         let totalSeconds: Int = {
             if let plan, plan.targetDurationSeconds > 0 { return plan.targetDurationSeconds }
@@ -32,37 +23,19 @@ struct PersonalizedPlanDisplayModel {
             return profile?.problemAreas ?? []
         }()
 
-        let summary = headerSummary(totalSeconds: totalSeconds, focusAreas: focusAreas)
-
         return PersonalizedPlanDisplayModel(
-            eyebrow: eyebrow,
-            title: title,
-            summary: summary,
             stretches: stretches,
             totalSeconds: totalSeconds,
             focusAreas: focusAreas
         )
     }
 
-    static func from(recommendation: PersonalizedPlanRecommendation, eyebrow: String, title: String) -> PersonalizedPlanDisplayModel {
+    static func from(recommendation: PersonalizedPlanRecommendation) -> PersonalizedPlanDisplayModel {
         PersonalizedPlanDisplayModel(
-            eyebrow: eyebrow,
-            title: title,
-            summary: headerSummary(totalSeconds: recommendation.totalSeconds, focusAreas: recommendation.focusAreas),
             stretches: recommendation.stretches,
             totalSeconds: recommendation.totalSeconds,
             focusAreas: recommendation.focusAreas
         )
-    }
-
-    static func headerSummary(totalSeconds: Int, focusAreas: [String]) -> String {
-        let duration = planDurationLabel(totalSeconds)
-        let areaPhrase = focusAreas.first.map { $0.lowercased() }
-
-        if let areaPhrase {
-            return "Start with a \(duration) routine built for your \(areaPhrase) needs and daily rhythm."
-        }
-        return "Start with a \(duration) routine built from what you told us."
     }
 
     static func planDurationLabel(_ seconds: Int) -> String {
@@ -74,102 +47,159 @@ struct PersonalizedPlanDisplayModel {
     }
 }
 
-struct PersonalizedPlanPreviewHeader: View {
+struct PersonalizedPlanSpotlightCard: View {
     let model: PersonalizedPlanDisplayModel
+    let profile: UserProfile?
+
+    private var featuredStretches: [Stretch] {
+        Array(model.stretches.prefix(4))
+    }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 18) {
             VStack(alignment: .leading, spacing: 12) {
-                Text(model.eyebrow)
-                    .font(.system(size: 13, weight: .bold, design: .rounded))
-                    .foregroundStyle(Color.bfAccent.opacity(0.96))
-                    .lineLimit(1)
-                    .padding(.horizontal, 13)
-                    .padding(.vertical, 8)
-                    .background(
-                        Capsule()
-                            .fill(Color.bfAccent.opacity(0.12))
-                    )
-                    .overlay(
-                        Capsule()
-                            .stroke(Color.bfAccent.opacity(0.26), lineWidth: 1)
-                    )
+                spotlightBadge
 
-                Text(model.title)
-                    .font(Typography.screenTitle)
-                    .foregroundStyle(.bfTextPrimary)
+                Text(model.personalizedTitle(profile: profile))
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundStyle(Color.bfHeroTextPrimary)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.86)
+                    .fixedSize(horizontal: false, vertical: true)
 
-                Text(model.summary)
-                    .font(Typography.screenSubtitle)
-                    .foregroundStyle(.bfTextSecondary)
+                Text(model.spotlightSubtitle)
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    .foregroundStyle(Color.bfHeroTextSecondary)
+                    .lineLimit(3)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
-            HStack(spacing: 10) {
-                planPreviewBadge(title: "\(model.stretches.count) stretches", allowsCompression: false)
-                planPreviewBadge(title: PersonalizedPlanDisplayModel.planDurationLabel(model.totalSeconds), allowsCompression: false)
-
-                if let firstArea = model.focusAreas.first {
-                    planPreviewBadge(title: firstArea)
+            if !featuredStretches.isEmpty {
+                HStack(spacing: 6) {
+                    ForEach(featuredStretches) { stretch in
+                        BodyFixThumbnailView(stretch: stretch, size: 46, isFeatured: true)
+                    }
                 }
-
-                if model.focusAreas.count > 1 {
-                    planPreviewBadge(title: "\(model.focusAreas.count - 1)+")
-                }
+                .padding(.top, 2)
             }
-            .fixedSize(horizontal: false, vertical: true)
+
+            HStack(spacing: 8) {
+                spotlightMeta("\(model.stretches.count) stretches")
+                    .layoutPriority(1)
+                spotlightDivider
+                spotlightMeta(PersonalizedPlanDisplayModel.planDurationLabel(model.totalSeconds))
+                    .layoutPriority(1)
+                spotlightDivider
+                spotlightMeta(model.spotlightFocusLabel)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .layoutPriority(0)
+            }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(.horizontal, 18)
-        .padding(.vertical, 20)
-        .background(personalizedPlanHeaderPanel)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 22)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(spotlightBackground)
+        .shadow(color: Color.bfHeroSurface.opacity(0.18), radius: 18, y: 8)
+    }
+
+    private var spotlightBadge: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "star.fill")
+                .font(.system(size: 10, weight: .bold))
+
+            Text("Made just for you")
+                .font(.system(size: 12, weight: .bold, design: .rounded))
+        }
+        .foregroundStyle(Color.bfHeroTextPrimary.opacity(0.95))
+        .lineLimit(1)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 7)
+        .background(Capsule().fill(Color.white.opacity(0.12)))
+        .overlay(Capsule().stroke(Color.white.opacity(0.10), lineWidth: 1))
+    }
+
+    private var spotlightDivider: some View {
+        Text("·")
+            .font(.system(size: 16, weight: .bold, design: .rounded))
+            .foregroundStyle(Color.bfHeroTextSecondary.opacity(0.62))
+    }
+
+    private func spotlightMeta(_ title: String) -> some View {
+        Text(title)
+            .font(.system(size: 13, weight: .bold, design: .rounded))
+            .foregroundStyle(Color.bfHeroTextSecondary)
+            .lineLimit(1)
+    }
+
+    private var spotlightBackground: some View {
+        RoundedRectangle(cornerRadius: 28, style: .continuous)
+            .fill(
+                LinearGradient(
+                    colors: [Color.bfHeroSurface, Color.bfHeroSurfaceSecondary],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .overlay(alignment: .topTrailing) {
+                Circle()
+                    .fill(Color.bfHeroGhostCircle.opacity(0.55))
+                    .frame(width: 168, height: 168)
+                    .offset(x: 42, y: -60)
+            }
+            .overlay(alignment: .bottomTrailing) {
+                Circle()
+                    .fill(Color.bfAccent.opacity(0.18))
+                    .frame(width: 142, height: 142)
+                    .offset(x: 54, y: 58)
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
     }
 }
 
-struct PersonalizedPlanFirstStepCard: View {
-    let firstStretch: Stretch?
-    let title: String
+extension PersonalizedPlanDisplayModel {
+    func personalizedTitle(profile: UserProfile?) -> String {
+        let firstName = profile?.name
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .split(whereSeparator: \.isWhitespace)
+            .first
+            .map(String.init) ?? ""
 
-    var body: some View {
-        HStack(spacing: 14) {
-            if let firstStretch {
-                BodyFixThumbnailView(stretch: firstStretch, size: 50)
-            } else {
-                Image(systemName: "play.fill")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundStyle(Color.white)
-                    .frame(width: 50, height: 50)
-                    .background(Circle().fill(Color.bfAccent))
-            }
+        guard !firstName.isEmpty else { return "Your plan" }
+        return "\(firstName)'s plan"
+    }
 
-            VStack(alignment: .leading, spacing: 5) {
-                Text("Today's first step")
-                    .font(Typography.metadataBadge)
-                    .foregroundStyle(Color.bfAccent)
+    var spotlightSubtitle: String {
+        "Tailored to your \(formattedFocusAreas)."
+    }
 
-                Text(title)
-                    .font(Typography.controlLabel)
-                    .foregroundStyle(Color.bfTextPrimary)
-                    .lineLimit(2)
-                    .fixedSize(horizontal: false, vertical: true)
+    var spotlightFocusLabel: String {
+        normalizedFocusAreas.first.map { "\($0.capitalized) focus" } ?? "Full body focus"
+    }
 
-                Text("Begin here. We'll guide you through each hold.")
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.bfTextSecondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
+    var formattedFocusAreas: String {
+        switch normalizedFocusAreas.count {
+        case 0:
+            return "body"
+        case 1:
+            return normalizedFocusAreas[0]
+        case 2:
+            return "\(normalizedFocusAreas[0]) & \(normalizedFocusAreas[1])"
+        default:
+            return normalizedFocusAreas.joined(separator: ", ")
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .fill(Color.bfSurfaceElevated)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(Color.bfAccent.opacity(0.18), lineWidth: 1)
-        )
-        .shadow(color: Color.black.opacity(0.025), radius: 10, y: 4)
+    }
+
+    private var normalizedFocusAreas: [String] {
+        focusAreas.compactMap { area in
+            let trimmed = area.trimmingCharacters(in: .whitespacesAndNewlines)
+            return trimmed.isEmpty ? nil : trimmed.lowercased()
+        }
     }
 }
 
@@ -286,58 +316,4 @@ struct PersonalizedPlanStretchRow: View {
         )
         .shadow(color: Color.black.opacity(isFirstStep ? 0.035 : 0.02), radius: isFirstStep ? 10 : 8, y: 3)
     }
-}
-
-func planPreviewBadge(title: String, allowsCompression: Bool = true) -> some View {
-    Text(title)
-        .font(Typography.caption)
-        .foregroundStyle(Color.bfAccent)
-        .lineLimit(1)
-        .truncationMode(.tail)
-        .fixedSize(horizontal: !allowsCompression, vertical: false)
-        .layoutPriority(allowsCompression ? 0 : 1)
-        .padding(.horizontal, 14)
-        .padding(.vertical, 9)
-        .background(
-            Capsule()
-                .fill(Color.white.opacity(0.86))
-        )
-        .overlay(
-            Capsule()
-                .stroke(Color.bfAccent.opacity(0.18), lineWidth: 1)
-        )
-}
-
-var personalizedPlanHeaderPanel: some View {
-    RoundedRectangle(cornerRadius: 28, style: .continuous)
-        .fill(
-            LinearGradient(
-                colors: [
-                    Color(hex: "#F5FAFF"),
-                    Color(hex: "#EAF3FF"),
-                    Color.bfSurfaceElevated.opacity(0.96),
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
-        .overlay(alignment: .topLeading) {
-            Circle()
-                .fill(Color.bfAccent.opacity(0.16))
-                .frame(width: 168, height: 168)
-                .blur(radius: 22)
-                .offset(x: -48, y: -58)
-        }
-        .overlay(alignment: .bottomTrailing) {
-            Circle()
-                .fill(Color.bfBlue.opacity(0.12))
-                .frame(width: 128, height: 128)
-                .blur(radius: 24)
-                .offset(x: 42, y: 42)
-        }
-        .overlay(
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .stroke(Color.bfAccent.opacity(0.16), lineWidth: 1)
-        )
-        .shadow(color: Color.bfAccent.opacity(0.08), radius: 18, y: 8)
 }

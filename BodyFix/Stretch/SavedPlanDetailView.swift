@@ -70,7 +70,8 @@ struct SavedPlanDetailView: View {
                             startIndex: 0,
                             routineName: savedPlan.displayTitle,
                             durationOverrides: activeOverrides,
-                            repOverrides: activeRepOverrides
+                            repOverrides: activeRepOverrides,
+                            showsStartCountdown: true
                         )
                     )
                 }

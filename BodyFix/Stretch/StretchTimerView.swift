@@ -1,3 +1,4 @@
+import AudioToolbox
 import SwiftUI
 import SwiftData
 
@@ -19,12 +20,13 @@ struct StretchTimerView: View {
     @State private var currentRep = 0
     @State private var repPaused = false
     @State private var showEndAlert = false
-    @State private var showSkipAlert = false
     @State private var showNextOverlay = false
     @State private var completePulse = false
-    @State private var pendingNavigationIndex: Int?
-    @State private var showInstructions = false
+    @State private var detailStretch: Stretch?
     @State private var savedCompletedStretchIndices: Set<Int> = []
+    @State private var countdownValue: Int?
+    @State private var countdownTask: Task<Void, Never>?
+    @State private var hasRunStartCountdown = false
 
     private var stretches: [Stretch] {
         route.stretchIds.compactMap { StretchDatabase.stretch(id: $0) }
@@ -33,6 +35,10 @@ struct StretchTimerView: View {
     private var stretch: Stretch? {
         guard stretches.indices.contains(currentIndex) else { return nil }
         return stretches[currentIndex]
+    }
+
+    private var isStartCountdownActive: Bool {
+        countdownValue != nil
     }
 
     private func effectiveDuration(for stretch: Stretch) -> Int {
@@ -83,10 +89,17 @@ struct StretchTimerView: View {
             if showNextOverlay, stretches.indices.contains(currentIndex + 1) {
                 nextInterstitial(name: stretches[currentIndex + 1].name)
             }
+
+            if let countdownValue {
+                startCountdownOverlay(value: countdownValue)
+            }
         }
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .tabBar)
-        .onAppear { tabBarVisibility.suppressTabBar() }
+        .onAppear {
+            tabBarVisibility.suppressTabBar()
+            startCountdownIfNeeded()
+        }
         .onDisappear { tabBarVisibility.restoreTabBar() }
         .alert("End routine?", isPresented: $showEndAlert) {
             Button("Continue", role: .cancel) {}
@@ -97,29 +110,17 @@ struct StretchTimerView: View {
         } message: {
             Text("Your progress will be saved.")
         }
-        .alert("Skip this stretch?", isPresented: $showSkipAlert) {
-            Button("Stay", role: .cancel) {
-                pendingNavigationIndex = nil
-            }
-            Button("Skip") {
-                HapticManager.shared.warning()
-                applyPendingNavigation()
-            }
-        } message: {
-            Text("Your progress on this stretch will reset.")
-        }
         .onDisappear {
+            countdownTask?.cancel()
+            countdownTask = nil
+            countdownValue = nil
             timer?.invalidate()
         }
         .onChange(of: currentIndex) { _, _ in
             resetForCurrentStretch()
         }
-        .sheet(isPresented: $showInstructions) {
-            if let stretch {
-                instructionsSheet(for: stretch)
-                    .presentationDetents([.medium, .large])
-                    .presentationDragIndicator(.visible)
-            }
+        .fullScreenCover(item: $detailStretch) { stretch in
+            StretchDetailView(stretch: stretch, detailText: timerDetailText(for: stretch))
         }
     }
 
@@ -138,7 +139,7 @@ struct StretchTimerView: View {
 
                     Button {
                         HapticManager.shared.lightImpact()
-                        showInstructions = true
+                        detailStretch = stretch
                     } label: {
                         Image(systemName: "info.circle")
                             .font(.system(size: 17, weight: .semibold))
@@ -172,6 +173,7 @@ struct StretchTimerView: View {
                             .overlay(Capsule().stroke(Color.bfBorder.opacity(0.55), lineWidth: 1))
                     }
                     .buttonStyle(.plain)
+                    .disabled(isStartCountdownActive)
                 }
             }
             .padding(.horizontal, 24)
@@ -288,9 +290,7 @@ struct StretchTimerView: View {
                     HapticManager.shared.mediumImpact()
                     resumeHold(stretch: stretch)
                 } else {
-                    HapticManager.shared.heavyImpact()
-                    holdStarted = true
-                    startHoldTimer(stretch: stretch)
+                    startInitialHold(stretch: stretch)
                 }
             }
         )
@@ -310,14 +310,7 @@ struct StretchTimerView: View {
                     HapticManager.shared.mediumImpact()
                     advanceAfterComplete()
                 } else if currentRep == 0 {
-                    HapticManager.shared.heavyImpact()
-                    repPaused = false
-                    currentRep = 1
-                    if target <= 1 {
-                        holdFinished = true
-                        saveCompletedStretchIfNeeded(stretch)
-                        HapticManager.shared.success()
-                    }
+                    startInitialRep(stretch: stretch, target: target)
                 } else if repPaused {
                     HapticManager.shared.mediumImpact()
                     repPaused = false
@@ -335,6 +328,33 @@ struct StretchTimerView: View {
         .scaleEffect(holdFinished && completePulse ? 1.03 : 1)
         .animation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true), value: completePulse)
         .onAppear { if holdFinished { completePulse = true } }
+    }
+
+    private func startInitialHold(stretch: Stretch) {
+        HapticManager.shared.heavyImpact()
+        holdStarted = true
+        startHoldTimer(stretch: stretch)
+    }
+
+    private func startInitialRep(stretch: Stretch, target: Int? = nil) {
+        let target = target ?? effectiveRepCount(for: stretch)
+        HapticManager.shared.heavyImpact()
+        repPaused = false
+        currentRep = 1
+        if target <= 1 {
+            holdFinished = true
+            saveCompletedStretchIfNeeded(stretch)
+            HapticManager.shared.success()
+        }
+    }
+
+    private func startCurrentStretchAfterCountdown() {
+        guard let stretch else { return }
+        if stretch.isRepBased {
+            startInitialRep(stretch: stretch)
+        } else {
+            startInitialHold(stretch: stretch)
+        }
     }
 
     private func startHoldTimer(stretch: Stretch) {
@@ -374,32 +394,47 @@ struct StretchTimerView: View {
         }
     }
 
-    private func requestNavigation(to index: Int) {
-        guard stretches.indices.contains(index), index != currentIndex else { return }
-        HapticManager.shared.lightImpact()
-        if hasInProgressState {
-            pendingNavigationIndex = index
-            showSkipAlert = true
-        } else {
-            currentIndex = index
+    private func startCountdownIfNeeded() {
+        guard route.showsStartCountdown,
+              route.startIndex == 0,
+              currentIndex == 0,
+              !hasRunStartCountdown,
+              countdownTask == nil,
+              stretch != nil else {
+            return
+        }
+
+        hasRunStartCountdown = true
+        countdownTask = Task {
+            for value in [3, 2, 1] {
+                if Task.isCancelled { return }
+                await MainActor.run {
+                    withAnimation(.spring(response: 0.34, dampingFraction: 0.72)) {
+                        countdownValue = value
+                    }
+                    CountdownSoundPlayer.shared.playTick()
+                    HapticManager.shared.mediumImpact()
+                }
+
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+            }
+
+            if Task.isCancelled { return }
+            await MainActor.run {
+                withAnimation(.easeOut(duration: 0.2)) {
+                    countdownValue = nil
+                }
+                CountdownSoundPlayer.shared.playStart()
+                startCurrentStretchAfterCountdown()
+                countdownTask = nil
+            }
         }
     }
 
-    private func applyPendingNavigation() {
-        guard let index = pendingNavigationIndex, stretches.indices.contains(index) else { return }
-        pendingNavigationIndex = nil
+    private func requestNavigation(to index: Int) {
+        guard stretches.indices.contains(index), index != currentIndex else { return }
+        HapticManager.shared.lightImpact()
         currentIndex = index
-    }
-
-    private var hasInProgressState: Bool {
-            if let stretch {
-                if stretch.isRepBased {
-                    let target = effectiveRepCount(for: stretch)
-                    return currentRep > 0 && currentRep < target && !holdFinished
-                }
-                return holdStarted && !holdFinished
-            }
-        return false
     }
 
     private func advanceAfterComplete() {
@@ -420,7 +455,7 @@ struct StretchTimerView: View {
 
     private func finishSession() {
         let names = stretches.map(\.name)
-        let muscles = Array(Set(stretches.map(\.muscleGroup))).sorted()
+        let muscles = orderedMuscleGroupRaws(for: stretches)
         let total = stretches.reduce(0) { partial, stretch in
             partial + effectiveDuration(for: stretch)
         }
@@ -434,6 +469,24 @@ struct StretchTimerView: View {
                 seriesLevel: route.seriesLevel
             )
         )
+    }
+
+    @ViewBuilder
+    private func startCountdownOverlay(value: Int) -> some View {
+        ZStack {
+            Color.black.opacity(0.18)
+                .ignoresSafeArea()
+
+            Text("\(value)")
+                .font(.system(size: 164, weight: .bold, design: .rounded))
+                .foregroundStyle(Color.white)
+                .shadow(color: Color.black.opacity(0.24), radius: 18, y: 8)
+                .contentTransition(.numericText())
+                .id(value)
+                .transition(.scale(scale: 0.72).combined(with: .opacity))
+        }
+        .allowsHitTesting(false)
+        .accessibilityLabel("Routine starts in \(value)")
     }
 
     @ViewBuilder
@@ -528,6 +581,8 @@ struct StretchTimerView: View {
                 requestNavigation(to: currentIndex + 1)
             }
         }
+        .disabled(isStartCountdownActive)
+        .opacity(isStartCountdownActive ? 0.58 : 1)
     }
 
     private func transportSideButton(systemName: String, isEnabled: Bool, action: @escaping () -> Void) -> some View {
@@ -542,8 +597,8 @@ struct StretchTimerView: View {
                 .overlay(Circle().stroke(Color.bfBorder.opacity(0.55), lineWidth: 1))
         }
         .buttonStyle(.plain)
-        .disabled(!isEnabled)
-        .opacity(isEnabled ? 1 : 0.55)
+        .disabled(!isEnabled || isStartCountdownActive)
+        .opacity(isEnabled && !isStartCountdownActive ? 1 : 0.55)
     }
 
     private func transportPrimaryButton(systemName: String, style: TimerPrimaryButtonStyle, action: @escaping () -> Void) -> some View {
@@ -565,37 +620,6 @@ struct StretchTimerView: View {
                 .shadow(color: style.shadowColor, radius: 14, y: 6)
         }
         .buttonStyle(.plain)
-    }
-
-    @ViewBuilder
-    private func instructionsSheet(for stretch: Stretch) -> some View {
-        NavigationStack {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 18) {
-                    Text(stretch.name)
-                        .font(Typography.navTitle)
-                        .foregroundStyle(Color.bfTextPrimary)
-
-                    Text(timerDetailText(for: stretch))
-                        .font(Typography.homeMeta)
-                        .foregroundStyle(Color.bfBlue)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Color.bfBlue.opacity(0.08))
-                        .clipShape(Capsule())
-
-                    StretchComparisonView(stretch: stretch)
-
-                    Text(stretch.description)
-                        .font(Typography.screenSubtitle)
-                        .foregroundStyle(Color.bfTextSecondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(24)
-            }
-            .background(Color.bfPageBackground)
-        }
     }
 
     private func holdElapsedSeconds(for stretch: Stretch, at date: Date = Date()) -> Double {
@@ -638,7 +662,7 @@ struct StretchTimerView: View {
 
         modelContext.insert(
             StretchSession(
-                muscleGroups: [stretch.muscleGroup],
+                muscleGroups: orderedMuscleGroupRaws(for: [stretch]),
                 stretchNames: [stretch.name],
                 totalDuration: effectiveDuration(for: stretch),
                 stretchCount: 1
@@ -671,7 +695,14 @@ struct StretchTimerView: View {
                 .frame(width: heroSize, height: heroSize)
                 .shadow(color: Color.black.opacity(0.04), radius: 20, y: 10)
 
-            stretchImage(stretch: stretch, size: imageSize, cornerRadius: cornerRadius - 12)
+            Button {
+                HapticManager.shared.lightImpact()
+                detailStretch = stretch
+            } label: {
+                stretchImage(stretch: stretch, size: imageSize, cornerRadius: cornerRadius - 12)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Open details for \(stretch.name)")
 
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .stroke(Color.bfSurfaceMuted.opacity(0.95), lineWidth: 12)
@@ -690,9 +721,14 @@ struct StretchTimerView: View {
         }
         .frame(maxWidth: .infinity)
     }
+
+    private func orderedMuscleGroupRaws(for stretches: [Stretch]) -> [String] {
+        let rawGroups = Set(stretches.flatMap(\.muscleGroups))
+        return MuscleGroup.allCases.map(\.rawValue).filter(rawGroups.contains)
+    }
 }
 
-private struct StretchComparisonView: View {
+struct StretchComparisonView: View {
     let stretch: Stretch
 
     private var beforeImage: UIImage? {
@@ -766,6 +802,23 @@ private struct RoundedSquareProgressShape: Shape {
         )
 
         return basePath.trimmedPath(from: 0, to: progress)
+    }
+}
+
+private final class CountdownSoundPlayer {
+    static let shared = CountdownSoundPlayer()
+
+    private let tickSound: SystemSoundID = 1104
+    private let startSound: SystemSoundID = 1057
+
+    private init() {}
+
+    func playTick() {
+        AudioServicesPlaySystemSound(tickSound)
+    }
+
+    func playStart() {
+        AudioServicesPlaySystemSound(startSound)
     }
 }
 

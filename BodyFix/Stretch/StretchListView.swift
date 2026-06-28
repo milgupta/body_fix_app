@@ -52,7 +52,7 @@ struct StretchListView: View {
                     GradientButton(title: "Start Routine →", showShadow: true) {
                         HapticManager.shared.heavyImpact()
                         let ids = flatStretches.map(\.id)
-                        path.append(StretchTimerRoute(stretchIds: ids, startIndex: 0))
+                        path.append(StretchTimerRoute(stretchIds: ids, startIndex: 0, showsStartCountdown: true))
                     }
                     .padding(.horizontal, 20)
                     .padding(.bottom, 72)

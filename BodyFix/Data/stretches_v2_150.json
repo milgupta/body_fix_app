@@ -8,7 +8,7 @@
     ],
     "timing": {
       "hold_seconds": 30,
-      "per_side": true,
+      "per_side": false,
       "reps": null,
       "cycles": 1,
       "type": "hold",
@@ -282,7 +282,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Tilt your head back and rotate it slightly to one side to expose the front of the neck, feeling the stretch along the muscle running from your ear to your collarbone.",
+    "description": "Tilt your head back and rotate it slightly to one side to expose the front of the neck, feeling the stretch along the muscle running from your ear to your collarbone. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -368,7 +368,7 @@
       "type": "hold",
       "display": "60s hold"
     },
-    "description": "Lie on your back with a rolled towel placed under the base of your skull and breathe deeply, letting the weight of your head decompress the suboccipital muscles.",
+    "description": "Lie on your back with a rolled towel placed under your neck and breathe deeply. Move your neck up, then slowly resist the weight of your neck as it brings itself back down.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -385,7 +385,7 @@
     },
     "position": "lying",
     "support": "floor",
-    "equipment": "towel",
+    "equipment": "rolled_towel",
     "sides": "bilateral",
     "image": {
       "name": "stretch_occipital_release",
@@ -501,7 +501,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Raise one arm overhead, bend the elbow so your hand drops behind your neck, and use the opposite hand to gently press the elbow back until you feel the stretch in the shoulder.",
+    "description": "Raise one arm overhead, bend the elbow so your hand drops behind your neck, and use the opposite hand to gently press the elbow back until you feel the stretch in the shoulder. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -591,7 +591,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Lie on your side with your bottom arm out at shoulder height, elbow bent to 90 degrees, then use your top hand to gently press the forearm down to stretch the posterior shoulder capsule.",
+    "description": "Lie on your side with your bottom arm out at shoulder height, elbow bent to 90 degrees, then use your top hand to gently press the forearm down to stretch the posterior shoulder capsule. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -638,7 +638,7 @@
       "type": "dynamic",
       "display": "20 pendulum swings each arm"
     },
-    "description": "Lean forward with one hand on a table for support, let the other arm hang freely, and gently swing it in small circles using body weight rather than muscle contraction.",
+    "description": "Lean forward with one hand on a table for support, let the other arm hang freely, and gently swing it in small circles using body weight rather than muscle contraction. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -682,7 +682,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Extend both arms forward, wrap one arm under the other at the elbows, try to bring your palms together, and lift your elbows to shoulder height to feel the stretch between your shoulder blades.",
+    "description": "Extend both arms forward, wrap one arm under the other at the elbows, try to bring your palms together, and lift your elbows to shoulder height to feel the stretch between your shoulder blades. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -727,7 +727,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "On hands and knees, slide one arm under your body along the floor until your shoulder rests on the ground, feeling the rotational stretch through the upper back and shoulder.",
+    "description": "On hands and knees, slide one arm under your body along the floor until your shoulder rests on the ground, feeling the rotational stretch through the upper back and shoulder. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -772,7 +772,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Reach one arm overhead and bend the elbow behind your head while the opposite arm reaches up your back, working to clasp fingers between your shoulder blades.",
+    "description": "Reach one arm overhead and bend the elbow behind your head while the opposite arm reaches up your back, working to clasp fingers between your shoulder blades. Use a towel between your hands if needed. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -819,7 +819,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand sideways next to a wall, place your forearm flat against it at shoulder height, and slowly rotate your body away until you feel the stretch across your chest and front shoulder.",
+    "description": "Stand sideways next to a wall, place your forearm flat against it at shoulder height, and slowly rotate your body away until you feel the stretch across your chest and front shoulder. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -912,7 +912,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand sideways with your elbow at 90 degrees pressed against a wall at shoulder height, then rotate your body forward and away from the wall to stretch the posterior shoulder capsule.",
+    "description": "Stand sideways with your elbow at 90 degrees pressed against a wall at shoulder height, then rotate your body forward and away from the wall to stretch the posterior shoulder capsule. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -956,7 +956,7 @@
       "type": "hold",
       "display": "45s each arm"
     },
-    "description": "Lie on your back and reach one arm overhead along the floor, then gently extend through your fingertips to lengthen the shoulder and lat.",
+    "description": "Start by lying down on your stomach with one straight arm stretched out to the side. Slowly use the opposite arm to push the floor to raise your chest off the ground. Go until you feel a light stretch in the targeted muscles. Hold for up to 20-30 seconds and slowly release by lowering the chest back down to the ground. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -993,14 +993,14 @@
       "upper_back"
     ],
     "timing": {
-      "hold_seconds": 5,
+      "hold_seconds": null,
       "per_side": false,
       "reps": 10,
       "cycles": 2,
-      "type": "hold",
-      "display": "2 x 10 reps, 5s hold each"
+      "type": "reps",
+      "display": "2 x 10 quick flutters"
     },
-    "description": "Sit or stand tall, draw both shoulder blades toward your spine as if squeezing a pencil between them, hold five seconds, then release completely.",
+    "description": "Lie face down or stand tall, then make quick flutters with your shoulder blades by gently pinching them together and releasing. Keep the movement small and controlled.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -1091,7 +1091,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Lie face down and extend one arm out to the side at shoulder height, then slowly roll onto that shoulder until you feel the stretch across the pectoral muscle.",
+    "description": "Lie face down and extend one arm out to the side at shoulder height, then slowly roll onto that shoulder until you feel the stretch across the pectoral muscle. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -1136,7 +1136,7 @@
       "type": "hold",
       "display": "30s hold"
     },
-    "description": "Sit at the edge of a chair, interlace your fingers behind your back, straighten your arms, and lift your hands away from your body while squeezing your shoulder blades together.",
+    "description": "Sit tall at the edge of a chair with your hands against your head and elbows open. Keep your hands in contact with your head as you gently move your elbows and chest back, pinching your shoulder blades together until you feel a light stretch across the chest.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -1269,7 +1269,7 @@
       "type": "hold",
       "display": "30s hold"
     },
-    "description": "Stand in a corner with both forearms pressed against the walls at shoulder height, then lean your body forward until you feel the stretch across the upper chest and front shoulders.",
+    "description": "Stand in a doorway with both forearms pressed against the frame at shoulder height, then lean your body forward until you feel the stretch across the upper chest and front shoulders.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -1286,8 +1286,8 @@
       ]
     },
     "position": "standing",
-    "support": "wall",
-    "equipment": "wall",
+    "support": "doorway",
+    "equipment": "doorway",
     "sides": "bilateral",
     "image": {
       "name": "stretch_pec_minor_corner_stretch",
@@ -1729,7 +1729,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand with feet shoulder-width apart, reach one arm overhead and lean to the opposite side, feeling the stretch from your hip all the way up through the lat and shoulder.",
+    "description": "Stand with feet shoulder-width apart, reach one arm overhead and lean to the opposite side, feeling the stretch from your hip all the way up through the lat and shoulder. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -1851,7 +1851,7 @@
   },
   {
     "id": "knee_to_chest_stretch",
-    "name": "Single Knee-to-Chest Stretch",
+    "name": "Knee-to-Chest Stretch",
     "muscle_groups": [
       "lower_back",
       "glutes",
@@ -1859,13 +1859,13 @@
     ],
     "timing": {
       "hold_seconds": 30,
-      "per_side": true,
+      "per_side": false,
       "reps": null,
       "cycles": 1,
       "type": "hold",
-      "display": "30s each side"
+      "display": "30s hold"
     },
-    "description": "Lie on your back with both knees bent, pull one knee toward your chest with both hands, and hold while relaxing the opposite leg flat on the floor.",
+    "description": "Lie on your back with both knees bent, pull both knees toward your chest with your hands, and hold while relaxing your shoulders and lower back into the floor.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -1881,7 +1881,7 @@
     "position": "lying",
     "support": "floor",
     "equipment": "none",
-    "sides": "unilateral",
+    "sides": "bilateral",
     "image": {
       "name": "stretch_knee_to_chest_stretch",
       "fallback": "default_stretch"
@@ -2179,7 +2179,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Sit tall in a chair, place one hand on the opposite knee and the other on the back of the chair, then twist your torso toward the back of the chair as far as comfortable.",
+    "description": "Sit tall on the floor, place one hand on the opposite knee and the other hand behind you for support, then twist your torso as far as comfortable. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -2196,8 +2196,8 @@
       ]
     },
     "position": "seated",
-    "support": "chair",
-    "equipment": "chair",
+    "support": "floor",
+    "equipment": "none",
     "sides": "unilateral",
     "image": {
       "name": "stretch_seated_lower_back_twist",
@@ -2313,7 +2313,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand tall, reach one arm overhead and lean directly to the opposite side until you feel the stretch along your entire side from hip to fingertips.",
+    "description": "Stand tall, reach one arm overhead and lean directly to the opposite side until you feel the stretch along your entire side from hip to fingertips. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -2401,7 +2401,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand with feet hip-width apart, extend both arms overhead and clasp your hands, then lean smoothly to one side to lengthen the entire lateral line of the body.",
+    "description": "Stand with feet hip-width apart, reach one arm overhead, then lean smoothly to the opposite side to lengthen the lateral line of the body. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -2492,7 +2492,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Sit tall, raise one arm overhead and lean that arm away from your body while placing the other hand on your thigh, feeling the stretch along your oblique and side body.",
+    "description": "Sit tall, raise one arm overhead and lean that arm away from your body while placing the other hand on your thigh, feeling the stretch along your oblique and side body. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -2536,7 +2536,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Lie on your back with arms overhead, shift both arms and both legs to one side to create a crescent shape with your body, feeling the deep side stretch.",
+    "description": "Lie on your back with arms overhead, shift both arms and both legs to one side to create a crescent shape with your body, feeling the deep side stretch. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -2578,7 +2578,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Kneel on one knee and extend the opposite leg straight out to the side, then reach the overhead arm in an arc over the extended leg to open the side body.",
+    "description": "Kneel on one knee and extend the opposite leg straight out to the side, then reach the overhead arm in an arc over the extended leg to open the side body. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -2623,7 +2623,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand with feet wide apart, turn one foot out 90 degrees, extend arms wide, and hinge sideways to bring one hand toward your shin while the opposite arm reaches skyward.",
+    "description": "Stand with feet wide apart, turn one foot out 90 degrees, extend arms wide, and hinge sideways to bring one hand toward your shin while the opposite arm reaches skyward. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -2670,7 +2670,7 @@
       "type": "hold",
       "display": "3 x 20s hold"
     },
-    "description": "Stand with feet hip-width apart, place your hands on your lower back for support, and gently arch backward lifting your chest toward the ceiling.",
+    "description": "Stand with feet hip-width apart, place your hands up in the air or place your hands on your lower back for support, and gently arch backward lifting your chest toward the ceiling.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -2714,7 +2714,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Come into a high lunge with both arms raised overhead, then lean both arms in an arc toward the side of the front leg while keeping your hips square forward.",
+    "description": "Come into a high lunge with both arms raised overhead, then lean both arms in an arc toward the side of the front leg while keeping your hips square forward. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -2759,7 +2759,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand next to a wall, place your palm flat on it behind you at shoulder height with thumb pointing up, and slowly rotate your body away until you feel the stretch in the bicep and chest.",
+    "description": "Stand next to a wall, place your palm flat on it behind you at shoulder height with thumb pointing up, and slowly rotate your body away until you feel the stretch in the bicep and chest. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -2849,7 +2849,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand in a doorway, grasp the frame at waist height with one hand, then rotate your body outward while keeping your arm straight to stretch the bicep and anterior shoulder.",
+    "description": "Stand in a doorway, grasp the frame at waist height with one hand, then rotate your body outward while keeping your arm straight to stretch the bicep and anterior shoulder. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -3073,7 +3073,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Grip a doorframe at waist height with your palm facing forward, extend your arm, and rotate your body away to feel the combined bicep and forearm stretch.",
+    "description": "Grip a doorframe at waist height with your palm facing forward, extend your arm, and rotate your body away to feel the combined bicep and forearm stretch. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -3116,7 +3116,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Raise one arm overhead, bend the elbow so your hand drops behind your neck, and use the opposite hand to gently press the elbow back and down until you feel the stretch in your tricep.",
+    "description": "Raise one arm overhead, bend the elbow so your hand drops behind your neck, and use the opposite hand to gently press the elbow back and down until you feel the stretch in your tricep. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -3159,7 +3159,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Sit upright, lift one arm overhead and bend the elbow behind your head, then use the opposite hand to gently guide the elbow further back.",
+    "description": "Sit upright, lift one arm overhead and bend the elbow behind your head, then use the opposite hand to gently guide the elbow further back. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -3333,7 +3333,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand tall, bend one arm behind your back with palm facing out, then use the opposite hand to gently press the elbow further back and down.",
+    "description": "Sit in a chair or stand tall, bend one arm behind your back with palm facing out, then use the opposite hand to gently press the elbow further back and down. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -3378,7 +3378,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Lift one arm and wrap both arms at the elbows, pressing the top elbow against the bottom arm, then lift both elbows together to feel the combined shoulder-blade and tricep stretch.",
+    "description": "Lift one arm and wrap both arms at the elbows, pressing the top elbow against the bottom arm, then lift both elbows together to feel the combined shoulder-blade and tricep stretch. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -3466,7 +3466,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Extend one arm straight in front with palm facing up, then use the other hand to gently pull your fingers back toward your body until you feel the stretch along the inner forearm.",
+    "description": "Extend one arm straight in front with palm facing up, then use the other hand to gently pull your fingers back toward your body until you feel the stretch along the inner forearm. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -3508,7 +3508,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Extend one arm in front with the palm facing down, then use the other hand to press the back of the hand downward until you feel the stretch along the outer forearm.",
+    "description": "Extend one arm in front with the palm facing down, then use the other hand to press the back of the hand downward until you feel the stretch along the outer forearm. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -3597,7 +3597,7 @@
       "type": "hold",
       "display": "30s hold"
     },
-    "description": "Bring both hands behind your back and press the backs of your hands together, working toward pressing palms together pointing fingers upward for the full forearm and wrist stretch.",
+    "description": "Bring both hands in front of your body and press the backs of your hands together, working toward pressing palms together pointing fingers upward for the full forearm and wrist stretch.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -3636,13 +3636,13 @@
     ],
     "timing": {
       "hold_seconds": 30,
-      "per_side": true,
+      "per_side": false,
       "reps": null,
       "cycles": 1,
       "type": "hold",
-      "display": "30s each side"
+      "display": "30s hold"
     },
-    "description": "Stand facing a wall, place your palm flat against it with fingers pointing downward, and gently lean into the wall to stretch the forearm flexors.",
+    "description": "Stand facing a wall, place both palms flat against it with fingers pointing downward, and gently lean into the wall to stretch the forearm flexors.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -3659,7 +3659,7 @@
     "position": "standing",
     "support": "wall",
     "equipment": "wall",
-    "sides": "unilateral",
+    "sides": "bilateral",
     "image": {
       "name": "stretch_forearm_wall_stretch",
       "fallback": "default_stretch"
@@ -3726,7 +3726,7 @@
       "type": "hold",
       "display": "20s each hand"
     },
-    "description": "Hold one hand up with fingers pointing toward the ceiling, then use the other hand to gently bend all four fingers back at the knuckle to stretch the palm and forearm.",
+    "description": "Hold one hand up with fingers pointing toward the ceiling, then use the other hand to gently bend all four fingers back at the knuckle to stretch the palm, wrist, and forearm.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -3767,7 +3767,7 @@
       "type": "mobilization",
       "display": "5 positions, 5s each, 2 rounds per hand"
     },
-    "description": "Hold your hand up and move slowly through straight fingers, hook, fist, flat fist, and full fist positions to mobilize the tendons and reduce forearm tension.",
+    "description": "Hold your hand up and move slowly through straight fingers, hook, fist, flat fist, and full fist positions to mobilize the tendons and reduce forearm tension. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -3811,7 +3811,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Step one foot forward into a lunge, lower the back knee to the floor, shift your hips forward and down, and reach your arms overhead to deepen the hip flexor stretch.",
+    "description": "Step one foot forward into a lunge, lower the back knee to the floor, shift your hips forward and down, and reach your arms overhead to deepen the hip flexor stretch. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -3858,7 +3858,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand tall, take a large step forward with one foot, squeeze the glute of the back leg, and tilt your pelvis forward to feel the stretch in the front of the back hip.",
+    "description": "Stand tall, take a large step forward with one foot, squeeze the glute of the back leg, and tilt your pelvis forward to feel the stretch in the front of the back hip. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -3904,7 +3904,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Sit on the edge of a chair, cross one ankle over the opposite knee, sit tall, and gently lean forward from the hips until you feel the stretch in the crossed hip and glute.",
+    "description": "Sit on the edge of a chair, cross one ankle over the opposite knee, sit tall, and gently lean forward from the hips until you feel the stretch in the crossed hip and glute. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -3950,7 +3950,7 @@
       "type": "hold",
       "display": "60s each side"
     },
-    "description": "Lie on your back with knees bent, cross one ankle over the opposite knee, flex the crossed foot, and draw both legs gently toward your chest for a deeper piriformis stretch.",
+    "description": "Lie on your back with knees bent, cross one ankle over the opposite knee, flex the crossed foot, and draw both legs gently toward your chest for a deeper piriformis stretch. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -4043,7 +4043,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Step one foot to the outside of your same-side hand in a low lunge, lower your back knee to the floor, and sink your hips toward the ground for a deep hip flexor and groin stretch.",
+    "description": "Step one foot to the outside of your same-side hand in a low lunge, lower your back knee to the floor, and sink your hips toward the ground for a deep hip flexor and groin stretch. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -4226,7 +4226,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Kneel on one knee with the opposite foot planted forward, tuck your tailbone under, squeeze the back glute, and shift your hips forward to stretch the hip flexor of the kneeling leg.",
+    "description": "Kneel on one knee with the opposite foot planted forward, tuck your tailbone under, squeeze the back glute, and shift your hips forward to stretch the hip flexor of the kneeling leg. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -4320,7 +4320,7 @@
       "type": "hold",
       "display": "60s each side"
     },
-    "description": "Kneel with one shin pressed flat against a wall behind you and the opposite foot planted forward in a lunge, then sit up tall and squeeze the back glute to drive the hip into extension.",
+    "description": "Kneel with one shin pressed flat against a wall behind you and the opposite foot planted forward in a lunge, then sit up tall and squeeze the back glute to drive the hip into extension. Use a pillow under your knee if needed, and place your hands on a stable object like a foam roller to help stabilize your arms. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -4368,7 +4368,7 @@
       "type": "hold",
       "display": "60s each side"
     },
-    "description": "Sit on the floor with both legs bent at 90 degrees, one in front and one to the side, then lean your torso over the front shin to feel the deep hip external rotator stretch.",
+    "description": "Sit on the floor with both legs bent at 90 degrees, one in front and one to the side, then lean your torso over the front shin to feel the deep hip external rotator stretch. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -4463,7 +4463,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Step into a deep lunge, place both hands inside the front foot, lower your back knee, then rotate the chest open by reaching the inside arm toward the ceiling and hold.",
+    "description": "Step into a deep lunge, place both hands inside the front foot, lower your back knee, then rotate the chest open by reaching the inside arm toward the ceiling and hold. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -4508,7 +4508,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Lie on your back with knees bent, cross one ankle over the opposite knee, flex the crossed foot, and hug both legs toward your chest to feel the glute stretch.",
+    "description": "Lie on your back with knees bent, cross one ankle over the opposite knee, flex the crossed foot, and hug both legs toward your chest to feel the glute stretch. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -4551,7 +4551,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand on one leg, bend the opposite knee and cross the ankle over your standing thigh, then slowly sit back as if onto a chair until you feel the stretch in the raised glute.",
+    "description": "Stand on one leg, bend the opposite knee and cross the ankle over your standing thigh, then slowly sit back as if onto a chair until you feel the stretch in the raised glute. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -4595,7 +4595,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Sit at the edge of a chair, cross one ankle over the opposite knee and lean forward from the hips with a flat back until you feel the stretch in the glute of the crossed leg.",
+    "description": "Sit at the edge of a chair, cross one ankle over the opposite knee and lean forward from the hips with a flat back until you feel the stretch in the glute of the crossed leg. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -4641,7 +4641,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Lie on your back with one knee bent, pull that knee across your body with the opposite hand while keeping both shoulders flat on the floor to stretch the glute and lumbar rotators.",
+    "description": "Lie on your back with one knee either slightly bent or straight, then pull that leg across your body with the opposite hand while keeping both shoulders flat on the floor to stretch the glute and lumbar rotators. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -4685,7 +4685,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Sit tall with legs extended, bend one knee and cross that foot outside the opposite thigh, then rotate your upper body toward the bent knee pressing your elbow against it.",
+    "description": "Sit tall with one leg extended out in front of you and the other knee bent. Rotate your upper body toward the bent knee and gently press your elbow against it to deepen the twist, then switch sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -4729,7 +4729,7 @@
       "type": "hold",
       "display": "60s each side"
     },
-    "description": "Sit on the floor with one leg crossed in front, shift your weight toward the front knee and lean forward gently to feel the deep outer glute and hip stretch.",
+    "description": "Sit on the floor with one leg crossed in front, shift your weight toward the front knee and lean forward gently to feel the deep outer glute and hip stretch. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -4775,7 +4775,7 @@
       "type": "mobilization",
       "display": "60s each side, pause 5s on tender spots"
     },
-    "description": "Sit on a foam roller with one ankle crossed over the opposite knee, shift your weight onto the crossed side, and slowly roll over the glute and piriformis while pausing on tender areas.",
+    "description": "Sit on a foam roller with one ankle crossed over the opposite knee, shift your weight onto the crossed side, and slowly roll over the glute and piriformis while pausing on tender areas. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -4958,7 +4958,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand on one leg, bend the opposite knee to bring your heel toward your glute, hold the ankle with the same-side hand, and stand tall with knees together.",
+    "description": "Stand on one leg, bend the opposite knee to bring your heel toward your glute, hold the ankle with the same-side hand, and stand tall with knees together. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -5004,7 +5004,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Lie face down, bend one knee and reach back to hold your ankle with the same-side hand, gently pulling the heel toward your glute with your hips pressed flat to the floor.",
+    "description": "Lie face down, bend one knee and reach back to hold your ankle with the same-side hand, gently pulling the heel toward your glute with your hips pressed flat to the floor. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -5049,7 +5049,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Kneel on one knee, hold your back ankle and tuck the pelvis under, keeping your torso upright to feel the combined quad and hip flexor stretch.",
+    "description": "Kneel on one knee, hold your back ankle and tuck the pelvis under, keeping your torso upright to feel the combined quad and hip flexor stretch. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -5094,7 +5094,7 @@
       "type": "hold",
       "display": "60s each side"
     },
-    "description": "Kneel with one leg extended forward, sit the same-side glute down beside the bent foot (not on the heel), and hold this deep quad and knee stretch.",
+    "description": "Kneel with one leg extended forward, sit the same-side glute down beside the bent foot (not on the heel), and hold this deep quad and knee stretch. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -5187,7 +5187,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Lie on the edge of a table or bed, hug one knee to your chest, and let the opposite leg hang toward the floor to feel the hip flexor and quad stretch.",
+    "description": "Lie on the edge of a table or bed, hug one knee to your chest, and let the opposite leg hang toward the floor to feel the hip flexor and quad stretch. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -5233,7 +5233,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand on one leg, hold the opposite ankle behind you, then hinge slightly forward at the hip to increase the stretch in the quad and anterior hip.",
+    "description": "Stand on one leg, hold the opposite ankle behind you, then hinge slightly forward at the hip to increase the stretch in the quad and anterior hip. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -5324,7 +5324,7 @@
       "type": "hold",
       "display": "60s each side"
     },
-    "description": "Kneel with one shin flat against a wall, place the other foot forward in a lunge, then sit up tall and tuck your pelvis to feel the intense quad and hip flexor stretch against the wall.",
+    "description": "Kneel with one shin flat against a wall, place the other foot forward in a lunge, then sit up tall and tuck your pelvis to feel the intense quad and hip flexor stretch against the wall. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -5373,7 +5373,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Step into a deep runner's lunge, place both hands inside the front foot, then rotate your torso to open the chest by reaching the inside arm toward the ceiling.",
+    "description": "Step into a deep runner's lunge, place both hands inside the front foot, then rotate your torso to open the chest by reaching the inside arm toward the ceiling. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -5419,7 +5419,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Place one heel on a low surface such as a step or chair, keep the leg straight, then hinge forward at the hips until you feel the pull along the back of the elevated leg.",
+    "description": "Place one heel about 1 foot in front of you, or one step forward, and keep the leg straight. Hinge forward at the hips until you feel the pull along the back of the front leg. (You can put your heel on a step or chair if it is easier.) Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -5465,7 +5465,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Sit on the floor with one leg extended and the other bent with sole against the inner thigh, then hinge forward over the straight leg keeping your back flat.",
+    "description": "Sit on the floor with one leg extended and the other bent with sole against the inner thigh, then hinge forward over the straight leg keeping your back flat. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -5510,7 +5510,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Lie on your back, draw one knee to your chest then extend the leg toward the ceiling holding the back of the thigh or calf until you feel the stretch down the back of the leg.",
+    "description": "Lie on your back, draw one knee to your chest then extend the leg toward the ceiling holding the back of the thigh or calf until you feel the stretch down the back of the leg. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -5692,7 +5692,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Lie on your back, loop a resistance band around one foot, extend the leg toward the ceiling, and use the band to gently pull the leg closer without bending the knee.",
+    "description": "Lie on your back, loop a resistance band around one foot, extend the leg toward the ceiling, and use the band to gently pull the leg closer without bending the knee. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -5784,7 +5784,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Stand with feet hip-width apart, step one foot slightly forward, hinge at the hips and fold over the front leg keeping it straight, reaching your hands toward the foot.",
+    "description": "Stand with feet hip-width apart, shift your weight onto one leg, hinge at the hips, lift the other leg back and up behind you, then fold over the standing leg while keeping your back long. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -5829,7 +5829,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "From a low lunge, straighten the front leg and walk your hands back while flexing the foot, hinging your torso forward over the extended leg to feel the hamstring stretch.",
+    "description": "From a low lunge, straighten the front leg and walk your hands back while flexing the foot, hinging your torso forward over the extended leg to feel the hamstring stretch. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -5861,7 +5861,7 @@
   },
   {
     "id": "wall_hamstring_stretch",
-    "name": "Wall Hamstring Stretch (Legs Up the Wall)",
+    "name": "Wall Hamstring Stretch",
     "muscle_groups": [
       "hamstrings",
       "calves",
@@ -5869,13 +5869,13 @@
     ],
     "timing": {
       "hold_seconds": 60,
-      "per_side": false,
+      "per_side": true,
       "reps": null,
       "cycles": 1,
       "type": "hold",
-      "display": "60s hold"
+      "display": "60s each side"
     },
-    "description": "Lie on your back near a wall and extend both legs straight up the wall, adjusting your distance to control intensity, and relax completely into the gravity-assisted hamstring stretch.",
+    "description": "Lie on your back near a wall and extend one leg straight up the wall, adjusting your distance to control intensity, and relax completely into the gravity-assisted hamstring stretch. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -5893,7 +5893,7 @@
     "position": "lying",
     "support": "wall",
     "equipment": "wall",
-    "sides": "bilateral",
+    "sides": "unilateral",
     "image": {
       "name": "stretch_wall_hamstring_stretch",
       "fallback": "default_stretch"
@@ -5964,7 +5964,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Hold a chair or wall for balance, gently bring one heel toward your glute keeping knees aligned, and stop before any knee discomfort.",
+    "description": "Hold a chair or wall for balance, gently bring one heel toward your glute keeping knees aligned, and stop before any knee discomfort. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6009,7 +6009,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Sit in a chair, clasp both hands under one thigh and draw the knee slowly toward your chest, feeling the gentle decompression in the knee joint and stretch in the hip.",
+    "description": "Sit in a chair, clasp both hands under one thigh and draw the knee slowly toward your chest, feeling the gentle decompression in the knee joint and stretch in the hip. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6096,7 +6096,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Lie face down, slowly bend one knee bringing the heel toward your glute within a comfortable range, and hold without forcing at any point of discomfort.",
+    "description": "Lie face down, slowly bend one knee bringing the heel toward your glute within a comfortable range, and hold without forcing at any point of discomfort. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6140,7 +6140,7 @@
       "type": "hold",
       "display": "45s each side"
     },
-    "description": "Stand and cross one leg behind the other, then lean your hip toward a wall while reaching the overhead arm in the same direction to stretch the outer hip and IT band.",
+    "description": "Stand and cross one leg in front of the other, then lean your hip toward a wall while reaching the overhead arm in the same direction to stretch the outer hip and IT band. Alternate sides.",
     "difficulty": "intermediate",
     "categories": {
       "goal": [
@@ -6185,7 +6185,7 @@
       "type": "hold",
       "display": "60s each leg"
     },
-    "description": "Lie near a wall, place one leg straight up the wall and keep the other flat on the floor, adjusting your distance to control the intensity of the knee and hamstring stretch.",
+    "description": "Lie near a wall, place one leg straight up the wall and keep the other flat on the floor, adjusting your distance to control the intensity of the knee and hamstring stretch. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6230,7 +6230,7 @@
       "type": "mobilization",
       "display": "60s each leg, pause on tender spots"
     },
-    "description": "Lie on your side with the foam roller under the outside of your thigh, support your weight on your forearm, and slowly roll from just below the hip to just above the knee.",
+    "description": "Lie on your side with the foam roller under the outside of your thigh, support your weight on your forearm, and slowly roll from just below the hip to just above the knee. Alternate sides.",
     "difficulty": "advanced",
     "categories": {
       "goal": [
@@ -6275,7 +6275,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand arm's length from a wall, step one foot back with the heel flat, and lean forward until you feel the stretch in the calf which relieves tension on the back of the knee.",
+    "description": "Stand arm's length from a wall, step one foot back with the heel flat, and lean forward until you feel the stretch in the calf which relieves tension on the back of the knee. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6321,7 +6321,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand facing a wall with hands on it, step one foot back with the heel flat on the floor, and lean forward until you feel the stretch in the gastrocnemius.",
+    "description": "Stand facing a wall with hands on it, step one foot back with the heel flat on the floor, and lean forward until you feel the stretch in the gastrocnemius. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6368,7 +6368,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand with one foot back, bend the back knee while keeping the heel flat on the floor to isolate the deep soleus muscle beneath the gastrocnemius.",
+    "description": "Stand with one foot back, bend the back knee while keeping the heel flat on the floor to isolate the deep soleus muscle beneath the gastrocnemius. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6413,7 +6413,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Sit on the floor with one leg extended, flex the foot and pull the toes back toward your shin with your hand or a towel to feel the calf and Achilles stretch.",
+    "description": "Sit in a chair, or on the ground if that is easier, with one leg extended. Flex the foot and pull the toes back toward your shin with your hand or a towel to feel the calf and Achilles stretch. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6636,7 +6636,7 @@
       "type": "mobilization",
       "display": "10 circles each direction per ankle"
     },
-    "description": "Sit in a chair, lift one foot off the floor, and make slow full circles with the ankle clockwise then counterclockwise to warm up the joint and mobilize surrounding tissues.",
+    "description": "Stand tall and shift your weight onto one leg, then lift the other foot slightly off the floor and make slow full circles with the ankle clockwise and counterclockwise. Switch sides and repeat with the other ankle.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6651,8 +6651,8 @@
         "office"
       ]
     },
-    "position": "seated",
-    "support": "chair",
+    "position": "standing",
+    "support": "none",
     "equipment": "none",
     "sides": "alternating",
     "image": {
@@ -6680,7 +6680,7 @@
       "type": "hold",
       "display": "30s each side"
     },
-    "description": "Stand about a foot from a wall, place one foot forward with toes raised against the wall, then lean toward the wall to stretch the ankle into dorsiflexion.",
+    "description": "Stand about a foot from a wall, place one foot forward with toes raised against the wall, then lean toward the wall to stretch the ankle into dorsiflexion. Optionally stand on a hand towel for better stability. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [
@@ -6724,7 +6724,7 @@
       "type": "hold",
       "display": "30s each foot"
     },
-    "description": "Sit in a chair, cross one foot over the opposite knee, hold the toes and gently pull them back toward the shin until you feel the stretch across the arch of the foot.",
+    "description": "Sit in a chair, cross one foot over the opposite knee, hold the toes and gently pull them back toward the shin until you feel the stretch across the arch of the foot. Alternate sides.",
     "difficulty": "beginner",
     "categories": {
       "goal": [

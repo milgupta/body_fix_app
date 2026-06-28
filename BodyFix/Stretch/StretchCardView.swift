@@ -28,11 +28,6 @@ struct StretchCardView: View {
                                 .clipShape(Capsule())
                         }
 
-                        Text(stretch.description)
-                            .font(Typography.stretchDescription)
-                            .foregroundStyle(Color.bfTextTertiary)
-                            .lineLimit(2)
-                            .padding(.top, 8)
                     }
                 }
 

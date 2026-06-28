@@ -203,7 +203,9 @@ struct HomeView: View {
                         HapticManager.shared.lightImpact()
                         searchText = ""
                         searchFocused = false
-                        let ids = StretchDatabase.stretches(for: stretch.muscle ?? .neck).map(\.id)
+                        let ids = stretch.muscles.first.map {
+                            StretchDatabase.stretches(for: $0).map(\.id)
+                        } ?? [stretch.id]
                         let start = ids.firstIndex(of: stretch.id) ?? 0
                         path.append(StretchTimerRoute(stretchIds: ids, startIndex: start, routineName: stretch.name))
                     }

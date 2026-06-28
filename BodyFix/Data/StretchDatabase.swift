@@ -4,6 +4,23 @@ enum StretchDatabase {
     private static let excludedStretchIds: Set<String> = [
         "open_book_stretch",
         "foam_roller_thoracic_extension",
+        "lying_tricep_stretch",
+        "floor_tricep_stretch",
+        "pigeon_pose",
+        "hips_pigeon",
+        "frog_pose",
+        "pigeon_pose_glute",
+        "lateral_glute_side_stretch",
+        "reclined_hero_pose",
+        "lizard_quad_stretch",
+        "supine_hamstring_towel",
+        "hamstrings_supine_strap",
+        "supine_knee_flexion",
+        "knees_heel_slides",
+        "step_heel_drop",
+        "calves_stair_drop",
+        "seated_towel_calf_stretch",
+        "resistance_band_calf_stretch",
     ]
 
     private static let legacyStretchAliases: [String: String] = [
@@ -84,10 +101,14 @@ enum StretchDatabase {
     static func groupedStretches(for muscles: Set<MuscleGroup>, perGroup: Int? = nil) -> [(MuscleGroup, [Stretch])] {
         let all = loadAll()
         var sections: [(MuscleGroup, [Stretch])] = []
+        var usedStretchIds: Set<String> = []
         for group in MuscleGroup.allCases where muscles.contains(group) {
-            let filtered = all.filter { $0.muscleGroup == group.rawValue }
+            let filtered = all.filter { stretch in
+                stretch.muscleGroups.contains(group.rawValue) && !usedStretchIds.contains(stretch.id)
+            }
             let items = perGroup.map { Array(filtered.prefix($0)) } ?? filtered
             if !items.isEmpty {
+                usedStretchIds.formUnion(items.map(\.id))
                 sections.append((group, items))
             }
         }
@@ -120,10 +141,11 @@ enum StretchDatabase {
     }
 
     static func stretches(for muscle: MuscleGroup) -> [Stretch] {
-        loadAll().filter { $0.muscleGroup == muscle.rawValue }
+        loadAll().filter { $0.muscleGroups.contains(muscle.rawValue) }
     }
 
     static func stretch(id: String) -> Stretch? {
+        guard !excludedStretchIds.contains(id) else { return nil }
         if let stretch = primaryStretches.first(where: { $0.id == id }) {
             return stretch
         }
@@ -299,8 +321,9 @@ enum StretchDatabase {
     }
 
     private static func normalizeStretch(_ raw: RawStretchV2) -> Stretch? {
+        let muscleGroups = raw.muscleGroupValues
         guard !excludedStretchIds.contains(raw.id),
-              let primaryGroup = raw.primaryMuscleGroup,
+              let primaryGroup = muscleGroups.first,
               let imageName = raw.image?.name,
               !imageName.isEmpty
         else {
@@ -311,6 +334,7 @@ enum StretchDatabase {
             id: raw.id,
             name: raw.name,
             muscleGroup: primaryGroup.rawValue,
+            muscleGroups: muscleGroups.map(\.rawValue),
             duration: raw.timing.durationValue,
             repScheme: raw.timing.repScheme,
             description: raw.description,
@@ -346,7 +370,14 @@ private struct RawStretchV2: Decodable {
     }
 
     var primaryMuscleGroup: MuscleGroup? {
-        muscleGroups.lazy.compactMap(MuscleGroup.init(v2Identifier:)).first
+        muscleGroupValues.first
+    }
+
+    var muscleGroupValues: [MuscleGroup] {
+        muscleGroups.reduce(into: [MuscleGroup]()) { result, identifier in
+            guard let group = MuscleGroup(v2Identifier: identifier), !result.contains(group) else { return }
+            result.append(group)
+        }
     }
 
     var numericDifficulty: Int {
