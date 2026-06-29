@@ -20,6 +20,15 @@ enum OnboardingPainArea: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
+    var analyticsID: String {
+        switch self {
+        case .upperBack: return "upper_back"
+        case .lowerBack: return "lower_back"
+        case .wholeBody: return "whole_body"
+        default: return rawValue
+        }
+    }
+
     var displayName: String {
         switch self {
         case .neck: return "Neck"

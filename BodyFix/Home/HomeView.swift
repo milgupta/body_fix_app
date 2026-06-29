@@ -207,7 +207,14 @@ struct HomeView: View {
                             StretchDatabase.stretches(for: $0).map(\.id)
                         } ?? [stretch.id]
                         let start = ids.firstIndex(of: stretch.id) ?? 0
-                        path.append(StretchTimerRoute(stretchIds: ids, startIndex: start, routineName: stretch.name))
+                        path.append(
+                            StretchTimerRoute(
+                                stretchIds: ids,
+                                startIndex: start,
+                                routineName: stretch.name,
+                                source: .search
+                            )
+                        )
                     }
                 )
                 .padding(.top, 62)

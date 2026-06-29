@@ -47,6 +47,12 @@ struct ReminderSetupView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
         }
+        .onAppear {
+            AnalyticsTracker.capture(
+                AnalyticsEvent.notificationSetupViewed,
+                properties: ["source": "settings"]
+            )
+        }
     }
 
     private var header: some View {
@@ -185,7 +191,7 @@ struct ReminderSetupView: View {
             let components = Calendar.current.dateComponents([.hour, .minute], from: selectedTime)
             guard let hour = components.hour, let minute = components.minute else { return }
 
-            NotificationManager.shared.requestPermission { granted in
+            NotificationManager.shared.requestPermission(source: "settings") { granted in
                 guard granted else {
                     HapticManager.shared.error()
                     hint = "Notifications are disabled. Enable them in Settings to save reminders."

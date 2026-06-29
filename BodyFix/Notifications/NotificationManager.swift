@@ -9,10 +9,17 @@ final class NotificationManager {
 
     private init() {}
 
-    func requestPermission(completion: @escaping (Bool) -> Void) {
+    func requestPermission(source: String, completion: @escaping (Bool) -> Void) {
+        AnalyticsTracker.capture(
+            AnalyticsEvent.notificationPermissionRequested,
+            properties: ["source": source]
+        )
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, _ in
             DispatchQueue.main.async {
-                AnalyticsTracker.capture(granted ? "notification_permission_granted" : "notification_permission_declined")
+                AnalyticsTracker.capture(
+                    granted ? "notification_permission_granted" : "notification_permission_declined",
+                    properties: ["source": source]
+                )
                 completion(granted)
             }
         }

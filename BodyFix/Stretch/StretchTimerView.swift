@@ -31,6 +31,14 @@ struct StretchTimerView: View {
     @State private var onboardingCompletionTask: Task<Void, Never>?
     @State private var hasRunStartCountdown = false
     @State private var showOnboardingSuccess = false
+    @State private var viewedStretchIndices: Set<Int> = []
+    @State private var startedStretchIndices: Set<Int> = []
+    @State private var completedStretchIndices: Set<Int> = []
+    @State private var stretchStartedAt: [Int: Date] = [:]
+    @State private var didTrackRoutineStart = false
+    @State private var didTrackRoutineCompletion = false
+    @State private var didTrackRoutineAbandonment = false
+    @State private var routineStartedAt = Date()
 
     private var stretches: [Stretch] {
         route.stretchIds.compactMap { StretchDatabase.stretch(id: $0) }
@@ -117,6 +125,8 @@ struct StretchTimerView: View {
         .toolbar(.hidden, for: .tabBar)
         .onAppear {
             tabBarVisibility.suppressTabBar()
+            trackRoutineStartedIfNeeded()
+            trackStretchViewedIfNeeded()
             startCountdownIfNeeded()
         }
         .onDisappear { tabBarVisibility.restoreTabBar() }
@@ -139,6 +149,7 @@ struct StretchTimerView: View {
         }
         .onChange(of: currentIndex) { _, _ in
             resetForCurrentStretch()
+            trackStretchViewedIfNeeded()
         }
         .fullScreenCover(item: $detailStretch) { stretch in
             StretchDetailView(stretch: stretch, detailText: timerDetailText(for: stretch))
@@ -160,7 +171,7 @@ struct StretchTimerView: View {
 
                     Button {
                         HapticManager.shared.lightImpact()
-                        detailStretch = stretch
+                        openDetails(for: stretch, trigger: "info_button")
                     } label: {
                         Image(systemName: "info.circle")
                             .font(.system(size: 17, weight: .semibold))
@@ -353,6 +364,7 @@ struct StretchTimerView: View {
 
     private func startInitialHold(stretch: Stretch) {
         HapticManager.shared.heavyImpact()
+        trackStretchStartedIfNeeded(stretch)
         holdStarted = true
         startHoldTimer(stretch: stretch)
     }
@@ -360,6 +372,7 @@ struct StretchTimerView: View {
     private func startInitialRep(stretch: Stretch, target: Int? = nil) {
         let target = target ?? effectiveRepCount(for: stretch)
         HapticManager.shared.heavyImpact()
+        trackStretchStartedIfNeeded(stretch)
         repPaused = false
         currentRep = 1
         if target <= 1 {
@@ -463,6 +476,7 @@ struct StretchTimerView: View {
         if isOnboardingPreview {
             onOnboardingPreviewCancel?()
         } else {
+            trackRoutineAbandonedIfNeeded()
             path = NavigationPath()
         }
     }
@@ -499,6 +513,8 @@ struct StretchTimerView: View {
             return
         }
 
+        trackRoutineCompletedIfNeeded()
+
         let names = stretches.map(\.name)
         let muscles = orderedMuscleGroupRaws(for: stretches)
         let total = stretches.reduce(0) { partial, stretch in
@@ -509,9 +525,11 @@ struct StretchTimerView: View {
                 stretchNames: names,
                 muscleGroupRaws: muscles,
                 totalSeconds: total,
+                routineId: route.routineId,
                 routineName: route.routineName,
                 seriesId: route.seriesId,
-                seriesLevel: route.seriesLevel
+                seriesLevel: route.seriesLevel,
+                source: route.source
             )
         )
     }
@@ -733,6 +751,7 @@ struct StretchTimerView: View {
     }
 
     private func saveCompletedStretchIfNeeded(_ stretch: Stretch) {
+        trackStretchCompletedIfNeeded(stretch)
         guard !isOnboardingPreview else { return }
         guard !savedCompletedStretchIndices.contains(currentIndex) else { return }
         savedCompletedStretchIndices.insert(currentIndex)
@@ -774,7 +793,7 @@ struct StretchTimerView: View {
 
             Button {
                 HapticManager.shared.lightImpact()
-                detailStretch = stretch
+                openDetails(for: stretch, trigger: "timer_image")
             } label: {
                 stretchImage(stretch: stretch, size: imageSize, cornerRadius: cornerRadius - 12)
             }

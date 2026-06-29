@@ -257,6 +257,14 @@ struct OnboardingPlanPreviewView: View {
     }
 
     private func finishOnboardingAndEnterApp() {
+        AnalyticsTracker.capture(
+            AnalyticsEvent.onboardingStepCompleted,
+            properties: viewModel.analyticsProperties(for: 19)
+        )
+        AnalyticsTracker.capture(
+            AnalyticsEvent.onboardingCompleted,
+            properties: ["total_steps": viewModel.totalSteps]
+        )
         let profile = viewModel.saveProfile(to: modelContext)
         PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
         try? modelContext.save()
@@ -279,7 +287,8 @@ private struct OnboardingStretchTrialContainer: View {
                     stretchIds: [stretch.id],
                     startIndex: 0,
                     showsStartCountdown: true,
-                    context: .onboardingPreview
+                    context: .onboardingPreview,
+                    source: .onboardingPreview
                 ),
                 path: $path,
                 onOnboardingPreviewComplete: onComplete,
@@ -392,7 +401,7 @@ private struct OnboardingTrialReminderView: View {
             withAnimation(.spring(response: 0.58, dampingFraction: 0.78).delay(0.08)) {
                 didAppear = true
             }
-            NotificationManager.shared.requestPermission { _ in }
+            NotificationManager.shared.requestPermission(source: "onboarding_trial_reminder") { _ in }
         }
     }
 }

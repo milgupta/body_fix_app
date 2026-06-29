@@ -68,11 +68,13 @@ struct RoutineStretchListView: View {
                                         StretchTimingStore.timerRoute(
                                             stretchIds: ids,
                                             startIndex: idx,
+                                            routineId: routine?.id,
                                             routineName: routine?.name,
                                             seriesId: routine?.seriesId,
                                             seriesLevel: routine?.level,
                                             durationOverrides: activeOverrides,
-                                            repOverrides: activeRepOverrides
+                                            repOverrides: activeRepOverrides,
+                                            source: .presetRoutine
                                         )
                                     )
                                 }
@@ -97,12 +99,14 @@ struct RoutineStretchListView: View {
                         StretchTimingStore.timerRoute(
                             stretchIds: stretches.map(\.id),
                             startIndex: 0,
+                            routineId: routine?.id,
                             routineName: routine?.name,
                             seriesId: routine?.seriesId,
                             seriesLevel: routine?.level,
                             durationOverrides: activeOverrides,
                             repOverrides: activeRepOverrides,
-                            showsStartCountdown: true
+                            showsStartCountdown: true,
+                            source: .presetRoutine
                         )
                     )
                 }

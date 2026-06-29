@@ -7,6 +7,29 @@ class OnboardingViewModel {
     var currentStep: Int = 0
     let totalSteps: Int = 20
 
+    static let stepIdentifiers = [
+        "welcome",
+        "name",
+        "body_goals",
+        "long_term_goal",
+        "validation",
+        "pain_frequency",
+        "pain_impact",
+        "build_program",
+        "problem_areas",
+        "activity_level",
+        "lifestyle",
+        "problem_times",
+        "stretching_experience",
+        "duration",
+        "education",
+        "commitment",
+        "analyzing",
+        "signature",
+        "motivation",
+        "plan_preview",
+    ]
+
     // Screen 1: Name
     var userName: String = ""
 
@@ -73,6 +96,16 @@ class OnboardingViewModel {
 
     var progress: Double {
         Double(currentStep) / Double(totalSteps)
+    }
+
+    func analyticsProperties(for step: Int? = nil) -> [String: Any] {
+        let index = step ?? currentStep
+        return [
+            "step_id": Self.stepIdentifiers.indices.contains(index) ? Self.stepIdentifiers[index] : "unknown",
+            "step_index": index,
+            "step_number": index + 1,
+            "total_steps": totalSteps,
+        ]
     }
 
     var canAdvance: Bool {

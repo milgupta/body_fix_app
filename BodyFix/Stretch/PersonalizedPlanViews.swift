@@ -101,10 +101,12 @@ struct PersonalizedPlanDetailView: View {
                         StretchTimingStore.timerRoute(
                             stretchIds: stretches.map(\.id),
                             startIndex: 0,
+                            routineId: routine.id,
                             routineName: routine.name,
                             durationOverrides: activeOverrides,
                             repOverrides: activeRepOverrides,
-                            showsStartCountdown: true
+                            showsStartCountdown: true,
+                            source: .personalizedPlan
                         )
                     )
                 }

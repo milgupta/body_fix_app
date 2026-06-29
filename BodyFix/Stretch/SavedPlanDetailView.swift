@@ -68,10 +68,12 @@ struct SavedPlanDetailView: View {
                         StretchTimingStore.timerRoute(
                             stretchIds: savedPlan.stretchIds,
                             startIndex: 0,
+                            routineId: savedPlan.routineId,
                             routineName: savedPlan.displayTitle,
                             durationOverrides: activeOverrides,
                             repOverrides: activeRepOverrides,
-                            showsStartCountdown: true
+                            showsStartCountdown: true,
+                            source: .savedPlan
                         )
                     )
                 }

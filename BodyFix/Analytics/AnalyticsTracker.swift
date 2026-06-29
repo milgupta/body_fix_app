@@ -32,3 +32,26 @@ enum AnalyticsTracker {
         #endif
     }
 }
+
+enum AnalyticsEvent {
+    static let onboardingStarted = "onboarding_started"
+    static let onboardingStepViewed = "onboarding_step_viewed"
+    static let onboardingStepCompleted = "onboarding_step_completed"
+    static let onboardingBackTapped = "onboarding_back_tapped"
+    static let onboardingBackgrounded = "onboarding_backgrounded"
+    static let onboardingResumed = "onboarding_resumed"
+    static let onboardingPainProfileSubmitted = "onboarding_pain_profile_submitted"
+    static let onboardingProblemAreaSelected = "onboarding_problem_area_selected"
+    static let onboardingCompleted = "onboarding_completed"
+
+    static let routineStarted = "routine_started"
+    static let routineCompleted = "routine_completed"
+    static let routineAbandoned = "routine_abandoned"
+    static let stretchViewed = "stretch_viewed"
+    static let stretchStarted = "stretch_started"
+    static let stretchCompleted = "stretch_completed"
+    static let stretchInfoOpened = "stretch_info_opened"
+
+    static let notificationPermissionRequested = "notification_permission_requested"
+    static let notificationSetupViewed = "notification_setup_viewed"
+}

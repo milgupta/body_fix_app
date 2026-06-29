@@ -52,22 +52,26 @@ enum StretchTimingStore {
     static func timerRoute(
         stretchIds: [String],
         startIndex: Int,
+        routineId: String? = nil,
         routineName: String? = nil,
         seriesId: String? = nil,
         seriesLevel: Int? = nil,
         durationOverrides: [String: Int],
         repOverrides: [String: Int] = [:],
-        showsStartCountdown: Bool = false
+        showsStartCountdown: Bool = false,
+        source: StretchTimerSource = .unknown
     ) -> StretchTimerRoute {
         StretchTimerRoute(
             stretchIds: stretchIds,
             startIndex: startIndex,
+            routineId: routineId,
             routineName: routineName,
             seriesId: seriesId,
             seriesLevel: seriesLevel,
             durationOverrides: durationOverrides,
             repOverrides: repOverrides,
-            showsStartCountdown: showsStartCountdown
+            showsStartCountdown: showsStartCountdown,
+            source: source
         )
     }
 

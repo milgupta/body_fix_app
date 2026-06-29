@@ -4,6 +4,11 @@ import SwiftData
 struct OnboardingContainerView: View {
     @State private var viewModel = OnboardingViewModel()
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var stepEnteredAt = Date()
+    @State private var hasTrackedInitialStep = false
+    @State private var wasBackgrounded = false
+    @State private var painProfileSubmissionCount = 0
 
     private var showsNavBar: Bool {
         ![0, 4, 7, 16, 19].contains(viewModel.currentStep)
@@ -60,6 +65,17 @@ struct OnboardingContainerView: View {
         .environment(viewModel)
         .onAppear {
             HapticManager.shared.prepare()
+            guard !hasTrackedInitialStep else { return }
+            hasTrackedInitialStep = true
+            stepEnteredAt = Date()
+            AnalyticsTracker.capture(AnalyticsEvent.onboardingStarted)
+            trackStepViewed(viewModel.currentStep, direction: "initial")
+        }
+        .onChange(of: viewModel.currentStep) { oldStep, newStep in
+            trackStepChange(from: oldStep, to: newStep)
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            trackScenePhase(newPhase)
         }
     }
 
@@ -103,6 +119,88 @@ struct OnboardingContainerView: View {
             } else {
                 Color.bfPageBackground
             }
+        }
+    }
+
+    private func trackStepChange(from oldStep: Int, to newStep: Int) {
+        let now = Date()
+        let duration = max(0, now.timeIntervalSince(stepEnteredAt))
+
+        if newStep > oldStep {
+            var properties = viewModel.analyticsProperties(for: oldStep)
+            properties["duration_seconds"] = duration
+            properties["destination_step_id"] = OnboardingViewModel.stepIdentifiers.indices.contains(newStep)
+                ? OnboardingViewModel.stepIdentifiers[newStep]
+                : "unknown"
+            AnalyticsTracker.capture(AnalyticsEvent.onboardingStepCompleted, properties: properties)
+
+            if oldStep == 8 {
+                trackPainProfile()
+            }
+        } else if newStep < oldStep {
+            var properties = viewModel.analyticsProperties(for: oldStep)
+            properties["duration_seconds"] = duration
+            properties["destination_step_id"] = OnboardingViewModel.stepIdentifiers.indices.contains(newStep)
+                ? OnboardingViewModel.stepIdentifiers[newStep]
+                : "unknown"
+            AnalyticsTracker.capture(AnalyticsEvent.onboardingBackTapped, properties: properties)
+        }
+
+        stepEnteredAt = now
+        trackStepViewed(newStep, direction: newStep > oldStep ? "forward" : "back")
+    }
+
+    private func trackStepViewed(_ step: Int, direction: String) {
+        var properties = viewModel.analyticsProperties(for: step)
+        properties["entry_direction"] = direction
+        AnalyticsTracker.capture(AnalyticsEvent.onboardingStepViewed, properties: properties)
+    }
+
+    private func trackPainProfile() {
+        painProfileSubmissionCount += 1
+        let areas = viewModel.selectedPainAreas
+            .map(\.analyticsID)
+            .sorted()
+        let sharedProperties: [String: Any] = [
+            "problem_areas": areas,
+            "problem_area_count": areas.count,
+            "pain_frequency_days": viewModel.painFrequency,
+            "pain_impact_score": viewModel.painImpact,
+            "includes_other": viewModel.selectedPainAreas.contains(.other),
+            "submission_number": painProfileSubmissionCount,
+        ]
+
+        AnalyticsTracker.capture(
+            AnalyticsEvent.onboardingPainProfileSubmitted,
+            properties: sharedProperties
+        )
+
+        for area in areas {
+            var properties = sharedProperties
+            properties.removeValue(forKey: "problem_areas")
+            properties["area_id"] = area
+            AnalyticsTracker.capture(
+                AnalyticsEvent.onboardingProblemAreaSelected,
+                properties: properties
+            )
+        }
+    }
+
+    private func trackScenePhase(_ phase: ScenePhase) {
+        switch phase {
+        case .background:
+            var properties = viewModel.analyticsProperties()
+            properties["duration_seconds"] = max(0, Date().timeIntervalSince(stepEnteredAt))
+            AnalyticsTracker.capture(AnalyticsEvent.onboardingBackgrounded, properties: properties)
+            wasBackgrounded = true
+        case .active where wasBackgrounded:
+            AnalyticsTracker.capture(
+                AnalyticsEvent.onboardingResumed,
+                properties: viewModel.analyticsProperties()
+            )
+            wasBackgrounded = false
+        default:
+            break
         }
     }
 }
