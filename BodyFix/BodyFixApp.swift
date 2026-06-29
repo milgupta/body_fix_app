@@ -8,6 +8,7 @@ struct BodyFixApp: App {
     }()
 
     init() {
+        AnalyticsTracker.configure()
         PaywallManager.shared.configure()
     }
 
@@ -15,9 +16,6 @@ struct BodyFixApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
-                .onAppear {
-                    AnalyticsTracker.configure()
-                }
         }
         .modelContainer(sharedModelContainer)
     }

@@ -14,9 +14,9 @@ enum AnalyticsTracker {
         #if canImport(PostHog)
         let config: PostHogConfig
         if let host = APIConfig.postHogHost {
-            config = PostHogConfig(apiKey: token, host: host)
+            config = PostHogConfig(projectToken: token, host: host)
         } else {
-            config = PostHogConfig(apiKey: token)
+            config = PostHogConfig(projectToken: token)
         }
         PostHogSDK.shared.setup(config)
         #endif

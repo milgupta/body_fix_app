@@ -39,6 +39,7 @@ struct StretchTimerView: View {
     @State private var didTrackRoutineCompletion = false
     @State private var didTrackRoutineAbandonment = false
     @State private var routineStartedAt = Date()
+    @State private var analyticsSessionId = UUID().uuidString
 
     private var stretches: [Stretch] {
         route.stretchIds.compactMap { StretchDatabase.stretch(id: $0) }
@@ -770,6 +771,115 @@ struct StretchTimerView: View {
         }
 
         try? modelContext.save()
+    }
+
+    private func openDetails(for stretch: Stretch, trigger: String) {
+        var properties = stretchAnalyticsProperties(for: stretch)
+        properties["trigger"] = trigger
+        properties["has_started"] = startedStretchIndices.contains(currentIndex)
+        properties["is_completed"] = completedStretchIndices.contains(currentIndex)
+        AnalyticsTracker.capture(AnalyticsEvent.stretchInfoOpened, properties: properties)
+        detailStretch = stretch
+    }
+
+    private func trackRoutineStartedIfNeeded() {
+        guard !isOnboardingPreview, !didTrackRoutineStart else { return }
+        didTrackRoutineStart = true
+        routineStartedAt = Date()
+        AnalyticsTracker.capture(
+            AnalyticsEvent.routineStarted,
+            properties: routineAnalyticsProperties()
+        )
+    }
+
+    private func trackRoutineCompletedIfNeeded() {
+        guard !isOnboardingPreview, !didTrackRoutineCompletion else { return }
+        didTrackRoutineCompletion = true
+        var properties = routineAnalyticsProperties()
+        properties["elapsed_seconds"] = max(0, Date().timeIntervalSince(routineStartedAt))
+        properties["completed_stretch_count"] = completedStretchIndices.count
+        AnalyticsTracker.capture(AnalyticsEvent.routineCompleted, properties: properties)
+    }
+
+    private func trackRoutineAbandonedIfNeeded() {
+        guard !isOnboardingPreview,
+              didTrackRoutineStart,
+              !didTrackRoutineCompletion,
+              !didTrackRoutineAbandonment
+        else { return }
+
+        didTrackRoutineAbandonment = true
+        var properties = routineAnalyticsProperties()
+        properties["elapsed_seconds"] = max(0, Date().timeIntervalSince(routineStartedAt))
+        properties["completed_stretch_count"] = completedStretchIndices.count
+        properties["exit_stretch_index"] = currentIndex
+        AnalyticsTracker.capture(AnalyticsEvent.routineAbandoned, properties: properties)
+    }
+
+    private func trackStretchViewedIfNeeded() {
+        guard let stretch, !viewedStretchIndices.contains(currentIndex) else { return }
+        viewedStretchIndices.insert(currentIndex)
+        AnalyticsTracker.capture(
+            AnalyticsEvent.stretchViewed,
+            properties: stretchAnalyticsProperties(for: stretch)
+        )
+    }
+
+    private func trackStretchStartedIfNeeded(_ stretch: Stretch) {
+        guard !startedStretchIndices.contains(currentIndex) else { return }
+        startedStretchIndices.insert(currentIndex)
+        stretchStartedAt[currentIndex] = Date()
+        AnalyticsTracker.capture(
+            AnalyticsEvent.stretchStarted,
+            properties: stretchAnalyticsProperties(for: stretch)
+        )
+    }
+
+    private func trackStretchCompletedIfNeeded(_ stretch: Stretch) {
+        guard !completedStretchIndices.contains(currentIndex) else { return }
+        completedStretchIndices.insert(currentIndex)
+        var properties = stretchAnalyticsProperties(for: stretch)
+        if let startedAt = stretchStartedAt[currentIndex] {
+            properties["elapsed_seconds"] = max(0, Date().timeIntervalSince(startedAt))
+        }
+        AnalyticsTracker.capture(AnalyticsEvent.stretchCompleted, properties: properties)
+    }
+
+    private func routineAnalyticsProperties() -> [String: Any] {
+        var properties: [String: Any] = [
+            "routine_session_id": analyticsSessionId,
+            "routine_source": route.source.rawValue,
+            "stretch_count": stretches.count,
+            "start_index": route.startIndex,
+            "planned_duration_seconds": stretches.reduce(0) { partial, stretch in
+                partial + effectiveDuration(for: stretch)
+            },
+        ]
+        if let routineId = route.routineId {
+            properties["routine_id"] = routineId
+        }
+        if let routineName = route.routineName {
+            properties["routine_name"] = routineName
+        }
+        if let seriesId = route.seriesId {
+            properties["series_id"] = seriesId
+        }
+        if let seriesLevel = route.seriesLevel {
+            properties["series_level"] = seriesLevel
+        }
+        return properties
+    }
+
+    private func stretchAnalyticsProperties(for stretch: Stretch) -> [String: Any] {
+        var properties = routineAnalyticsProperties()
+        properties["stretch_id"] = stretch.id
+        properties["stretch_name"] = stretch.name
+        properties["stretch_index"] = currentIndex
+        properties["stretch_number"] = currentIndex + 1
+        properties["duration_seconds"] = effectiveDuration(for: stretch)
+        properties["is_rep_based"] = stretch.isRepBased
+        properties["context"] = isOnboardingPreview ? "onboarding_preview" : "standard"
+        return properties
     }
 
     private func formattedTime(_ totalSeconds: Int) -> String {
