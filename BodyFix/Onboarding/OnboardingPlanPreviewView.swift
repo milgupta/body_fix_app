@@ -6,9 +6,13 @@ struct OnboardingPlanPreviewView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
     @Environment(\.modelContext) private var modelContext
     @Environment(\.requestReview) private var requestReview
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var showContent = false
     @State private var trialIntroStep: TrialIntroStep?
-    @State private var isAwaitingRatingPresentation = false
+    @State private var ratingFlowState: PlanRatingFlowState = .ready
+    @State private var onboardingPreviewStretch: Stretch?
+    @State private var completedPreviewStretchId: String?
+    @State private var trialCardPulse = false
 
     private var draftProfile: UserProfile {
         UserProfile(
@@ -63,6 +67,29 @@ struct OnboardingPlanPreviewView: View {
             withAnimation(.easeOut(duration: 0.6)) {
                 showContent = true
             }
+            startTrialCardPulseIfNeeded()
+        }
+        .onChange(of: reduceMotion) { _, _ in startTrialCardPulseIfNeeded() }
+        .fullScreenCover(item: $onboardingPreviewStretch) { stretch in
+            OnboardingStretchTrialContainer(
+                stretch: stretch,
+                onComplete: {
+                    completedPreviewStretchId = stretch.id
+                    trialCardPulse = false
+                    AnalyticsTracker.capture(
+                        "onboarding_stretch_preview_completed",
+                        properties: ["stretch_id": stretch.id]
+                    )
+                    onboardingPreviewStretch = nil
+                },
+                onCancel: {
+                    AnalyticsTracker.capture(
+                        "onboarding_stretch_preview_exited_early",
+                        properties: ["stretch_id": stretch.id]
+                    )
+                    onboardingPreviewStretch = nil
+                }
+            )
         }
     }
 
@@ -80,10 +107,10 @@ struct OnboardingPlanPreviewView: View {
                 .padding(.bottom, 166)
             }
 
-            OnboardingContinueButton(label: "Start My Plan", style: .gradientPrimary, feedback: .success) {
+            OnboardingContinueButton(label: ratingButtonLabel, style: .gradientPrimary, feedback: .success) {
                 startTrialIntro()
             }
-            .disabled(isAwaitingRatingPresentation)
+            .disabled(ratingFlowState == .requesting)
             .padding(.horizontal, 20)
             .padding(.bottom, 26)
             .opacity(showContent ? 1 : 0)
@@ -126,10 +153,62 @@ struct OnboardingPlanPreviewView: View {
                 .foregroundStyle(.bfTextPrimary)
 
             ForEach(Array(displayModel.stretches.enumerated()), id: \.element.id) { index, stretch in
-                PersonalizedPlanStretchRow(stretch: stretch, isFirstStep: index == 0)
-                    .opacity(showContent ? 1 : 0)
-                    .animation(.easeOut(duration: 0.45).delay(Double(index) * 0.06), value: showContent)
+                if index == 0 {
+                    onboardingTrialRow(stretch)
+                } else {
+                    PersonalizedPlanStretchRow(stretch: stretch, isFirstStep: false)
+                        .opacity(showContent ? 1 : 0)
+                        .animation(.easeOut(duration: 0.45).delay(Double(index) * 0.06), value: showContent)
+                }
             }
+        }
+    }
+
+    private func onboardingTrialRow(_ stretch: Stretch) -> some View {
+        let didComplete = completedPreviewStretchId == stretch.id
+        let shouldPulse = !reduceMotion && !didComplete && onboardingPreviewStretch == nil
+
+        return Button {
+            HapticManager.shared.mediumImpact()
+            let event = didComplete
+                ? "onboarding_stretch_preview_replayed"
+                : "onboarding_stretch_preview_started"
+            AnalyticsTracker.capture(event, properties: ["stretch_id": stretch.id])
+            onboardingPreviewStretch = stretch
+        } label: {
+            PersonalizedPlanStretchRow(
+                stretch: stretch,
+                isFirstStep: true,
+                firstStepLabel: didComplete ? "Completed · Try again" : "Try this stretch",
+                firstStepSystemImage: didComplete ? "checkmark.circle.fill" : "play.fill"
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(Color.bfAccent.opacity(shouldPulse && trialCardPulse ? 0.72 : 0.18), lineWidth: 2)
+            )
+            .shadow(
+                color: Color.bfAccent.opacity(shouldPulse && trialCardPulse ? 0.22 : 0),
+                radius: 14,
+                y: 4
+            )
+        }
+        .buttonStyle(.plain)
+        .scaleEffect(shouldPulse && trialCardPulse ? 0.985 : 1)
+        .opacity(showContent ? 1 : 0)
+        .animation(.easeOut(duration: 0.45), value: showContent)
+        .accessibilityLabel(didComplete ? "Try \(stretch.name) again" : "Try \(stretch.name)")
+        .accessibilityHint("Opens a preview of the first stretch in your plan")
+    }
+
+    private func startTrialCardPulseIfNeeded() {
+        guard !reduceMotion, completedPreviewStretchId == nil else {
+            trialCardPulse = false
+            return
+        }
+
+        trialCardPulse = false
+        withAnimation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) {
+            trialCardPulse = true
         }
     }
 
@@ -141,21 +220,34 @@ struct OnboardingPlanPreviewView: View {
     }
 
     private func startTrialIntro() {
-        if RatingManager.canRequestOnboardingRating() {
-            isAwaitingRatingPresentation = true
-            requestReview()
+        switch ratingFlowState {
+        case .ready:
+            guard RatingManager.canRequestOnboardingRating() else {
+                showTrialIntro()
+                return
+            }
+
+            ratingFlowState = .requesting
             RatingManager.markReviewRequested(trigger: .onboardingPlan)
+            requestReview()
             Task {
-                try? await Task.sleep(nanoseconds: 1_500_000_000)
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
                 await MainActor.run {
-                    isAwaitingRatingPresentation = false
-                    showTrialIntro()
+                    guard ratingFlowState == .requesting else { return }
+                    ratingFlowState = .continueReady
                 }
             }
-            return
-        }
 
-        showTrialIntro()
+        case .requesting:
+            break
+
+        case .continueReady:
+            showTrialIntro()
+        }
+    }
+
+    private var ratingButtonLabel: String {
+        ratingFlowState == .ready ? "Start My Plan" : "Continue"
     }
 
     private func showTrialIntro() {
@@ -172,9 +264,42 @@ struct OnboardingPlanPreviewView: View {
     }
 }
 
+private struct OnboardingStretchTrialContainer: View {
+    let stretch: Stretch
+    let onComplete: () -> Void
+    let onCancel: () -> Void
+
+    @State private var path = NavigationPath()
+    @State private var tabBarVisibility = TabBarVisibility()
+
+    var body: some View {
+        NavigationStack(path: $path) {
+            StretchTimerView(
+                route: StretchTimerRoute(
+                    stretchIds: [stretch.id],
+                    startIndex: 0,
+                    showsStartCountdown: true,
+                    context: .onboardingPreview
+                ),
+                path: $path,
+                onOnboardingPreviewComplete: onComplete,
+                onOnboardingPreviewCancel: onCancel
+            )
+        }
+        .environment(tabBarVisibility)
+        .interactiveDismissDisabled()
+    }
+}
+
 private enum TrialIntroStep {
     case tryFree
     case reminder
+}
+
+private enum PlanRatingFlowState {
+    case ready
+    case requesting
+    case continueReady
 }
 
 private struct OnboardingTrialTryFreeView: View {

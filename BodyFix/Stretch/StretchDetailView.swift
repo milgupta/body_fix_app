@@ -36,8 +36,6 @@ struct StretchDetailView: View {
 
                         detailPanel
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .offset(y: -38)
-                            .padding(.bottom, -38)
                     }
                 }
                 .ignoresSafeArea(edges: .top)
@@ -51,10 +49,6 @@ struct StretchDetailView: View {
     }
 
     private func heroHeight(for proxy: GeometryProxy) -> CGFloat {
-        if usesLandscapeVideoLayout {
-            return max(340, min(proxy.size.height * 0.44, 390))
-        }
-
         return max(460, proxy.size.height * 0.62)
     }
 

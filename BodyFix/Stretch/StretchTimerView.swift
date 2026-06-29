@@ -5,6 +5,8 @@ import SwiftData
 struct StretchTimerView: View {
     let route: StretchTimerRoute
     @Binding var path: NavigationPath
+    let onOnboardingPreviewComplete: (() -> Void)?
+    let onOnboardingPreviewCancel: (() -> Void)?
     @Environment(\.modelContext) private var modelContext
     @Environment(TabBarVisibility.self) private var tabBarVisibility
     @Query private var profiles: [UserProfile]
@@ -26,7 +28,9 @@ struct StretchTimerView: View {
     @State private var savedCompletedStretchIndices: Set<Int> = []
     @State private var countdownValue: Int?
     @State private var countdownTask: Task<Void, Never>?
+    @State private var onboardingCompletionTask: Task<Void, Never>?
     @State private var hasRunStartCountdown = false
+    @State private var showOnboardingSuccess = false
 
     private var stretches: [Stretch] {
         route.stretchIds.compactMap { StretchDatabase.stretch(id: $0) }
@@ -39,6 +43,10 @@ struct StretchTimerView: View {
 
     private var isStartCountdownActive: Bool {
         countdownValue != nil
+    }
+
+    private var isOnboardingPreview: Bool {
+        route.context == .onboardingPreview
     }
 
     private func effectiveDuration(for stretch: Stretch) -> Int {
@@ -57,9 +65,16 @@ struct StretchTimerView: View {
         )
     }
 
-    init(route: StretchTimerRoute, path: Binding<NavigationPath>) {
+    init(
+        route: StretchTimerRoute,
+        path: Binding<NavigationPath>,
+        onOnboardingPreviewComplete: (() -> Void)? = nil,
+        onOnboardingPreviewCancel: (() -> Void)? = nil
+    ) {
         self.route = route
         _path = path
+        self.onOnboardingPreviewComplete = onOnboardingPreviewComplete
+        self.onOnboardingPreviewCancel = onOnboardingPreviewCancel
         let list = route.stretchIds.compactMap { StretchDatabase.stretch(id: $0) }
         let idx = min(max(0, route.startIndex), max(0, list.count - 1))
         _currentIndex = State(initialValue: idx)
@@ -93,6 +108,10 @@ struct StretchTimerView: View {
             if let countdownValue {
                 startCountdownOverlay(value: countdownValue)
             }
+
+            if showOnboardingSuccess {
+                onboardingSuccessOverlay
+            }
         }
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .tabBar)
@@ -101,18 +120,20 @@ struct StretchTimerView: View {
             startCountdownIfNeeded()
         }
         .onDisappear { tabBarVisibility.restoreTabBar() }
-        .alert("End routine?", isPresented: $showEndAlert) {
+        .alert(isOnboardingPreview ? "Exit this stretch?" : "End routine?", isPresented: $showEndAlert) {
             Button("Continue", role: .cancel) {}
-            Button("End") {
+            Button(isOnboardingPreview ? "Exit" : "End") {
                 HapticManager.shared.warning()
-                path = NavigationPath()
+                exitTimer()
             }
         } message: {
-            Text("Your progress will be saved.")
+            Text(isOnboardingPreview ? "You can try it again from your plan." : "Your progress will be saved.")
         }
         .onDisappear {
             countdownTask?.cancel()
             countdownTask = nil
+            onboardingCompletionTask?.cancel()
+            onboardingCompletionTask = nil
             countdownValue = nil
             timer?.invalidate()
         }
@@ -197,7 +218,7 @@ struct StretchTimerView: View {
                     .shadow(color: Color.black.opacity(0.06), radius: 6, y: 2)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("End routine")
+            .accessibilityLabel(isOnboardingPreview ? "Exit stretch preview" : "End routine")
 
             Spacer()
 
@@ -437,6 +458,15 @@ struct StretchTimerView: View {
         currentIndex = index
     }
 
+    private func exitTimer() {
+        timer?.invalidate()
+        if isOnboardingPreview {
+            onOnboardingPreviewCancel?()
+        } else {
+            path = NavigationPath()
+        }
+    }
+
     private func advanceAfterComplete() {
         if currentIndex + 1 < stretches.count {
             showNextOverlay = true
@@ -454,6 +484,21 @@ struct StretchTimerView: View {
     }
 
     private func finishSession() {
+        if isOnboardingPreview {
+            guard !showOnboardingSuccess else { return }
+            timer?.invalidate()
+            showOnboardingSuccess = true
+            HapticManager.shared.success()
+            onboardingCompletionTask = Task {
+                try? await Task.sleep(nanoseconds: 1_200_000_000)
+                guard !Task.isCancelled else { return }
+                await MainActor.run {
+                    onOnboardingPreviewComplete?()
+                }
+            }
+            return
+        }
+
         let names = stretches.map(\.name)
         let muscles = orderedMuscleGroupRaws(for: stretches)
         let total = stretches.reduce(0) { partial, stretch in
@@ -469,6 +514,37 @@ struct StretchTimerView: View {
                 seriesLevel: route.seriesLevel
             )
         )
+    }
+
+    private var onboardingSuccessOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.38)
+                .ignoresSafeArea()
+
+            VStack(spacing: 16) {
+                Image(systemName: "checkmark")
+                    .font(.system(size: 38, weight: .bold))
+                    .foregroundStyle(.white)
+                    .frame(width: 86, height: 86)
+                    .background(Circle().fill(Color.bfMint))
+
+                Text("Nice work!")
+                    .font(Typography.screenTitle)
+                    .foregroundStyle(Color.bfTextPrimary)
+
+                Text("Your first stretch is complete.")
+                    .font(Typography.subtitle)
+                    .foregroundStyle(Color.bfTextSecondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.horizontal, 30)
+            .padding(.vertical, 32)
+            .background(RoundedRectangle(cornerRadius: 28, style: .continuous).fill(Color.bfCard))
+            .padding(.horizontal, 32)
+        }
+        .allowsHitTesting(false)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Nice work. Your first stretch is complete.")
     }
 
     @ViewBuilder
@@ -657,6 +733,7 @@ struct StretchTimerView: View {
     }
 
     private func saveCompletedStretchIfNeeded(_ stretch: Stretch) {
+        guard !isOnboardingPreview else { return }
         guard !savedCompletedStretchIndices.contains(currentIndex) else { return }
         savedCompletedStretchIndices.insert(currentIndex)
 

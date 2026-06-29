@@ -1759,53 +1759,6 @@
     "progression": null
   },
   {
-    "id": "thoracic_extension_chair",
-    "name": "Thoracic Extension Over Chair Back",
-    "muscle_groups": [
-      "upper_back",
-      "chest",
-      "neck"
-    ],
-    "timing": {
-      "hold_seconds": 30,
-      "per_side": false,
-      "reps": null,
-      "cycles": 1,
-      "type": "hold",
-      "display": "30s hold"
-    },
-    "description": "Sit in a chair, clasp your hands behind your head, and gently arch your upper back over the top edge of the chair while opening your elbows wide to extend the thoracic spine.",
-    "difficulty": "intermediate",
-    "categories": {
-      "goal": [
-        "posture",
-        "mobility"
-      ],
-      "time": [
-        "morning"
-      ],
-      "context": [
-        "desk",
-        "office",
-        "tech_neck"
-      ]
-    },
-    "position": "seated",
-    "support": "chair",
-    "equipment": "chair",
-    "sides": "bilateral",
-    "image": {
-      "name": "stretch_thoracic_extension_chair",
-      "fallback": "default_stretch"
-    },
-    "injury_relevance": [
-      "postural_kyphosis",
-      "neck_pain",
-      "shoulder_impingement"
-    ],
-    "progression": null
-  },
-  {
     "id": "childs_pose_arm_reach",
     "name": "Child's Pose with Lateral Arm Reach",
     "muscle_groups": [

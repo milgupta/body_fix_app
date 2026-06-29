@@ -19,8 +19,6 @@
   {"id":"lowerback_knee_to_chest","name":"Knee-to-Chest","muscleGroup":"lowerBack","duration":30,"repScheme":"30s each side","description":"Supine: pull one knee toward the chest to stretch the lower back and hip flexor region.","difficulty":1,"imageName":"stretch_knee_to_chest"},
   {"id":"lowerback_supine_twist","name":"Supine Spinal Twist","muscleGroup":"lowerBack","duration":30,"repScheme":"30s each side","description":"Lie on your back, drop knees to one side while shoulders stay down for gentle lumbar rotation.","difficulty":1,"imageName":"stretch_supine_twist"},
 
-  {"id":"core_dead_bug_hold","name":"Dead Bug (Isometric)","muscleGroup":"core","duration":30,"repScheme":"30s","description":"Supine with hips and knees at 90°, press lower back into the floor and hold to engage deep abdominals.","difficulty":1,"imageName":"stretch_dead_bug"},
-  {"id":"core_bird_dog","name":"Bird Dog","muscleGroup":"core","duration":30,"repScheme":"8 reps each side","description":"From quadruped, extend opposite arm and leg while keeping the trunk stable—strengthens anti-extension control.","difficulty":1,"imageName":"stretch_bird_dog"},
   {"id":"core_pelvic_tilt","name":"Pelvic Tilts","muscleGroup":"core","duration":30,"repScheme":"12 reps","description":"Supine: gently rock the pelvis to flatten and arch the low back slightly to mobilize the lumbar spine.","difficulty":1,"imageName":"stretch_pelvic_tilt"},
 
   {"id":"biceps_wall_stretch","name":"Wall Biceps Stretch","muscleGroup":"biceps","duration":30,"repScheme":"30s each arm","description":"Arm extended behind you on a wall, turn body away until a stretch is felt in the front of the upper arm.","difficulty":1,"imageName":"stretch_biceps_wall"},
@@ -52,9 +50,6 @@
   {"id":"hamstrings_supine_strap","name":"Supine Hamstring Stretch","muscleGroup":"hamstrings","duration":30,"repScheme":"30s each leg","description":"Lie on your back, use a strap or hands behind thigh to straighten the knee and lift the leg.","difficulty":1,"imageName":"stretch_lying_hamstring"},
 
   {"id":"knees_heel_slides","name":"Heel Slides","muscleGroup":"knees","duration":30,"repScheme":"12 reps each leg","description":"Supine: slide heel toward buttocks and back to improve knee flexion range without forcing.","difficulty":1,"imageName":"stretch_heel_slides"},
-  {"id":"knees_terminal_extension","name":"Terminal Knee Extension","muscleGroup":"knees","duration":30,"repScheme":"10 reps each leg","description":"Seated with knee bent over edge of chair; straighten fully and hold 1–2 seconds for quad activation.","difficulty":1,"imageName":"stretch_tke"},
-  {"id":"knees_short_arc","name":"Short-Arc Quad Set","muscleGroup":"knees","duration":30,"repScheme":"10 reps each leg","description":"Small pillow under knee; press knee down to straighten the leg isometrically to support patellar tracking.","difficulty":1,"imageName":"stretch_short_arc"},
-
   {"id":"calves_wall","name":"Wall Calf Stretch","muscleGroup":"calves","duration":30,"repScheme":"30s each leg","description":"Hands on wall, back leg straight, heel down—stretch the gastrocnemius.","difficulty":1,"imageName":"stretch_wall_calf"},
   {"id":"calves_stair_drop","name":"Stair Calf Drop","muscleGroup":"calves","duration":30,"repScheme":"30s each leg","description":"Stand on step edge; let heels drop below level for soleus and Achilles length.","difficulty":1,"imageName":"stretch_stair_drop"},
   {"id":"calves_soleus","name":"Soleus Stretch","muscleGroup":"calves","duration":30,"repScheme":"30s each leg","description":"Wall stretch with back knee bent to target the deeper soleus muscle.","difficulty":1,"imageName":"stretch_soleus"}

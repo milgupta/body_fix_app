@@ -237,12 +237,35 @@ enum PersonalizedPlanGenerator {
             }
         }
 
+        if chosen.count < minimumCount {
+            let chosenIds = Set(chosen.map(\.id))
+            let routineGroups = Set(routine.relatedMuscleGroups.compactMap(MuscleGroup.init(rawValue:)))
+            let supplementalGroups = preferredGroups.union(routineGroups)
+            let allAvailable = StretchDatabase.loadAll()
+            let allAvailableIds = allAvailable.map(\.id)
+            let supplemental = allAvailable
+                .filter { !chosenIds.contains($0.id) }
+                .sorted { lhs, rhs in
+                    let lhsScore = stretchScore(lhs, preferredGroups: supplementalGroups, baseOrder: [])
+                    let rhsScore = stretchScore(rhs, preferredGroups: supplementalGroups, baseOrder: [])
+                    if lhsScore == rhsScore {
+                        return baseIndex(lhs, in: allAvailableIds) < baseIndex(rhs, in: allAvailableIds)
+                    }
+                    return lhsScore > rhsScore
+                }
+
+            chosen.append(contentsOf: supplemental.prefix(minimumCount - chosen.count))
+        }
+
         if chosen.isEmpty, let first = prioritized.first {
             chosen = [first]
         }
 
         let chosenIds = Set(chosen.map(\.id))
-        return allStretches.filter { chosenIds.contains($0.id) }
+        let routineStretches = allStretches.filter { chosenIds.contains($0.id) }
+        let routineIds = Set(allStretches.map(\.id))
+        let supplementalStretches = chosen.filter { !routineIds.contains($0.id) }
+        return routineStretches + supplementalStretches
     }
 
     private static func stretchScore(_ stretch: Stretch, preferredGroups: Set<MuscleGroup>, baseOrder: [String]) -> Int {
@@ -258,8 +281,6 @@ enum PersonalizedPlanGenerator {
 
     private static func minimumStretchCount(for targetSeconds: Int) -> Int {
         switch targetSeconds {
-        case ..<180: return 3
-        case ..<300: return 4
         case ..<600: return 5
         default: return 6
         }

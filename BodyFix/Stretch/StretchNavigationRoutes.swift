@@ -16,6 +16,11 @@ struct SeriesDetailRoute: Hashable {
     let seriesId: String
 }
 
+enum StretchTimerContext: Hashable {
+    case standard
+    case onboardingPreview
+}
+
 struct StretchTimerRoute: Hashable {
     let stretchIds: [String]
     let startIndex: Int
@@ -25,6 +30,7 @@ struct StretchTimerRoute: Hashable {
     var durationOverrides: [String: Int] = [:]
     var repOverrides: [String: Int] = [:]
     var showsStartCountdown: Bool = false
+    var context: StretchTimerContext = .standard
 }
 
 struct SessionCompleteRoute: Hashable {

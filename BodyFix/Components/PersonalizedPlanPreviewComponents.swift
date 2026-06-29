@@ -245,6 +245,8 @@ struct PersonalizedPlanStretchRow: View {
     let valueText: String?
     let onDecrease: (() -> Void)?
     let onIncrease: (() -> Void)?
+    let firstStepLabel: String
+    let firstStepSystemImage: String?
 
     init(
         stretch: Stretch,
@@ -252,7 +254,9 @@ struct PersonalizedPlanStretchRow: View {
         detailText: String? = nil,
         valueText: String? = nil,
         onDecrease: (() -> Void)? = nil,
-        onIncrease: (() -> Void)? = nil
+        onIncrease: (() -> Void)? = nil,
+        firstStepLabel: String = "Start here",
+        firstStepSystemImage: String? = nil
     ) {
         self.stretch = stretch
         self.isFirstStep = isFirstStep
@@ -260,6 +264,8 @@ struct PersonalizedPlanStretchRow: View {
         self.valueText = valueText
         self.onDecrease = onDecrease
         self.onIncrease = onIncrease
+        self.firstStepLabel = firstStepLabel
+        self.firstStepSystemImage = firstStepSystemImage
     }
 
     var body: some View {
@@ -268,13 +274,20 @@ struct PersonalizedPlanStretchRow: View {
 
             VStack(alignment: .leading, spacing: 5) {
                 if isFirstStep {
-                    Text("Start here")
-                        .font(Typography.metadataBadge)
-                        .foregroundStyle(Color.bfAccent)
-                        .lineLimit(1)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 5)
-                        .background(Capsule().fill(Color.bfAccent.opacity(0.1)))
+                    HStack(spacing: 5) {
+                        if let firstStepSystemImage {
+                            Image(systemName: firstStepSystemImage)
+                                .font(.system(size: 10, weight: .bold))
+                        }
+
+                        Text(firstStepLabel)
+                            .lineLimit(1)
+                    }
+                    .font(Typography.metadataBadge)
+                    .foregroundStyle(Color.bfAccent)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 5)
+                    .background(Capsule().fill(Color.bfAccent.opacity(0.1)))
                 }
 
                 VStack(alignment: .leading, spacing: 5) {
