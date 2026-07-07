@@ -153,7 +153,13 @@ struct OnboardingContainerView: View {
     private func trackStepViewed(_ step: Int, direction: String) {
         var properties = viewModel.analyticsProperties(for: step)
         properties["entry_direction"] = direction
-        AnalyticsTracker.capture(AnalyticsEvent.onboardingStepViewed, properties: properties)
+        let stepID = OnboardingViewModel.stepIdentifiers.indices.contains(step)
+            ? OnboardingViewModel.stepIdentifiers[step]
+            : "unknown"
+        AnalyticsTracker.capture(
+            AnalyticsEvent.onboardingStepViewed(stepIndex: step, stepID: stepID),
+            properties: properties
+        )
     }
 
     private func trackPainProfile() {

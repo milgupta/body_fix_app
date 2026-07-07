@@ -35,7 +35,6 @@ enum AnalyticsTracker {
 
 enum AnalyticsEvent {
     static let onboardingStarted = "onboarding_started"
-    static let onboardingStepViewed = "onboarding_step_viewed"
     static let onboardingStepCompleted = "onboarding_step_completed"
     static let onboardingBackTapped = "onboarding_back_tapped"
     static let onboardingBackgrounded = "onboarding_backgrounded"
@@ -54,4 +53,9 @@ enum AnalyticsEvent {
 
     static let notificationPermissionRequested = "notification_permission_requested"
     static let notificationSetupViewed = "notification_setup_viewed"
+
+    static func onboardingStepViewed(stepIndex: Int, stepID: String) -> String {
+        let stepNumber = stepIndex + 1
+        return "onboarding_\(String(format: "%02d", stepNumber))_\(stepID)_viewed"
+    }
 }
