@@ -290,7 +290,7 @@ private struct SignatureCanvas: View {
 
 #Preview {
     let viewModel = OnboardingViewModel()
-    viewModel.currentStep = 17
+    viewModel.currentStep = 18
     viewModel.dailyTime = "5 minutes"
     viewModel.commitmentDays = "3 days"
     viewModel.selectedPainAreas = [.neck, .upperBack, .hips]

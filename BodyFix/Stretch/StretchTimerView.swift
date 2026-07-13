@@ -867,6 +867,9 @@ struct StretchTimerView: View {
         if let seriesLevel = route.seriesLevel {
             properties["series_level"] = seriesLevel
         }
+        if let ageRange = profiles.first?.ageRange, !ageRange.isEmpty {
+            properties["age_range"] = ageRange
+        }
         return properties
     }
 

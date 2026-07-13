@@ -1,8 +1,17 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS) && canImport(FacebookCore)
+import FacebookCore
+import UIKit
+#endif
+
 @main
 struct BodyFixApp: App {
+    #if os(iOS) && canImport(FacebookCore)
+    @UIApplicationDelegateAdaptor(BodyFixAppDelegate.self) private var appDelegate
+    #endif
+
     var sharedModelContainer: ModelContainer = {
         makeModelContainer()
     }()
@@ -20,6 +29,25 @@ struct BodyFixApp: App {
         .modelContainer(sharedModelContainer)
     }
 }
+
+#if os(iOS) && canImport(FacebookCore)
+final class BodyFixAppDelegate: NSObject, UIApplicationDelegate {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        ApplicationDelegate.shared.application(
+            application,
+            didFinishLaunchingWithOptions: launchOptions
+        )
+        return true
+    }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        AppEvents.shared.activateApp()
+    }
+}
+#endif
 
 private func makeModelContainer() -> ModelContainer {
     let schema = Schema([

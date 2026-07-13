@@ -4,6 +4,10 @@ import Foundation
 import PostHog
 #endif
 
+#if canImport(FacebookCore)
+import FacebookCore
+#endif
+
 enum AnalyticsTracker {
     private static var isConfigured = false
 
@@ -24,8 +28,18 @@ enum AnalyticsTracker {
 
     static func capture(_ event: String, properties: [String: Any] = [:]) {
         #if canImport(PostHog)
-        guard isConfigured else { return }
-        PostHogSDK.shared.capture(event, properties: properties)
+        if isConfigured {
+            PostHogSDK.shared.capture(event, properties: properties)
+        }
+        #endif
+
+        #if canImport(FacebookCore)
+        let metaParameters = Dictionary(
+            uniqueKeysWithValues: properties.map {
+                (AppEvents.ParameterName($0.key), $0.value)
+            }
+        )
+        AppEvents.shared.logEvent(AppEvents.Name(event), parameters: metaParameters)
         #else
         _ = event
         _ = properties
@@ -39,6 +53,7 @@ enum AnalyticsEvent {
     static let onboardingBackTapped = "onboarding_back_tapped"
     static let onboardingBackgrounded = "onboarding_backgrounded"
     static let onboardingResumed = "onboarding_resumed"
+    static let onboardingAgeRangeSelected = "onboarding_age_range_selected"
     static let onboardingPainProfileSubmitted = "onboarding_pain_profile_submitted"
     static let onboardingProblemAreaSelected = "onboarding_problem_area_selected"
     static let onboardingCompleted = "onboarding_completed"

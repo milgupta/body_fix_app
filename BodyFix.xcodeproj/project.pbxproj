@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A1B2C3D42F70000100112233 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D42F70000200112233 /* PostHog */; };
+		B953598E3004725C00D46701 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = B953598D3004725C00D46701 /* FacebookCore */; };
 		B95BE8CC2FC972F100A9AEBA /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = B95BE8CB2FC972F100A9AEBA /* Algorithms */; };
 		B95BE8CF2FC9734700A9AEBA /* SuperwallKit in Frameworks */ = {isa = PBXBuildFile; productRef = B95BE8CE2FC9734700A9AEBA /* SuperwallKit */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 				B95BE8CC2FC972F100A9AEBA /* Algorithms in Frameworks */,
 				A1B2C3D42F70000100112233 /* PostHog in Frameworks */,
 				B95BE8CF2FC9734700A9AEBA /* SuperwallKit in Frameworks */,
+				B953598E3004725C00D46701 /* FacebookCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +79,7 @@
 				A1B2C3D42F70000200112233 /* PostHog */,
 				B95BE8CB2FC972F100A9AEBA /* Algorithms */,
 				B95BE8CE2FC9734700A9AEBA /* SuperwallKit */,
+				B953598D3004725C00D46701 /* FacebookCore */,
 			);
 			productName = BodyFix;
 			productReference = B97EAEB82F5F9BD20097FB11 /* BodyFix.app */;
@@ -110,6 +113,7 @@
 				A1B2C3D42F70000300112233 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 				B95BE8CA2FC972F100A9AEBA /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				B95BE8CD2FC9734700A9AEBA /* XCRemoteSwiftPackageReference "Superwall-iOS" */,
+				B953598C3004725C00D46701 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B97EAEB92F5F9BD20097FB11 /* Products */;
@@ -271,9 +275,16 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BodyFixInfo.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Body Fix";
+				INFOPLIST_KEY_FacebookAppID = 1016273327981390;
+				INFOPLIST_KEY_FacebookAutoInitEnabled = YES;
+				INFOPLIST_KEY_FacebookAutoLogAppEventsEnabled = YES;
+				INFOPLIST_KEY_FacebookAdvertiserIDCollectionEnabled = YES;
+				INFOPLIST_KEY_FacebookDisplayName = "Stretch Relief - Body Fix";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "BodyFix uses this to measure ad performance and improve recommendations.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -319,9 +330,16 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BodyFixInfo.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Body Fix";
+				INFOPLIST_KEY_FacebookAppID = 1016273327981390;
+				INFOPLIST_KEY_FacebookAutoInitEnabled = YES;
+				INFOPLIST_KEY_FacebookAutoLogAppEventsEnabled = YES;
+				INFOPLIST_KEY_FacebookAdvertiserIDCollectionEnabled = YES;
+				INFOPLIST_KEY_FacebookDisplayName = "Stretch Relief - Body Fix";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "BodyFix uses this to measure ad performance and improve recommendations.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -386,6 +404,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		B953598C3004725C00D46701 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 18.1.0;
+			};
+		};
 		B95BE8CA2FC972F100A9AEBA /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -409,6 +435,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A1B2C3D42F70000300112233 /* XCRemoteSwiftPackageReference "posthog-ios" */;
 			productName = PostHog;
+		};
+		B953598D3004725C00D46701 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B953598C3004725C00D46701 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
 		};
 		B95BE8CB2FC972F100A9AEBA /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;

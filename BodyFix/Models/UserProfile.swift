@@ -4,6 +4,7 @@ import SwiftData
 @Model
 final class UserProfile {
     var name: String
+    var ageRange: String
     var bodyGoals: [String]
     var longTermGoal: String
     var painFrequency: Int
@@ -26,6 +27,7 @@ final class UserProfile {
 
     init(
         name: String = "",
+        ageRange: String = "",
         bodyGoals: [String] = [],
         longTermGoal: String = "",
         painFrequency: Int = 3,
@@ -44,6 +46,7 @@ final class UserProfile {
         lastStretchActivityDate: Date? = nil
     ) {
         self.name = name
+        self.ageRange = ageRange
         self.bodyGoals = bodyGoals
         self.longTermGoal = longTermGoal
         self.painFrequency = painFrequency

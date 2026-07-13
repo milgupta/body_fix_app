@@ -11,7 +11,7 @@ struct OnboardingContainerView: View {
     @State private var painProfileSubmissionCount = 0
 
     private var showsNavBar: Bool {
-        ![0, 4, 7, 16, 19].contains(viewModel.currentStep)
+        ![0, 5, 8, 17, 20].contains(viewModel.currentStep)
     }
 
     private var showsBackButton: Bool {
@@ -85,24 +85,25 @@ struct OnboardingContainerView: View {
             switch viewModel.currentStep {
             case 0:  OnboardingWelcomeView()
             case 1:  OnboardingNameView()
-            case 2:  OnboardingGoalsView()
-            case 3:  OnboardingLongTermGoalView()
-            case 4:  OnboardingValidationView()
-            case 5:  OnboardingFrequencyView()
-            case 6:  OnboardingImpactView()
-            case 7:  OnboardingBuildProgramView()
-            case 8:  OnboardingProblemAreasView()
-            case 9:  OnboardingActivityView()
-            case 10: OnboardingLifestyleView()
-            case 11: OnboardingProblemTimesView()
-            case 12: OnboardingExperienceView()
-            case 13: OnboardingDurationView()
-            case 14: OnboardingEducationView()
-            case 15: OnboardingCommitmentView()
-            case 16: OnboardingAnalyzingView()
-            case 17: OnboardingSignatureView()
-            case 18: OnboardingMotivationLevelView()
-            case 19: OnboardingPlanPreviewView()
+            case 2:  OnboardingAgeRangeView()
+            case 3:  OnboardingGoalsView()
+            case 4:  OnboardingLongTermGoalView()
+            case 5:  OnboardingValidationView()
+            case 6:  OnboardingFrequencyView()
+            case 7:  OnboardingImpactView()
+            case 8:  OnboardingBuildProgramView()
+            case 9:  OnboardingProblemAreasView()
+            case 10: OnboardingActivityView()
+            case 11: OnboardingLifestyleView()
+            case 12: OnboardingProblemTimesView()
+            case 13: OnboardingExperienceView()
+            case 14: OnboardingDurationView()
+            case 15: OnboardingEducationView()
+            case 16: OnboardingCommitmentView()
+            case 17: OnboardingAnalyzingView()
+            case 18: OnboardingSignatureView()
+            case 19: OnboardingMotivationLevelView()
+            case 20: OnboardingPlanPreviewView()
             default: EmptyView()
             }
         }
@@ -114,7 +115,7 @@ struct OnboardingContainerView: View {
 
     private func backgroundForStep(_ step: Int) -> some View {
         Group {
-            if [0, 4, 7, 14, 16].contains(step) {
+            if [0, 5, 8, 15, 17].contains(step) {
                 Rectangle().fill(.bfSplashGradient)
             } else {
                 Color.bfPageBackground
@@ -134,7 +135,10 @@ struct OnboardingContainerView: View {
                 : "unknown"
             AnalyticsTracker.capture(AnalyticsEvent.onboardingStepCompleted, properties: properties)
 
-            if oldStep == 8 {
+            if oldStep == 2 {
+                AnalyticsTracker.capture(AnalyticsEvent.onboardingAgeRangeSelected, properties: properties)
+            }
+            if oldStep == 9 {
                 trackPainProfile()
             }
         } else if newStep < oldStep {
@@ -172,6 +176,7 @@ struct OnboardingContainerView: View {
             "problem_area_count": areas.count,
             "pain_frequency_days": viewModel.painFrequency,
             "pain_impact_score": viewModel.painImpact,
+            "age_range": viewModel.ageRange,
             "includes_other": viewModel.selectedPainAreas.contains(.other),
             "submission_number": painProfileSubmissionCount,
         ]

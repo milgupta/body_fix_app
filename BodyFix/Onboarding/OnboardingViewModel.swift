@@ -5,11 +5,12 @@ import Observation
 @Observable
 class OnboardingViewModel {
     var currentStep: Int = 0
-    let totalSteps: Int = 20
+    let totalSteps: Int = 21
 
     static let stepIdentifiers = [
         "welcome",
         "name",
+        "age_range",
         "body_goals",
         "long_term_goal",
         "validation",
@@ -33,23 +34,26 @@ class OnboardingViewModel {
     // Screen 1: Name
     var userName: String = ""
 
-    // Screen 2: Body Goals (multi-select, max 3)
+    // Screen 2: Age Range
+    var ageRange: String = ""
+
+    // Screen 3: Body Goals (multi-select, max 3)
     var selectedBodyGoals: Set<String> = []
 
-    // Screen 3: Long-Term Goal
+    // Screen 4: Long-Term Goal
     var longTermGoal: String = ""
 
-    // Screens 4: Validation (no input)
+    // Screen 5: Validation (no input)
 
-    // Screen 5: Pain Frequency (1-7)
+    // Screen 6: Pain Frequency (1-7)
     var painFrequency: Int = 3
 
-    // Screen 6: Pain Impact (1-5)
+    // Screen 7: Pain Impact (1-5)
     var painImpact: Int = 3
 
-    // Screen 7: Build Program (no input)
+    // Screen 8: Build Program (no input)
 
-    // Screen 8: Pain Awareness
+    // Screen 9: Pain Awareness
     var selectedPainAreas: Set<OnboardingPainArea> = []
     var problemAreaOtherText: String = ""
 
@@ -64,35 +68,35 @@ class OnboardingViewModel {
         return areas
     }
 
-    // Screen 9: Daily Movement
+    // Screen 10: Daily Movement
     var activityLevel: String = ""
 
-    // Screen 10: Work/Lifestyle
+    // Screen 11: Work/Lifestyle
     var lifestyle: String = ""
 
-    // Screen 11: Problem Times
+    // Screen 12: Problem Times
     var selectedProblemTimes: Set<String> = []
 
-    // Screen 12: Stretching History
+    // Screen 13: Stretching History
     var stretchingFrequency: String = ""
 
-    // Screen 13: Time Commitment
+    // Screen 14: Time Commitment
     var dailyTime: String = ""
 
-    // Screen 14: Education (no input)
+    // Screen 15: Education (no input)
 
-    // Screen 15: Commitment
+    // Screen 16: Commitment
     var commitmentDays: String = ""
 
-    // Screen 16: Analyzing (no input)
+    // Screen 17: Analyzing (no input)
 
-    // Screen 17: Signature Commitment (kept only for this onboarding session)
+    // Screen 18: Signature Commitment (kept only for this onboarding session)
     var commitmentSignatureStrokes: [[CGPoint]] = []
 
-    // Screen 18: Motivation Level
+    // Screen 19: Motivation Level
     var motivationLevel: String = ""
 
-    // Screen 19: Plan Preview (no input)
+    // Screen 20: Plan Preview (no input)
 
     var progress: Double {
         Double(currentStep) / Double(totalSteps)
@@ -100,41 +104,46 @@ class OnboardingViewModel {
 
     func analyticsProperties(for step: Int? = nil) -> [String: Any] {
         let index = step ?? currentStep
-        return [
+        var properties: [String: Any] = [
             "step_id": Self.stepIdentifiers.indices.contains(index) ? Self.stepIdentifiers[index] : "unknown",
             "step_index": index,
             "step_number": index + 1,
             "total_steps": totalSteps,
         ]
+        if !ageRange.isEmpty {
+            properties["age_range"] = ageRange
+        }
+        return properties
     }
 
     var canAdvance: Bool {
         switch currentStep {
         case 0: return true
         case 1: return !userName.trimmingCharacters(in: .whitespaces).isEmpty
-        case 2: return !selectedBodyGoals.isEmpty
-        case 3: return !longTermGoal.isEmpty
-        case 4: return true
+        case 2: return !ageRange.isEmpty
+        case 3: return !selectedBodyGoals.isEmpty
+        case 4: return !longTermGoal.isEmpty
         case 5: return true
         case 6: return true
         case 7: return true
-        case 8:
+        case 8: return true
+        case 9:
             guard !selectedPainAreas.isEmpty else { return false }
             if selectedPainAreas.contains(.other) {
                 return !problemAreaOtherText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             }
             return true
-        case 9: return !activityLevel.isEmpty
-        case 10: return !lifestyle.isEmpty
-        case 11: return !selectedProblemTimes.isEmpty
-        case 12: return !stretchingFrequency.isEmpty
-        case 13: return !dailyTime.isEmpty
-        case 14: return true
-        case 15: return !commitmentDays.isEmpty
-        case 16: return true
-        case 17: return !commitmentSignatureStrokes.isEmpty
-        case 18: return !motivationLevel.isEmpty
-        case 19: return true
+        case 10: return !activityLevel.isEmpty
+        case 11: return !lifestyle.isEmpty
+        case 12: return !selectedProblemTimes.isEmpty
+        case 13: return !stretchingFrequency.isEmpty
+        case 14: return !dailyTime.isEmpty
+        case 15: return true
+        case 16: return !commitmentDays.isEmpty
+        case 17: return true
+        case 18: return !commitmentSignatureStrokes.isEmpty
+        case 19: return !motivationLevel.isEmpty
+        case 20: return true
         default: return false
         }
     }
@@ -153,6 +162,7 @@ class OnboardingViewModel {
     func saveProfile(to modelContext: ModelContext) -> UserProfile {
         let profile = UserProfile(
             name: userName,
+            ageRange: ageRange,
             bodyGoals: Array(selectedBodyGoals),
             longTermGoal: longTermGoal,
             painFrequency: painFrequency,

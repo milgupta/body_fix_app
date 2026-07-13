@@ -17,6 +17,7 @@ struct OnboardingPlanPreviewView: View {
     private var draftProfile: UserProfile {
         UserProfile(
             name: viewModel.userName,
+            ageRange: viewModel.ageRange,
             bodyGoals: Array(viewModel.selectedBodyGoals),
             longTermGoal: viewModel.longTermGoal,
             painFrequency: viewModel.painFrequency,
@@ -259,16 +260,25 @@ struct OnboardingPlanPreviewView: View {
     private func finishOnboardingAndEnterApp() {
         AnalyticsTracker.capture(
             AnalyticsEvent.onboardingStepCompleted,
-            properties: viewModel.analyticsProperties(for: 19)
+            properties: viewModel.analyticsProperties(for: 20)
         )
         AnalyticsTracker.capture(
             AnalyticsEvent.onboardingCompleted,
-            properties: ["total_steps": viewModel.totalSteps]
+            properties: [
+                "total_steps": viewModel.totalSteps,
+                "age_range": viewModel.ageRange,
+            ]
         )
         let profile = viewModel.saveProfile(to: modelContext)
         PersonalizedPlanGenerator.upsertPlan(for: profile, existing: nil, in: modelContext)
         try? modelContext.save()
-        AnalyticsTracker.capture("onboarding_plan_created")
+        AnalyticsTracker.capture(
+            "onboarding_plan_created",
+            properties: [
+                "age_range": viewModel.ageRange,
+                "total_steps": viewModel.totalSteps,
+            ]
+        )
     }
 }
 
