@@ -1,6 +1,7 @@
 import Foundation
 import Observation
 import SuperwallKit
+import AppstackSDK
 
 @Observable
 final class PaywallManager: SuperwallDelegate {
@@ -17,15 +18,14 @@ final class PaywallManager: SuperwallDelegate {
     private var onboardingMainHandler: PaywallPresentationHandler?
     private var onboardingDeclineHandler: PaywallPresentationHandler?
     private var lockedMainHandler: PaywallPresentationHandler?
+    private var appstackAttributionTask: Task<Void, Never>?
 
     func configure() {
         guard !isConfigured, let apiKey = APIConfig.superwallAPIKey else { return }
         let options = SuperwallOptions()
-        #if DEBUG
-        options.shouldBypassAppTransactionCheck = true
-        #endif
         Superwall.configure(apiKey: apiKey, options: options)
         Superwall.shared.delegate = self
+        syncAppstackAttribution()
         updateSubscriptionStatus(Superwall.shared.subscriptionStatus)
         isConfigured = true
     }
@@ -55,7 +55,7 @@ final class PaywallManager: SuperwallDelegate {
             self.lockedMainHandler = nil
         }
 
-        Superwall.shared.register(
+        registerAfterAppstackAttribution(
             placement: Self.onboardingMainPlacement,
             params: ["source": source],
             handler: handler
@@ -94,7 +94,7 @@ final class PaywallManager: SuperwallDelegate {
             onComplete()
         }
 
-        Superwall.shared.register(
+        registerAfterAppstackAttribution(
             placement: Self.onboardingMainPlacement,
             params: ["source": "onboarding_trial_intro"],
             handler: mainHandler
@@ -140,7 +140,7 @@ final class PaywallManager: SuperwallDelegate {
             onComplete()
         }
 
-        Superwall.shared.register(
+        registerAfterAppstackAttribution(
             placement: Self.onboardingDeclinePlacement,
             params: ["source": "onboarding_trial_intro"],
             handler: declineHandler
@@ -159,5 +159,66 @@ final class PaywallManager: SuperwallDelegate {
 
     private func updateSubscriptionStatus(_ status: SubscriptionStatus) {
         isSubscribed = status.isActive
+    }
+
+    private func syncAppstackAttribution() {
+        appstackAttributionTask = Task {
+            // Appstack 4.4.0 suspends here until its initial attribution match
+            // finishes. Read the installation ID only after that work completes.
+            let attributes = await AppstackAttributionSdk.shared.getAttributionParams() ?? [:]
+
+            if let appstackId = await waitForAppstackId() {
+                Superwall.shared.setIntegrationAttributes([
+                    IntegrationAttribute.appstackId: appstackId
+                ])
+            } else {
+                #if DEBUG
+                print("[Appstack] No Appstack ID was available before Superwall setup finished.")
+                #endif
+            }
+
+            // This must complete before the first Superwall.register call so
+            // Appstack campaign fields are available to Superwall filters.
+            Superwall.shared.setUserAttributes(attributes)
+
+            #if DEBUG
+            print("[Appstack] Superwall attribution prepared with \(attributes.count) user attributes.")
+            #endif
+        }
+    }
+
+    private func waitForAppstackId() async -> String? {
+        if let appstackId = AppstackAttributionSdk.shared.getAppstackId() {
+            return appstackId
+        }
+
+        // The ID is normally available immediately in Appstack 4.4.0. These
+        // short retries cover a first-launch initialization race without
+        // delaying the paywall indefinitely if attribution is unavailable.
+        for delay in [100, 250, 500, 1_000, 2_000] {
+            try? await Task.sleep(for: .milliseconds(delay))
+
+            if let appstackId = AppstackAttributionSdk.shared.getAppstackId() {
+                return appstackId
+            }
+        }
+
+        return nil
+    }
+
+    private func registerAfterAppstackAttribution(
+        placement: String,
+        params: [String: Any],
+        handler: PaywallPresentationHandler
+    ) {
+        let attributionTask = appstackAttributionTask
+        Task {
+            await attributionTask?.value
+            Superwall.shared.register(
+                placement: placement,
+                params: params,
+                handler: handler
+            )
+        }
     }
 }

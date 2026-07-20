@@ -15,15 +15,6 @@ struct OnboardingMultiSelectCard: View {
             action()
         } label: {
             HStack(spacing: 14) {
-                if !emoji.isEmpty {
-                    Text(emoji)
-                        .font(.system(size: 28))
-                        .frame(width: 48, height: 48)
-                        .background(
-                            Circle()
-                                .fill(isSelected ? Color.white.opacity(0.18) : Color.bfSurfaceMuted)
-                        )
-                }
                 Text(title)
                     .font(Typography.optionText)
                     .foregroundStyle(isSelected ? Color.white : Color.bfTextPrimary)
@@ -55,9 +46,9 @@ struct OnboardingMultiSelectCard: View {
     ZStack {
         Color.bfNavy.ignoresSafeArea()
         VStack(spacing: 12) {
-            OnboardingMultiSelectCard(title: "Neck", emoji: "🦴", isSelected: true) {}
-            OnboardingMultiSelectCard(title: "Lower Back", emoji: "⚡", isSelected: false) {}
-            OnboardingMultiSelectCard(title: "Hips", emoji: "🦵", isSelected: true) {}
+            OnboardingMultiSelectCard(title: "Neck", isSelected: true) {}
+            OnboardingMultiSelectCard(title: "Lower Back", isSelected: false) {}
+            OnboardingMultiSelectCard(title: "Hips", isSelected: true) {}
         }
         .padding()
     }

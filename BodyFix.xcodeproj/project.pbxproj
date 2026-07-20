@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A1B2C3D42F70000100112233 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D42F70000200112233 /* PostHog */; };
+		A1B2C3D42F70001100112233 /* AppstackSDK in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D42F70001200112233 /* AppstackSDK */; };
 		B953598E3004725C00D46701 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = B953598D3004725C00D46701 /* FacebookCore */; };
 		B95BE8CC2FC972F100A9AEBA /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = B95BE8CB2FC972F100A9AEBA /* Algorithms */; };
 		B95BE8CF2FC9734700A9AEBA /* SuperwallKit in Frameworks */ = {isa = PBXBuildFile; productRef = B95BE8CE2FC9734700A9AEBA /* SuperwallKit */; };
@@ -30,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D42F70001100112233 /* AppstackSDK in Frameworks */,
 				B95BE8CC2FC972F100A9AEBA /* Algorithms in Frameworks */,
 				A1B2C3D42F70000100112233 /* PostHog in Frameworks */,
 				B95BE8CF2FC9734700A9AEBA /* SuperwallKit in Frameworks */,
@@ -76,6 +78,7 @@
 			);
 			name = BodyFix;
 			packageProductDependencies = (
+				A1B2C3D42F70001200112233 /* AppstackSDK */,
 				A1B2C3D42F70000200112233 /* PostHog */,
 				B95BE8CB2FC972F100A9AEBA /* Algorithms */,
 				B95BE8CE2FC9734700A9AEBA /* SuperwallKit */,
@@ -110,6 +113,7 @@
 			mainGroup = B97EAEAF2F5F9BD20097FB11;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				A1B2C3D42F70001300112233 /* XCRemoteSwiftPackageReference "ios-appstack-sdk" */,
 				A1B2C3D42F70000300112233 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 				B95BE8CA2FC972F100A9AEBA /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				B95BE8CD2FC9734700A9AEBA /* XCRemoteSwiftPackageReference "Superwall-iOS" */,
@@ -278,10 +282,10 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = BodyFixInfo.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Body Fix";
+				INFOPLIST_KEY_FacebookAdvertiserIDCollectionEnabled = YES;
 				INFOPLIST_KEY_FacebookAppID = 1016273327981390;
 				INFOPLIST_KEY_FacebookAutoInitEnabled = YES;
 				INFOPLIST_KEY_FacebookAutoLogAppEventsEnabled = YES;
-				INFOPLIST_KEY_FacebookAdvertiserIDCollectionEnabled = YES;
 				INFOPLIST_KEY_FacebookDisplayName = "Stretch Relief - Body Fix";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "BodyFix uses this to measure ad performance and improve recommendations.";
@@ -299,7 +303,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = royalapps.BodyFix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -333,10 +338,10 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = BodyFixInfo.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Body Fix";
+				INFOPLIST_KEY_FacebookAdvertiserIDCollectionEnabled = YES;
 				INFOPLIST_KEY_FacebookAppID = 1016273327981390;
 				INFOPLIST_KEY_FacebookAutoInitEnabled = YES;
 				INFOPLIST_KEY_FacebookAutoLogAppEventsEnabled = YES;
-				INFOPLIST_KEY_FacebookAdvertiserIDCollectionEnabled = YES;
 				INFOPLIST_KEY_FacebookDisplayName = "Stretch Relief - Body Fix";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "BodyFix uses this to measure ad performance and improve recommendations.";
@@ -354,7 +359,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = royalapps.BodyFix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -404,6 +410,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		A1B2C3D42F70001300112233 /* XCRemoteSwiftPackageReference "ios-appstack-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/appstack-tech/ios-appstack-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.1;
+			};
+		};
 		B953598C3004725C00D46701 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
@@ -435,6 +449,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A1B2C3D42F70000300112233 /* XCRemoteSwiftPackageReference "posthog-ios" */;
 			productName = PostHog;
+		};
+		A1B2C3D42F70001200112233 /* AppstackSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D42F70001300112233 /* XCRemoteSwiftPackageReference "ios-appstack-sdk" */;
+			productName = AppstackSDK;
 		};
 		B953598D3004725C00D46701 /* FacebookCore */ = {
 			isa = XCSwiftPackageProductDependency;

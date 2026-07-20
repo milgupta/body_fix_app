@@ -234,7 +234,12 @@ private struct StretchDetailHeroMedia: View {
         mediaState = .loadingVideo
 
         let item = AVPlayerItem(url: videoURL)
+        item.preferredPeakBitRate = 0
+        item.preferredForwardBufferDuration = 3
+        item.preferredMaximumResolution = CGSize(width: 1080, height: 1920)
+
         let newPlayer = AVPlayer(playerItem: item)
+        newPlayer.automaticallyWaitsToMinimizeStalling = true
         newPlayer.isMuted = true
         playerItem = item
         player = newPlayer

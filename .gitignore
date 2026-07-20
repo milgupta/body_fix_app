@@ -18,6 +18,10 @@ xcuserdata/
 .build/
 .swiftpm/
 
+# Codex / agent derived caches
+.codex-derived/
+.codex-screenshots/
+
 # Python
 __pycache__/
 *.pyc

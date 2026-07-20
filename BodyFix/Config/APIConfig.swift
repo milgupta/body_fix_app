@@ -18,6 +18,10 @@ enum APIConfig {
         stringValue(for: "SUPERWALL_API_KEY")
     }
 
+    static var appstackAPIKey: String? {
+        stringValue(for: "APPSTACK_API_KEY")
+    }
+
     private static func stringValue(for key: String) -> String? {
         guard let url = Bundle.main.url(forResource: "Config", withExtension: "plist"),
               let data = try? Data(contentsOf: url),

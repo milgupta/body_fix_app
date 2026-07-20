@@ -4,6 +4,7 @@ import SwiftData
 struct LockedUnlockView: View {
     @Query private var profiles: [UserProfile]
     @Query private var plans: [PersonalizedPlan]
+    @State private var didAutomaticallyRequestPaywall = false
 
     private var profile: UserProfile? { profiles.first }
     private var plan: PersonalizedPlan? { plans.first }
@@ -51,6 +52,17 @@ struct LockedUnlockView: View {
         }
         .onAppear {
             AnalyticsTracker.capture("locked_unlock_screen_shown")
+        }
+        .task {
+            guard !didAutomaticallyRequestPaywall else { return }
+            didAutomaticallyRequestPaywall = true
+
+            // Give Superwall's subscription-status callback a moment to settle
+            // after onboarding before retrying a paywall that previously skipped.
+            try? await Task.sleep(for: .milliseconds(350))
+            guard !PaywallManager.shared.isSubscribed else { return }
+
+            PaywallManager.shared.presentMainPaywall(source: "locked_automatic")
         }
     }
 

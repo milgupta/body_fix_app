@@ -14,15 +14,6 @@ struct OnboardingOptionCard: View {
             action()
         } label: {
             HStack(spacing: 14) {
-                if !emoji.isEmpty {
-                    Text(emoji)
-                        .font(.system(size: 28))
-                        .frame(width: 48, height: 48)
-                        .background(
-                            Circle()
-                                .fill(isSelected ? Color.white.opacity(0.18) : Color.bfSurfaceMuted)
-                        )
-                }
                 Text(title)
                     .font(Typography.optionText)
                     .foregroundStyle(isSelected ? Color.white : Color.bfTextPrimary)
@@ -54,9 +45,9 @@ struct OnboardingOptionCard: View {
     ZStack {
         Color.bfNavy.ignoresSafeArea()
         VStack(spacing: 12) {
-            OnboardingOptionCard(title: "Mostly sitting", emoji: "🪑", isSelected: false) {}
-            OnboardingOptionCard(title: "Lightly active", emoji: "🚶", isSelected: true) {}
-            OnboardingOptionCard(title: "Very active", emoji: "🏋️", isSelected: false) {}
+            OnboardingOptionCard(title: "Mostly sitting", isSelected: false) {}
+            OnboardingOptionCard(title: "Lightly active", isSelected: true) {}
+            OnboardingOptionCard(title: "Very active", isSelected: false) {}
         }
         .padding()
     }

@@ -215,8 +215,11 @@ struct OnboardingPlanPreviewView: View {
 
     private func continueThroughTrialIntro() {
         HapticManager.shared.success()
-        PaywallManager.shared.presentOnboardingPaywalls {
-            finishOnboardingAndEnterApp()
+        Task {
+            await TrackingConsentManager.requestIfNeeded()
+            PaywallManager.shared.presentOnboardingPaywalls {
+                finishOnboardingAndEnterApp()
+            }
         }
     }
 

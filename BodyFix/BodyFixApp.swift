@@ -8,6 +8,8 @@ import UIKit
 
 @main
 struct BodyFixApp: App {
+    @Environment(\.scenePhase) private var scenePhase
+
     #if os(iOS) && canImport(FacebookCore)
     @UIApplicationDelegateAdaptor(BodyFixAppDelegate.self) private var appDelegate
     #endif
@@ -17,6 +19,7 @@ struct BodyFixApp: App {
     }()
 
     init() {
+        AppstackTracker.configure()
         AnalyticsTracker.configure()
         PaywallManager.shared.configure()
     }
@@ -27,6 +30,16 @@ struct BodyFixApp: App {
                 .preferredColorScheme(.light)
         }
         .modelContainer(sharedModelContainer)
+        .onChange(of: scenePhase) { _, newPhase in
+            guard newPhase == .active else { return }
+            TrackingConsentManager.syncMetaAdvertiserTrackingStatus()
+            TrackingConsentManager.enableAppleAdsAttribution()
+            AnalyticsTracker.capture("bodyfix_app_launch_test")
+            #if os(iOS) && canImport(FacebookCore)
+            AppEvents.shared.activateApp()
+            AppEvents.shared.flush()
+            #endif
+        }
     }
 }
 
@@ -43,8 +56,17 @@ final class BodyFixAppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
 
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        AppEvents.shared.activateApp()
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        ApplicationDelegate.shared.application(
+            app,
+            open: url,
+            sourceApplication: options[.sourceApplication] as? String,
+            annotation: options[.annotation]
+        )
     }
 }
 #endif

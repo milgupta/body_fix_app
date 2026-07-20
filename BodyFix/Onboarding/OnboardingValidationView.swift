@@ -14,16 +14,6 @@ struct OnboardingValidationView: View {
         "Move better day to day": "Feel lighter, looser, and more comfortable in everyday life.",
     ]
 
-    private static let goalEmojis: [String: String] = [
-        "Reduce pain and stiffness": "🩹",
-        "Improve Flexibility": "🧘",
-        "Improve posture": "🧍",
-        "Recover faster from workouts": "🔄",
-        "Reduce stress and tension": "😌",
-        "Sleep better": "💤",
-        "Move better day to day": "🚶",
-    ]
-
     private var totalCardCount: Int {
         viewModel.selectedBodyGoals.count + (viewModel.longTermGoal.isEmpty ? 0 : 1)
     }
@@ -95,7 +85,6 @@ struct OnboardingValidationView: View {
         VStack(spacing: 18) {
             ForEach(Array(viewModel.selectedBodyGoals.enumerated()), id: \.element) { index, goal in
                 goalCard(
-                    emoji: Self.goalEmojis[goal] ?? "",
                     title: goal,
                     description: Self.goalDescriptions[goal] ?? ""
                 )
@@ -114,11 +103,8 @@ struct OnboardingValidationView: View {
         .padding(.horizontal, 20)
     }
 
-    private func goalCard(emoji: String, title: String, description: String) -> some View {
+    private func goalCard(title: String, description: String) -> some View {
         HStack(alignment: .top, spacing: 14) {
-            Text(emoji)
-                .font(.system(size: 28))
-
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(Typography.optionText)

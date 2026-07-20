@@ -37,6 +37,8 @@
 	<true/>
 	<key>FacebookAdvertiserIDCollectionEnabled</key>
 	<true/>
+	<key>FacebookClientToken</key>
+	<string>4696bead8913801508c15b317b7be25c</string>
 	<key>FacebookDisplayName</key>
 	<string>Stretch Relief - Body Fix</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

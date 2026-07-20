@@ -11,6 +11,17 @@ import FacebookCore
 enum AnalyticsTracker {
     private static var isConfigured = false
 
+    /// Events Meta (Facebook) is allowed to receive, for ads optimization.
+    /// Everything else goes to PostHog only. Keep this list short and free of
+    /// health-related names (pain, problem areas, etc.) per Meta Business Tools terms.
+    /// Purchase/StartTrial revenue events should come server-side,
+    /// not from this tracker.
+    private static let metaAllowedEvents: Set<String> = [
+        "paywall_shown",
+        AnalyticsEvent.onboardingCompleted,
+        "subscription_activated"
+    ]
+
     static func configure() {
         guard !isConfigured, let token = APIConfig.postHogProjectToken else { return }
         isConfigured = true
@@ -27,6 +38,8 @@ enum AnalyticsTracker {
     }
 
     static func capture(_ event: String, properties: [String: Any] = [:]) {
+        AppstackTracker.capture(event, properties: properties)
+
         #if canImport(PostHog)
         if isConfigured {
             PostHogSDK.shared.capture(event, properties: properties)
@@ -34,12 +47,14 @@ enum AnalyticsTracker {
         #endif
 
         #if canImport(FacebookCore)
+        guard metaAllowedEvents.contains(event) else { return }
         let metaParameters = Dictionary(
             uniqueKeysWithValues: properties.map {
                 (AppEvents.ParameterName($0.key), $0.value)
             }
         )
         AppEvents.shared.logEvent(AppEvents.Name(event), parameters: metaParameters)
+        AppEvents.shared.flush()
         #else
         _ = event
         _ = properties

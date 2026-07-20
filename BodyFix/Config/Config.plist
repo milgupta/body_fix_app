@@ -2,13 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ANTHROPIC_API_KEY</key>
-	<string></string>
 	<key>POSTHOG_HOST</key>
 	<string>https://us.i.posthog.com</string>
 	<key>POSTHOG_PROJECT_TOKEN</key>
 	<string>phc_mTVx0Us743XWtDjRq8Q8CJGi315cK2HimgOnGdLU2u0</string>
 	<key>SUPERWALL_API_KEY</key>
 	<string>pk_23_bGAj4EiNo1XD1EBX2A</string>
+	<key>APPSTACK_API_KEY</key>
+	<string>pk_uly5mpb1rc45y9n8obu7smsm</string>
 </dict>
 </plist>

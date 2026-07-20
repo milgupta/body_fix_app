@@ -23,8 +23,6 @@ struct OnboardingAgeRangeView: View {
                 Text("What’s your **age range**?")
                     .font(Typography.question)
                     .foregroundStyle(.bfTextPrimary)
-                    .lineLimit(1)
-                    .fixedSize(horizontal: true, vertical: false)
 
                 Text("This helps us craft a custom routine that fits your body.")
                     .font(Typography.caption)
@@ -56,6 +54,7 @@ struct OnboardingAgeRangeView: View {
             .padding(.top, 16)
             .padding(.bottom, 40)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }
 

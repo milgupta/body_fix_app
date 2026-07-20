@@ -3,14 +3,6 @@ import SwiftUI
 struct OnboardingImpactView: View {
     @Environment(OnboardingViewModel.self) private var viewModel
 
-    private let emojis: [Int: String] = [
-        1: "😊",
-        2: "🙂",
-        3: "😐",
-        4: "😣",
-        5: "😫",
-    ]
-
     var body: some View {
         @Bindable var vm = viewModel
 
@@ -21,33 +13,35 @@ struct OnboardingImpactView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 28)
 
-            Spacer(minLength: 40)
+            Spacer()
 
-            Text(emojis[viewModel.painImpact] ?? "😐")
-                .font(.system(size: 72))
-                .frame(maxWidth: .infinity)
+            VStack(spacing: 24) {
+                Text("\(viewModel.painImpact) out of 5")
+                    .font(Typography.sliderValue)
+                    .foregroundStyle(.bfTextPrimary)
+                    .contentTransition(.numericText(value: Double(viewModel.painImpact)))
 
-            Spacer().frame(height: 12)
+                VStack(spacing: 8) {
+                    SteppedSliderView(
+                        value: $vm.painImpact,
+                        range: 1...5,
+                        labels: [:],
+                        showValueLabel: false
+                    )
 
-            SteppedSliderView(
-                value: $vm.painImpact,
-                range: 1...5,
-                labels: [:],
-                showValueLabel: false
-            )
-            .padding(.horizontal, 20)
-
-            HStack {
-                Text("Not at all")
+                    HStack {
+                        Text("Not at all")
+                        Spacer()
+                        Text("Significantly")
+                    }
                     .font(Typography.caption)
                     .foregroundStyle(.bfTextSecondary)
-                Spacer()
-                Text("Significantly")
-                    .font(Typography.caption)
-                    .foregroundStyle(.bfTextSecondary)
+                    .padding(.horizontal, 14)
+                }
+                .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 34)
-            .padding(.top, 8)
+            .frame(maxWidth: .infinity)
+            .frame(maxHeight: .infinity)
 
             Spacer()
 

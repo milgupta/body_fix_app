@@ -1,5 +1,5 @@
 {
-  "originHash" : "c6a7363c3d24a7a5c3541ca1979455f39f2b50c09fca5f0556b761ba64cb86e7",
+  "originHash" : "09a1da93fcb3e8dd60e38136e621902174718b2327246b98f9a759a22ca542f4",
   "pins" : [
     {
       "identity" : "facebook-ios-sdk",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "3818dd2ccb6547c6d320ff68a1bd599789c3a44f",
         "version" : "18.1.0"
+      }
+    },
+    {
+      "identity" : "ios-appstack-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/appstack-tech/ios-appstack-sdk.git",
+      "state" : {
+        "revision" : "6f5622ab7edf78845dd567cb42203b621cb8416a",
+        "version" : "4.4.0"
       }
     },
     {
