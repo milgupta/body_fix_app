@@ -81,7 +81,7 @@ enum PersonalizedPlanGenerator {
     }
 
     static func stretches(for plan: PersonalizedPlan, fallbackProfile: UserProfile?) -> [Stretch] {
-        let explicit = plan.stretchIds.compactMap(StretchDatabase.stretch(id:))
+        let explicit = plan.stretchIds.compactMap { StretchDatabase.stretch(id: $0) }
         if !explicit.isEmpty {
             return explicit
         }
@@ -93,8 +93,8 @@ enum PersonalizedPlanGenerator {
 
     private static func score(for routine: Routine, profile: UserProfile) -> Int {
         var total = 0
-        let tags = Set(routine.tags.map(normalize))
-        let groups = Set(routine.relatedMuscleGroups.map(normalize))
+        let tags = Set(routine.tags.map { normalize($0) })
+        let groups = Set(routine.relatedMuscleGroups.map { normalize($0) })
         let targetMinutes = parsedMinutes(from: profile.dailyTime)
         let commitmentDays = parsedCommitmentDays(from: profile.commitmentDays)
         let problemGroups = mappedProblemGroups(from: profile.problemAreas)
@@ -114,7 +114,7 @@ enum PersonalizedPlanGenerator {
             if tags.contains("flexibility") { total += 3 }
         }
 
-        for goal in profile.bodyGoals.map(normalize) {
+        for goal in profile.bodyGoals.map({ normalize($0) }) {
             if goal.contains("reduce pain") || goal.contains("pain-free") {
                 if tags.contains("reduce-pain") { total += 9 }
                 if routine.hasCategory(.injury) { total += 4 }

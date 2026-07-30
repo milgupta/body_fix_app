@@ -2,7 +2,7 @@ import Foundation
 import AppstackSDK
 
 enum AppstackTracker {
-    private static var isConfigured = false
+    private(set) static var isConfigured = false
 
     static func configure() {
         guard !isConfigured, let apiKey = APIConfig.appstackAPIKey else { return }

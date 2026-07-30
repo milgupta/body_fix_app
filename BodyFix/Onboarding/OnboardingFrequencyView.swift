@@ -17,25 +17,33 @@ struct OnboardingFrequencyView: View {
                     .foregroundStyle(.bfTextPrimary)
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 28)
-
-            Spacer()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(height: OnboardingSeverityLayout.headerHeight, alignment: .top)
 
             VStack(spacing: 24) {
-                Text("\(viewModel.painFrequency) days")
-                    .font(Typography.sliderValue)
-                    .foregroundStyle(.bfTextPrimary)
-
-                SteppedSliderView(
-                    value: $vm.painFrequency,
+                OnboardingSeverityBadge(
+                    text: "\(viewModel.painFrequency) days",
+                    value: viewModel.painFrequency,
                     range: 1...7,
-                    labels: [:],
-                    showValueLabel: false
+                    accessibilityText: "\(viewModel.painFrequency) days per week"
                 )
+
+                VStack(spacing: 8) {
+                    SteppedSliderView(
+                        value: $vm.painFrequency,
+                        range: 1...7,
+                        labels: [:],
+                        showValueLabel: false
+                    )
+
+                    Color.clear
+                        .frame(height: OnboardingSeverityLayout.lowerCaptionHeight)
+                        .accessibilityHidden(true)
+                }
                 .padding(.horizontal, 20)
             }
             .frame(maxWidth: .infinity)
-            .frame(maxHeight: .infinity)
+            .padding(.top, OnboardingSeverityLayout.controlsTopSpacing)
 
             Spacer()
 

@@ -43,7 +43,7 @@ enum TrackingConsentManager {
 
     static func enableAppleAdsAttribution() {
         #if os(iOS)
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, *), AppstackTracker.isConfigured {
             AppstackASAAttribution.shared.enableAppleAdsAttribution()
         }
         #endif

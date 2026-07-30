@@ -11,7 +11,9 @@ struct PersonalizedPlanDetailView: View {
 
     private var profile: UserProfile? { profiles.first }
     private var currentPlan: PersonalizedPlan? { plans.max(by: { $0.updatedAt < $1.updatedAt }) }
-    private var recommendation: PersonalizedPlanRecommendation? { profile.map(PersonalizedPlanGenerator.recommendation(for:)) }
+    private var recommendation: PersonalizedPlanRecommendation? {
+        profile.map { PersonalizedPlanGenerator.recommendation(for: $0) }
+    }
 
     private var routine: Routine? {
         if let currentPlan, let stored = StretchDatabase.routine(id: currentPlan.routineId) {

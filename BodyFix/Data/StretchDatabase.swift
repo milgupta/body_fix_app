@@ -116,7 +116,7 @@ enum StretchDatabase {
     }
 
     static func stretches(for routine: Routine) -> [Stretch] {
-        routine.stretchIds.compactMap(stretch(id:))
+        routine.stretchIds.compactMap { stretch(id: $0) }
     }
 
     static func totalDurationSeconds(for routine: Routine) -> Int {
@@ -165,7 +165,7 @@ enum StretchDatabase {
     }
 
     static func featuredRoutines(for profile: UserProfile?) -> [Routine] {
-        var routines = routines(matching: .featured)
+        let routines = routines(matching: .featured)
         guard let profile else { return routines }
         let firstId: String?
         if hasGoal("reduce pain", in: profile) || hasGoal("pain-free", in: profile) {
@@ -213,7 +213,7 @@ enum StretchDatabase {
             "tech_neck_fix", "hip_opener", "shoulders_1", "lower_back_quick",
             "leg_loosen", "full_body_express", "wrist_rescue", "glute_unlock",
         ]
-        return preferred.compactMap(routine(id:))
+        return preferred.compactMap { routine(id: $0) }
     }
 
     static func seriesRoutines(prioritizing profile: UserProfile?) -> [RoutineSeries] {
@@ -240,7 +240,7 @@ enum StretchDatabase {
             .core, .chest, .biceps, .triceps, .forearms,
         ]
         guard let profile else { return base }
-        let preferred = profile.problemAreas.compactMap(muscleGroup(fromDisplayName:))
+        let preferred = profile.problemAreas.compactMap { muscleGroup(fromDisplayName: $0) }
         return preferred + base.filter { !preferred.contains($0) }
     }
 
@@ -257,7 +257,7 @@ enum StretchDatabase {
     }
 
     static func levelRoutines(for series: RoutineSeries) -> [Routine] {
-        series.levelRoutineIds.compactMap(routine(id:))
+        series.levelRoutineIds.compactMap { routine(id: $0) }
     }
 
     private static func routines(matching category: RoutineCategory) -> [Routine] {
@@ -317,7 +317,7 @@ enum StretchDatabase {
 
     private static func loadPrimaryStretches() -> [Stretch] {
         let rawStretches = loadJSONResource(named: "stretches_v2_150", as: [RawStretchV2].self) ?? []
-        return rawStretches.compactMap(normalizeStretch)
+        return rawStretches.compactMap { normalizeStretch($0) }
     }
 
     private static func normalizeStretch(_ raw: RawStretchV2) -> Stretch? {

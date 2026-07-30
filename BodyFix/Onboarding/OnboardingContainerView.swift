@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct OnboardingContainerView: View {
-    @State private var viewModel = OnboardingViewModel()
+    @State private var viewModel = OnboardingViewModel(restoresDraft: true)
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     @State private var stepEnteredAt = Date()
@@ -11,7 +11,7 @@ struct OnboardingContainerView: View {
     @State private var painProfileSubmissionCount = 0
 
     private var showsNavBar: Bool {
-        ![0, 5, 8, 17, 20].contains(viewModel.currentStep)
+        ![0, 6, 16, 20].contains(viewModel.currentStep)
     }
 
     private var showsBackButton: Bool {
@@ -68,8 +68,15 @@ struct OnboardingContainerView: View {
             guard !hasTrackedInitialStep else { return }
             hasTrackedInitialStep = true
             stepEnteredAt = Date()
-            AnalyticsTracker.capture(AnalyticsEvent.onboardingStarted)
-            trackStepViewed(viewModel.currentStep, direction: "initial")
+            if viewModel.restoredFromDraft {
+                var properties = viewModel.analyticsProperties()
+                properties["resume_source"] = "persisted_draft"
+                AnalyticsTracker.capture(AnalyticsEvent.onboardingResumed, properties: properties)
+                trackStepViewed(viewModel.currentStep, direction: "resume")
+            } else {
+                AnalyticsTracker.capture(AnalyticsEvent.onboardingStarted)
+                trackStepViewed(viewModel.currentStep, direction: "initial")
+            }
         }
         .onChange(of: viewModel.currentStep) { oldStep, newStep in
             trackStepChange(from: oldStep, to: newStep)
@@ -86,23 +93,23 @@ struct OnboardingContainerView: View {
             case 0:  OnboardingWelcomeView()
             case 1:  OnboardingNameView()
             case 2:  OnboardingAgeRangeView()
-            case 3:  OnboardingGoalsView()
-            case 4:  OnboardingLongTermGoalView()
-            case 5:  OnboardingValidationView()
-            case 6:  OnboardingFrequencyView()
-            case 7:  OnboardingImpactView()
-            case 8:  OnboardingBuildProgramView()
-            case 9:  OnboardingProblemAreasView()
-            case 10: OnboardingActivityView()
-            case 11: OnboardingLifestyleView()
-            case 12: OnboardingProblemTimesView()
-            case 13: OnboardingExperienceView()
-            case 14: OnboardingDurationView()
-            case 15: OnboardingEducationView()
-            case 16: OnboardingCommitmentView()
-            case 17: OnboardingAnalyzingView()
-            case 18: OnboardingSignatureView()
-            case 19: OnboardingMotivationLevelView()
+            case 3:  OnboardingLongTermGoalView()
+            case 4:  OnboardingFrequencyView()
+            case 5:  OnboardingImpactView()
+            case 6:  OnboardingBuildProgramView()
+            case 7:  OnboardingProblemAreasView()
+            case 8:  OnboardingActivityView()
+            case 9:  OnboardingLifestyleView()
+            case 10: OnboardingProblemTimesView()
+            case 11: OnboardingExperienceView()
+            case 12: OnboardingStretchingOutcomeView()
+            case 13: OnboardingDurationView()
+            case 14: OnboardingEducationView()
+            case 15: OnboardingCommitmentView()
+            case 16: OnboardingAnalyzingView()
+            case 17: OnboardingSignatureView()
+            case 18: OnboardingMotivationLevelView()
+            case 19: OnboardingSocialProofView()
             case 20: OnboardingPlanPreviewView()
             default: EmptyView()
             }
@@ -115,7 +122,7 @@ struct OnboardingContainerView: View {
 
     private func backgroundForStep(_ step: Int) -> some View {
         Group {
-            if [0, 5, 8, 15, 17].contains(step) {
+            if [0, 6, 12, 14, 16].contains(step) {
                 Rectangle().fill(.bfSplashGradient)
             } else {
                 Color.bfPageBackground
@@ -138,7 +145,7 @@ struct OnboardingContainerView: View {
             if oldStep == 2 {
                 AnalyticsTracker.capture(AnalyticsEvent.onboardingAgeRangeSelected, properties: properties)
             }
-            if oldStep == 9 {
+            if oldStep == 7 {
                 trackPainProfile()
             }
         } else if newStep < oldStep {
@@ -176,6 +183,7 @@ struct OnboardingContainerView: View {
             "problem_area_count": areas.count,
             "pain_frequency_days": viewModel.painFrequency,
             "pain_impact_score": viewModel.painImpact,
+            "pain_impact_scale_max": 10,
             "age_range": viewModel.ageRange,
             "includes_other": viewModel.selectedPainAreas.contains(.other),
             "submission_number": painProfileSubmissionCount,
@@ -200,6 +208,7 @@ struct OnboardingContainerView: View {
     private func trackScenePhase(_ phase: ScenePhase) {
         switch phase {
         case .background:
+            viewModel.saveDraft()
             var properties = viewModel.analyticsProperties()
             properties["duration_seconds"] = max(0, Date().timeIntervalSince(stepEnteredAt))
             AnalyticsTracker.capture(AnalyticsEvent.onboardingBackgrounded, properties: properties)

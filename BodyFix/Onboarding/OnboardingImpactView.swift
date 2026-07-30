@@ -11,20 +11,21 @@ struct OnboardingImpactView: View {
                 .font(Typography.question)
                 .foregroundStyle(.bfTextPrimary)
                 .padding(.horizontal, 20)
-                .padding(.bottom, 28)
-
-            Spacer()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(height: OnboardingSeverityLayout.headerHeight, alignment: .top)
 
             VStack(spacing: 24) {
-                Text("\(viewModel.painImpact) out of 5")
-                    .font(Typography.sliderValue)
-                    .foregroundStyle(.bfTextPrimary)
-                    .contentTransition(.numericText(value: Double(viewModel.painImpact)))
+                OnboardingSeverityBadge(
+                    text: "\(viewModel.painImpact)",
+                    value: viewModel.painImpact,
+                    range: 1...10,
+                    accessibilityText: "\(viewModel.painImpact) out of 10"
+                )
 
                 VStack(spacing: 8) {
                     SteppedSliderView(
                         value: $vm.painImpact,
-                        range: 1...5,
+                        range: 1...10,
                         labels: [:],
                         showValueLabel: false
                     )
@@ -41,7 +42,7 @@ struct OnboardingImpactView: View {
                 .padding(.horizontal, 20)
             }
             .frame(maxWidth: .infinity)
-            .frame(maxHeight: .infinity)
+            .padding(.top, OnboardingSeverityLayout.controlsTopSpacing)
 
             Spacer()
 
